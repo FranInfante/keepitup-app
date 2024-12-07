@@ -1,9 +1,17 @@
 package com.example.keepitup.util;
 
 public class UriConstants {
-    public static final String HOST = "http://localhost";
-    public static final String PORT = "8080";
-    public static final String ANGULAR_PORT = ":4200";
+     public static final String HOST = System.getenv("SERVER_HOST") != null 
+                                      ? System.getenv("SERVER_HOST") 
+                                      : "http://localhost";
+
+    public static final String PORT = System.getenv("SERVER_PORT") != null 
+                                      ? System.getenv("SERVER_PORT") 
+                                      : "8080";
+
+    public static final String ANGULAR_PORT = System.getenv("ANGULAR_PORT") != null
+                                              ? System.getenv("ANGULAR_PORT")
+                                              : "4200";
     public static final String ANGULAR_HOST = HOST + ANGULAR_PORT;
     public static final String CONTEXT_PATH = "/api";
     public static final String VERSION = "/v1";
