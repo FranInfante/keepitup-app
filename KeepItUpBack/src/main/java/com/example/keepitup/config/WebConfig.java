@@ -1,15 +1,12 @@
 package com.example.keepitup.config;
 
 
-import com.example.keepitup.jwt.JwtAuthenticationEntryPoint;
-import com.example.keepitup.jwt.JwtAuthenticationFilter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +16,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
+import com.example.keepitup.jwt.JwtAuthenticationEntryPoint;
+import com.example.keepitup.jwt.JwtAuthenticationFilter;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebMvc
@@ -50,7 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-			.allowedOrigins("http://localhost:4200", "http://keepitupapp.com")
+			.allowedOrigins("http://localhost:4200", "http://keepitupapp.com", "http://13.60.53.107")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("*")
                         .allowCredentials(true);
