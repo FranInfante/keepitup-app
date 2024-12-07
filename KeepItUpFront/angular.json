@@ -45,7 +45,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/app/environments/environments.ts",
-                  "with": "src/app/environments/environment.prod.ts"
+                  "with": "src/app/environments/environments.prod.ts"
                 }
               ]
             },
@@ -55,7 +55,7 @@
               "sourceMap": true,
               "fileReplacements": [
                 {
-                  "replace": "src/app/environments/environment.prod.ts",
+                  "replace": "src/app/environments/environments.prod.ts",
                   "with": "src/app/environments/environments.ts"
                 }
               ]
