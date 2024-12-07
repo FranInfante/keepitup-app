@@ -1,0 +1,27 @@
+<div
+  class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 space-y-2 w-80 max-w-full sm:w-64"
+>
+  <div
+    *ngFor="let toast of toasts"
+    [ngClass]="{
+      'bg-green-500 text-white': toast.type === 'success',
+      'bg-red-500 text-white': toast.type === 'danger',
+      'bg-blue-500 text-white': toast.type === 'info',
+      'toast-enter': toast.show === false,
+      'toast-enter-active': toast.show === true,
+      'toast-exit-active': toast.show === false
+    }"
+    class="p-4 rounded-lg shadow-md transition duration-300 ease-in-out"
+  >
+    <div class="flex justify-between items-center">
+      <div class="toast-body">{{ toast.body }}</div>
+      <button
+        type="button"
+        class="text-white hover:text-gray-200 focus:outline-none"
+        (click)="removeToast(toast.id)"
+      >
+        ✖
+      </button>
+    </div>
+  </div>
+</div>

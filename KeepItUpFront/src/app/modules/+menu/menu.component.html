@@ -1,0 +1,27 @@
+<div class="min-h-screen bg-gray-800 flex flex-col">
+    <!-- Title at the very top -->
+    <div class="py-6 text-center">
+      <h1 class="text-3xl font-extrabold text-gray-100">Menu</h1>
+    </div>
+  
+    <!-- Centered Buttons -->
+    <div class="flex flex-grow items-center justify-center">
+      <div class="w-full max-w-md mx-5">
+        <div class="grid grid-cols-1 gap-6 justify-items-center">
+          <button
+            (click)="navigateToWeighIns()"
+            class="w-[80%] h-[10rem] bg-gray-700 text-gray-100 font-semibold text-2xl rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transform hover:scale-105 transition duration-200 ease-in-out"
+          >
+            Weigh-Ins
+          </button>
+          <button
+            (click)="navigateToWorkouts()"
+            class="w-[80%] h-[10rem] bg-gray-700 text-gray-100 font-semibold text-2xl rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transform hover:scale-105 transition duration-200 ease-in-out"
+          >
+            Workouts
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

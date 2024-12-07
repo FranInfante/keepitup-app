@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://keepitup_container:5432/keepitup
+    username: fran
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+jwt:
+  secret: M2JAJzJvcXNDLyFBNjVVZn5zLXw6Rj9HOC9OKzxnejZUXElWYiRxT0hEaDV2c29HYj4=
+  expiration-time: 86400
