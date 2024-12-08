@@ -1,20 +1,21 @@
 package com.example.keepitup.config;
 
-import com.example.keepitup.model.entities.UsersInfo;
+import java.time.LocalDate;
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
 import com.example.keepitup.model.entities.Users;
+import com.example.keepitup.model.entities.UsersInfo;
 import com.example.keepitup.model.entities.WeighIns;
 import com.example.keepitup.model.entities.Workouts;
 import com.example.keepitup.repository.UsersRepository;
 import com.example.keepitup.repository.WeighInsRepository;
 import com.example.keepitup.repository.WorkoutsRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import lombok.RequiredArgsConstructor;
 
 
 
@@ -44,7 +45,7 @@ public class DataSeeder implements CommandLineRunner {
         Users user2 = Users.builder()
                 .username("user2")
                 .email("user2@example.com")
-                .password(passwordEncoder.encode("password"))
+                .password(passwordEncoder.encode("passwords"))
                 .build();
 
         UsersInfo usersInfo1 = UsersInfo.builder()
