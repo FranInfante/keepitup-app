@@ -1,7 +1,9 @@
 import { environment } from '../../environments/environments'
 
-// export const USER_API_URL = environment.endpointUrl + 'users';
-export const USER_API_URL = 'http://keepitupapp.com/api/api/v1/users';
+console.log('Environment:', environment.production);
+console.log('Endpoint URL:', environment.endpointUrl);
+
+export const USER_API_URL = environment.endpointUrl + 'users';
 
 
 export const BASE = environment.base;
