@@ -13,9 +13,9 @@ public class UriConstants {
                                               ? System.getenv("ANGULAR_PORT")
                                               : "4200";
     public static final String ANGULAR_HOST = HOST + ANGULAR_PORT;
-    public static final String CONTEXT_PATH = "/api";
-    public static final String VERSION = "/v1";
-    public static final String BASE_URL = CONTEXT_PATH + VERSION;
+    // public static final String CONTEXT_PATH = "/api";
+    // public static final String VERSION = "/v1";
+    public static final String BASE_URL = "/api/v1";
 
     // Users endpoints
     public static final String USERS = BASE_URL + "/users";
