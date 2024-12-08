@@ -110,7 +110,6 @@ export class WeighInsComponent implements OnInit {
       const initialWeight = this.previousLogs[0].weight;
       const latestWeight = this.previousLogs[this.previousLogs.length - 1].weight;
       const change =  initialWeight - latestWeight;
-      console.log('Weight change :' + initialWeight + ' - ' + latestWeight);
       this.totalWeightChange = `${change > 0 ? '+' : ''}${change.toFixed(1)} kg`;
     } else {
       this.totalWeightChange = '0.0 kg';
