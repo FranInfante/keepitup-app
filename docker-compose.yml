@@ -27,7 +27,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/keepitup
             SPRING_DATASOURCE_URL: jdbc:postgresql://keepitup_postgres:5432/keepitup
 
       SPRING_DATASOURCE_USERNAME: fran
