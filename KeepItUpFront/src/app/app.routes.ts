@@ -4,11 +4,12 @@ import { RegisterComponent } from './modules/logreg/register/register.component'
 import { MenuComponent } from './modules/+menu/menu.component';
 import { WeighInsComponent } from './modules/+weighins/weighins.component';
 import { WorkoutsComponent } from './modules/+workouts/workouts.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
     {path: "", component: LoginComponent},
     {path: "register", component: RegisterComponent},
-    {path: "menu", component: MenuComponent},
-    {path: "weighins", component: WeighInsComponent},
-    {path: "workouts", component: WorkoutsComponent}
+    {path: "menu", component: MenuComponent, canActivate: [authGuard]},
+    {path: "weighins", component: WeighInsComponent, canActivate: [authGuard]},
+    {path: "workouts", component: WorkoutsComponent, canActivate: [authGuard]}
 ];
