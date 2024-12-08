@@ -2,7 +2,7 @@ import { environment } from '../../environments/environments'
 
 export const USER_API_URL = environment.endpointUrl + 'users';
 
-console.log("Environments" + environment.base + ":" + environment.endpointUrl + " : " + environment.production);
+// console.log("Environments" + environment.base + ":" + environment.endpointUrl + " : " + environment.production);
 
 export const BASE = environment.base;
 
