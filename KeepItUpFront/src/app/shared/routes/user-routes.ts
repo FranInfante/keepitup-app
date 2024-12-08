@@ -1,8 +1,5 @@
 import { environment } from '../../environments/environments'
 
-console.log('Environment:', environment.production);
-console.log('Endpoint URL:', environment.endpointUrl);
-
 export const USER_API_URL = environment.endpointUrl + 'users';
 
 
