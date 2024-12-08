@@ -5,8 +5,8 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-# RUN npm run build -- --configuration development --project keep-it-up-frontend
-RUN npm run build -- --configuration production --project keep-it-up-frontend
+RUN npm run build -- --configuration development --project keep-it-up-frontend
+# RUN npm run build -- --configuration production --project keep-it-up-frontend
 
 # Stage 2: Serve the Angular app
 FROM nginx:alpine
