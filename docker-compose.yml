@@ -10,6 +10,8 @@ services:
       POSTGRES_DB: keepitup
     ports:
       - "5432:5432"
+    networks:
+      - keepitup-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U fran"]
       interval: 10s
@@ -26,6 +28,8 @@ services:
         condition: service_healthy
     ports:
       - "8080:8080"
+    networks:
+      - keepitup-network
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/keepitup
       SPRING_DATASOURCE_USERNAME: fran
@@ -36,9 +40,14 @@ services:
       context: ./KeepItUpFront
       dockerfile: Dockerfile
     container_name: angular-container
-    
     depends_on:
       springboot:
         condition: service_started
     ports:
       - "4200:80"
+    networks:
+      - keepitup-network
+
+networks:
+  keepitup-network:
+    driver: bridge
