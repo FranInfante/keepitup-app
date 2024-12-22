@@ -1,14 +1,20 @@
-<div class="min-h-screen bg-gray-800 flex items-center justify-center">
+<app-loading-spinner [show]="isLoading"></app-loading-spinner>
+  <div class="min-h-screen bg-gray-800 flex items-center justify-center">
     <div class="container mx-auto py-5">
       <div class="flex justify-center items-center h-full">
         <div class="w-full mx-5 max-w-md">
-          <div class="bg-gray-900 text-gray-100 rounded-xl border border-gray-700 shadow-2xl">
+          <div
+            class="bg-gray-900 text-gray-100 rounded-xl border border-gray-700 shadow-2xl"
+          >
             <div class="p-6 text-center">
               <h1 class="text-2xl font-bold mb-4">Registrar Usuario</h1>
               <form [formGroup]="userForm" (ngSubmit)="createUser()">
                 <div class="mb-6">
                   <div class="mb-4">
-                    <label for="inputUsername" class="block text-sm font-medium text-gray-400">
+                    <label
+                      for="inputUsername"
+                      class="block text-sm font-medium text-gray-400"
+                    >
                       Nombre de usuario*
                     </label>
                     <input
@@ -18,18 +24,32 @@
                       formControlName="username"
                       required
                     />
-                    <div *ngIf="userForm.get('username')?.touched && userForm.get('username')?.invalid">
-                      <small class="text-red-400" *ngIf="userForm.get('username')?.errors?.['required']">
+                    <div
+                      *ngIf="
+                        userForm.get('username')?.touched &&
+                        userForm.get('username')?.invalid
+                      "
+                    >
+                      <small
+                        class="text-red-400"
+                        *ngIf="userForm.get('username')?.errors?.['required']"
+                      >
                         Nombre de usuario obligatorio.
                       </small>
-                      <small class="text-red-400" *ngIf="userForm.get('username')?.errors?.['minlength']">
+                      <small
+                        class="text-red-400"
+                        *ngIf="userForm.get('username')?.errors?.['minlength']"
+                      >
                         El nombre de usuario debe tener al menos 5 caracteres.
                       </small>
                     </div>
                   </div>
-  
+
                   <div class="mb-4">
-                    <label for="inputPassword" class="block text-sm font-medium text-gray-400">
+                    <label
+                      for="inputPassword"
+                      class="block text-sm font-medium text-gray-400"
+                    >
                       Contraseña*
                     </label>
                     <input
@@ -39,18 +59,32 @@
                       formControlName="password"
                       required
                     />
-                    <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid">
-                      <small class="text-red-400" *ngIf="userForm.get('password')?.errors?.['required']">
+                    <div
+                      *ngIf="
+                        userForm.get('password')?.touched &&
+                        userForm.get('password')?.invalid
+                      "
+                    >
+                      <small
+                        class="text-red-400"
+                        *ngIf="userForm.get('password')?.errors?.['required']"
+                      >
                         Contraseña obligatoria.
                       </small>
-                      <small class="text-red-400" *ngIf="userForm.get('password')?.errors?.['minlength']">
+                      <small
+                        class="text-red-400"
+                        *ngIf="userForm.get('password')?.errors?.['minlength']"
+                      >
                         La contraseña debe contener 6 caracteres como mínimo.
                       </small>
                     </div>
                   </div>
-  
+
                   <div class="mb-4">
-                    <label for="inputEmail" class="block text-sm font-medium text-gray-400">
+                    <label
+                      for="inputEmail"
+                      class="block text-sm font-medium text-gray-400"
+                    >
                       Email*
                     </label>
                     <input
@@ -60,16 +94,27 @@
                       formControlName="email"
                       required
                     />
-                    <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
-                      <small class="text-red-400" *ngIf="userForm.get('email')?.errors?.['required']">
+                    <div
+                      *ngIf="
+                        userForm.get('email')?.touched &&
+                        userForm.get('email')?.invalid
+                      "
+                    >
+                      <small
+                        class="text-red-400"
+                        *ngIf="userForm.get('email')?.errors?.['required']"
+                      >
                         Email obligatorio.
                       </small>
-                      <small class="text-red-400" *ngIf="userForm.get('email')?.errors?.['email']">
+                      <small
+                        class="text-red-400"
+                        *ngIf="userForm.get('email')?.errors?.['email']"
+                      >
                         Formato incorrecto.
                       </small>
                     </div>
                   </div>
-  
+
                   <button
                     type="submit"
                     class="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-2 px-4 rounded-lg transition duration-150"
@@ -78,11 +123,14 @@
                   </button>
                 </div>
               </form>
-  
+
               <div class="mt-4 text-center">
                 <p class="text-sm text-gray-400">
                   ¿Ya tienes una cuenta?
-                  <a class="text-gray-300 hover:text-gray-100 hover:underline" [routerLink]="[LOCATIONS.login]">
+                  <a
+                    class="text-gray-300 hover:text-gray-100 hover:underline"
+                    [routerLink]="[LOCATIONS.login]"
+                  >
                     Login
                   </a>
                 </p>
@@ -93,4 +141,3 @@
       </div>
     </div>
   </div>
-  

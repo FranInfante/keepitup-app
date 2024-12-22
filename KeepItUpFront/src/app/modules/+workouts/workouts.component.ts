@@ -12,16 +12,21 @@ import { UserService } from '../../shared/service/user.service';
 import { SubscriptionLike } from 'rxjs';
 import { User } from '../../shared/interfaces/users';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
+import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
-  imports: [BackToMenuComponent, ReactiveFormsModule, CommonModule],
+  imports: [
+    BackToMenuComponent,
+    ReactiveFormsModule,
+    CommonModule,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
 export class WorkoutsComponent implements OnInit {
-
   workoutForm!: FormGroup;
   workoutLogs: Workout[] = [];
   totalWorkouts: number = 0;
@@ -32,6 +37,7 @@ export class WorkoutsComponent implements OnInit {
   workoutToDeleteId?: number;
   showDeleteModal: boolean = false;
   workoutNames: string[] = [];
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,15 +46,25 @@ export class WorkoutsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.initializeForm();
-    
     this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        if (user && user.id) {
-          this.userId = user.id;
-          this.loadWorkouts();
-          this.loadWorkoutNames();
-        }
+      this.userService.getCurrentUser().subscribe({
+        next: (user) => {
+          if (user && user.id) {
+            this.isLoading = true;
+            this.userId = user.id;
+            this.loadWorkouts();
+            this.loadWorkoutNames();
+          }
+        },
+        error: () => {
+          console.error('Failed to fetch current user');
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
       })
     );
   }
@@ -73,30 +89,46 @@ export class WorkoutsComponent implements OnInit {
 
   logWorkout(): void {
     if (this.workoutForm.valid) {
-      
-      const newWorkout: Workout = {...this.workoutForm.value, userId: this.userId,};
+      const newWorkout: Workout = {
+        ...this.workoutForm.value,
+        userId: this.userId,
+      };
 
-      this.workoutService.addWorkout(newWorkout).subscribe((workout) => {
-        this.workoutLogs.push(workout);
-        this.workoutLogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        this.totalWorkouts++;
+      this.isLoading = true;
 
-        if (!this.workoutNames.includes(workout.name)) {
-          this.workoutNames.push(workout.name);
-        }
-
-        this.toggleForm();
-        this.workoutForm.reset({
-          name: '',
-          date: new Date().toISOString().split('T')[0],
-        });
+      this.workoutService.addWorkout(newWorkout).subscribe({
+        next: (workout) => {
+          this.workoutLogs.push(workout);
+          this.workoutLogs.sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          );
+          this.totalWorkouts++;
+          if (!this.workoutNames.includes(workout.name)) {
+            this.workoutNames.push(workout.name);
+          }
+          this.toggleForm();
+          this.workoutForm.reset({
+            name: '',
+            date: new Date().toISOString().split('T')[0],
+          });
+        },
+        error: (error) => {
+          console.error('Error logging workout:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
       });
+    } else {
+      console.error('Form is invalid. Please fill out all required fields.');
     }
   }
 
   loadWorkouts(): void {
     this.workoutService.getWorkouts(this.userId).subscribe((workouts) => {
-      this.workoutLogs = workouts.sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime());
+      this.workoutLogs = workouts.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
       this.totalWorkouts = workouts.length;
     });
   }
@@ -105,7 +137,6 @@ export class WorkoutsComponent implements OnInit {
     this.showForm = !this.showForm;
   }
 
-  
   showDeleteConfirmation(workoutId: number): void {
     this.workoutToDeleteId = workoutId;
     this.showDeleteModal = true;
@@ -120,13 +151,22 @@ export class WorkoutsComponent implements OnInit {
     if (!this.workoutToDeleteId) {
       return;
     }
+    this.isLoading = true;
 
-    this.workoutService.deleteWorkout(this.workoutToDeleteId).subscribe(() => {
-      this.workoutLogs = this.workoutLogs.filter(
-        (workout) => workout.id !== this.workoutToDeleteId
-      );
-      this.totalWorkouts--;
-      this.cancelDelete();
+    this.workoutService.deleteWorkout(this.workoutToDeleteId).subscribe({
+      next: () => {
+        this.workoutLogs = this.workoutLogs.filter(
+          (workout) => workout.id !== this.workoutToDeleteId
+        );
+        this.totalWorkouts--;
+        this.cancelDelete();
+      },
+      error: (error) => {
+        console.error('Error deleting workout:', error);
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
     });
   }
 }
