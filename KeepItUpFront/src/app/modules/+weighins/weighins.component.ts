@@ -41,8 +41,8 @@ export class WeighInsComponent implements OnInit {
       this.userService.getCurrentUser().subscribe({
         next: (user) => {
           if (user && user.id) {
-            this.userId = user.id;
             this.isLoading = true;
+            this.userId = user.id;
             this.loadLogs();
           }
         },
