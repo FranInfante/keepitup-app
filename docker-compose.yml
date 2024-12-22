@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     networks:
       - keepitup-network
+    volumes:  # Fix: properly indented under 'postgres' service
+      - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U fran"]
       interval: 10s
@@ -51,3 +53,6 @@ services:
 networks:
   keepitup-network:
     driver: bridge
+
+volumes:  # Define named volumes at the root level
+  postgres-data:
