@@ -7,11 +7,12 @@ import { WeighInsService } from '../../shared/service/weighins.service';
 import { User } from '../../shared/interfaces/users';
 import { SubscriptionLike } from 'rxjs';
 import { UserService } from '../../shared/service/user.service';
+import { LoadingSpinnerComponent } from "../../shared/components/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-weighins',
   standalone: true,
-  imports: [BackToMenuComponent, CommonModule, ReactiveFormsModule ],
+  imports: [BackToMenuComponent, CommonModule, ReactiveFormsModule, LoadingSpinnerComponent],
   templateUrl: './weighins.component.html',
   styleUrl: './weighins.component.css'
 })
@@ -25,6 +26,7 @@ export class WeighInsComponent implements OnInit {
   showForm: boolean = false;
   showDeleteModal: boolean = false;
   logToDeleteId?: number;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,15 +35,22 @@ export class WeighInsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.initializeForm();
     this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe(user => {
-        if (user && user.id) {
-          this.userId = user.id;
-          this.loadLogs();
+      this.userService.getCurrentUser().subscribe({
+        next: (user) => {
+          if (user && user.id) {
+            this.userId = user.id;
+            this.isLoading = true;
+            this.loadLogs();
+          }
+        },
+        error: () => {
+          console.error('Failed to fetch current user');
+          this.isLoading = false; 
         }
-      })
-    );
+      }));
   }
 
   initializeForm(): void {
@@ -57,7 +66,7 @@ export class WeighInsComponent implements OnInit {
         ...this.weightForm.value,
         userId: this.userId,
       };
-
+      this.isLoading = true;
       this.weighInsService.addWeighIn(newLog).subscribe({
         next: (loggedWeighIn) => {
           this.showForm = !this.showForm;
@@ -71,12 +80,15 @@ export class WeighInsComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error logging weight:', error);
+        },complete: () => {
+          this.isLoading = false;
         },
       });
     }
   }
 
   loadLogs(): void {
+    this.isLoading = true
     this.weighInsService.getWeighIns(this.userId).subscribe({
       next: (logs) => {
         this.previousLogs = logs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -85,22 +97,8 @@ export class WeighInsComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching logs:', error);
       },
-    });
-  }
-
-  deleteLog(id?: number): void {
-    if (id === undefined) {
-      console.error('Invalid log id:', id);
-      return;
-    }
-  
-    this.weighInsService.deleteWeighIn(id).subscribe({
-      next: () => {
-        this.previousLogs = this.previousLogs.filter((log) => log.id !== id);
-        this.calculateWeightChange();
-      },
-      error: (error) => {
-        console.error('Error deleting log:', error);
+      complete: () => {
+        this.isLoading = false;
       },
     });
   }
@@ -138,7 +136,7 @@ export class WeighInsComponent implements OnInit {
       console.error('No log selected for deletion');
       return;
     }
-
+    this.isLoading = true;
     this.weighInsService.deleteWeighIn(this.logToDeleteId).subscribe({
       next: () => {
         this.previousLogs = this.previousLogs.filter(
@@ -149,6 +147,9 @@ export class WeighInsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error deleting log:', error);
+      },
+      complete: () => {
+        this.isLoading = false;
       },
     });
   }

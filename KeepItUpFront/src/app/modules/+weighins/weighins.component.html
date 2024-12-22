@@ -1,4 +1,7 @@
 <app-back-to-menu></app-back-to-menu>
+<app-loading-spinner [show]="isLoading"></app-loading-spinner>
+<div *ngIf="!isLoading">
+
 <div class="min-h-screen bg-gray-800 flex flex-col">
   <!-- Page Header -->
   <div class="py-6 text-center">
@@ -257,4 +260,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>
