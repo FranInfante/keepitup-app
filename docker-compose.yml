@@ -40,7 +40,7 @@ services:
   angular:
     build:
       context: ./KeepItUpFront
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     container_name: angular-container
     depends_on:
       springboot:
@@ -49,9 +49,6 @@ services:
       - "4200:4200"
     networks:
       - keepitup-network
-    volumes:
-      - ./KeepItUpFront:/app # Mount your local Angular code into the container
-    command: ["npm", "run", "start"]
 
 networks:
   keepitup-network:
