@@ -6,11 +6,12 @@ import { LOCATIONS, MSG, TOAST_MSGS } from '../../../shared/constants';
 import { UserService } from '../../../shared/service/user.service';
 import { ToastService } from '../../../shared/service/toast.service';
 import { NgIf } from '@angular/common';
+import { LoadingSpinnerComponent } from "../../../shared/components/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgIf],
+  imports: [RouterLink, ReactiveFormsModule, NgIf, LoadingSpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginError: string | null = null;
   private subscription: Subscription = new Subscription();
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
+  isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.toastService.showToast(TOAST_MSGS.fillallfields, 'danger');
       return;
     }
-
+    this.isLoading = true;
     const loginData = this.loginForm.value;
 
     this.subscription.add(
@@ -75,6 +77,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           const errorMsg = error.message === MSG.failedCredentials ? MSG.failedCredentials : MSG.unknownLoginError;
           this.loginError = errorMsg;
           this.toastService.showToast(errorMsg, 'danger');
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       })
     );

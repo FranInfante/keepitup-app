@@ -165,7 +165,7 @@ export class WorkoutsComponent implements OnInit {
         console.error('Error deleting workout:', error);
       },
       complete: () => {
-        this.isLoading = false; // Hide spinner after deletion
+        this.isLoading = false;
       },
     });
   }
