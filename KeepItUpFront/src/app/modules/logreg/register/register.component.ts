@@ -8,11 +8,12 @@ import { LOCATIONS, TOAST_MSGS } from '../../../shared/constants'
 import { User } from '../../../shared/interfaces/users';
 import { ToastService } from '../../../shared/service/toast.service';
 import { UserService } from './../../../shared/service/user.service';
+import { LoadingSpinnerComponent } from "../../../shared/components/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, NgIf],
+  imports: [ReactiveFormsModule, RouterModule, NgIf, LoadingSpinnerComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -21,6 +22,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   formvalid = false;
   subscriptions: SubscriptionLike[] = [];
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
+  isLoading: boolean = false;
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
@@ -54,6 +56,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         usersInfo: this.userForm.value.usersInfo
       };
 
+      this.isLoading = true;
       this.subscriptions.push(
         this.userService.createUser(user).subscribe({
           next: (response) => {
@@ -73,6 +76,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
             } else {
               this.toastService.showToast(TOAST_MSGS.errorregister, 'danger');
             }
+          },
+          complete: () => {
+            this.isLoading = false;
           }
         })
       );
