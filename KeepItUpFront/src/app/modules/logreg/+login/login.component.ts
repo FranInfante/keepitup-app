@@ -68,12 +68,15 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate([LOCATIONS.menu]);
             this.toastService.showToast(TOAST_MSGS.login, 'success');
           } else {
+            this.isLoading = false;
             this.loginError = MSG.failedCredentials;
             this.toastService.showToast(MSG.failedCredentials, 'danger');
+            
           }
         },
         error: (error) => {
           console.error(MSG.loginerror, error);
+          this.isLoading = false;
           const errorMsg = error.message === MSG.failedCredentials ? MSG.failedCredentials : MSG.unknownLoginError;
           this.loginError = errorMsg;
           this.toastService.showToast(errorMsg, 'danger');
