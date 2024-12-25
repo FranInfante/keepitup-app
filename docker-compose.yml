@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     networks:
       - keepitup-network
+    volumes:  # Fix: properly indented under 'postgres' service
+      - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U fran"]
       interval: 10s
@@ -38,7 +40,7 @@ services:
   angular:
     build:
       context: ./KeepItUpFront
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     container_name: angular-container
     depends_on:
       springboot:
@@ -47,10 +49,10 @@ services:
       - "4200:4200"
     networks:
       - keepitup-network
-    volumes:
-      - ./KeepItUpFront:/app # Mount your local Angular code into the container
-    command: ["npm", "run", "start"]
 
 networks:
   keepitup-network:
     driver: bridge
+
+volumes:  # Define named volumes at the root level
+  postgres-data:

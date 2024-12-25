@@ -1,5 +1,7 @@
+
 export const environment = {
+
     production: true,
-    endpointUrl: 'http://54.221.132.43/api/v1/',
-    base: 'http://54.221.132.43'
+    endpointUrl: 'http://keepitupapp.com/api/v1/',
+    base: 'http://keepitupapp.com'
 };
