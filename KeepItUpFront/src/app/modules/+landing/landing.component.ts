@@ -11,5 +11,8 @@ import { ASSET_URLS } from '../../shared/constants';
 export class LandingComponent {
   
   bg: string = ASSET_URLS.backgroudnd;
+  target: string = ASSET_URLS.target;
+  tools: string = ASSET_URLS.tools;
+
 
 }
