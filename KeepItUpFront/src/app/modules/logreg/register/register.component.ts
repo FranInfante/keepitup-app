@@ -76,6 +76,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.userForm.reset();
           },
           error: (error: HttpErrorResponse) => {
+            this.loadingService.setLoading(false);
+
             if (error.status === 409) {
               this.toastService.showToast(error.error, 'danger');
             } else {
