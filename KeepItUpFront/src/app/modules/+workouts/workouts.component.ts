@@ -9,20 +9,15 @@ import { Workout } from '../../shared/interfaces/workout';
 import { WorkoutsService } from '../../shared/service/workouts.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../shared/service/user.service';
-import { SubscriptionLike } from 'rxjs';
+import { forkJoin, SubscriptionLike } from 'rxjs';
 import { User } from '../../shared/interfaces/users';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
-import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
+import { LoadingService } from '../../shared/service/loading.service';
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
-  imports: [
-    BackToMenuComponent,
-    ReactiveFormsModule,
-    CommonModule,
-    LoadingSpinnerComponent,
-  ],
+  imports: [BackToMenuComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
@@ -37,36 +32,50 @@ export class WorkoutsComponent implements OnInit {
   workoutToDeleteId?: number;
   showDeleteModal: boolean = false;
   workoutNames: string[] = [];
-  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private workoutService: WorkoutsService,
+    private loadingService: LoadingService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.loadingService.setLoading(true);
     this.initializeForm();
-    this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe({
-        next: (user) => {
-          if (user && user.id) {
-            this.isLoading = true;
-            this.userId = user.id;
-            this.loadWorkouts();
-            this.loadWorkoutNames();
-          }
-        },
-        error: () => {
-          console.error('Failed to fetch current user');
-          this.isLoading = false;
-        },
-        complete: () => {
-          this.isLoading = false;
-        },
-      })
-    );
+  
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        if (user && user.id) {
+          this.userId = user.id;
+  
+          // Combine both observables
+          forkJoin([
+            this.workoutService.getWorkouts(this.userId),
+            this.workoutService.getUniqueWorkoutNames(this.userId),
+          ]).subscribe({
+            next: ([workouts, names]) => {
+              this.workoutLogs = workouts.sort(
+                (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+              );
+              this.totalWorkouts = workouts.length;
+              this.workoutNames = names;
+            },
+            error: (error) => {
+              console.error('Error loading workouts or names:', error);
+            },
+            complete: () => {
+              // Hide spinner after both calls complete
+              this.loadingService.setLoading(false);
+            },
+          });
+        }
+      },
+      error: () => {
+        console.error('Failed to fetch current user');
+        this.loadingService.setLoading(false);
+      },
+    });
   }
 
   loadWorkoutNames(): void {
@@ -94,7 +103,7 @@ export class WorkoutsComponent implements OnInit {
         userId: this.userId,
       };
 
-      this.isLoading = true;
+      this.loadingService.setLoading(true);
 
       this.workoutService.addWorkout(newWorkout).subscribe({
         next: (workout) => {
@@ -116,7 +125,7 @@ export class WorkoutsComponent implements OnInit {
           console.error('Error logging workout:', error);
         },
         complete: () => {
-          this.isLoading = false;
+          this.loadingService.setLoading(false);
         },
       });
     } else {
@@ -151,7 +160,7 @@ export class WorkoutsComponent implements OnInit {
     if (!this.workoutToDeleteId) {
       return;
     }
-    this.isLoading = true;
+    this.loadingService.setLoading(true);
 
     this.workoutService.deleteWorkout(this.workoutToDeleteId).subscribe({
       next: () => {
@@ -165,7 +174,7 @@ export class WorkoutsComponent implements OnInit {
         console.error('Error deleting workout:', error);
       },
       complete: () => {
-        this.isLoading = false;
+        this.loadingService.setLoading(false);
       },
     });
   }
