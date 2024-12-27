@@ -1,3 +1,7 @@
+<app-loading-spinner
+  [show]="(isLoading$ | async) ?? false"
+></app-loading-spinner>
+
 <app-toast></app-toast>
 
 <router-outlet />

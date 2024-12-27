@@ -6,12 +6,12 @@ import { LOCATIONS, MSG, TOAST_MSGS } from '../../../shared/constants';
 import { UserService } from '../../../shared/service/user.service';
 import { ToastService } from '../../../shared/service/toast.service';
 import { NgIf } from '@angular/common';
-import { LoadingSpinnerComponent } from "../../../shared/components/loading-spinner/loading-spinner.component";
+import { LoadingService } from '../../../shared/service/loading.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgIf, LoadingSpinnerComponent],
+  imports: [RouterLink, ReactiveFormsModule, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginError: string | null = null;
   private subscription: Subscription = new Subscription();
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
-  isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
     private toastService: ToastService,
+    private loadingService: LoadingService,
     private route: ActivatedRoute
   ) { }
 
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.toastService.showToast(TOAST_MSGS.fillallfields, 'danger');
       return;
     }
-    this.isLoading = true;
+    this.loadingService.setLoading(true);
     const loginData = this.loginForm.value;
 
     this.subscription.add(
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate([LOCATIONS.menu]);
             this.toastService.showToast(TOAST_MSGS.login, 'success');
           } else {
-            this.isLoading = false;
+            this.loadingService.setLoading(false);
             this.loginError = MSG.failedCredentials;
             this.toastService.showToast(MSG.failedCredentials, 'danger');
             
@@ -76,13 +76,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error(MSG.loginerror, error);
-          this.isLoading = false;
+          this.loadingService.setLoading(false);
           const errorMsg = error.message === MSG.failedCredentials ? MSG.failedCredentials : MSG.unknownLoginError;
           this.loginError = errorMsg;
           this.toastService.showToast(errorMsg, 'danger');
         },
         complete: () => {
-          this.isLoading = false;
+          this.loadingService.setLoading(false);
         }
       })
     );
