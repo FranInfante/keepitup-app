@@ -40,7 +40,7 @@ services:
   angular:
     build:
       context: ./KeepItUpFront
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     container_name: angular-container
     depends_on:
       springboot:

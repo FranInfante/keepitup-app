@@ -16,8 +16,6 @@ RUN npm install -g @angular/cli
 # Copy the rest of the application source code
 COPY . .
 
-# Build the Angular app (use production build if needed)
-# RUN npm run build -- --configuration development --project keep-it-up-frontend
 RUN npm run build -- --configuration production --project keep-it-up-frontend
 
 # Stage 2: Serve the Angular app
