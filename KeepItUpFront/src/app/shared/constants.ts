@@ -31,5 +31,7 @@ export const ASSET_URLS = {
   backgroudnd: '/background.mp4',
   target:'/svgs/target.svg',
   tools:'/svgs/tools.svg',
+  weight:'/svgs/weight.svg',
+  logworkouts:'/svgs/logworkouts.svg',
 
 };

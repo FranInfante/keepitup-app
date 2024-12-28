@@ -13,6 +13,7 @@ export class LandingComponent {
   bg: string = ASSET_URLS.backgroudnd;
   target: string = ASSET_URLS.target;
   tools: string = ASSET_URLS.tools;
+  weight: string = ASSET_URLS.weight;
 
 
 }
