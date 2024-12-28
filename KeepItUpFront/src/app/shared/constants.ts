@@ -1,5 +1,6 @@
 export const LOCATIONS = {
-  login: '',
+  landing: '',
+  login: '/login',
   register: '/register',
   menu: '/menu',
   weighins: '/weighins',
@@ -24,4 +25,13 @@ export const TOAST_MSGS = {
   register: 'Registered successfully. You can now log in.',
   errorregister: 'Error registering user. Please try again later.',
   fillallfields: 'Please fill out all fields.',
+};
+
+export const ASSET_URLS = {
+  backgroudnd: '/background.mp4',
+  target:'/svgs/target.svg',
+  tools:'/svgs/tools.svg',
+  weight:'/svgs/weight.svg',
+  logworkouts:'/svgs/logworkouts.svg',
+
 };

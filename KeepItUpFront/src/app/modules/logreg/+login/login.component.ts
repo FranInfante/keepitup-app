@@ -7,11 +7,12 @@ import { UserService } from '../../../shared/service/user.service';
 import { ToastService } from '../../../shared/service/toast.service';
 import { NgIf } from '@angular/common';
 import { LoadingService } from '../../../shared/service/loading.service';
+import { BackToMenuComponent } from '../../../shared/components/back-to-menu/back-to-menu.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgIf],
+  imports: [RouterLink, ReactiveFormsModule, NgIf,BackToMenuComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

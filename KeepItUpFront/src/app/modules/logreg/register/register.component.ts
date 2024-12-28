@@ -14,11 +14,12 @@ import { User } from '../../../shared/interfaces/users';
 import { ToastService } from '../../../shared/service/toast.service';
 import { UserService } from './../../../shared/service/user.service';
 import { LoadingService } from '../../../shared/service/loading.service';
+import { BackToMenuComponent } from '../../../shared/components/back-to-menu/back-to-menu.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, NgIf],
+  imports: [ReactiveFormsModule, RouterModule, NgIf, BackToMenuComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
