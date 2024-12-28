@@ -1,6 +1,4 @@
-<app-back-to-menu
-  [navigationPath]=LOCATIONS.login
-></app-back-to-menu>
+<app-back-to-menu [navigationPath]="LOCATIONS.login"></app-back-to-menu>
 <div class="min-h-screen bg-gray-800 flex items-center justify-center">
   <div class="container mx-auto py-5">
     <div class="flex justify-center items-center h-full">
@@ -9,21 +7,57 @@
           class="bg-gray-900 text-gray-100 rounded-xl border border-gray-700 shadow-2xl"
         >
           <div class="p-6 text-center">
-            <h1 class="text-2xl font-bold mb-4">Registrar Usuario</h1>
+            <h1 class="text-2xl font-bold mb-4">Register User</h1>
             <form [formGroup]="userForm" (ngSubmit)="createUser()">
               <div class="mb-6">
+                <div class="mb-4">
+                  <label
+                    for="inputEmail"
+                    class="block text-sm font-medium text-gray-400"
+                  >
+                    Email*
+                  </label>
+                  <input
+                    type="email"
+                    id="inputEmail"
+                    class="mt-1 block w-full px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
+                    formControlName="email"
+                    placeholder="Example: email@example.com"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      userForm.get('email')?.touched &&
+                      userForm.get('email')?.invalid
+                    "
+                  >
+                    <small
+                      class="text-red-400"
+                      *ngIf="userForm.get('email')?.errors?.['required']"
+                    >
+                    Email is required.
+                  </small>
+                    <small
+                      class="text-red-400"
+                      *ngIf="userForm.get('email')?.errors?.['email']"
+                    >
+                    Invalid email format.
+                  </small>
+                  </div>
+                </div>
                 <div class="mb-4">
                   <label
                     for="inputUsername"
                     class="block text-sm font-medium text-gray-400"
                   >
-                    Nombre de usuario*
+                    Username*
                   </label>
                   <input
                     type="text"
                     id="inputUsername"
                     class="mt-1 block w-full px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
                     formControlName="username"
+                    placeholder="Example: JohnDoe123"
                     required
                   />
                   <div
@@ -36,14 +70,14 @@
                       class="text-red-400"
                       *ngIf="userForm.get('username')?.errors?.['required']"
                     >
-                      Nombre de usuario obligatorio.
+                      Username is required.
                     </small>
                     <small
                       class="text-red-400"
                       *ngIf="userForm.get('username')?.errors?.['minlength']"
                     >
-                      El nombre de usuario debe tener al menos 5 caracteres.
-                    </small>
+                    Username must be at least 5 characters long.
+                  </small>
                   </div>
                 </div>
 
@@ -52,8 +86,8 @@
                     for="inputPassword"
                     class="block text-sm font-medium text-gray-400"
                   >
-                    Contraseña*
-                  </label>
+                  Password*
+                </label>
                   <input
                     type="password"
                     id="inputPassword"
@@ -71,64 +105,31 @@
                       class="text-red-400"
                       *ngIf="userForm.get('password')?.errors?.['required']"
                     >
-                      Contraseña obligatoria.
-                    </small>
+                    Password is required.
+                  </small>
                     <small
                       class="text-red-400"
                       *ngIf="userForm.get('password')?.errors?.['minlength']"
                     >
-                      La contraseña debe contener 6 caracteres como mínimo.
-                    </small>
+                    Password must be at least 6 characters long.
+                  </small>
                   </div>
                 </div>
 
-                <div class="mb-4">
-                  <label
-                    for="inputEmail"
-                    class="block text-sm font-medium text-gray-400"
-                  >
-                    Email*
-                  </label>
-                  <input
-                    type="email"
-                    id="inputEmail"
-                    class="mt-1 block w-full px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
-                    formControlName="email"
-                    required
-                  />
-                  <div
-                    *ngIf="
-                      userForm.get('email')?.touched &&
-                      userForm.get('email')?.invalid
-                    "
-                  >
-                    <small
-                      class="text-red-400"
-                      *ngIf="userForm.get('email')?.errors?.['required']"
-                    >
-                      Email obligatorio.
-                    </small>
-                    <small
-                      class="text-red-400"
-                      *ngIf="userForm.get('email')?.errors?.['email']"
-                    >
-                      Formato incorrecto.
-                    </small>
-                  </div>
-                </div>
+               
 
                 <button
                   type="submit"
                   class="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-2 px-4 rounded-lg transition duration-150"
                 >
-                  Crear usuario
-                </button>
+                Create User
+              </button>
               </div>
             </form>
 
             <div class="mt-4 text-center">
               <p class="text-sm text-gray-400">
-                ¿Ya tienes una cuenta?
+                Already have an account?
                 <a
                   class="text-gray-300 hover:text-gray-100 hover:underline"
                   [routerLink]="[LOCATIONS.login]"
