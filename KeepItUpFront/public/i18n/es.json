@@ -118,10 +118,44 @@
       "ADD_LOG": {
         "TITLE": "Agregar Registro de Pesaje",
         "WEIGHT_LABEL": "Peso (kg)",
+        "WEIGHT_PLACEHOLDER": "Ejemplo: 82.35kg",
         "DATE_LABEL": "Fecha",
         "CANCEL": "Cancelar",
         "SAVE": "Guardar"
       }
     }
+  },
+  "WORKOUTS": {
+  "TITLE": "Entrenamientos",
+  "STATS": {
+    "TITLE": "Estadísticas",
+    "TOTAL_LOGGED": "Entrenamientos registrados"
+  },
+  "PREVIOUS_LOGS": {
+    "TITLE": "Entrenamientos previos",
+    "NO_LOGS": "No hay entrenamientos previos disponibles"
+  },
+  "LOG": {
+    "DATE": "Fecha",
+    "WORKOUT_NAME": "Entrenamiento"
+  },
+  "MODAL": {
+    "DELETE_CONFIRMATION": {
+      "TITLE": "Confirmar eliminación",
+      "BODY": "¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.",
+      "CONFIRM": "Eliminar",
+      "CANCEL": "Cancelar"
+    },
+    "ADD_LOG": {
+      "TITLE": "Añadir registro de entrenamiento",
+      "WORKOUT_NAME_LABEL": "Nombre del entrenamiento",
+      "WORKOUT_NAME_PLACEHOLDER": "Selecciona o escribe un nombre de entrenamiento",
+      "DATE_LABEL": "Fecha",
+      "CANCEL": "Cancelar",
+      "SAVE": "Guardar"
+    },
+    "CLOSE": "Cerrar modal"
   }
+}
+
 }
