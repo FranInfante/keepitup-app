@@ -13,11 +13,12 @@ import { forkJoin, SubscriptionLike } from 'rxjs';
 import { User } from '../../shared/interfaces/users';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
 import { LoadingService } from '../../shared/service/loading.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
-  imports: [BackToMenuComponent, ReactiveFormsModule, CommonModule],
+  imports: [BackToMenuComponent, ReactiveFormsModule, CommonModule, TranslateModule],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })

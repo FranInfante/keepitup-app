@@ -1,0 +1,46 @@
+<div
+  class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
+  (click)="closeModal.emit()"
+>
+  <div
+    class="bg-gray-800 rounded-lg shadow-lg p-6 w-[90%] max-w-sm relative"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Cross button for closing -->
+    <button
+      (click)="closeModal.emit()"
+      class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition duration-200"
+      aria-label="Close"
+    >
+      ✖
+    </button>
+
+    <h2 class="text-xl font-bold text-center mb-6">{{ "MENU.CHANGE_LANGUAGE" | translate }}</h2>
+    <div class="grid grid-cols-1 gap-6">
+      <!-- English Language Button -->
+      <button
+        (click)="switchLanguage('en')"
+        class="flex items-center justify-center gap-4 px-4 py-3 bg-blue-700 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
+      >
+        <img
+          [src]="english"
+          alt="English Flag"
+          class="w-10 h-10 object-cover rounded-full"
+        />
+        <span class="text-lg font-semibold">English</span>
+      </button>
+      <!-- Spanish Language Button -->
+      <button
+        (click)="switchLanguage('es')"
+        class="flex items-center justify-center gap-4 px-4 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-600 transition duration-200"
+      >
+        <img
+          [src]="spain"
+          alt="Spanish Flag"
+          class="w-10 h-10 object-cover rounded-full"
+        />
+        <span class="text-lg font-semibold">Español</span>
+      </button>
+    </div>
+  </div>
+</div>
