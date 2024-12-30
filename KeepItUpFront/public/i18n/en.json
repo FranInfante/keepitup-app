@@ -92,7 +92,37 @@
       "BUTTON": "Create User",
       "HAVE_ACCOUNT": "Already have an account?",
       "LOGIN": "Login"
-    }
-  
+    },
+    "WEIGH_INS": {
+      "TITLE": "Weigh-Ins",
+      "STATS": {
+        "TITLE": "Stats",
+        "TOTAL_WEIGHT_CHANGE": "Total Weight Loss/Gain"
+      },
+      "PREVIOUS_LOGS": {
+        "TITLE": "Previous Logs",
+        "NO_LOGS": "No previous logs available."
+      },
+      "LOG": {
+        "DATE": "Date",
+        "WEIGHT": "Weight"
+      },
+      "MODAL": {
+        "DELETE_CONFIRMATION": {
+          "TITLE": "Confirm Deletion",
+          "BODY": "Are you sure you want to delete this log? This action cannot be undone.",
+          "CONFIRM": "Delete",
+          "CANCEL": "Cancel"
+        },
+        "DELETE_CLOSE_MODAL": "Close modal",
+        "ADD_LOG": {
+          "TITLE": "Add Weigh-In Log",
+          "WEIGHT_LABEL": "Weight (kg)",
+          "DATE_LABEL": "Date",
+          "CANCEL": "Cancel",
+          "SAVE": "Save"
+        }
+      }
+    } 
   
 }

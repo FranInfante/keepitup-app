@@ -92,5 +92,36 @@
     "BUTTON": "Crear Usuario",
     "HAVE_ACCOUNT": "¿Ya tienes una cuenta?",
     "LOGIN": "Inicia sesión"
+  },
+  "WEIGH_INS": {
+    "TITLE": "Pesajes",
+    "STATS": {
+      "TITLE": "Estadísticas",
+      "TOTAL_WEIGHT_CHANGE": "Cambio total de peso"
+    },
+    "PREVIOUS_LOGS": {
+      "TITLE": "Registros Previos",
+      "NO_LOGS": "No hay registros previos disponibles."
+    },
+    "LOG": {
+      "DATE": "Fecha",
+      "WEIGHT": "Peso"
+    },
+    "MODAL": {
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Confirmar Eliminación",
+        "BODY": "¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.",
+        "CONFIRM": "Eliminar",
+        "CANCEL": "Cancelar"
+      },
+      "DELETE_CLOSE_MODAL": "Cerrar modal",
+      "ADD_LOG": {
+        "TITLE": "Agregar Registro de Pesaje",
+        "WEIGHT_LABEL": "Peso (kg)",
+        "DATE_LABEL": "Fecha",
+        "CANCEL": "Cancelar",
+        "SAVE": "Guardar"
+      }
+    }
   }
 }

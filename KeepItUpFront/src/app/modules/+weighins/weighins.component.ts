@@ -13,11 +13,12 @@ import { User } from '../../shared/interfaces/users';
 import { SubscriptionLike } from 'rxjs';
 import { UserService } from '../../shared/service/user.service';
 import { LoadingService } from '../../shared/service/loading.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-weighins',
   standalone: true,
-  imports: [BackToMenuComponent, CommonModule, ReactiveFormsModule],
+  imports: [BackToMenuComponent, CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './weighins.component.html',
   styleUrl: './weighins.component.css',
 })
