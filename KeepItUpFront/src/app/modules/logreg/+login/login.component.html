@@ -11,7 +11,7 @@
                 <div class="mb-6">
                   <div class="mb-4">
                     <label for="typeidentifierX" class="block text-sm font-medium text-gray-400">
-                      Email or username
+                      {{ "LOGIN.EMAIL_OR_USERNAME" | translate }}
                     </label>
                     <input
                       type="text"
@@ -25,14 +25,14 @@
                         class="text-red-400"
                         *ngIf="loginForm.get('identifier')?.errors?.['required']"
                       >
-                        Email or username is required.
+                      {{ "LOGIN.EMAIL_OR_USERNAME_REQUIRED" | translate }}
                       </small>
                     </div>
                   </div>
   
                   <div class="mb-4">
                     <label for="typePasswordX" class="block text-sm font-medium text-gray-400">
-                      Password
+                      {{ "LOGIN.PASSWORD" | translate }}
                     </label>
                     <input
                       type="password"
@@ -46,7 +46,7 @@
                         class="text-red-400"
                         *ngIf="loginForm.get('password')?.errors?.['required']"
                       >
-                        Password is required.
+                      {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
                       </small>
                     </div>
                   </div>
@@ -55,16 +55,16 @@
                     type="submit"
                     class="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-2 px-4 rounded-lg transition duration-150"
                   >
-                    Login
+                  {{ "LOGIN.BUTTON" | translate }}
                   </button>
                 </div>
               </form>
   
               <div class="mt-4 text-center">
                 <p class="text-sm text-gray-400">
-                  Don’t have an account?
+                  {{ "LOGIN.NO_ACCOUNT" | translate }}
                   <a class="text-gray-300 hover:text-gray-100 hover:underline" [routerLink]="[LOCATIONS.register]">
-                    Register
+                    {{ "LOGIN.REGISTER" | translate }}
                   </a>
                 </p>
               </div>

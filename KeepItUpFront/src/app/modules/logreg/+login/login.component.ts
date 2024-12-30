@@ -8,11 +8,12 @@ import { ToastService } from '../../../shared/service/toast.service';
 import { NgIf } from '@angular/common';
 import { LoadingService } from '../../../shared/service/loading.service';
 import { BackToMenuComponent } from '../../../shared/components/back-to-menu/back-to-menu.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgIf,BackToMenuComponent],
+  imports: [RouterLink, ReactiveFormsModule, NgIf,BackToMenuComponent, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private toastService: ToastService,
     private loadingService: LoadingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+        private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
