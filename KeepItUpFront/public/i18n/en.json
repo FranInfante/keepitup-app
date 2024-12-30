@@ -52,5 +52,24 @@
     "BUTTON": "Login",
     "NO_ACCOUNT": "Don’t have an account?",
     "REGISTER": "Register"
-  }
+  },
+  
+    "MSG": {
+      "FAILED_CREDENTIALS": "Invalid email or password. Please try again.",
+      "UNKNOWN_LOGIN_ERROR": "An error occurred while logging in. Please try again later.",
+      "FETCH_ERROR": "An error occurred while fetching user information. Please try again later.",
+      "UNAUTHORIZED": "Unauthorized access. Please log in again.",
+      "NO_TOKEN": "No authentication token available.",
+      "NO_AUTH_TOKEN": "No authentication token available.",
+      "LOGIN_ERROR": "Login error:"
+    },
+    "TOAST_MSGS": {
+      "LOGIN": "Logged in successfully.",
+      "LOGOUT": "Logged out successfully.",
+      "REGISTER": "Registered successfully. You can now log in.",
+      "ERROR_REGISTER": "Error registering user. Please try again later.",
+      "FILL_ALL_FIELDS": "Please fill out all fields."
+    }
+  
+  
 }

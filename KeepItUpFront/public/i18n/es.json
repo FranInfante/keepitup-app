@@ -53,7 +53,22 @@
       "BUTTON": "Iniciar sesión",
       "NO_ACCOUNT": "¿No tienes una cuenta?",
       "REGISTER": "Regístrate"
-    }
-  
+    },
+    "MSG": {
+    "FAILED_CREDENTIALS": "Correo electrónico o contraseña inválidos. Por favor, inténtalo de nuevo.",
+    "UNKNOWN_LOGIN_ERROR": "Ocurrió un error al iniciar sesión. Por favor, inténtalo más tarde.",
+    "FETCH_ERROR": "Ocurrió un error al obtener la información del usuario. Por favor, inténtalo más tarde.",
+    "UNAUTHORIZED": "Acceso no autorizado. Por favor, inicia sesión de nuevo.",
+    "NO_TOKEN": "No hay un token de autenticación disponible.",
+    "NO_AUTH_TOKEN": "No hay un token de autenticación disponible.",
+    "LOGIN_ERROR": "Error de inicio de sesión:"
+  },
+  "TOAST_MSGS": {
+    "LOGIN": "Sesión iniciada con éxito.",
+    "LOGOUT": "Sesión cerrada con éxito.",
+    "REGISTER": "Registrado con éxito. Ahora puedes iniciar sesión.",
+    "ERROR_REGISTER": "Error al registrar el usuario. Por favor, inténtalo más tarde.",
+    "FILL_ALL_FIELDS": "Por favor, completa todos los campos."
+  }  
   
 }
