@@ -29,11 +29,12 @@ export const TOAST_MSGS = {
 
 export const ASSET_URLS = {
   backgroudnd: '/background.mp4',
-  target:'/svgs/target.svg',
-  tools:'/svgs/tools.svg',
-  weight:'/svgs/weight.svg',
-  logworkouts:'/svgs/logworkouts.svg',
+  target:'/svgs/landing-icons/target.svg',
+  tools:'/svgs/landing-icons/tools.svg',
+  weight:'/svgs/landing-icons/weight.svg',
+  logworkouts:'/svgs/landing-icons/logworkouts.svg',
   spain:'/svgs/translation-flags/spain.svg',
   english:'/svgs/translation-flags/english.svg',
+  gear:'/svgs/menu-icons/gear.svg',
 
 };

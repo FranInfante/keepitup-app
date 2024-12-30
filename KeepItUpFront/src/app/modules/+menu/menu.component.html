@@ -5,12 +5,36 @@
     >
       {{ "MENU.TITLE" | translate }}
     </h1>
-    <button
-      (click)="logout()"
-      class="absolute right-5 top-5 px-4 py-2 bg-red-700 text-gray-100 font-semibold text-sm rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transform transition duration-200 ease-in-out"
-    >
-      {{ "MENU.LOGOUT" | translate }}
-    </button>
+
+    <!-- Dropdown Gear Icon -->
+    <div class="absolute top-5 right-5">
+      <button
+        (click)="toggleDropdown()"
+        aria-label="Settings"
+        class="p-3 bg-gray-700 rounded-xl dropdown-button"
+      >
+        <img [src]="gear" alt="gear" class="h-8" />
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div
+        *ngIf="showDropdown"
+        class="absolute right-0 w-48 bg-white rounded-md shadow-lg py-2 z-50 dropdown-menu"
+      >
+        <button
+          (click)="logout()"
+          class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          {{ "MENU.LOGOUT" | translate }}
+        </button>
+        <button
+          (click)="toggleLanguageModal()"
+          class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          {{ "MENU.CHANGE_LANGUAGE" | translate }}
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="flex flex-grow items-center justify-center">
@@ -32,14 +56,6 @@
     </div>
   </div>
 
-  <div class="py-4 flex justify-center">
-    <button
-      (click)="toggleLanguageModal()"
-      class="px-4 py-2 bg-blue-700 text-gray-100 font-semibold rounded-lg shadow-md hover:bg-blue-600 transform transition duration-200 ease-in-out"
-    >
-      {{ "MENU.CHANGE_LANGUAGE" | translate }}
-    </button>
-  </div>
   <app-lang-modal
     *ngIf="showLanguageModal"
     (closeModal)="toggleLanguageModal()"
