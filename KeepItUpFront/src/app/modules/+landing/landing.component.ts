@@ -2,21 +2,24 @@ import { Component, HostListener } from '@angular/core';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../shared/lang-modal/lang-modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterModule,TranslateModule,],
+  imports: [RouterModule,TranslateModule, LanguageSwitcherComponent, CommonModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
 export class LandingComponent {
-  bg: string = ASSET_URLS.backgroudnd;
+  bg: string = ASSET_URLS.background;
   target: string = ASSET_URLS.target;
   tools: string = ASSET_URLS.tools;
   weight: string = ASSET_URLS.weight;
   logworkouts: string = ASSET_URLS.logworkouts;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
+  showLanguageModal: boolean = false;
 
   currentSection: string = ''; // Holds the currently active section ID
   
@@ -28,7 +31,10 @@ export class LandingComponent {
     this.updateActiveSection();
   }
 
-  // Method to determine and update the active section
+  toggleLanguageModal() {
+    this.showLanguageModal = !this.showLanguageModal;
+  } 
+
   updateActiveSection() {
     const sections = document.querySelectorAll('section');
     const offset = 200; // Adjust offset for the navbar height

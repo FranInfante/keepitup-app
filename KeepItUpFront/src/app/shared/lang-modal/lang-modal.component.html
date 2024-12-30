@@ -3,7 +3,7 @@
   (click)="closeModal.emit()"
 >
   <div
-    class="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-sm relative"
+    class="bg-gray-800 rounded-lg shadow-lg p-6 w-[90%] max-w-sm relative"
     (click)="$event.stopPropagation()"
   >
     <!-- Cross button for closing -->
@@ -15,7 +15,7 @@
       ✖
     </button>
 
-    <h2 class="text-xl font-bold text-center mb-6">Select Language</h2>
+    <h2 class="text-xl font-bold text-center mb-6">{{ "MENU.CHANGE_LANGUAGE" | translate }}</h2>
     <div class="grid grid-cols-1 gap-6">
       <!-- English Language Button -->
       <button

@@ -28,7 +28,7 @@ export const TOAST_MSGS = {
 };
 
 export const ASSET_URLS = {
-  backgroudnd: '/background.mp4',
+  background: '/background.mp4',
   target:'/svgs/landing-icons/target.svg',
   tools:'/svgs/landing-icons/tools.svg',
   weight:'/svgs/landing-icons/weight.svg',

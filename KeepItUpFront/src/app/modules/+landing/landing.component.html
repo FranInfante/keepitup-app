@@ -33,6 +33,14 @@
                 "MENU.CONTACT" | translate
               }}</a>
             </li>
+            <li>
+              <button
+                class="p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                (click)="toggleLanguageModal()"
+              >
+                {{ "MENU.CHANGE_LANGUAGE" | translate }}
+              </button>
+            </li>
           </ul>
         </nav>
       </div>
@@ -152,10 +160,12 @@
     class="py-16 bg-gradient-to-b from-gray-800 to-gray-900 h-screen flex items-center justify-center"
   >
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-gray-200">            {{ "LANDING.CONTACT.TITLE" | translate }}
+      <h2 class="text-3xl font-bold text-gray-200">
+        {{ "LANDING.CONTACT.TITLE" | translate }}
       </h2>
       <p class="mt-4 text-gray-300 px-11">
-        {{ "LANDING.CONTACT.TITLE" | translate }}      </p>
+        {{ "LANDING.CONTACT.TITLE" | translate }}
+      </p>
       <div class="flex justify-center mt-8 space-x-8">
         <!-- Email Icon -->
         <a
@@ -169,7 +179,7 @@
             class="w-12 h-12 mx-auto"
           />
           <p class="mt-2 text-sm text-gray-300 group-hover:text-blue-500">
-            {{ "LANDING.CONTACT.EMAIL" | translate }}   
+            {{ "LANDING.CONTACT.EMAIL" | translate }}
           </p>
         </a>
         <!-- LinkedIn Icon -->
@@ -184,8 +194,7 @@
             class="w-12 h-12 mx-auto"
           />
           <p class="mt-2 text-sm text-gray-300 group-hover:text-blue-500">
-            {{ "LANDING.CONTACT.LINKEDIN" | translate }}   
-
+            {{ "LANDING.CONTACT.LINKEDIN" | translate }}
           </p>
         </a>
       </div>
@@ -197,23 +206,28 @@
     class="bg-gradient-to-b from-gray-900 to-gray-800 py-16 h-screen flex items-center justify-center"
   >
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-white">            {{ "LANDING.CTA.TITLE" | translate }}   
+      <h2 class="text-3xl font-bold text-white">
+        {{ "LANDING.CTA.TITLE" | translate }}
       </h2>
       <p class="mt-4 text-gray-300">
-        {{ "LANDING.CTA.DESCRIPTION" | translate }}         </p>
+        {{ "LANDING.CTA.DESCRIPTION" | translate }}
+      </p>
       <button
         class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-500"
         [routerLink]="[LOCATIONS.login]"
       >
-      {{ "LANDING.CTA.SIGN_UP" | translate }} 
+        {{ "LANDING.CTA.SIGN_UP" | translate }}
       </button>
     </div>
   </section>
   <!-- Footer -->
   <footer class="bg-gray-800 border-t border-gray-700 py-4">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-gray-400">      {{ "LANDING.FOOTER.COPYRIGHT" | translate }} 
-      </p>
+      <p class="text-gray-400">{{ "LANDING.FOOTER.COPYRIGHT" | translate }}</p>
     </div>
   </footer>
+  <app-lang-modal
+    *ngIf="showLanguageModal"
+    (closeModal)="toggleLanguageModal()"
+  ></app-lang-modal>
 </div>

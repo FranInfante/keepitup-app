@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ASSET_URLS } from '../constants';
 
 @Component({
   selector: 'app-lang-modal',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './lang-modal.component.html',
   styleUrl: './lang-modal.component.css',
 })
