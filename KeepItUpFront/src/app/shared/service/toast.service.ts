@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Toast } from '../interfaces/toast';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,17 @@ export class ToastService {
   toastState$ = this.toastState.asObservable();
   private toastId = 0;
 
-  showToast(body: string, type: 'success' | 'danger' | 'info', duration: number = 3000) {
+  constructor(private translate: TranslateService) {}
+
+
+  showToast(bodyKey: string, type: 'success' | 'danger' | 'info', duration: number = 3000) {
+
+    const translatedBody = this.translate.instant(bodyKey);
+
     const newToast: Toast = {
       id: this.toastId++,
       show: false, // Start with `false` for initial state
-      body,
+      body: translatedBody,
       type,
     };
     this.toasts.push(newToast);

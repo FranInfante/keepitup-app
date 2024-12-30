@@ -3,15 +3,19 @@
 <div class="min-h-screen bg-gray-800 flex flex-col">
   <!-- Page Header -->
   <div class="py-6 text-center">
-    <h1 class="text-3xl font-extrabold text-gray-100">Weigh-Ins</h1>
+    <h1 class="text-3xl font-extrabold text-gray-100">
+      {{ "WEIGH_INS.TITLE" | translate }}
+    </h1>
   </div>
 
   <!-- Stats -->
   <div class="bg-gray-800 text-gray-100 px-6 py-2">
     <div class="max-w-lg mx-auto">
-      <h2 class="text-xl text-center font-bold mb-2">Stats</h2>
+      <h2 class="text-xl text-center font-bold mb-2">
+        {{ "WEIGH_INS.STATS.TITLE" | translate }}
+      </h2>
       <p class="text-center">
-        Total Weight Loss/Gain:
+        {{ "WEIGH_INS.STATS.TOTAL_WEIGHT_CHANGE" | translate }}:
         <span class="font-bold text-green-500">{{ totalWeightChange }}</span>
       </p>
     </div>
@@ -22,12 +26,16 @@
     <div class="w-full max-w-lg text-gray-100 rounded-xl px-6 space-y-8">
       <!-- Previous Logs -->
       <div>
-        <h2 class="text-xl text-center font-bold mb-4">Previous Logs</h2>
+        <h2 class="text-xl text-center font-bold mb-4">
+          {{ "WEIGH_INS.PREVIOUS_LOGS.TITLE" | translate }}
+        </h2>
         <div
           *ngIf="previousLogs.length === 0; else logsList"
           class="flex justify-center items-center text-center h-[calc(100vh-300px)] bg-gray-700 p-4 rounded-lg shadow-md border border-gray-600"
         >
-          <p class="text-gray-400">No previous logs available.</p>
+          <p class="text-gray-400">
+            {{ "WEIGH_INS.PREVIOUS_LOGS.NO_LOGS" | translate }}
+          </p>
         </div>
         <ng-template #logsList>
           <ul
@@ -38,8 +46,12 @@
               class="bg-gray-800 p-3 rounded-lg shadow-2xl border-2 border-opacity-35 border-black flex justify-between items-center"
             >
               <div class="flex-1 text-center">
-                <p>Date: {{ log.date | date }}</p>
-                <p>Weight: {{ log.weight }} kg</p>
+                <p>
+                  {{ "WEIGH_INS.LOG.DATE" | translate }}: {{ log.date | date }}
+                </p>
+                <p>
+                  {{ "WEIGH_INS.LOG.WEIGHT" | translate }}: {{ log.weight }} kg
+                </p>
               </div>
               <div>
                 <button
@@ -83,7 +95,7 @@
               <h3
                 class="text-lg font-semibold text-gray-900 dark:text-white text-center"
               >
-                Confirm Deletion
+                {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.TITLE" | translate }}
               </h3>
               <button
                 type="button"
@@ -104,7 +116,9 @@
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
-                <span class="sr-only">Close modal</span>
+                <span class="sr-only">
+                  {{ "WEIGH_INS.MODAL.DELETE_CLOSE_MODAL" | translate }}</span
+                >
               </button>
             </div>
             <!-- Modal Body -->
@@ -112,8 +126,7 @@
               <p
                 class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
               >
-                Are you sure you want to delete this log? This action cannot be
-                undone.
+                {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.BODY" | translate }}
               </p>
             </div>
 
@@ -125,14 +138,14 @@
                 (click)="confirmDelete()"
                 class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
               >
-                Delete
+                {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.CONFIRM" | translate }}
               </button>
               <button
                 (click)="cancelDelete()"
                 type="button"
                 class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
-                Cancel
+                {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.CANCEL" | translate }}
               </button>
             </div>
           </div>
@@ -180,7 +193,7 @@
           class="flex items-center justify-between p-4 border-b dark:border-gray-600"
         >
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Add Weigh-In Log
+            {{ "WEIGH_INS.MODAL.ADD_LOG.TITLE" | translate }}
           </h3>
           <button
             type="button"
@@ -201,7 +214,9 @@
                 d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
               />
             </svg>
-            <span class="sr-only">Close modal</span>
+            <span class="sr-only">{{
+              "WEIGH_INS.MODAL.DELETE_CLOSE_MODAL" | translate
+            }}</span>
           </button>
         </div>
 
@@ -212,19 +227,22 @@
               <label
                 for="weight"
                 class="block text-sm font-medium text-gray-400"
-                >Weight (kg)</label
+                >{{ "WEIGH_INS.MODAL.ADD_LOG.WEIGHT_LABEL" | translate }}</label
               >
               <input
                 type="number"
                 id="weight"
                 formControlName="weight"
                 class="w-full text-center mt-1 px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
+                placeholder="{{ 'WEIGH_INS.MODAL.ADD_LOG.WEIGHT_PLACEHOLDER' | translate }}"
                 required
               />
             </div>
             <div class="mb-4">
-              <label for="date" class="block text-sm font-medium text-gray-400"
-                >Date</label
+              <label
+                for="date"
+                class="block text-sm font-medium text-gray-400"
+                >{{ "WEIGH_INS.MODAL.ADD_LOG.DATE_LABEL" | translate }}</label
               >
               <input
                 type="date"
@@ -245,14 +263,14 @@
             (click)="toggleForm()"
             class="py-2 px-4 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 hover:text-white"
           >
-            Cancel
+            {{ "WEIGH_INS.MODAL.ADD_LOG.CANCEL" | translate }}
           </button>
           <button
             type="submit"
             (click)="logWeight()"
             class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
           >
-            Save
+            {{ "WEIGH_INS.MODAL.ADD_LOG.SAVE" | translate }}
           </button>
         </div>
       </div>
