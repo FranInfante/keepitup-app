@@ -1,12 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { RouterModule } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,TranslateModule,],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })

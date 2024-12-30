@@ -1,10 +1,47 @@
 {
     "MENU": {
-      "TITLE": "Menu",
+      "TITLE": "KeepItUp",
+      "SETTINGS": "Settings",
       "LOGOUT": "Logout",
-      "WEIGH_INS": "Weigh-Ins",
-      "WORKOUTS": "Workouts",
-      "CHANGE_LANGUAGE": "Change Language"
+      "CHANGE_LANGUAGE": "Change Language",
+      "ABOUT": "About",
+      "FEATURES": "Features",
+      "CONTACT": "Contact"
+    },
+    "LANDING": {
+      "HERO": {
+        "WELCOME": "Welcome to KeepItUp!",
+        "DESCRIPTION": "Log your weigh-ins and workouts with ease. Stay consistent and achieve your fitness goals.",
+        "GET_STARTED": "Get Started for Free"
+      },
+      "ABOUT": {
+        "TITLE": "About KeepItUp",
+        "MISSION": "Our Mission",
+        "MISSION_DESCRIPTION": "Helping you stay consistent and track your progress towards achieving a healthier you.",
+        "TOOLS": "Our Tools",
+        "TOOLS_DESCRIPTION": "Easy-to-use tools for logging weigh-ins, tracking workouts, and staying motivated."
+      },
+      "FEATURES": {
+        "TITLE": "Features",
+        "LOG_WEIGH_INS": "Log Weigh-ins",
+        "LOG_WEIGH_INS_DESCRIPTION": "Track your weight every week to monitor your progress over time.",
+        "LOG_WORKOUTS": "Log Workouts",
+        "LOG_WORKOUTS_DESCRIPTION": "Record your exercises and track your fitness routine effortlessly."
+      },
+      "CONTACT": {
+        "TITLE": "Contact Us",
+        "DESCRIPTION": "Have questions or need support? We're here to help! Connect with us:",
+        "EMAIL": "Email",
+        "LINKEDIN": "LinkedIn"
+      },
+      "CTA": {
+        "TITLE": "Start Your Journey Today",
+        "DESCRIPTION": "Sign up for free and take the first step towards a healthier you.",
+        "SIGN_UP": "Sign Up Now"
+      },
+      "FOOTER": {
+        "COPYRIGHT": "© 2024 KeepItUp. All rights reserved."
+      }
     }
   }
   

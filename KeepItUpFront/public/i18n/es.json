@@ -1,10 +1,47 @@
 {
     "MENU": {
-      "TITLE": "Menú",
+      "TITLE": "KeepItUp",
+      "SETTINGS": "Configuración",
       "LOGOUT": "Cerrar sesión",
-      "WEIGH_INS": "Pesajes",
-      "WORKOUTS": "Entrenamientos",
-      "CHANGE_LANGUAGE": "Cambiar idioma"
+      "CHANGE_LANGUAGE": "Cambiar idioma",
+      "ABOUT": "Acerca de",
+      "FEATURES": "Características",
+      "CONTACT": "Contacto"
+    },
+    "LANDING": {
+      "HERO": {
+        "WELCOME": "¡Bienvenido a KeepItUp!",
+        "DESCRIPTION": "Registra tus pesajes y entrenamientos con facilidad. Mantente constante y logra tus objetivos de fitness.",
+        "GET_STARTED": "Comienza gratis"
+      },
+      "ABOUT": {
+        "TITLE": "Acerca de KeepItUp",
+        "MISSION": "Nuestra Misión",
+        "MISSION_DESCRIPTION": "Ayudarte a mantener la consistencia y realizar un seguimiento de tu progreso hacia una vida más saludable.",
+        "TOOLS": "Nuestras Herramientas",
+        "TOOLS_DESCRIPTION": "Herramientas fáciles de usar para registrar pesajes, seguir entrenamientos y mantener la motivación."
+      },
+      "FEATURES": {
+        "TITLE": "Características",
+        "LOG_WEIGH_INS": "Registrar Pesajes",
+        "LOG_WEIGH_INS_DESCRIPTION": "Registra tu peso semanalmente para monitorear tu progreso a lo largo del tiempo.",
+        "LOG_WORKOUTS": "Registrar Entrenamientos",
+        "LOG_WORKOUTS_DESCRIPTION": "Registra tus ejercicios y sigue tu rutina de fitness sin esfuerzo."
+      },
+      "CONTACT": {
+        "TITLE": "Contáctanos",
+        "DESCRIPTION": "¿Tienes preguntas o necesitas ayuda? ¡Estamos aquí para ayudarte! Conéctate con nosotros:",
+        "EMAIL": "Correo Electrónico",
+        "LINKEDIN": "LinkedIn"
+      },
+      "CTA": {
+        "TITLE": "Comienza tu viaje hoy",
+        "DESCRIPTION": "Regístrate gratis y da el primer paso hacia una vida más saludable.",
+        "SIGN_UP": "Regístrate Ahora"
+      },
+      "FOOTER": {
+        "COPYRIGHT": "© 2024 KeepItUp. Todos los derechos reservados."
+      }
     }
   }
   
