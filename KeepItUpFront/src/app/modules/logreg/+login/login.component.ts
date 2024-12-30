@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private toastService: ToastService,
     private loadingService: LoadingService,
-    private route: ActivatedRoute,
-        private translate: TranslateService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {

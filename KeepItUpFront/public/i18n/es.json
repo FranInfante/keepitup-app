@@ -44,17 +44,17 @@
     "FOOTER": {
       "COPYRIGHT": "© 2024 KeepItUp. Todos los derechos reservados."
     }
-  }, 
-    "LOGIN": {
-      "EMAIL_OR_USERNAME": "Correo electrónico o nombre de usuario",
-      "EMAIL_OR_USERNAME_REQUIRED": "Se requiere correo electrónico o nombre de usuario.",
-      "PASSWORD": "Contraseña",
-      "PASSWORD_REQUIRED": "Se requiere contraseña.",
-      "BUTTON": "Iniciar sesión",
-      "NO_ACCOUNT": "¿No tienes una cuenta?",
-      "REGISTER": "Regístrate"
-    },
-    "MSG": {
+  },
+  "LOGIN": {
+    "EMAIL_OR_USERNAME": "Correo electrónico o nombre de usuario",
+    "EMAIL_OR_USERNAME_REQUIRED": "Se requiere correo electrónico o nombre de usuario.",
+    "PASSWORD": "Contraseña",
+    "PASSWORD_REQUIRED": "Se requiere contraseña.",
+    "BUTTON": "Iniciar sesión",
+    "NO_ACCOUNT": "¿No tienes una cuenta?",
+    "REGISTER": "Regístrate"
+  },
+  "MSG": {
     "FAILED_CREDENTIALS": "Correo electrónico o contraseña inválidos. Por favor, inténtalo de nuevo.",
     "UNKNOWN_LOGIN_ERROR": "Ocurrió un error al iniciar sesión. Por favor, inténtalo más tarde.",
     "FETCH_ERROR": "Ocurrió un error al obtener la información del usuario. Por favor, inténtalo más tarde.",
@@ -69,6 +69,28 @@
     "REGISTER": "Registrado con éxito. Ahora puedes iniciar sesión.",
     "ERROR_REGISTER": "Error al registrar el usuario. Por favor, inténtalo más tarde.",
     "FILL_ALL_FIELDS": "Por favor, completa todos los campos."
-  }  
-  
+  },
+  "REGISTER": {
+    "TITLE": "Registrar Usuario",
+    "EMAIL": {
+      "LABEL": "Correo Electrónico*",
+      "PLACEHOLDER": "Ejemplo: correo@ejemplo.com",
+      "REQUIRED": "El correo electrónico es obligatorio.",
+      "INVALID": "Formato de correo electrónico inválido."
+    },
+    "USERNAME": {
+      "LABEL": "Nombre de Usuario*",
+      "PLACEHOLDER": "Ejemplo: JohnDoe123",
+      "REQUIRED": "El nombre de usuario es obligatorio.",
+      "MIN_LENGTH": "El nombre de usuario debe tener al menos 5 caracteres."
+    },
+    "PASSWORD": {
+      "LABEL": "Contraseña*",
+      "REQUIRED": "La contraseña es obligatoria.",
+      "MIN_LENGTH": "La contraseña debe tener al menos 6 caracteres."
+    },
+    "BUTTON": "Crear Usuario",
+    "HAVE_ACCOUNT": "¿Ya tienes una cuenta?",
+    "LOGIN": "Inicia sesión"
+  }
 }

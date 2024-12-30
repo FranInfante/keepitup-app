@@ -69,6 +69,29 @@
       "REGISTER": "Registered successfully. You can now log in.",
       "ERROR_REGISTER": "Error registering user. Please try again later.",
       "FILL_ALL_FIELDS": "Please fill out all fields."
+    },
+    "REGISTER": {
+      "TITLE": "Register User",
+      "EMAIL": {
+        "LABEL": "Email*",
+        "PLACEHOLDER": "Example: email@example.com",
+        "REQUIRED": "Email is required.",
+        "INVALID": "Invalid email format."
+      },
+      "USERNAME": {
+        "LABEL": "Username*",
+        "PLACEHOLDER": "Example: JohnDoe123",
+        "REQUIRED": "Username is required.",
+        "MIN_LENGTH": "Username must be at least 5 characters long."
+      },
+      "PASSWORD": {
+        "LABEL": "Password*",
+        "REQUIRED": "Password is required.",
+        "MIN_LENGTH": "Password must be at least 6 characters long."
+      },
+      "BUTTON": "Create User",
+      "HAVE_ACCOUNT": "Already have an account?",
+      "LOGIN": "Login"
     }
   
   

@@ -21,8 +21,7 @@ export class MenuComponent {
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    private translate: TranslateService
+    private userService: UserService
   ) {}
 
   navigateToWeighIns() {
