@@ -18,7 +18,12 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-weighins',
   standalone: true,
-  imports: [BackToMenuComponent, CommonModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    BackToMenuComponent,
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
   templateUrl: './weighins.component.html',
   styleUrl: './weighins.component.css',
 })
@@ -62,7 +67,10 @@ export class WeighInsComponent implements OnInit {
 
   initializeForm(): void {
     this.weightForm = this.fb.group({
-      weight: ['', [Validators.required, Validators.min(1)]],
+      weight: [
+        '',
+        [Validators.required, Validators.min(1), Validators.max(999)],
+      ],
       date: [formatDate(new Date(), 'yyyy-MM-dd', 'en')],
     });
   }
