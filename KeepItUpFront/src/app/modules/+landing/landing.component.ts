@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { RouterModule } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-landing',
@@ -18,7 +19,9 @@ export class LandingComponent {
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
   currentSection: string = ''; // Holds the currently active section ID
-
+  
+  constructor(private translate: TranslateService){};
+  
   // Listen to window scroll events
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -57,5 +60,10 @@ export class LandingComponent {
         link.classList.add('font-bold');
       }
     });
+  }
+
+  switchLanguage(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('language', lang);
   }
 }

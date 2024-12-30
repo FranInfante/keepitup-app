@@ -33,5 +33,7 @@ export const ASSET_URLS = {
   tools:'/svgs/tools.svg',
   weight:'/svgs/weight.svg',
   logworkouts:'/svgs/logworkouts.svg',
+  spain:'/svgs/translation-flags/spain.svg',
+  english:'/svgs/translation-flags/english.svg',
 
 };
