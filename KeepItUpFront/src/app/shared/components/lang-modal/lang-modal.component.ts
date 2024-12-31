@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ASSET_URLS } from '../constants';
-import { UserService } from '../service/user.service';
+import { ASSET_URLS } from '../../constants';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-lang-modal',
