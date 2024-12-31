@@ -22,7 +22,7 @@ export class LanguageSwitcherComponent {
   ) {}
 
   switchLanguage(lang: string) {
-    console.log('Switching language to:', lang);
+    // console.log('Switching language to:', lang);
 
     const authToken = this.userService.getToken();
     if (authToken) {
