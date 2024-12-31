@@ -13,5 +13,6 @@ public class UsersInfoDTO {
     private double initialWeight;
     private double goalWeight;
     private Integer workoutDaysPerWeek;
+    private String language;
     private Integer usersId;
 }

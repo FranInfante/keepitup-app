@@ -1,6 +1,7 @@
 package com.example.keepitup.controller.impl;
 
 import com.example.keepitup.controller.UsersInfoApi;
+import com.example.keepitup.model.dtos.SetUserLanguageRequestDTO;
 import com.example.keepitup.model.dtos.UsersInfoDTO;
 import com.example.keepitup.service.UsersInfoService;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,11 @@ public class UsersInfoController implements UsersInfoApi {
     public ResponseEntity<UsersInfoDTO> getUserInfoByUserId(Integer userId) {
         UsersInfoDTO userInfo = usersInfoService.getUserInfoByUserId(userId);
         return ResponseEntity.ok(userInfo);
+    }
+
+    @Override
+    public ResponseEntity<Void> setUserLanguage(SetUserLanguageRequestDTO requestDTO) {
+        usersInfoService.updateUserLanguage(requestDTO.getUserId(), requestDTO.getLanguage());
+        return ResponseEntity.noContent().build();
     }
 }

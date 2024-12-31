@@ -33,5 +33,7 @@ public class UriConstants {
 
     public static final String UNIQUEWORKOUTSBYID = "/unique-names/{userId}";
 
+    public static final String SETLANGUAGEBYID = "/set-language";
+
 
 }

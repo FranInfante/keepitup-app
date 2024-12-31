@@ -4,6 +4,8 @@ package com.example.keepitup.service.impl;
 import com.example.keepitup.jwt.JwtUserDetailsService;
 import com.example.keepitup.model.dtos.UsersDTO;
 import com.example.keepitup.model.entities.Users;
+import com.example.keepitup.model.entities.UsersInfo;
+import com.example.keepitup.repository.UsersInfoRepository;
 import com.example.keepitup.repository.UsersRepository;
 import com.example.keepitup.service.UsersService;
 import com.example.keepitup.util.UserJwt;
@@ -34,6 +36,8 @@ public class UsersServiceImpl implements UsersService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
+    private final UsersInfoRepository usersInfoRepository;
+
 
     @Override
     public List<UsersDTO> getAllUsers() {
@@ -44,7 +48,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UsersDTO getUserById(Integer id) {
         Users user = usersRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.USER_NOT_FOUND));
+                    .orElseThrow(() -> new EntityNotFoundException(MessageConstants.USER_NOT_FOUND));
         return UsersMapper.userEntityToDTO(user);
     }
 
@@ -60,6 +64,17 @@ public class UsersServiceImpl implements UsersService {
         Users user = UsersMapper.userDTOToEntity(newUser);
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         Users savedUser = usersRepository.save(user);
+
+        UsersInfo usersInfo = UsersInfo.builder()
+                .user(savedUser)
+                .initialWeight(0.0)
+                .goalWeight(0.0)
+                .workoutDaysPerWeek(0)
+                .language("en")
+                .build();
+
+        usersInfoRepository.save(usersInfo);
+
         return UsersMapper.userEntityToDTO(savedUser);
     }
 
