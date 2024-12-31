@@ -24,15 +24,14 @@ export class LanguageSwitcherComponent {
   switchLanguage(lang: string) {
     console.log('Switching language to:', lang);
 
-    const authToken = this.userService.getToken(); // Check if authToken exists
+    const authToken = this.userService.getToken();
     if (authToken) {
-      // Authenticated flow: Update language on the server
       this.userService.getCurrentUser().subscribe({
         next: (user) => {
           if (user && user.id) {
             this.userService.setLanguageWithUserId(user.id, lang).subscribe({
               next: () => {
-                this.applyLanguage(lang); // Apply language locally
+                this.applyLanguage(lang);
               },
               error: (err) => {
                 console.error('Error switching language:', err);
@@ -47,14 +46,13 @@ export class LanguageSwitcherComponent {
         },
       });
     } else {
-      // Unauthenticated flow: Update language locally
       this.applyLanguage(lang);
     }
   }
 
   private applyLanguage(lang: string) {
-    this.translate.use(lang); // Set the language in the translation service
-    localStorage.setItem('language', lang); // Save the language in local storage
-    this.closeModal.emit(); // Close the modal
+    this.translate.use(lang);
+    localStorage.setItem('language', lang);
+    this.closeModal.emit();
   }
 }

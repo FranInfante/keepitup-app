@@ -142,5 +142,14 @@ export class UserService {
         })
       );
   }
+
+  getUserInfo(userId: number): Observable<any> {
+    return this.http.get<any>(USERS_INFO_ROUTES.getUsersInfo(userId)).pipe(
+      catchError((error) => {
+        console.error('Failed to fetch user info:', error);
+        return throwError(() => new Error('Failed to fetch user info.'));
+      })
+    );
+  }
   
 }

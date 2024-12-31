@@ -29,7 +29,7 @@ public class UsersInfoServiceImpl implements UsersInfoService {
 
     @Override
     public UsersInfoDTO getUserInfoByUserId(Integer userId) {
-        UsersInfo usersInfo = usersInfoRepository.findById(userId).orElseThrow(() -> new RuntimeException(MessageConstants.USER_NOT_FOUND));
+        UsersInfo usersInfo = usersInfoRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException(MessageConstants.USER_NOT_FOUND));
         return UsersInfoMapper.usersInfoEntityToDTO(usersInfo);
     }
 
@@ -45,7 +45,7 @@ public class UsersInfoServiceImpl implements UsersInfoService {
                     .user(user)
                     .initialWeight(0.0)
                     .goalWeight(0.0)
-                    .workoutDaysPerWeek(3)
+                    .workoutDaysPerWeek(0)
                     .language(language)
                     .build();
 
