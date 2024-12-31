@@ -21,9 +21,35 @@ export class MenuComponent {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) {}
 
+
+  ngOnInit(): void {
+    // Fetch the current user to get their ID
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        if (user && user.id) {
+          // Fetch UsersInfo by User ID to get the language
+          this.userService.getUserInfo(user.id).subscribe({
+            next: (userInfo) => {
+              if (userInfo && userInfo.language) {
+                this.translate.use(userInfo.language); // Set the translation to the user's language
+                localStorage.setItem('language', userInfo.language); // Save it locally for persistence
+              }
+            },
+            error: (err) => {
+              console.error('Failed to fetch UsersInfo:', err);
+            },
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Failed to fetch current user:', err);
+      },
+    });
+  }
   navigateToWeighIns() {
     this.router.navigate([LOCATIONS.weighins]);
   }

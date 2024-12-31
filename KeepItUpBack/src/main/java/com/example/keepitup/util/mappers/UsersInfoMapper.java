@@ -18,7 +18,8 @@ public class UsersInfoMapper {
                 .id(usersInfoDTO.getId())
                 .initialWeight(usersInfoDTO.getInitialWeight())
                 .goalWeight(usersInfoDTO.getGoalWeight())
-                .workoutDaysPerWeek(usersInfoDTO.getWorkoutDaysPerWeek());
+                .workoutDaysPerWeek(usersInfoDTO.getWorkoutDaysPerWeek())
+                .language(usersInfoDTO.getLanguage());
 
         // Set the user reference if the userId is present
         if (usersInfoDTO.getUserId() != null) {
@@ -40,6 +41,7 @@ public class UsersInfoMapper {
                 .goalWeight(usersInfo.getGoalWeight())
                 .workoutDaysPerWeek(usersInfo.getWorkoutDaysPerWeek())
                 .userId(usersInfo.getUser() != null ? usersInfo.getUser().getId() : null)
+                .language(usersInfo.getLanguage())
                 .build();
     }
 }

@@ -24,6 +24,9 @@ public class UsersInfo {
     @Column(nullable = false)
     private Integer workoutDaysPerWeek;
 
+    @Column(nullable = true)
+    private String language;
+
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;

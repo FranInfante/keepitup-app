@@ -7,11 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsersInfoDTO {
-    private Integer id;
+public class SetUserLanguageRequestDTO {
     private Integer userId;
-    private double initialWeight;
-    private double goalWeight;
-    private Integer workoutDaysPerWeek;
     private String language;
 }
