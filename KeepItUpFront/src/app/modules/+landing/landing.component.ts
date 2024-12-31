@@ -2,7 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../../shared/lang-modal/lang-modal.component';
+import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

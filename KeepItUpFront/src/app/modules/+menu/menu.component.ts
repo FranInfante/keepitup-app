@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { UserService } from '../../shared/service/user.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../../shared/lang-modal/lang-modal.component';
+import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
