@@ -12,5 +12,5 @@ public interface UsersInfoApi {
     ResponseEntity<UsersInfoDTO> saveUserInfo(@RequestBody UsersInfoDTO usersInfoDTO);
 
     @GetMapping(UriConstants.BY_ID)
-    ResponseEntity<UsersInfoDTO> getUserInfoByUserId(@PathVariable Integer userId);
+    ResponseEntity<UsersInfoDTO> getUserInfoByUserId(@PathVariable("id") Integer userId);
 }
