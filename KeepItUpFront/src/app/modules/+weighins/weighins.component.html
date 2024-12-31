@@ -234,9 +234,20 @@
                 id="weight"
                 formControlName="weight"
                 class="w-full text-center mt-1 px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
-                placeholder="{{ 'WEIGH_INS.MODAL.ADD_LOG.WEIGHT_PLACEHOLDER' | translate }}"
+                placeholder="{{
+                  'WEIGH_INS.MODAL.ADD_LOG.WEIGHT_PLACEHOLDER' | translate
+                }}"
                 required
               />
+              <small
+                *ngIf="
+      weightForm.get('weight')?.touched &&
+      weightForm.get('weight')?.errors?.['max']
+    "
+                class="text-red-400"
+              >
+                Weight cannot exceed 999.
+              </small>
             </div>
             <div class="mb-4">
               <label
