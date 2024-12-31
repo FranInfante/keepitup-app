@@ -12,6 +12,7 @@ import { USER_ROUTES } from '../routes/user-routes';
 import { USERS_INFO_ROUTES } from '../routes/users-info-routes';
 
 import { MSG } from '../constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class UserService {
     null
   );
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private translate: TranslateService) {
     this.authToken = localStorage.getItem('authToken');
   }
 
@@ -112,6 +113,8 @@ export class UserService {
     this.userSubject.next(null);
     this.authToken = null;
     localStorage.removeItem('authToken');
+    localStorage.removeItem('language');
+    this.translate.use('en'); 
   }
   fetchAndSetUser(): void {
     if (this.getToken()) {
@@ -132,7 +135,7 @@ export class UserService {
       userId: userId,
       language: lang,
     };
-  
+
     return this.http
       .patch<void>(`${USERS_INFO_ROUTES.setLanguage()}`, body)
       .pipe(
@@ -151,5 +154,4 @@ export class UserService {
       })
     );
   }
-  
 }
