@@ -14,6 +14,7 @@ import { SubscriptionLike } from 'rxjs';
 import { UserService } from '../../shared/service/user.service';
 import { LoadingService } from '../../shared/service/loading.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../shared/service/language.service';
 
 @Component({
   selector: 'app-weighins',
@@ -42,10 +43,12 @@ export class WeighInsComponent implements OnInit {
     private fb: FormBuilder,
     private weighInsService: WeighInsService,
     private userService: UserService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit(): void {
+    this.languageService.setUserLanguage();
     this.loadingService.setLoading(true);
     this.initializeForm();
     this.subscriptions.push(

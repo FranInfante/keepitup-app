@@ -14,11 +14,17 @@ import { User } from '../../shared/interfaces/users';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
 import { LoadingService } from '../../shared/service/loading.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../shared/service/language.service';
 
 @Component({
   selector: 'app-workouts',
   standalone: true,
-  imports: [BackToMenuComponent, ReactiveFormsModule, CommonModule, TranslateModule],
+  imports: [
+    BackToMenuComponent,
+    ReactiveFormsModule,
+    CommonModule,
+    TranslateModule,
+  ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
@@ -38,18 +44,20 @@ export class WorkoutsComponent implements OnInit {
     private fb: FormBuilder,
     private workoutService: WorkoutsService,
     private loadingService: LoadingService,
-    private userService: UserService
+    private userService: UserService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit(): void {
+    this.languageService.setUserLanguage();
     this.loadingService.setLoading(true);
     this.initializeForm();
-  
+
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         if (user && user.id) {
           this.userId = user.id;
-  
+
           // Combine both observables
           forkJoin([
             this.workoutService.getWorkouts(this.userId),
@@ -57,7 +65,8 @@ export class WorkoutsComponent implements OnInit {
           ]).subscribe({
             next: ([workouts, names]) => {
               this.workoutLogs = workouts.sort(
-                (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
               );
               this.totalWorkouts = workouts.length;
               this.workoutNames = names;

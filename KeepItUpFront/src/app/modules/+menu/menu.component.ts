@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { UserService } from '../../shared/service/user.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../../shared/lang-modal/lang-modal.component';
+import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../shared/service/language.service';
 
 @Component({
   selector: 'app-menu',
@@ -22,33 +23,13 @@ export class MenuComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private languageService: LanguageService
   ) {}
 
 
   ngOnInit(): void {
-    // Fetch the current user to get their ID
-    this.userService.getCurrentUser().subscribe({
-      next: (user) => {
-        if (user && user.id) {
-          // Fetch UsersInfo by User ID to get the language
-          this.userService.getUserInfo(user.id).subscribe({
-            next: (userInfo) => {
-              if (userInfo && userInfo.language) {
-                this.translate.use(userInfo.language); // Set the translation to the user's language
-                localStorage.setItem('language', userInfo.language); // Save it locally for persistence
-              }
-            },
-            error: (err) => {
-              console.error('Failed to fetch UsersInfo:', err);
-            },
-          });
-        }
-      },
-      error: (err) => {
-        console.error('Failed to fetch current user:', err);
-      },
-    });
+    this.languageService.setUserLanguage();
   }
   navigateToWeighIns() {
     this.router.navigate([LOCATIONS.weighins]);
