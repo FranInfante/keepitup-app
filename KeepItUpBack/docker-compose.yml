@@ -33,10 +33,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/keepitup
       SPRING_DATASOURCE_USERNAME: fran
       SPRING_DATASOURCE_PASSWORD: 123
-      SMTP_HOST: smtp.gmail.com
-      SMTP_PORT: 587
-      SMTP_USER: appkeepitup@gmail.com
-      SMTP_PASS: "ezro bmsd wcpm mzka"
 
 networks:
   keepitup-network:
