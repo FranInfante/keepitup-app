@@ -196,8 +196,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public boolean isEmailRegistered(String email) {
-        return usersRepository.findByEmail(email).isPresent();
+    public boolean isEmailOrUsernameRegistered(String email, String username) {
+        boolean emailExists = usersRepository.findByEmail(email).isPresent();
+        boolean usernameExists = usersRepository.findByUsernameIgnoreCase(username).isPresent();
+        return emailExists || usernameExists;
     }
 
 

@@ -9,6 +9,7 @@ import com.example.keepitup.model.dtos.VerificationDTO;
 import com.example.keepitup.service.MailService;
 import com.example.keepitup.service.UsersService;
 import com.example.keepitup.util.UserJwt;
+import com.example.keepitup.util.msgs.MessageConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,10 +88,11 @@ public class UsersController implements UsersApi {
         return ResponseEntity.ok().build();
     }
     @Override
-    public ResponseEntity<Void> registerUser(@RequestBody UsersDTO newUser) {
-        if (usersService.isEmailRegistered(newUser.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+    public ResponseEntity<String> registerUser(@RequestBody UsersDTO newUser) {
+        if (usersService.isEmailOrUsernameRegistered(newUser.getEmail(), newUser.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(MessageConstants.USEROREMAILFOUND);
         }
+
         String verificationCode = usersService.generateVerificationCode();
         usersService.savePendingUser(newUser, verificationCode);
         mailService.sendSimpleEmail(

@@ -44,8 +44,8 @@ public interface UsersApi {
     ResponseEntity<Void> sendEmail(@RequestBody MailDTO mailDTO);
 
     @PostMapping(UriConstants.REGISTER)
-    ResponseEntity<Void> registerUser(@RequestBody UsersDTO newUser);
+    ResponseEntity<String> registerUser(@RequestBody UsersDTO newUser);
 
-    @GetMapping(UriConstants.VERIFY)
+    @PostMapping(UriConstants.VERIFY)
     ResponseEntity<UsersDTO> verifyCode(@RequestBody VerificationDTO verificationDTO) throws Exception;
 }

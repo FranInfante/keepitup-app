@@ -34,6 +34,6 @@ public interface UsersService {
 
     UsersDTO createUserFromPending(String email)  throws Exception;
 
-    boolean isEmailRegistered(String email);
+    boolean isEmailOrUsernameRegistered(String email, String username);
 
 }
