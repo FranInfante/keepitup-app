@@ -15,4 +15,6 @@ export const USER_ROUTES = {
     update: (id: number) => `${USER_API_URL}/${id}`,
     delete: (id: number) => `${USER_API_URL}/${id}`,
     login: () => `${USER_API_URL}/login`,
+    verifyCode: () => `${USER_API_URL}/verify`,
+    registerfirststep: () => `${USER_API_URL}/register`,
   };

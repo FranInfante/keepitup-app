@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,15 +16,18 @@ import { UserService } from './../../../shared/service/user.service';
 import { LoadingService } from '../../../shared/service/loading.service';
 import { BackToMenuComponent } from '../../../shared/components/back-to-menu/back-to-menu.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { VerifyCodeModalComponent } from '../../../shared/components/verify-code-modal/verify-code-modal.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, NgIf, BackToMenuComponent, TranslateModule],
+  imports: [ReactiveFormsModule, RouterModule, NgIf, BackToMenuComponent, TranslateModule, VerifyCodeModalComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  @ViewChild(VerifyCodeModalComponent) verifyModal!: VerifyCodeModalComponent;
+
   userForm!: FormGroup;
   formvalid = false;
   subscriptions: SubscriptionLike[] = [];
@@ -67,23 +70,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.userService.createUser(user).subscribe({
           next: (response) => {
-            this.toastService.showToast(TOAST_MSGS.register, 'success');
-            const navigationExtras: NavigationExtras = {
-              queryParams: {
-                username: user.username,
-                password: user.password,
-              },
-            };
-            this.router.navigate([LOCATIONS.login], navigationExtras);
-            this.userForm.reset();
+            this.toastService.showToast(TOAST_MSGS.emailsent, 'success');
+            this.verifyModal.open();
           },
           error: (error: HttpErrorResponse) => {
             this.loadingService.setLoading(false);
 
             if (error.status === 409) {
-              this.toastService.showToast(error.error, 'danger');
-            } else {
-              this.toastService.showToast(TOAST_MSGS.errorregister, 'danger');
+        
+              this.toastService.showToast(TOAST_MSGS.alreadyexists, 'danger');
             }
           },
           complete: () => {
@@ -101,5 +96,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.markFormGroupTouched(control);
       }
     });
+  }
+  onCodeVerified(): void {
+    this.toastService.showToast(TOAST_MSGS.register, 'success');
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        username: this.userForm.value.username,
+        password: this.userForm.value.password,
+      },
+    };
+    this.router.navigate([LOCATIONS.login], navigationExtras);
+    this.userForm.reset();
   }
 }

@@ -22,7 +22,10 @@ export const TOAST_MSGS = {
   logout: 'TOAST_MSGS.LOGOUT',
   register: 'TOAST_MSGS.REGISTER',
   errorregister: 'TOAST_MSGS.ERROR_REGISTER',
+  alreadyexists: 'TOAST_MSGS.ALREADY_EXISTS',
   fillallfields: 'TOAST_MSGS.FILL_ALL_FIELDS',
+  emailsent: 'TOAST_MSGS.EMAIL_SENT',
+
 };
 
 

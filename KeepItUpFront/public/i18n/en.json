@@ -68,7 +68,9 @@
       "LOGOUT": "Logged out successfully.",
       "REGISTER": "Registered successfully. You can now log in.",
       "ERROR_REGISTER": "Error registering user. Please try again later.",
-      "FILL_ALL_FIELDS": "Please fill out all fields."
+      "ALREADY_EXISTS": "Email or username already registered.",
+      "FILL_ALL_FIELDS": "Please fill out all fields.",
+      "EMAIL_SENT": "We've sent you a verificaion code to your email address"
     },
     "REGISTER": {
       "TITLE": "Register User",

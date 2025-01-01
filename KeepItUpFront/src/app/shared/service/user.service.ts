@@ -37,7 +37,7 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(USER_ROUTES.create(), user);
+    return this.http.post<User>(USER_ROUTES.registerfirststep(), user);
   }
 
   updateUser(id: number, user: User): Observable<User> {
@@ -153,5 +153,8 @@ export class UserService {
         return throwError(() => new Error('Failed to fetch user info.'));
       })
     );
+  }
+  verifyCode(data: { email: string; code: string }): Observable<void> {
+    return this.http.post<void>(USER_ROUTES.verifyCode(), data);
   }
 }
