@@ -13,6 +13,7 @@ import com.example.keepitup.util.jwt.JwtTokenUtil;
 import com.example.keepitup.util.mappers.UsersMapper;
 import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,7 +25,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -37,6 +40,9 @@ public class UsersServiceImpl implements UsersService {
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
     private final UsersInfoRepository usersInfoRepository;
+
+    private final Map<String, PendingUser> pendingUsers = new HashMap<>();
+
 
 
     @Override
@@ -74,6 +80,7 @@ public class UsersServiceImpl implements UsersService {
                 .build();
 
         usersInfoRepository.save(usersInfo);
+        savedUser.setUsersInfo(usersInfo);
 
         return UsersMapper.userEntityToDTO(savedUser);
     }
@@ -157,4 +164,41 @@ public class UsersServiceImpl implements UsersService {
 
         return Optional.of(userDTO);
     }
+
+    @Override
+    public String generateVerificationCode() {
+        return String.valueOf((int) (Math.random() * 9000) + 1000); // 4-digit random code
+    }
+
+    @Override
+    public void savePendingUser(UsersDTO newUser, String code) {
+        PendingUser pendingUser = new PendingUser(newUser, code);
+        pendingUsers.put(newUser.getEmail(), pendingUser);
+    }
+
+    @Override
+    public boolean verifyCode(String email, String code) {
+        PendingUser pendingUser = pendingUsers.get(email);
+        return pendingUser != null && pendingUser.code().equals(code);
+    }
+
+    @Override
+    public UsersDTO createUserFromPending(String email) throws Exception{
+        PendingUser pendingUser = pendingUsers.remove(email);
+        if (pendingUser != null) {
+            return createUser(pendingUser.user());
+        }
+        throw new RuntimeException("No pending user found");
+    }
+
+        private record PendingUser(UsersDTO user, String code) {
+
+    }
+
+    @Override
+    public boolean isEmailRegistered(String email) {
+        return usersRepository.findByEmail(email).isPresent();
+    }
+
+
 }

@@ -8,9 +8,22 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      # ddl-auto: create-drop
+      #ddl-auto: create-drop
       dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: appkeepitup@gmail.com
+    password: ezro bmsd wcpm mzka
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 
 jwt:
   secret: M2JAJzJvcXNDLyFBNjVVZn5zLXw6Rj9HOC9OKzxnejZUXElWYiRxT0hEaDV2c29HYj4=

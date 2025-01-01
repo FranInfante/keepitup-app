@@ -19,5 +19,4 @@ public interface UsersInfoApi {
     @PatchMapping(UriConstants.SETLANGUAGEBYID)
     ResponseEntity<Void> setUserLanguage(@RequestBody SetUserLanguageRequestDTO requestDTO);
 
-
 }

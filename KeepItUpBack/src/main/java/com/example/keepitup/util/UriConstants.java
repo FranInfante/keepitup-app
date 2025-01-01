@@ -35,5 +35,9 @@ public class UriConstants {
 
     public static final String SETLANGUAGEBYID = "/set-language";
 
+    public static final String SEND_EMAIL = "/mail";
+    public static final String REGISTER = "/register";
+    public static final String VERIFY = "/verify";
+
 
 }
