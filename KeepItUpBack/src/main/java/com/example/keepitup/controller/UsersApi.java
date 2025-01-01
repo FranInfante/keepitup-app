@@ -1,6 +1,8 @@
 package com.example.keepitup.controller;
 
+import com.example.keepitup.model.dtos.MailDTO;
 import com.example.keepitup.model.dtos.UsersDTO;
+import com.example.keepitup.model.dtos.VerificationDTO;
 import com.example.keepitup.util.UriConstants;
 import com.example.keepitup.util.UserJwt;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +40,12 @@ public interface UsersApi {
     @GetMapping(UriConstants.USERS_INFO)
     ResponseEntity<UsersDTO> getUserInfo() throws Exception;
 
+    @PostMapping(UriConstants.SEND_EMAIL)
+    ResponseEntity<Void> sendEmail(@RequestBody MailDTO mailDTO);
+
+    @PostMapping(UriConstants.REGISTER)
+    ResponseEntity<String> registerUser(@RequestBody UsersDTO newUser);
+
+    @PostMapping(UriConstants.VERIFY)
+    ResponseEntity<UsersDTO> verifyCode(@RequestBody VerificationDTO verificationDTO) throws Exception;
 }

@@ -1,4 +1,9 @@
 <app-back-to-menu [navigationPath]="LOCATIONS.login"></app-back-to-menu>
+
+<app-verify-code-modal
+  [email]="userForm.get('email')?.value"
+  (codeVerified)="onCodeVerified()"
+></app-verify-code-modal>
 <div class="min-h-screen bg-gray-800 flex items-center justify-center">
   <div class="container mx-auto py-5">
     <div class="flex justify-center items-center h-full">
@@ -72,14 +77,14 @@
                       class="text-red-400"
                       *ngIf="userForm.get('username')?.errors?.['required']"
                     >
-                    {{ "REGISTER.USERNAME.REQUIRED" | translate }}
-                  </small>
+                      {{ "REGISTER.USERNAME.REQUIRED" | translate }}
+                    </small>
                     <small
                       class="text-red-400"
                       *ngIf="userForm.get('username')?.errors?.['minlength']"
                     >
-                    {{ "REGISTER.USERNAME.MIN_LENGTH" | translate }}
-                  </small>
+                      {{ "REGISTER.USERNAME.MIN_LENGTH" | translate }}
+                    </small>
                   </div>
                 </div>
 
@@ -88,8 +93,8 @@
                     for="inputPassword"
                     class="block text-sm font-medium text-gray-400"
                   >
-                  {{ "REGISTER.PASSWORD.LABEL" | translate }}
-                </label>
+                    {{ "REGISTER.PASSWORD.LABEL" | translate }}
+                  </label>
                   <input
                     type="password"
                     id="inputPassword"
@@ -107,14 +112,14 @@
                       class="text-red-400"
                       *ngIf="userForm.get('password')?.errors?.['required']"
                     >
-                    {{ "REGISTER.PASSWORD.REQUIRED" | translate }}
-                  </small>
+                      {{ "REGISTER.PASSWORD.REQUIRED" | translate }}
+                    </small>
                     <small
                       class="text-red-400"
                       *ngIf="userForm.get('password')?.errors?.['minlength']"
                     >
-                    {{ "REGISTER.PASSWORD.MIN_LENGTH" | translate }}
-                  </small>
+                      {{ "REGISTER.PASSWORD.MIN_LENGTH" | translate }}
+                    </small>
                   </div>
                 </div>
 
@@ -122,8 +127,8 @@
                   type="submit"
                   class="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-2 px-4 rounded-lg transition duration-150"
                 >
-                {{ "REGISTER.BUTTON" | translate }}
-              </button>
+                  {{ "REGISTER.BUTTON" | translate }}
+                </button>
               </div>
             </form>
 
@@ -134,8 +139,8 @@
                   class="text-gray-300 hover:text-gray-100 hover:underline"
                   [routerLink]="[LOCATIONS.login]"
                 >
-                {{ "REGISTER.LOGIN" | translate }}
-              </a>
+                  {{ "REGISTER.LOGIN" | translate }}
+                </a>
               </p>
             </div>
           </div>

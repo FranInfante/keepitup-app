@@ -23,6 +23,9 @@ public class MessageConstants {
     public static final String SET_NOT_FOUND = "Set not found";
     public static final String USER_DISABLE = "USER_DISABLED";
     public static final String INVALID_CREDENTIALS = "INVALID_CREDENTIALS";
+    public static final String USEROREMAILFOUND = "Username or email already exists";
+
+
 
 
 }

@@ -68,7 +68,9 @@
     "LOGOUT": "Sesión cerrada con éxito.",
     "REGISTER": "Registrado con éxito. Ahora puedes iniciar sesión.",
     "ERROR_REGISTER": "Error al registrar el usuario. Por favor, inténtalo más tarde.",
-    "FILL_ALL_FIELDS": "Por favor, completa todos los campos."
+    "ALREADY_EXISTS": "Email o nombre de usuario ya registrados.",
+    "FILL_ALL_FIELDS": "Por favor, completa todos los campos.",
+      "EMAIL_SENT": "Te hemos mandado un código de verificaion a tu email."
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",

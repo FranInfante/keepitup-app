@@ -25,4 +25,15 @@ public interface UsersService {
     UserJwt createAuthenticationToken(@RequestBody UsersDTO authenticationRequest) throws Exception;
 
     Optional<UsersDTO> getUserInformation();
+
+    String generateVerificationCode();
+
+    void savePendingUser(UsersDTO newUser, String code);
+
+    boolean verifyCode(String email, String code);
+
+    UsersDTO createUserFromPending(String email)  throws Exception;
+
+    boolean isEmailOrUsernameRegistered(String email, String username);
+
 }
