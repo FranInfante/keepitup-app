@@ -4,11 +4,17 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterModule,TranslateModule, LanguageSwitcherComponent, CommonModule],
+  imports: [
+    RouterModule,
+    TranslateModule,
+    LanguageSwitcherComponent,
+    CommonModule,
+  ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
@@ -22,9 +28,12 @@ export class LandingComponent {
   showLanguageModal: boolean = false;
 
   currentSection: string = ''; // Holds the currently active section ID
-  
-  constructor(private translate: TranslateService){};
-  
+
+  constructor(
+    private translate: TranslateService,
+    private themeService: ThemeService
+  ) {}
+
   // Listen to window scroll events
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -33,7 +42,7 @@ export class LandingComponent {
 
   toggleLanguageModal() {
     this.showLanguageModal = !this.showLanguageModal;
-  } 
+  }
 
   updateActiveSection() {
     const sections = document.querySelectorAll('section');
@@ -71,5 +80,12 @@ export class LandingComponent {
   switchLanguage(lang: string) {
     this.translate.use(lang);
     localStorage.setItem('language', lang);
+  }
+  toggleDarkMode() {
+    this.themeService.toggleTheme();
+  }
+
+  isDarkMode(): boolean {
+    return this.themeService.isDarkMode();
   }
 }
