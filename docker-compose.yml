@@ -5,8 +5,8 @@ services:
     image: postgres:latest
     container_name: keepitup_postgres
     environment:
-      POSTGRES_USER: fran
-      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       POSTGRES_DB: keepitup
     ports:
       - "5432:5432"
@@ -15,7 +15,7 @@ services:
     volumes:  # Fix: properly indented under 'postgres' service
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U fran"]
+      test: ["CMD-SHELL", "pg_isready -U ${SPRING_DATASOURCE_USERNAME}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -33,14 +33,13 @@ services:
     networks:
       - keepitup-network
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/keepitup
-      SPRING_DATASOURCE_USERNAME: fran
-      SPRING_DATASOURCE_PASSWORD: 123
-      SMTP_HOST: smtp.gmail.com
-      SMTP_PORT: 587
-      SMTP_USER: appkeepitup@gmail.com
-      SMTP_PASS: "ezro bmsd wcpm mzka"
-
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
   angular:
     build:
       context: ./KeepItUpFront
