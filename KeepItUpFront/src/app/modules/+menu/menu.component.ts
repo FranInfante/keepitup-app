@@ -6,6 +6,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../shared/service/language.service';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-menu',
@@ -23,8 +24,8 @@ export class MenuComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private translate: TranslateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private themeService: ThemeService
   ) {}
 
 
@@ -63,15 +64,11 @@ export class MenuComponent {
       this.showDropdown = false;
     }
   }
-
   toggleDarkMode() {
-    const htmlElement = document.documentElement;
-    if (htmlElement.classList.contains('dark')) {
-      htmlElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      htmlElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
+    this.themeService.toggleTheme();
+  }
+
+  isDarkMode(): boolean {
+    return this.themeService.isDarkMode();
   }
 }
