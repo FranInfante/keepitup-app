@@ -29,7 +29,22 @@ public class UsersInfoServiceImpl implements UsersInfoService {
 
     @Override
     public UsersInfoDTO getUserInfoByUserId(Integer userId) {
-        UsersInfo usersInfo = usersInfoRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException(MessageConstants.USER_NOT_FOUND));
+        UsersInfo usersInfo = usersInfoRepository.findByUserId(userId).orElse(null);
+        if (usersInfo == null) {
+            Users user = usersRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException(MessageConstants.USER_NOT_FOUND));
+
+            // Initialize UsersInfo for the user
+            usersInfo = UsersInfo.builder()
+                    .user(user)
+                    .initialWeight(0.0)
+                    .goalWeight(0.0)
+                    .workoutDaysPerWeek(0)
+                    .language("en") // Default language
+                    .build();
+
+            usersInfoRepository.save(usersInfo);
+        }
         return UsersInfoMapper.usersInfoEntityToDTO(usersInfo);
     }
 
