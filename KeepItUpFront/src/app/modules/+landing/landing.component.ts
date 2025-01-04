@@ -26,15 +26,13 @@ export class LandingComponent {
   logworkouts: string = ASSET_URLS.logworkouts;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal: boolean = false;
-
-  currentSection: string = ''; // Holds the currently active section ID
+  currentSection: string = ''; 
 
   constructor(
     private translate: TranslateService,
     private themeService: ThemeService
   ) {}
 
-  // Listen to window scroll events
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.updateActiveSection();
