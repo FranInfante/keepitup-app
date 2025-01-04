@@ -20,10 +20,6 @@ import { ThemeService } from '../../shared/service/theme.service';
 })
 export class LandingComponent {
   bg: string = ASSET_URLS.background;
-  target: string = ASSET_URLS.target;
-  tools: string = ASSET_URLS.tools;
-  weight: string = ASSET_URLS.weight;
-  logworkouts: string = ASSET_URLS.logworkouts;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal: boolean = false;
   currentSection: string = ''; 

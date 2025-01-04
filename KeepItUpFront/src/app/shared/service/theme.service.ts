@@ -11,7 +11,7 @@ export class ThemeService {
   }
 
   initializeTheme(): void {
-    const theme = localStorage.getItem(this.THEME_KEY);
+    const theme = localStorage.getItem(this.THEME_KEY) || 'dark';
     const htmlElement = document.documentElement;
 
     if (theme === 'dark') {
