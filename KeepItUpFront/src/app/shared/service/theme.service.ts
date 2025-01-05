@@ -6,9 +6,10 @@ import { UserService } from './user.service';
 })
 export class ThemeService {
 
+  private themeKey = 'theme';
+
   constructor(private userService: UserService) {
   }
-
   initializeTheme(): void {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
@@ -27,18 +28,19 @@ export class ThemeService {
             },
           });
         } else {
-          this.applyTheme('dark'); 
+          this.initializeThemeFromLocalStorage(); // Fallback for unauthenticated users
         }
       },
       error: (err) => {
         console.error('Failed to fetch current user:', err);
-        this.applyTheme('dark'); 
+        this.initializeThemeFromLocalStorage(); // Fallback for unauthenticated users
       },
     });
   }
 
-  initializeThemeLanding(): void {
-    this.applyTheme('dark');            
+  initializeThemeFromLocalStorage(): void {
+    const savedTheme = localStorage.getItem(this.themeKey) || 'dark';
+    this.applyTheme(savedTheme);
   }
 
   private applyTheme(theme: string): void {
@@ -51,26 +53,24 @@ export class ThemeService {
     }
   }
 
-  toggleTheme(): void {
-    const htmlElement = document.documentElement;
-
-    if (htmlElement.classList.contains('dark')) {
-      htmlElement.classList.remove('dark');
-      this.updateUserTheme('light');
-    } else {
-      htmlElement.classList.add('dark');
-      this.updateUserTheme('dark');
-    }
+  toggleThemeForUnauthenticated(): void {
+    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    this.applyTheme(newTheme);
+    localStorage.setItem(this.themeKey, newTheme);
   }
 
-  toggleThemeLanding(): void {
+  toggleTheme(): void {
     const htmlElement = document.documentElement;
+    const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
 
-    if (htmlElement.classList.contains('dark')) {
+    if (newTheme === 'light') {
       htmlElement.classList.remove('dark');
     } else {
       htmlElement.classList.add('dark');
     }
+
+    this.updateUserTheme(newTheme); // Updates theme in user info
   }
 
   private updateUserTheme(theme: string): void {
@@ -78,17 +78,11 @@ export class ThemeService {
       next: (user) => {
         if (user && user.id) {
           this.userService.setThemeWithUserId(user.id, theme).subscribe({
-            next: () => {
-            },
-            error: (err) => {
-              console.error('Failed to update user theme:', err);
-            },
+            error: (err) => console.error('Failed to update user theme:', err),
           });
         }
       },
-      error: (err) => {
-        console.error('Failed to fetch current user:', err);
-      },
+      error: (err) => console.error('Failed to fetch current user:', err),
     });
   }
 

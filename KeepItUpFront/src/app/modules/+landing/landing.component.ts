@@ -31,7 +31,7 @@ export class LandingComponent {
     private translate: TranslateService,
     private themeService: ThemeService
   ) {
-    this.themeService.initializeThemeLanding();
+    this.themeService.initializeThemeFromLocalStorage();
     this.isDark = this.themeService.isDarkMode();
   }
 
@@ -80,9 +80,8 @@ export class LandingComponent {
     this.translate.use(lang);
   }
   toggleDarkMode() {
-    this.themeService.toggleThemeLanding();
+    this.themeService.toggleThemeForUnauthenticated();
     this.isDark = this.themeService.isDarkMode();
-    console.log('Dark mode is now:', this.isDark);
 
   }
 
