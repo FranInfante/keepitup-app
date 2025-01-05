@@ -15,6 +15,7 @@ import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-t
 import { LoadingService } from '../../shared/service/loading.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../shared/service/language.service';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-workouts',
@@ -45,11 +46,14 @@ export class WorkoutsComponent implements OnInit {
     private workoutService: WorkoutsService,
     private loadingService: LoadingService,
     private userService: UserService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.languageService.setUserLanguage();
+    this.themeService.initializeThemeUserFromLocalStorage();
+
     this.loadingService.setLoading(true);
     this.initializeForm();
 

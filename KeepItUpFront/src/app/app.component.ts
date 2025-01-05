@@ -21,9 +21,6 @@ export class AppComponent {
 
     this.translate.setDefaultLang('en');
 
-    const savedLang = localStorage.getItem('language') || 'en';
-    this.translate.use(savedLang);
-
     this.isLoading$ = this.loadingService.isLoading$;
 
     

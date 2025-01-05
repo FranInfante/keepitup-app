@@ -1,15 +1,15 @@
 <app-back-to-menu></app-back-to-menu>
 
-<div class="min-h-screen bg-gray-800 flex flex-col">
+<div class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col">
   <!-- Page Header -->
   <div class="py-6 text-center">
-    <h1 class="text-3xl font-extrabold text-gray-100">
+    <h1 class="text-3xl font-extrabold text-gray-800 dark:text-gray-100">
       {{ "WEIGH_INS.TITLE" | translate }}
     </h1>
   </div>
 
   <!-- Stats -->
-  <div class="bg-gray-800 text-gray-100 px-6 py-2">
+  <div class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 px-6 py-2">
     <div class="max-w-lg mx-auto">
       <h2 class="text-xl text-center font-bold mb-2">
         {{ "WEIGH_INS.STATS.TITLE" | translate }}
@@ -23,7 +23,7 @@
 
   <!-- Main Content -->
   <div class="flex justify-center items-center">
-    <div class="w-full max-w-lg text-gray-100 rounded-xl px-6 space-y-8">
+    <div class="w-full max-w-lg text-gray-800 dark:text-gray-100 rounded-xl px-6 space-y-8">
       <!-- Previous Logs -->
       <div>
         <h2 class="text-xl text-center font-bold mb-4">
@@ -31,7 +31,7 @@
         </h2>
         <div
           *ngIf="previousLogs.length === 0; else logsList"
-          class="flex justify-center items-center text-center h-[calc(100vh-300px)] bg-gray-700 p-4 rounded-lg shadow-md border border-gray-600"
+          class="flex justify-center items-center text-center h-[calc(100vh-300px)] bg-gray-200 dark:bg-gray-700 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-600"
         >
           <p class="text-gray-400">
             {{ "WEIGH_INS.PREVIOUS_LOGS.NO_LOGS" | translate }}
@@ -39,11 +39,11 @@
         </div>
         <ng-template #logsList>
           <ul
-            class="space-y-2 text-center bg-gray-700 p-4 rounded-lg shadow-md border border-gray-600 overflow-auto h-[calc(100vh-300px)]"
+            class="space-y-2 text-center bg-gray-200 dark:bg-gray-700 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-600 overflow-auto h-[calc(100vh-300px)]"
           >
             <li
               *ngFor="let log of previousLogs"
-              class="bg-gray-800 p-3 rounded-lg shadow-2xl border-2 border-opacity-35 border-black flex justify-between items-center"
+              class="bg-gray-200 dark:bg-gray-800 p-3 rounded-lg shadow-2xl border-2 border-opacity-35 border-gray-600 dark:border-gray-800 flex justify-between items-center"
             >
               <div class="flex-1 text-center">
                 <p>
@@ -84,7 +84,7 @@
         id="delete-modal"
         *ngIf="showDeleteModal"
         tabindex="-1"
-        class="fixed top-0 left-0 right-0 z-40 flex justify-center items-center w-full h-full bg-gray-800 bg-opacity-75"
+        class="fixed top-0 left-0 right-0 z-40 flex justify-center items-center w-full h-full bg-gray-200 dark:bg-gray-800 bg-opacity-75"
       >
         <div class="relative p-4 w-full max-w-md">
           <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -99,7 +99,7 @@
               </h3>
               <button
                 type="button"
-                class="absolute top-4 right-4 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+                class="absolute top-4 right-4 text-gray-800 dark:text-gray-100 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
                 (click)="cancelDelete()"
               >
                 <svg
@@ -134,18 +134,19 @@
             <div
               class="flex justify-end items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600"
             >
-              <button
-                (click)="confirmDelete()"
-                class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
-              >
-                {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.CONFIRM" | translate }}
-              </button>
+              
               <button
                 (click)="cancelDelete()"
                 type="button"
-                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.CANCEL" | translate }}
+              </button>
+              <button
+                (click)="confirmDelete()"
+                class="ms-3 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
+              >
+                {{ "WEIGH_INS.MODAL.DELETE_CONFIRMATION.CONFIRM" | translate }}
               </button>
             </div>
           </div>
@@ -184,7 +185,7 @@
     *ngIf="showForm"
     id="add-weighin-modal"
     tabindex="-1"
-    class="fixed inset-0 z-40 flex items-center justify-center w-full h-full bg-gray-800 bg-opacity-75"
+    class="fixed inset-0 z-40 flex items-center justify-center w-full h-full bg-gray-200 dark:bg-gray-800 bg-opacity-75"
   >
     <div class="relative p-4 w-full max-w-md">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -197,7 +198,7 @@
           </h3>
           <button
             type="button"
-            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+            class="text-gray-800 dark:text-gray-100 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
             (click)="toggleForm()"
           >
             <svg
@@ -233,7 +234,7 @@
                 type="number"
                 id="weight"
                 formControlName="weight"
-                class="w-full text-center mt-1 px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
+                class="w-full text-center mt-1 px-3 py-2 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
                 placeholder="{{
                   'WEIGH_INS.MODAL.ADD_LOG.WEIGHT_PLACEHOLDER' | translate
                 }}"
@@ -259,7 +260,7 @@
                 type="date"
                 id="date"
                 formControlName="date"
-                class="w-full text-center mt-1 px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
+                class="w-full text-center mt-1 px-3 py-2 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
               />
             </div>
           </form>
@@ -279,7 +280,7 @@
           <button
             type="submit"
             (click)="logWeight()"
-            class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
+            class="py-2 px-4 ms-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
           >
             {{ "WEIGH_INS.MODAL.ADD_LOG.SAVE" | translate }}
           </button>

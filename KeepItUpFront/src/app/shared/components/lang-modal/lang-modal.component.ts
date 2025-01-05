@@ -52,7 +52,6 @@ export class LanguageSwitcherComponent {
 
   private applyLanguage(lang: string) {
     this.translate.use(lang);
-    localStorage.setItem('language', lang);
     this.closeModal.emit();
   }
 }

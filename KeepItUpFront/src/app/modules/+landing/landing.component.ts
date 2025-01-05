@@ -4,28 +4,37 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterModule,TranslateModule, LanguageSwitcherComponent, CommonModule],
+  imports: [
+    RouterModule,
+    TranslateModule,
+    LanguageSwitcherComponent,
+    CommonModule,
+  ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
 export class LandingComponent {
   bg: string = ASSET_URLS.background;
-  target: string = ASSET_URLS.target;
-  tools: string = ASSET_URLS.tools;
-  weight: string = ASSET_URLS.weight;
-  logworkouts: string = ASSET_URLS.logworkouts;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal: boolean = false;
+  currentSection: string = '';
+  isDark: boolean = false;
+  sun: string = ASSET_URLS.sun;
+  moon: string = ASSET_URLS.moon;
 
-  currentSection: string = ''; // Holds the currently active section ID
-  
-  constructor(private translate: TranslateService){};
-  
-  // Listen to window scroll events
+  constructor(
+    private translate: TranslateService,
+    private themeService: ThemeService
+  ) {
+    this.themeService.initializeThemeFromLocalStorage();
+    this.isDark = this.themeService.isDarkMode();
+  }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.updateActiveSection();
@@ -33,11 +42,11 @@ export class LandingComponent {
 
   toggleLanguageModal() {
     this.showLanguageModal = !this.showLanguageModal;
-  } 
+  }
 
   updateActiveSection() {
     const sections = document.querySelectorAll('section');
-    const offset = 200; // Adjust offset for the navbar height
+    const offset = 200;
     let activeSection = '';
 
     sections.forEach((section) => {
@@ -57,7 +66,6 @@ export class LandingComponent {
     this.highlightActiveLink();
   }
 
-  // Add 'text-blue-500' and 'font-bold' to the active link
   highlightActiveLink() {
     const links = document.querySelectorAll('.nav-link');
     links.forEach((link) => {
@@ -70,6 +78,11 @@ export class LandingComponent {
 
   switchLanguage(lang: string) {
     this.translate.use(lang);
-    localStorage.setItem('language', lang);
   }
+  toggleDarkMode() {
+    this.themeService.toggleThemeForUnauthenticated();
+    this.isDark = this.themeService.isDarkMode();
+
+  }
+
 }

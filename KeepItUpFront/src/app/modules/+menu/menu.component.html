@@ -1,7 +1,10 @@
-<div class="min-h-screen bg-gray-800 flex flex-col">
+<div
+  *ngIf="themeLoaded"
+  class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
+>
   <div class="py-6 px-6 flex items-center justify-between relative">
     <h1
-      class="top-5 text-3xl font-extrabold text-gray-100 absolute left-1/2 transform -translate-x-1/2"
+      class="top-5 text-3xl font-extrabold absolute left-1/2 transform -translate-x-1/2"
     >
       {{ "MENU.TITLE" | translate }}
     </h1>
@@ -11,27 +14,48 @@
       <button
         (click)="toggleDropdown()"
         aria-label="Settings"
-        class="p-3 bg-gray-700 rounded-xl dropdown-button"
+        class="p-3 bg-gray-300 dark:bg-gray-700 rounded-xl dropdown-button"
       >
-        <img [src]="gear" alt="gear" class="h-8" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="30"
+          height="30"
+          stroke-width="2"
+        >
+          <path
+            d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+          ></path>
+          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+        </svg>
       </button>
 
       <!-- Dropdown Menu -->
       <div
         *ngIf="showDropdown"
-        class="absolute right-0 w-48 bg-white rounded-md shadow-lg py-2 z-50 dropdown-menu"
+        class="absolute right-0 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-2 z-50 dropdown-menu"
       >
         <button
           (click)="logout()"
-          class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
         >
           {{ "MENU.LOGOUT" | translate }}
         </button>
         <button
           (click)="toggleLanguageModal()"
-          class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
         >
           {{ "MENU.CHANGE_LANGUAGE" | translate }}
+        </button>
+        <button
+          (click)="toggleDarkMode()"
+          class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+        >
+          {{ "MENU.MODE_TOGGLE" | translate }}
         </button>
       </div>
     </div>
@@ -42,13 +66,13 @@
       <div class="grid grid-cols-1 gap-6 justify-items-center">
         <button
           (click)="navigateToWeighIns()"
-          class="w-[80%] h-[10rem] bg-gray-700 text-gray-100 font-semibold text-2xl rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transform hover:scale-105 transition duration-200 ease-in-out"
+          class="w-[80%] h-[10rem] bg-gray-300 text-gray-900 dark:bg-gray-700 dark:text-gray-100 font-semibold text-2xl rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-lg transform hover:scale-105 transition duration-200 ease-in-out"
         >
           {{ "MENU.WEIGH_INS" | translate }}
         </button>
         <button
           (click)="navigateToWorkouts()"
-          class="w-[80%] h-[10rem] bg-gray-700 text-gray-100 font-semibold text-2xl rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transform hover:scale-105 transition duration-200 ease-in-out"
+          class="w-[80%] h-[10rem] bg-gray-300 text-gray-900 dark:bg-gray-700 dark:text-gray-100 font-semibold text-2xl rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-lg transform hover:scale-105 transition duration-200 ease-in-out"
         >
           {{ "MENU.WORKOUTS" | translate }}
         </button>

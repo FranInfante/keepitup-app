@@ -27,6 +27,9 @@ public class UsersInfo {
     @Column(nullable = true)
     private String language;
 
+    @Column(nullable = true)
+    private String theme;
+
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;

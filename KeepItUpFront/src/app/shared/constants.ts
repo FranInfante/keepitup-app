@@ -30,13 +30,9 @@ export const TOAST_MSGS = {
 
 
 export const ASSET_URLS = {
-  background: '/background.mp4',
-  target:'/svgs/landing-icons/target.svg',
-  tools:'/svgs/landing-icons/tools.svg',
-  weight:'/svgs/landing-icons/weight.svg',
-  logworkouts:'/svgs/landing-icons/logworkouts.svg',
-  spain:'/svgs/translation-flags/spain.svg',
-  english:'/svgs/translation-flags/english.svg',
-  gear:'/svgs/menu-icons/gear.svg',
-
+  background: 'module_assets/landing-assets/background.mp4',
+  spain:'/module_assets/translation-flags/spain.svg',
+  english:'/module_assets/translation-flags/english.svg',
+  sun:'/module_assets/landing-assets/sun.svg',
+  moon:'/module_assets/landing-assets/moon.svg'
 };

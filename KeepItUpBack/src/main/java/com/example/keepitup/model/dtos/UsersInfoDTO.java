@@ -14,4 +14,6 @@ public class UsersInfoDTO {
     private double goalWeight;
     private Integer workoutDaysPerWeek;
     private String language;
+    private String theme;
+
 }

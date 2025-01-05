@@ -1,20 +1,22 @@
-<div class="bg-gray-900 text-gray-100">
+<div class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
   <!-- Navbar -->
-  <div class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+  <div
+    class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 min-h-screen flex flex-col"
+  >
     <header
-      class="bg-gray-900 border-b border-gray-700 shadow flex-none fixed top-0 z-50 w-full"
+      class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 border-b border-gray-700 shadow flex-none fixed top-0 z-50 w-full"
     >
       <div
         class="container mx-auto px-4 py-4 flex flex-wrap flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:justify-between"
       >
         <h1
-          class="text-2xl font-bold text-gray-200 w-full text-center md:w-auto md:text-left"
+          class="text-2xl font-bold w-full text-center md:w-auto md:text-left"
         >
           <a href="#hero">{{ "MENU.TITLE" | translate }}</a>
         </h1>
         <nav>
           <ul
-            class="flex flex-wrap items-center justify-center space-x-4 text-gray-400 mt-4 md:mt-0"
+            class="flex flex-wrap items-center justify-center space-x-4 mt-4 md:mt-0"
           >
             <li>
               <a href="#about" class="nav-link hover:text-white transition">{{
@@ -35,10 +37,26 @@
             </li>
             <li>
               <button
-                class="p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="p-2 bg-gray-700 text-gray-100 dark:bg-gray-200 dark:text-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 (click)="toggleLanguageModal()"
               >
                 {{ "MENU.CHANGE_LANGUAGE" | translate }}
+              </button>
+            </li>
+            <li>
+              <!-- Theme toggle button -->
+              <button
+                (click)="toggleDarkMode()"
+                class="p-2 bg-gray-700 text-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center"
+              >
+                <ng-container *ngIf="isDark; else lightModeIcon">
+                  <!-- Moon Icon -->
+                  <img [src]="moon" alt="Moon Icon" />
+                </ng-container>
+                <ng-template #lightModeIcon>
+                  <!-- Sun Icon -->
+                  <img [src]="sun" alt="Moon Icon" />
+                </ng-template>
               </button>
             </li>
           </ul>
@@ -65,7 +83,7 @@
           <h1 class="text-4xl font-extrabold text-white">
             {{ "LANDING.HERO.WELCOME" | translate }}
           </h1>
-          <p class="mt-4 text-lg font-bold text-white-300">
+          <p class="mt-4 text-lg font-bold text-white">
             {{ "LANDING.HERO.DESCRIPTION" | translate }}
           </p>
           <button
@@ -82,28 +100,76 @@
   <!-- About Section -->
   <section
     id="about"
-    class="py-16 bg-gradient-to-b from-gray-800 to-gray-900 h-screen flex items-center"
+    class="py-16 bg-gradient-to-b from-gray-200 to-gray-500 dark:from-gray-800 dark:to-gray-900 h-screen flex items-center"
   >
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center text-white mb-8">
+      <h2
+        class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-8"
+      >
         {{ "LANDING.ABOUT.TITLE" | translate }}
       </h2>
       <div class="flex flex-wrap items-center justify-center gap-8">
-        <div class="bg-gray-900 p-6 rounded-lg shadow text-center max-w-md">
-          <img [src]="target" alt="Goal" class="mx-auto w-16 h-16 mb-4" />
-          <h3 class="text-2xl font-semibold text-blue-500 mb-2">
+        <div
+          class="bg-gray-100 dark:bg-gray-900 p-6 rounded-lg shadow text-center max-w-md"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="64"
+            height="64"
+            stroke-width="1"
+            class="mx-auto mb-4 text-gray-900 dark:text-white"
+          >
+            <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+            <path d="M12 7a5 5 0 1 0 5 5"></path>
+            <path d="M13 3.055a9 9 0 1 0 7.941 7.945"></path>
+            <path d="M15 6v3h3l3 -3h-3v-3z"></path>
+            <path d="M15 9l-3 3"></path>
+          </svg>
+          <h3
+            class="text-2xl font-semibold text-blue-600 dark:text-blue-500 mb-2"
+          >
             {{ "LANDING.ABOUT.MISSION" | translate }}
           </h3>
-          <p class="text-gray-300">
+          <p class="text-gray-700 dark:text-gray-300">
             {{ "LANDING.ABOUT.MISSION_DESCRIPTION" | translate }}
           </p>
         </div>
-        <div class="bg-gray-900 p-6 rounded-lg shadow text-center max-w-md">
-          <img [src]="tools" alt="Tools" class="mx-auto w-16 h-16 mb-4" />
-          <h3 class="text-2xl font-semibold text-blue-500 mb-2">
+        <div
+          class="bg-gray-100 dark:bg-gray-900 p-6 rounded-lg shadow text-center max-w-md"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="64"
+            height="64"
+            stroke-width="1"
+            class="mx-auto mb-4 text-gray-900 dark:text-white"
+          >
+            <path
+              d="M13 10l7.383 7.418c.823 .82 .823 2.148 0 2.967a2.11 2.11 0 0 1 -2.976 0l-7.407 -7.385"
+            ></path>
+            <path d="M6 9l4 4"></path>
+            <path d="M13 10l-4 -4"></path>
+            <path d="M3 21h7"></path>
+            <path
+              d="M6.793 15.793l-3.586 -3.586a1 1 0 0 1 0 -1.414l2.293 -2.293l.5 .5l3 -3l-.5 -.5l2.293 -2.293a1 1 0 0 1 1.414 0l3.586 3.586a1 1 0 0 1 0 1.414l-2.293 2.293l-.5 -.5l-3 3l.5 .5l-2.293 2.293a1 1 0 0 1 -1.414 0z"
+            ></path>
+          </svg>
+          <h3
+            class="text-2xl font-semibold text-blue-600 dark:text-blue-500 mb-2"
+          >
             {{ "LANDING.ABOUT.TOOLS" | translate }}
           </h3>
-          <p class="text-gray-300">
+          <p class="text-gray-700 dark:text-gray-300">
             {{ "LANDING.ABOUT.TOOLS_DESCRIPTION" | translate }}
           </p>
         </div>
@@ -114,40 +180,67 @@
   <!-- Features Section -->
   <section
     id="features"
-    class="py-16 bg-gradient-to-b from-gray-900 to-gray-800 h-screen flex items-center"
+    class="py-16 bg-gradient-to-b from-gray-500 to-gray-200 dark:from-gray-900 dark:to-gray-800 h-screen flex items-center"
   >
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center text-gray-200 mb-8">
+      <h2
+        class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-8"
+      >
         {{ "LANDING.FEATURES.TITLE" | translate }}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
         <div
-          class="p-6 bg-gray-800 border border-gray-700 shadow rounded-lg text-center transition hover:scale-105"
+          class="p-6 bg-gray-100 dark:bg-gray-800 shadow rounded-lg text-center transition"
         >
-          <img
-            [src]="weight"
-            alt="Log Weigh-ins"
-            class="mx-auto w-12 h-12 mb-4"
-          />
-          <h3 class="text-2xl font-semibold text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="64"
+            height="64"
+            stroke-width="1"
+            class="mx-auto mb-4 text-gray-900 dark:text-white"
+          >
+            <path
+              d="M3 3m0 4a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z"
+            ></path>
+            <path
+              d="M12 7c1.956 0 3.724 .802 5 2.095l-2.956 2.904a3 3 0 0 0 -2.038 -.799a3 3 0 0 0 -2.038 .798l-2.956 -2.903a6.979 6.979 0 0 1 5 -2.095z"
+            ></path>
+          </svg>
+          <h3 class="text-2xl font-semibold text-blue-600 dark:text-blue-500">
             {{ "LANDING.FEATURES.LOG_WEIGH_INS" | translate }}
           </h3>
-          <p class="mt-4 text-gray-300">
+          <p class="mt-4 text-gray-700 dark:text-gray-300">
             {{ "LANDING.FEATURES.LOG_WEIGH_INS_DESCRIPTION" | translate }}
           </p>
         </div>
         <div
-          class="p-6 bg-gray-800 border border-gray-700 shadow rounded-lg text-center transition hover:scale-105"
+          class="p-6 bg-gray-100 dark:bg-gray-800 shadow rounded-lg text-center transition"
         >
-          <img
-            [src]="logworkouts"
-            alt="Log Workouts"
-            class="mx-auto w-12 h-12 mb-4"
-          />
-          <h3 class="text-2xl font-semibold text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="64"
+            height="64"
+            stroke-width="1"
+            class="mx-auto mb-4 text-gray-900 dark:text-white"
+          >
+            <path d="M16 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+            <path d="M5 20l5 -.5l1 -2"></path>
+            <path d="M18 20v-5h-5.5l2.5 -6.5l-5.5 1l1.5 2"></path>
+          </svg>
+          <h3 class="text-2xl font-semibold text-blue-600 dark:text-blue-500">
             {{ "LANDING.FEATURES.LOG_WORKOUTS" | translate }}
           </h3>
-          <p class="mt-4 text-gray-300">
+          <p class="mt-4 text-gray-700 dark:text-gray-300">
             {{ "LANDING.FEATURES.LOG_WORKOUTS_DESCRIPTION" | translate }}
           </p>
         </div>
@@ -155,75 +248,77 @@
     </div>
   </section>
 
+<!-- Contact Section -->
+ 
   <section
-    id="contact"
-    class="py-16 bg-gradient-to-b from-gray-800 to-gray-900 h-screen flex items-center justify-center"
-  >
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-gray-200">
-        {{ "LANDING.CONTACT.TITLE" | translate }}
-      </h2>
-      <p class="mt-4 text-gray-300 px-11">
-        {{ "LANDING.CONTACT.TITLE" | translate }}
-      </p>
-      <div class="flex justify-center mt-8 space-x-8">
-        <!-- Email Icon -->
-        <a
-          href="mailto:fjinfantejob@gmail.com"
-          target="_blank"
-          class="group transform hover:scale-110 transition duration-300"
-        >
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
-            alt="Email"
-            class="w-12 h-12 mx-auto"
-          />
-          <p class="mt-2 text-sm text-gray-300 group-hover:text-blue-500">
-            {{ "LANDING.CONTACT.EMAIL" | translate }}
-          </p>
-        </a>
-        <!-- LinkedIn Icon -->
-        <a
-          href="https://www.linkedin.com/in/franinfante/"
-          target="_blank"
-          class="group transform hover:scale-110 transition duration-300"
-        >
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-            alt="LinkedIn"
-            class="w-12 h-12 mx-auto"
-          />
-          <p class="mt-2 text-sm text-gray-300 group-hover:text-blue-500">
-            {{ "LANDING.CONTACT.LINKEDIN" | translate }}
-          </p>
-        </a>
-      </div>
+  id="contact"
+  class="py-16 bg-gradient-to-b from-gray-200 to-gray-500 dark:from-gray-800 dark:to-gray-900 h-screen flex items-center justify-center"
+>
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+      {{ "LANDING.CONTACT.TITLE" | translate }}
+    </h2>
+    <p class="mt-4 text-gray-700 dark:text-gray-300 px-11">
+      {{ "LANDING.CONTACT.TITLE" | translate }}
+    </p>
+    <div class="flex justify-center mt-8 space-x-8">
+      <!-- Email Icon -->
+      <a
+        href="mailto:fjinfantejob@gmail.com"
+        target="_blank"
+        class="group transform hover:scale-110 transition duration-300"
+      >
+      <img
+      src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+      alt="Email"
+      class="w-12 h-12 mx-auto"
+    />
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 group-hover:text-blue-500">
+          {{ "LANDING.CONTACT.EMAIL" | translate }}
+        </p>
+      </a>
+      <!-- LinkedIn Icon -->
+      <a
+        href="https://www.linkedin.com/in/franinfante/"
+        target="_blank"
+        class="group transform hover:scale-110 transition duration-300"
+      >
+      <img
+      src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+      alt="LinkedIn"
+      class="w-12 h-12 mx-auto"
+    />
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 group-hover:text-blue-500">
+          {{ "LANDING.CONTACT.LINKEDIN" | translate }}
+        </p>
+      </a>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Call-to-Action Section -->
   <section
-    class="bg-gradient-to-b from-gray-900 to-gray-800 py-16 h-screen flex items-center justify-center"
-  >
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-white">
-        {{ "LANDING.CTA.TITLE" | translate }}
-      </h2>
-      <p class="mt-4 text-gray-300">
-        {{ "LANDING.CTA.DESCRIPTION" | translate }}
-      </p>
-      <button
-        class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-500"
-        [routerLink]="[LOCATIONS.login]"
-      >
-        {{ "LANDING.CTA.SIGN_UP" | translate }}
-      </button>
-    </div>
-  </section>
+  class="py-16 bg-gradient-to-b from-gray-500 to-gray-200 dark:from-gray-900 dark:to-gray-800 h-screen flex items-center justify-center"
+>
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+      {{ "LANDING.CTA.TITLE" | translate }}
+    </h2>
+    <p class="mt-4 text-gray-700 dark:text-gray-300">
+      {{ "LANDING.CTA.DESCRIPTION" | translate }}
+    </p>
+    <button
+      class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-500"
+      [routerLink]="[LOCATIONS.login]"
+    >
+      {{ "LANDING.CTA.SIGN_UP" | translate }}
+    </button>
+  </div>
+</section>
   <!-- Footer -->
-  <footer class="bg-gray-800 border-t border-gray-700 py-4">
+  <footer class="bg-gray-200 dark:bg-gray-800 py-4">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-gray-400">{{ "LANDING.FOOTER.COPYRIGHT" | translate }}</p>
+      <p class="text-gray-800 dark:text-gray-400">{{ "LANDING.FOOTER.COPYRIGHT" | translate }}</p>
     </div>
   </footer>
   <app-lang-modal
