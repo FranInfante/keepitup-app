@@ -16,7 +16,6 @@ export class LanguageService {
             next: (userInfo) => {
               if (userInfo && userInfo.language) {
                 this.translate.use(userInfo.language); 
-                localStorage.setItem('language', userInfo.language); 
               }
             },
             error: (err) => {
