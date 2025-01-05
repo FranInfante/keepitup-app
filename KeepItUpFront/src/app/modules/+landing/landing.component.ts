@@ -27,7 +27,9 @@ export class LandingComponent {
   constructor(
     private translate: TranslateService,
     private themeService: ThemeService
-  ) {}
+  ) {
+    this.themeService.initializeThemeLanding();
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -40,7 +42,7 @@ export class LandingComponent {
 
   updateActiveSection() {
     const sections = document.querySelectorAll('section');
-    const offset = 200; // Adjust offset for the navbar height
+    const offset = 200;
     let activeSection = '';
 
     sections.forEach((section) => {
@@ -60,7 +62,6 @@ export class LandingComponent {
     this.highlightActiveLink();
   }
 
-  // Add 'text-blue-500' and 'font-bold' to the active link
   highlightActiveLink() {
     const links = document.querySelectorAll('.nav-link');
     links.forEach((link) => {
@@ -73,10 +74,9 @@ export class LandingComponent {
 
   switchLanguage(lang: string) {
     this.translate.use(lang);
-    localStorage.setItem('language', lang);
   }
   toggleDarkMode() {
-    this.themeService.toggleTheme();
+    this.themeService.toggleThemeLanding();
   }
 
   isDarkMode(): boolean {

@@ -146,6 +146,22 @@ export class UserService {
       );
   }
 
+  setThemeWithUserId(userId: number, theme: string): Observable<void> {
+    const body = {
+      userId: userId,
+      theme: theme,
+    };
+
+    return this.http
+      .patch<void>(`${USERS_INFO_ROUTES.setTheme()}`, body)
+      .pipe(
+        catchError((error) => {
+          console.error('Failed to set theme:', error);
+          return throwError(() => new Error('Failed to set theme.'));
+        })
+      );
+  }
+
   getUserInfo(userId: number): Observable<any> {
     return this.http.get<any>(USERS_INFO_ROUTES.getUsersInfo(userId)).pipe(
       catchError((error) => {

@@ -1,17 +1,47 @@
 import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  private readonly THEME_KEY = 'theme';
 
-  constructor() {
-    this.initializeTheme();
+  constructor(private userService: UserService) {
   }
 
   initializeTheme(): void {
-    const theme = localStorage.getItem(this.THEME_KEY) || 'dark';
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        if (user && user.id) {
+          this.userService.getUserInfo(user.id).subscribe({
+            next: (userInfo) => {
+              if (userInfo?.theme) {
+                this.applyTheme(userInfo.theme);
+              } else {
+                this.applyTheme('dark');
+              }
+            },
+            error: (err) => {
+              console.error('Failed to fetch user info:', err);
+              this.applyTheme('dark');
+            },
+          });
+        } else {
+          this.applyTheme('dark'); 
+        }
+      },
+      error: (err) => {
+        console.error('Failed to fetch current user:', err);
+        this.applyTheme('dark'); 
+      },
+    });
+  }
+
+  initializeThemeLanding(): void {
+    this.applyTheme('dark');            
+  }
+
+  private applyTheme(theme: string): void {
     const htmlElement = document.documentElement;
 
     if (theme === 'dark') {
@@ -26,11 +56,40 @@ export class ThemeService {
 
     if (htmlElement.classList.contains('dark')) {
       htmlElement.classList.remove('dark');
-      localStorage.setItem(this.THEME_KEY, 'light');
+      this.updateUserTheme('light');
     } else {
       htmlElement.classList.add('dark');
-      localStorage.setItem(this.THEME_KEY, 'dark');
+      this.updateUserTheme('dark');
     }
+  }
+
+  toggleThemeLanding(): void {
+    const htmlElement = document.documentElement;
+
+    if (htmlElement.classList.contains('dark')) {
+      htmlElement.classList.remove('dark');
+    } else {
+      htmlElement.classList.add('dark');
+    }
+  }
+
+  private updateUserTheme(theme: string): void {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        if (user && user.id) {
+          this.userService.setThemeWithUserId(user.id, theme).subscribe({
+            next: () => {
+            },
+            error: (err) => {
+              console.error('Failed to update user theme:', err);
+            },
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Failed to fetch current user:', err);
+      },
+    });
   }
 
   isDarkMode(): boolean {
