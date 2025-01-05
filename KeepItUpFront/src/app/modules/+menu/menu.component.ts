@@ -8,12 +8,11 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../shared/service/language.service';
 import { ThemeService } from '../../shared/service/theme.service';
 import { LoadingService } from '../../shared/service/loading.service';
-import { LoadingSpinnerComponent } from "../../shared/components/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [TranslateModule, LanguageSwitcherComponent, CommonModule, LoadingSpinnerComponent],
+  imports: [TranslateModule, LanguageSwitcherComponent, CommonModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
 })
