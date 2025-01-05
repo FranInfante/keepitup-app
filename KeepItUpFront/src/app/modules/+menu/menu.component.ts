@@ -20,7 +20,6 @@ export class MenuComponent {
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal = false;
   showDropdown = false;
-  gear: string = ASSET_URLS.gear;
   themeLoaded = false;
 
   constructor(

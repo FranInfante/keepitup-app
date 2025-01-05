@@ -50,6 +50,10 @@ export class ThemeService {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     this.applyTheme(savedTheme);
   }
+  initializeThemeUserFromLocalStorage(): void {
+    const savedThemeUser = localStorage.getItem('themeUser') || 'dark';
+    this.applyTheme(savedThemeUser);
+  }
 
   private applyTheme(theme: string): void {
     const htmlElement = document.documentElement;

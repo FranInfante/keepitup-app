@@ -1,4 +1,7 @@
-<div *ngIf="themeLoaded" class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col">
+<div
+  *ngIf="themeLoaded"
+  class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
+>
   <div class="py-6 px-6 flex items-center justify-between relative">
     <h1
       class="top-5 text-3xl font-extrabold absolute left-1/2 transform -translate-x-1/2"
@@ -13,7 +16,22 @@
         aria-label="Settings"
         class="p-3 bg-gray-300 dark:bg-gray-700 rounded-xl dropdown-button"
       >
-        <img [src]="gear" alt="gear" class="h-8" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="30"
+          height="30"
+          stroke-width="2"
+        >
+          <path
+            d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+          ></path>
+          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+        </svg>
       </button>
 
       <!-- Dropdown Menu -->
