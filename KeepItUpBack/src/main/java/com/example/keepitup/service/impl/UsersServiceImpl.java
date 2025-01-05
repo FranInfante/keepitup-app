@@ -77,6 +77,7 @@ public class UsersServiceImpl implements UsersService {
                 .goalWeight(0.0)
                 .workoutDaysPerWeek(0)
                 .language("en")
+                .theme("dark")
                 .build();
 
         usersInfoRepository.save(usersInfo);

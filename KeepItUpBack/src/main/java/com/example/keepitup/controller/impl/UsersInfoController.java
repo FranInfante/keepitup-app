@@ -2,6 +2,7 @@ package com.example.keepitup.controller.impl;
 
 import com.example.keepitup.controller.UsersInfoApi;
 import com.example.keepitup.model.dtos.SetUserLanguageRequestDTO;
+import com.example.keepitup.model.dtos.SetUserThemeRequestDTO;
 import com.example.keepitup.model.dtos.UsersInfoDTO;
 import com.example.keepitup.service.UsersInfoService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,12 @@ public class UsersInfoController implements UsersInfoApi {
     @Override
     public ResponseEntity<Void> setUserLanguage(SetUserLanguageRequestDTO requestDTO) {
         usersInfoService.updateUserLanguage(requestDTO.getUserId(), requestDTO.getLanguage());
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> setUserTheme(SetUserThemeRequestDTO requestDTO) {
+        usersInfoService.updateUserTheme(requestDTO.getUserId(), requestDTO.getTheme());
         return ResponseEntity.noContent().build();
     }
 }

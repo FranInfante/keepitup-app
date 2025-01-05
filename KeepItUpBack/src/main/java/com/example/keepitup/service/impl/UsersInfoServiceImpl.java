@@ -34,13 +34,13 @@ public class UsersInfoServiceImpl implements UsersInfoService {
             Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException(MessageConstants.USER_NOT_FOUND));
 
-            // Initialize UsersInfo for the user
             usersInfo = UsersInfo.builder()
                     .user(user)
                     .initialWeight(0.0)
                     .goalWeight(0.0)
                     .workoutDaysPerWeek(0)
-                    .language("en") // Default language
+                    .language("en")
+                    .theme("dark")
                     .build();
 
             usersInfoRepository.save(usersInfo);
@@ -67,6 +67,29 @@ public class UsersInfoServiceImpl implements UsersInfoService {
             usersInfoRepository.save(usersInfo);
         } else {
             usersInfo.setLanguage(language);
+            usersInfoRepository.save(usersInfo);
+        }
+    }
+
+    @Override
+    public void updateUserTheme(Integer userId, String theme) {
+        UsersInfo usersInfo = usersInfoRepository.findByUserId(userId).orElse(null);
+
+        if (usersInfo == null) {
+            Users user = usersRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException(MessageConstants.USER_NOT_FOUND));
+
+            usersInfo = UsersInfo.builder()
+                    .user(user)
+                    .initialWeight(0.0)
+                    .goalWeight(0.0)
+                    .workoutDaysPerWeek(0)
+                    .theme(theme)
+                    .build();
+
+            usersInfoRepository.save(usersInfo);
+        } else {
+            usersInfo.setTheme(theme);
             usersInfoRepository.save(usersInfo);
         }
     }
