@@ -34,5 +34,6 @@ export const ASSET_URLS = {
   spain:'/module_assets/translation-flags/spain.svg',
   english:'/module_assets/translation-flags/english.svg',
   gear:'/module_assets/menu-icons/gear.svg',
-
+  sun:'/module_assets/landing-assets/sun.svg',
+  moon:'/module_assets/landing-assets/moon.svg'
 };

@@ -22,13 +22,17 @@ export class LandingComponent {
   bg: string = ASSET_URLS.background;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal: boolean = false;
-  currentSection: string = ''; 
+  currentSection: string = '';
+  isDark: boolean = false;
+  sun: string = ASSET_URLS.sun;
+  moon: string = ASSET_URLS.moon;
 
   constructor(
     private translate: TranslateService,
     private themeService: ThemeService
   ) {
     this.themeService.initializeThemeLanding();
+    this.isDark = this.themeService.isDarkMode();
   }
 
   @HostListener('window:scroll', [])
@@ -77,9 +81,9 @@ export class LandingComponent {
   }
   toggleDarkMode() {
     this.themeService.toggleThemeLanding();
+    this.isDark = this.themeService.isDarkMode();
+    console.log('Dark mode is now:', this.isDark);
+
   }
 
-  isDarkMode(): boolean {
-    return this.themeService.isDarkMode();
-  }
 }
