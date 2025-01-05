@@ -7,11 +7,13 @@ import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/la
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../shared/service/language.service';
 import { ThemeService } from '../../shared/service/theme.service';
+import { LoadingService } from '../../shared/service/loading.service';
+import { LoadingSpinnerComponent } from "../../shared/components/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [TranslateModule, LanguageSwitcherComponent, CommonModule],
+  imports: [TranslateModule, LanguageSwitcherComponent, CommonModule, LoadingSpinnerComponent],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
 })
@@ -20,18 +22,28 @@ export class MenuComponent {
   showLanguageModal = false;
   showDropdown = false;
   gear: string = ASSET_URLS.gear;
+  themeLoaded = false;
 
   constructor(
     private router: Router,
     private userService: UserService,
     private languageService: LanguageService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private loadingService: LoadingService
   ) {}
 
 
   ngOnInit(): void {
+    this.loadingService.setLoading(true);
+    
     this.languageService.setUserLanguage();
     this.themeService.initializeTheme();
+    this.themeService.themeLoaded$.subscribe((loaded) => {
+      this.themeLoaded = loaded;
+      if (loaded) {
+        this.loadingService.setLoading(false);
+      }
+    });
   }
   navigateToWeighIns() {
     this.router.navigate([LOCATIONS.weighins]);
