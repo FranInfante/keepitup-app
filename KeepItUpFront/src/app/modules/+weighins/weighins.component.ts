@@ -15,6 +15,7 @@ import { UserService } from '../../shared/service/user.service';
 import { LoadingService } from '../../shared/service/loading.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../shared/service/language.service';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-weighins',
@@ -44,11 +45,13 @@ export class WeighInsComponent implements OnInit {
     private weighInsService: WeighInsService,
     private userService: UserService,
     private loadingService: LoadingService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.languageService.setUserLanguage();
+    this.themeService.initializeThemeUserFromLocalStorage();
     this.loadingService.setLoading(true);
     this.initializeForm();
     this.subscriptions.push(
