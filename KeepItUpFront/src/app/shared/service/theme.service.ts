@@ -13,11 +13,9 @@ export class ThemeService {
   initializeTheme(): void {
     const localStorageTheme = localStorage.getItem('themeUser');
     if (localStorageTheme) {
-      // If `themeUser` is already in localStorage, apply it directly
       this.applyTheme(localStorageTheme);
       this._themeLoaded.next(true);
     } else {
-      // Fetch theme from user API
       this.userService.getCurrentUser().subscribe({
         next: (user) => {
           if (user && user.id) {
