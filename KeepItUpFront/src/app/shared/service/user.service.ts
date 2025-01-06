@@ -113,7 +113,6 @@ export class UserService {
     this.userSubject.next(null);
     this.authToken = null;
     localStorage.removeItem('authToken')
-    localStorage.removeItem('language');
     localStorage.removeItem('themeUser');
     localStorage.removeItem('userLanguage');
     this.translate.use('en'); 
