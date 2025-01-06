@@ -16,39 +16,60 @@ export class LanguageService {
   ) {}
 
   setUserLanguage(): void {
-    const savedLanguage = localStorage.getItem('userLanguage');
-    if (savedLanguage) {
-      this.translate.use(savedLanguage);
-      this._languageLoaded.next(true);
+    const authToken = this.userService.getToken();
+    if (authToken) {
+      const savedUserLanguage = localStorage.getItem('userLanguage');
+      if (savedUserLanguage) {
+        this.translate.use(savedUserLanguage);
+        this._languageLoaded.next(true);
+      } else {
+        this.userService.getCurrentUser().subscribe({
+          next: (user) => {
+            if (user && user.id) {
+              this.userService.getUserInfo(user.id).subscribe({
+                next: (userInfo) => {
+                  const language = userInfo?.language || 'en';
+                  this.applyLanguage(language, true);
+                },
+                error: (err) => {
+                  console.error('Failed to fetch user info:', err);
+                  this.applyLanguage('en', true);
+                },
+              });
+            } else {
+              this.applyLanguage('en', true);
+            }
+          },
+          error: (err) => {
+            console.error('Failed to fetch current user:', err);
+            this.applyLanguage('en', true);
+          },
+        });
+      }
     } else {
-      this.userService.getCurrentUser().subscribe({
-        next: (user) => {
-          if (user && user.id) {
-            this.userService.getUserInfo(user.id).subscribe({
-              next: (userInfo) => {
-                const language = userInfo?.language || 'en';
-                this.applyLanguage(language);
-              },
-              error: (err) => {
-                console.error('Failed to fetch user info:', err);
-                this.applyLanguage('en');
-              },
-            });
-          } else {
-            this.applyLanguage('en');
-          }
-        },
-        error: (err) => {
-          console.error('Failed to fetch current user:', err);
-          this.applyLanguage('en');
-        },
-      });
+      const savedLanguage = localStorage.getItem('language');
+      if (savedLanguage) {
+        this.translate.use(savedLanguage);
+        this._languageLoaded.next(true);
+      } else {
+        this.applyLanguage('en', false);
+      }
     }
   }
 
-  private applyLanguage(language: string): void {
-    this.translate.use(language);
-    localStorage.setItem('userLanguage', language);
-    this._languageLoaded.next(true);
+  private applyLanguage(lang: string, isAuthenticated: boolean): void {
+    this.translate.use(lang).subscribe(() => {
+      if (isAuthenticated) {
+        localStorage.setItem('userLanguage', lang);
+      } else {
+        localStorage.setItem('language', lang);
+      }
+      this._languageLoaded.next(true);
+    });
   }
+
+   initializeLanguage() {
+      const savedLanguage = localStorage.getItem('language') || 'en';
+      this.translate.use(savedLanguage);
+    }
 }
