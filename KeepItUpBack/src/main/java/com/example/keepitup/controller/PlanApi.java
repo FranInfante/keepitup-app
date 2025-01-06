@@ -1,10 +1,10 @@
-package com.example.MoreGains.controller;
+package com.example.keepitup.controller;
 
-import com.example.MoreGains.model.dtos.PlanDTO;
-import com.example.MoreGains.model.dtos.UpdatePlanNameDTO;
-import com.example.MoreGains.model.dtos.WorkoutDTO;
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
-import com.example.MoreGains.util.UriConstants;
+import com.example.keepitup.model.dtos.PlanDTO;
+import com.example.keepitup.model.dtos.UpdatePlanNameDTO;
+import com.example.keepitup.model.dtos.WorkoutsDTO;
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.util.UriConstants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +32,10 @@ public interface PlanApi {
     ResponseEntity<Void> deletePlan(@PathVariable Integer id);
 
     @PostMapping(UriConstants.WORKOUTS_IN_PLAN)
-    ResponseEntity<WorkoutDTO> addWorkoutToPlan(@PathVariable Integer planId, @RequestBody WorkoutDTO workoutDTO) throws Exception;
+    ResponseEntity<WorkoutsDTO> addWorkoutToPlan(@PathVariable Integer planId, @RequestBody WorkoutsDTO workoutDTO) throws Exception;
 
     @PostMapping(UriConstants.WORKOUT_EXERCISE_IN_PLAN_CREATE)
-    ResponseEntity<WorkoutDTO> addExerciseToWorkout(@PathVariable Integer planId, @PathVariable Integer workoutId, @RequestBody WorkoutExerciseDTO exerciseDTO) throws Exception;
+    ResponseEntity<WorkoutsDTO> addExerciseToWorkout(@PathVariable Integer planId, @PathVariable Integer workoutId, @RequestBody WorkoutExerciseDTO exerciseDTO) throws Exception;
 
     @DeleteMapping(UriConstants.WORKOUT_EXERCISE_IN_PLAN)
     ResponseEntity<Void> deleteWorkoutExercise(@PathVariable Integer planId, @PathVariable Integer workoutId, @PathVariable Integer exerciseId) throws Exception;

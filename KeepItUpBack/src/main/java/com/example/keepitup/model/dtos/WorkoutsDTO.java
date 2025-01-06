@@ -1,6 +1,7 @@
 package com.example.keepitup.model.dtos;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,4 +23,12 @@ public class WorkoutsDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
+
+    private List<WorkoutExerciseDTO> workoutExercises;
+
+    private String description;
+
+    private Integer sort;
+
+
 }

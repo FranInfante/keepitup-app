@@ -58,6 +58,9 @@ export class MenuComponent {
   navigateToWorkouts() {
     this.router.navigate([LOCATIONS.workouts]);
   }
+  navigateToPlans() {
+    this.router.navigate([LOCATIONS.plans]);
+  }
 
   logout() {
     this.userService.logout();

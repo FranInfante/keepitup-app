@@ -1,4 +1,4 @@
-package com.example.MoreGains.model.entities;
+package com.example.keepitup.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -18,7 +18,7 @@ public class WorkoutExercise {
     @ManyToOne
     @JoinColumn(name = "workout_id", nullable = false)
     @JsonIgnore
-    private Workout workout;
+    private Workouts workout;
 
     @ManyToOne
     @JoinColumn(name = "exercise_id", nullable = false)

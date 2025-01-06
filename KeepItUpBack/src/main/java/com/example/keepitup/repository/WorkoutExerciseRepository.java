@@ -1,6 +1,6 @@
-package com.example.MoreGains.repository;
+package com.example.keepitup.repository;
 
-import com.example.MoreGains.model.entities.WorkoutExercise;
+import com.example.keepitup.model.entities.WorkoutExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

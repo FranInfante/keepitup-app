@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -26,5 +27,14 @@ public class Workouts {
 
     @Column(nullable = false)
     private LocalDate date;
+
+
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkoutExercise> workoutExercises;
+
+    private String description;
+
+    private Integer sort;
+
 
 }

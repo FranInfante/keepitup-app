@@ -1,0 +1,359 @@
+.custom-heading {
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.workout-box {
+  padding: 20px 10px;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  position: relative; /* Ensure button is positioned relative to this box */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 5%;
+}
+.workout-box .btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  z-index: 1;
+}
+
+.editing-bg {
+  background-color: #525151;
+}
+
+.add-box {
+  border: solid 1px #ccc;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 30%;
+  margin-bottom: 3rem;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  position: fixed; 
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1001;
+  
+}
+.modal-footer{
+
+  justify-content: center !important;
+
+}
+
+.add-box:hover {
+  background-color: #4196f0;
+  transform: scale(1.05);
+  color: #ffffff;
+}
+
+#bottone5 {
+  margin: auto;
+  margin-bottom: 3rem;
+  align-items: center;
+  background-color: #2b5cfd;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+#bottone5:hover,
+#bottone5:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+#bottone5:hover {
+  transform: translateY(-1px);
+}
+
+#bottone5:active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
+
+.delete-btn {
+  margin-left: -20px; /* Move the button 10px to the left */
+  z-index: 1; /* Ensure it stays above other content */
+}
+
+.workout-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2c2f33;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+
+.workout-details-content {
+  color: #487ff7;
+  position: relative;
+  height: 50%;
+}
+
+
+.pluss{
+
+margin-bottom: 2.5px;
+
+}
+
+.exercises p {
+
+margin-top: 2rem;
+margin-bottom: 4rem;
+
+}
+
+
+.exercises ul {
+  list-style-type: none;
+  padding-left: 0;
+  padding-right: 7px; /* Add space to the right side to separate content from scrollbar */
+  margin-top: 1.5rem;
+  margin-bottom: 4rem;
+  max-width: 100%; /* Ensure it doesn't overflow horizontally */
+  max-height: 210px; /* Set a maximum height */
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #6c757d #2c2f33; /* Thumb and track colors for Firefox */
+}
+
+/* Simple scrollbar styling for Chrome, Safari, and Edge */
+.exercises ul::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.exercises ul::-webkit-scrollbar-thumb {
+  background-color: #6c757d; /* Color of the scrollbar */
+  border-radius: 4px; /* Rounded edges for the scrollbar */
+}
+
+.exercises ul::-webkit-scrollbar-track {
+  background-color: #2c2f33; /* Background color of the track */
+}
+
+.dropdown-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.dropdown-item:hover {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.exercises li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #343a40;
+  color: #d1d1d1;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  flex-wrap: nowrap; /* Prevent line breaks initially */
+}
+
+.add-exercise-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.btn-add-exercise {
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  position: absolute; /* This positions it inside the parent container */
+  bottom: 1rem; /* Adjust this value to move it upwards or downwards */
+  right: 1rem; /* Adjust this value to move it left or right */
+  z-index: 1001;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.title{
+
+margin-bottom: 1.5rem;
+
+}
+
+.workout-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2c2f33;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000; 
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box; 
+}
+
+.btn-close {
+  z-index: 1001;
+  border: none;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.5px);
+  z-index: 999;
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2c2f33;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.modal-open .content-to-blur {
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+.example-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: baseline;
+  width: 100%;
+  max-width: 100%;
+  gap: 15px;
+  padding: 15px;
+  min-height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  text-align: center;
+  font-size: 14px;
+  min-width: 115px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (max-width: 576px) {
+  .example-list {
+    flex-direction: column;
+    align-items: center;  
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+    align-items: center; /* Center the buttons */
+  }
+  
+}
+
+@media (max-width: 576px) {
+  .exercises li {
+    flex-wrap: wrap; /* Allow text to wrap on smaller screens */
+    justify-content: space-between;
+  }
+
+  .exercise-name {
+    white-space: normal; /* Allow wrapping */
+    max-width: 100%; /* Allow full width usage on small screens */
+  }
+
+  .delete-btn {
+    margin-left: auto; /* Push it to the far right */
+  }
+}
+
+
+

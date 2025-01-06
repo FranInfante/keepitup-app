@@ -1,9 +1,7 @@
-package com.example.MoreGains.model.dtos;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+package com.example.keepitup.model.dtos;
+
+import lombok.*;
+
 import java.util.List;
 
 @Getter
@@ -15,5 +13,5 @@ public class PlanDTO {
     private Integer id;
     private String name;
     private Integer userId;
-    private List<WorkoutDTO> workouts;
+    private List<WorkoutsDTO> workouts;
 }

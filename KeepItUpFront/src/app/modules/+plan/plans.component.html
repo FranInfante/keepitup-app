@@ -1,0 +1,36 @@
+<app-back-to-menu [navigationPath]="LOCATIONS.menu"></app-back-to-menu>
+<div class="d-flex flex-column vh-100">
+  <div class="tab-content flex-grow-1 d-flex flex-column justify-content-start mt-5">
+    <ng-container *ngIf="activePlan; else noPlans">
+      <app-plan-header
+        [activePlan]="activePlan"
+        [threeDotsIcon]="ThreeDotsIcon"
+        [workouts]="activePlan.workouts" 
+        (editModeToggle)="toggleEditMode()"
+        (planDelete)="deletePlan(activePlan.id)"
+        (planNameUpdated)="onPlanNameUpdated($event)"
+      ></app-plan-header>
+      <app-workouts
+        [workouts]="activePlan.workouts"
+        (isEditingChange)="editMode = $event"
+        [planId]="activePlan.id"
+        (workoutsUpdated)="onWorkoutsUpdated($event)"
+        [isEditing]="editMode"
+      ></app-workouts>
+    </ng-container>
+    <ng-template #noPlans>
+      <div class="no-plans-container">
+        <p class="text-center">
+          No plans available. Please add a plan to get started.
+        </p>
+      </div>
+    </ng-template>
+</div>
+<app-tabs
+  [plans]="plans"
+  [activePlanId]="activePlanId"
+  [PlusSignIcon]="PlusSignIcon"
+  (planSelected)="selectPlan($event)"
+  (toggleEditMode)="toggleEditMode()"
+  (addNewPlan)="addPlan()"
+></app-tabs>

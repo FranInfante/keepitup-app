@@ -5,6 +5,7 @@ export const LOCATIONS = {
   menu: '/menu',
   weighins: '/weighins',
   workouts: '/workouts',
+  plans: '/plans'
 };
 
 export const MSG = {
@@ -25,6 +26,10 @@ export const TOAST_MSGS = {
   alreadyexists: 'TOAST_MSGS.ALREADY_EXISTS',
   fillallfields: 'TOAST_MSGS.FILL_ALL_FIELDS',
   emailsent: 'TOAST_MSGS.EMAIL_SENT',
+  editmodedisabled: 'TOAST_MSGS.EDIT_MODE_DISABLED',
+  editmode: 'TOAST_MSGS.EDIT_MODE',
+  workoutdeletedsaved: 'TOAST_MSGS.WORKOUT_DELETED_SAVED',
+  noexercisesinworkout: 'TOAST_MSGS.NO_EXERCISES_IN_WORKOUT',
 
 };
 
@@ -34,5 +39,11 @@ export const ASSET_URLS = {
   spain:'/module_assets/translation-flags/spain.svg',
   english:'/module_assets/translation-flags/english.svg',
   sun:'/module_assets/landing-assets/sun.svg',
-  moon:'/module_assets/landing-assets/moon.svg'
+  moon:'/module_assets/landing-assets/moon.svg',
+  ThreeDotsIcon: 'module_assets/plans-assets/ThreeDotsIcon.svg',
+  PlusSignIcon: 'module_assets/plans-assets/PlusSignIcon.svg',
+  DeleteIcon: 'module_assets/plans-assets/DeleteIcon.svg',
+  PlayIcon: 'module_assets/plans-assets/PlayIcon.svg',
+  NotesIcon:'module_assets/plans-assets/NotesIcon.svg'
+
 };

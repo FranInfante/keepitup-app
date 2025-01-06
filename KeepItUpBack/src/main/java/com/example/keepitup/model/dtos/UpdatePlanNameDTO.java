@@ -1,10 +1,6 @@
-package com.example.MoreGains.model.dtos;
+package com.example.keepitup.model.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Builder;
+import lombok.*;
 
 @Getter
 @Setter

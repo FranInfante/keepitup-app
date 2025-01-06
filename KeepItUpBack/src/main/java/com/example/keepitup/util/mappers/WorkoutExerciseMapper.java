@@ -1,7 +1,7 @@
-package com.example.MoreGains.util.mappers;
+package com.example.keepitup.util.mappers;
 
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
-import com.example.MoreGains.model.entities.WorkoutExercise;
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.model.entities.WorkoutExercise;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

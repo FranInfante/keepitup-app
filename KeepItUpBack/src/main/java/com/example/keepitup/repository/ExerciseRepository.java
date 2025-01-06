@@ -1,9 +1,7 @@
-package com.example.MoreGains.repository;
+package com.example.keepitup.repository;
 
-import com.example.MoreGains.model.entities.Exercise;
+import com.example.keepitup.model.entities.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

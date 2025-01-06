@@ -1,7 +1,7 @@
-package com.example.MoreGains.util.mappers;
+package com.example.keepitup.util.mappers;
 
-import com.example.MoreGains.model.dtos.PlanDTO;
-import com.example.MoreGains.model.entities.Plan;
+import com.example.keepitup.model.dtos.PlanDTO;
+import com.example.keepitup.model.entities.Plan;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class PlanMapper {
                 .id(plan.getId())
                 .name(plan.getName())
                 .userId(plan.getUser().getId())
-                .workouts(WorkoutMapper.listWorkoutEntityToDTO(plan.getWorkouts()))
+                .workouts(WorkoutsMapper.listWorkoutEntityToDTO(plan.getWorkouts()))
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class PlanMapper {
         plan.setId(planDTO.getId());
         plan.setName(planDTO.getName());
         plan.setWorkouts(planDTO.getWorkouts().stream()
-                .map(WorkoutMapper::workoutDTOToEntity)
+                .map(WorkoutsMapper::workoutsDTOToEntity)
                 .collect(Collectors.toList()));
 
         return plan;
@@ -40,9 +40,5 @@ public class PlanMapper {
 
     public static List<PlanDTO> listPlanEntityToDTO(List<Plan> plans) {
         return plans.stream().map(PlanMapper::planEntityToDTO).collect(Collectors.toList());
-    }
-
-    public static List<Plan> listPlanDTOToEntity(List<PlanDTO> planDTOs) {
-        return planDTOs.stream().map(PlanMapper::planDTOToEntity).collect(Collectors.toList());
     }
 }

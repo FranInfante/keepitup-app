@@ -1,4 +1,4 @@
-package com.example.MoreGains.model.enums;
+package com.example.keepitup.model.enums;
 
 public enum MuscleGroupType {
     LEGS,

@@ -37,7 +37,7 @@ public class WorkoutsServiceImpl implements WorkoutsService {
     @Override
     public List<WorkoutsDTO> getWorkoutsByUserId(Integer userId) {
         List<Workouts> workouts = workoutsRepository.findByUserId(userId);
-        return WorkoutsMapper.listWorkoutsEntityToDTO(workouts);
+        return WorkoutsMapper.listWorkoutEntityToDTO(workouts);
     }
 
     @Override

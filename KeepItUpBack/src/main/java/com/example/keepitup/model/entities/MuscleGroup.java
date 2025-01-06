@@ -1,12 +1,8 @@
-package com.example.MoreGains.model.entities;
+package com.example.keepitup.model.entities;
 
-import com.example.MoreGains.model.enums.MuscleGroupType;
+import com.example.keepitup.model.enums.MuscleGroupType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
 @Entity
 @Getter

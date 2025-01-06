@@ -1,4 +1,4 @@
-package com.example.MoreGains.model.dtos;
+package com.example.keepitup.model.dtos;
 
 import lombok.*;
 

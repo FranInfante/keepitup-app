@@ -1,4 +1,4 @@
-package com.example.MoreGains.model.entities;
+package com.example.keepitup.model.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

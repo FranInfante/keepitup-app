@@ -1,9 +1,7 @@
 package com.example.keepitup.util.mappers;
 
 
-import com.example.keepitup.model.dtos.WeighInsDTO;
 import com.example.keepitup.model.dtos.WorkoutsDTO;
-import com.example.keepitup.model.entities.WeighIns;
 import com.example.keepitup.model.entities.Workouts;
 import lombok.experimental.UtilityClass;
 
@@ -34,7 +32,7 @@ public class WorkoutsMapper {
         return workoutsDTOList.stream().map(WorkoutsMapper::workoutsDTOToEntity).collect(Collectors.toList());
     }
 
-    public List<WorkoutsDTO> listWorkoutsEntityToDTO(List<Workouts> workoutsList) {
-        return workoutsList.stream().map(WorkoutsMapper::workoutsEntityToDTO).collect(Collectors.toList());
+    public static List<WorkoutsDTO> listWorkoutEntityToDTO(List<Workouts> workouts) {
+        return workouts.stream().map(WorkoutsMapper::workoutsEntityToDTO).collect(Collectors.toList());
     }
 }

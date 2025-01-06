@@ -71,7 +71,12 @@
     "ERROR_REGISTER": "Error al registrar el usuario. Por favor, inténtalo más tarde.",
     "ALREADY_EXISTS": "Email o nombre de usuario ya registrados.",
     "FILL_ALL_FIELDS": "Por favor, completa todos los campos.",
-      "EMAIL_SENT": "Te hemos mandado un código de verificaion a tu email."
+      "EMAIL_SENT": "Te hemos mandado un código de verificaion a tu email.",
+      "EDIT_MODE_DISABLED": "Modo edición desactivado.",
+      "EDIT_MODE": "Modo edición activado.",
+      "WORKOUT_DELETED_SAVED": "Entrenamiento borrado y guardado con éxito.",
+      "NO_EXERCISES_IN_WORKOUT": "No hay ejercicios en este entrenamiento."
+
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",

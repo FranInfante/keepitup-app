@@ -1,24 +1,24 @@
-package com.example.MoreGains.controller.impl;
+package com.example.keepitup.controller.impl;
 
-import com.example.MoreGains.controller.PlanApi;
-import com.example.MoreGains.model.dtos.PlanDTO;
-import com.example.MoreGains.model.dtos.UpdatePlanNameDTO;
-import com.example.MoreGains.model.dtos.WorkoutDTO;
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
-import com.example.MoreGains.service.PlanService;
-import com.example.MoreGains.util.UriConstants;
-import com.example.MoreGains.util.messages.MessageConstants;
+import com.example.keepitup.controller.PlanApi;
+import com.example.keepitup.model.dtos.PlanDTO;
+import com.example.keepitup.model.dtos.UpdatePlanNameDTO;
+import com.example.keepitup.model.dtos.WorkoutsDTO;
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.service.PlanService;
+import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(UriConstants.PLANS)
 public class PlanController implements PlanApi {
 
     private final PlanService planService;
@@ -60,14 +60,14 @@ public class PlanController implements PlanApi {
     }
 
     @Override
-    public ResponseEntity<WorkoutDTO> addWorkoutToPlan(@PathVariable Integer planId, @RequestBody WorkoutDTO workoutDTO) throws Exception {
-        WorkoutDTO newWorkout = planService.addWorkoutToPlan(planId, workoutDTO);
+    public ResponseEntity<WorkoutsDTO> addWorkoutToPlan(@PathVariable Integer planId, @RequestBody WorkoutsDTO workoutsDTO) throws Exception {
+        WorkoutsDTO newWorkout = planService.addWorkoutToPlan(planId, workoutsDTO);
         return ResponseEntity.ok(newWorkout);
     }
 
     @Override
-    public ResponseEntity<WorkoutDTO> addExerciseToWorkout(@PathVariable Integer planId, @PathVariable Integer workoutId, @RequestBody WorkoutExerciseDTO exerciseDTO) throws Exception {
-        WorkoutDTO updatedWorkout = planService.addExerciseToWorkout(planId, workoutId, exerciseDTO);
+    public ResponseEntity<WorkoutsDTO> addExerciseToWorkout(@PathVariable Integer planId, @PathVariable Integer workoutId, @RequestBody WorkoutExerciseDTO exerciseDTO) throws Exception {
+        WorkoutsDTO updatedWorkout = planService.addExerciseToWorkout(planId, workoutId, exerciseDTO);
         return ResponseEntity.ok(updatedWorkout);
     }
 
