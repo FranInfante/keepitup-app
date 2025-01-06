@@ -27,6 +27,9 @@ export class LandingComponent {
   isDark: boolean = false;
   sun: string = ASSET_URLS.sun;
   moon: string = ASSET_URLS.moon;
+  isNavbarHidden: boolean = false;
+
+  private lastScrollTop: number = 0;
 
   constructor(
     private translate: TranslateService,
@@ -42,6 +45,17 @@ export class LandingComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > this.lastScrollTop) {
+      // Scrolling down
+      this.isNavbarHidden = true;
+    } else {
+      // Scrolling up
+      this.isNavbarHidden = false;
+    }
+
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Avoid negative scroll values
     this.updateActiveSection();
   }
 
