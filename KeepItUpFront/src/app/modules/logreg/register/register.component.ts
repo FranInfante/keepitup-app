@@ -69,6 +69,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   createUser(): void {
+    if (this.userForm.invalid) {
+      this.markFormGroupTouched(this.userForm);
+      return;
+    }
     if (this.userForm.valid) {
       const user: User = {
         username: this.userForm.value.username,
