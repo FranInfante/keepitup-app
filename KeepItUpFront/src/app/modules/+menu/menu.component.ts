@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../shared/service/language.service';
 import { ThemeService } from '../../shared/service/theme.service';
 import { LoadingService } from '../../shared/service/loading.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -21,6 +22,7 @@ export class MenuComponent {
   showLanguageModal = false;
   showDropdown = false;
   themeLoaded = false;
+  languageLoaded = false;
 
   constructor(
     private router: Router,
@@ -34,11 +36,17 @@ export class MenuComponent {
   ngOnInit(): void {
     this.loadingService.setLoading(true);
     
-    this.languageService.setUserLanguage();
     this.themeService.initializeTheme();
-    this.themeService.themeLoaded$.subscribe((loaded) => {
-      this.themeLoaded = loaded;
-      if (loaded) {
+    this.languageService.setUserLanguage();
+
+    combineLatest([
+      this.themeService.themeLoaded$,
+      this.languageService.languageLoaded$,
+    ]).subscribe(([themeLoaded, languageLoaded]) => {
+      this.themeLoaded = themeLoaded;
+      this.languageLoaded = languageLoaded;
+
+      if (themeLoaded && languageLoaded) {
         this.loadingService.setLoading(false);
       }
     });

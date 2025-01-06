@@ -5,6 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../shared/service/theme.service';
+import { LanguageService } from '../../shared/service/language.service';
 
 @Component({
   selector: 'app-landing',
@@ -29,11 +30,15 @@ export class LandingComponent {
 
   constructor(
     private translate: TranslateService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private languageService: LanguageService
   ) {
     this.themeService.initializeThemeFromLocalStorage();
     this.isDark = this.themeService.isDarkMode();
+    this.languageService.initializeLanguage();
   }
+
+ 
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

@@ -1,76 +1,97 @@
-<app-back-to-menu
-  [navigationPath]=LOCATIONS.landing
-></app-back-to-menu>
-<div class="min-h-screen bg-gray-800 flex items-center justify-center">
-    <div class="container mx-auto py-5">
-      <div class="flex justify-center items-center h-full">
-        <div class="w-full mx-5 max-w-md">
-          <div class="bg-gray-900 text-gray-100 rounded-xl border border-gray-700 shadow-2xl">
-            <div class="p-6 text-center">
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="mb-6">
-                  <div class="mb-4">
-                    <label for="typeidentifierX" class="block text-sm font-medium text-gray-400">
-                      {{ "LOGIN.EMAIL_OR_USERNAME" | translate }}
-                    </label>
-                    <input
-                      type="text"
-                      id="typeidentifierX"
-                      class="mt-1 block w-full px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
-                      formControlName="identifier"
-                      required
-                    />
-                    <div *ngIf="loginForm.get('identifier')?.touched && loginForm.get('identifier')?.invalid">
-                      <small
-                        class="text-red-400"
-                        *ngIf="loginForm.get('identifier')?.errors?.['required']"
-                      >
-                      {{ "LOGIN.EMAIL_OR_USERNAME_REQUIRED" | translate }}
-                      </small>
-                    </div>
-                  </div>
-  
-                  <div class="mb-4">
-                    <label for="typePasswordX" class="block text-sm font-medium text-gray-400">
-                      {{ "LOGIN.PASSWORD" | translate }}
-                    </label>
-                    <input
-                      type="password"
-                      id="typePasswordX"
-                      class="mt-1 block w-full px-3 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
-                      formControlName="password"
-                      required
-                    />
-                    <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-                      <small
-                        class="text-red-400"
-                        *ngIf="loginForm.get('password')?.errors?.['required']"
-                      >
-                      {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
-                      </small>
-                    </div>
-                  </div>
-  
-                  <button
-                    type="submit"
-                    class="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-2 px-4 rounded-lg transition duration-150"
+<app-back-to-menu [navigationPath]="LOCATIONS.landing"></app-back-to-menu>
+<div
+  class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex items-center justify-center"
+>
+  <div class="container mx-auto py-5">
+    <div class="flex justify-center items-center h-full">
+      <div class="w-full mx-5 max-w-md">
+        <div
+          class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100  rounded-xl border border-gray-300 dark:border-gray-700 shadow-2xl"
+        >
+          <div class="p-6 text-center">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="mb-6">
+                <div class="mb-4">
+                  <label
+                    for="typeidentifierX"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-400"
                   >
-                  {{ "LOGIN.BUTTON" | translate }}
-                  </button>
+                    {{ "LOGIN.EMAIL_OR_USERNAME" | translate }}
+                  </label>
+                  <input
+                    type="text"
+                    id="typeidentifierX"
+                    class="mt-1 block w-full px-3 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-400 dark:border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
+                    formControlName="identifier"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      loginForm.get('identifier')?.touched &&
+                      loginForm.get('identifier')?.invalid
+                    "
+                  >
+                    <small
+                      class="text-red-400"
+                      *ngIf="loginForm.get('identifier')?.errors?.['required']"
+                    >
+                      {{ "LOGIN.EMAIL_OR_USERNAME_REQUIRED" | translate }}
+                    </small>
+                  </div>
                 </div>
-              </form>
-  
-              <div class="mt-4 text-center">
-                <p class="text-sm text-gray-400">
-                  {{ "LOGIN.NO_ACCOUNT" | translate }}
-                  <a class="text-gray-300 hover:text-gray-100 hover:underline" [routerLink]="[LOCATIONS.register]">
-                    {{ "LOGIN.REGISTER" | translate }}
-                  </a>
-                </p>
+
+                <div class="mb-4">
+                  <label
+                    for="typePasswordX"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-400"
+                  >
+                    {{ "LOGIN.PASSWORD" | translate }}
+                  </label>
+                  <input
+                    type="password"
+                    id="typePasswordX"
+                    class="mt-1 block w-full px-3 py-2  bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-400 dark:border-gray-600 rounded-md text-sm shadow-sm focus:ring-gray-500 focus:border-gray-500"
+                    formControlName="password"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      loginForm.get('password')?.touched &&
+                      loginForm.get('password')?.invalid
+                    "
+                  >
+                    <small
+                      class="text-red-400"
+                      *ngIf="loginForm.get('password')?.errors?.['required']"
+                    >
+                      {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
+                    </small>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full bg-blue-600  hover:bg-gray-600 text-gray-200 font-medium py-2 px-4 rounded-lg transition duration-150"
+                >
+                  {{ "LOGIN.BUTTON" | translate }}
+                </button>
               </div>
+            </form>
+
+            <div class="mt-4 text-center">
+              <p class="text-sm  text-gray-600 dark:text-gray-400">
+                {{ "LOGIN.NO_ACCOUNT" | translate }}
+                <a
+                  class="text-gray-800 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 hover:underline "
+                  [routerLink]="[LOCATIONS.register]"
+                >
+                  {{ "LOGIN.REGISTER" | translate }}
+                </a>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

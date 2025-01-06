@@ -17,11 +17,19 @@ import { LoadingService } from '../../../shared/service/loading.service';
 import { BackToMenuComponent } from '../../../shared/components/back-to-menu/back-to-menu.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { VerifyCodeModalComponent } from '../../../shared/components/verify-code-modal/verify-code-modal.component';
+import { LanguageService } from '../../../shared/service/language.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, NgIf, BackToMenuComponent, TranslateModule, VerifyCodeModalComponent],
+  imports: [
+    ReactiveFormsModule,
+    RouterModule,
+    NgIf,
+    BackToMenuComponent,
+    TranslateModule,
+    VerifyCodeModalComponent,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -38,8 +46,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private loadingService: LoadingService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private languageService: LanguageService
+  ) {
+    this.languageService.initializeLanguage();
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -77,7 +88,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.loadingService.setLoading(false);
 
             if (error.status === 409) {
-        
               this.toastService.showToast(TOAST_MSGS.alreadyexists, 'danger');
             }
           },

@@ -47,11 +47,12 @@ export class WeighInsComponent implements OnInit {
     private loadingService: LoadingService,
     private languageService: LanguageService,
     private themeService: ThemeService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.languageService.setUserLanguage();
     this.themeService.initializeThemeUserFromLocalStorage();
+  }
+
+  ngOnInit(): void {
     this.loadingService.setLoading(true);
     this.initializeForm();
     this.subscriptions.push(

@@ -31,7 +31,7 @@ export class LanguageSwitcherComponent {
           if (user && user.id) {
             this.userService.setLanguageWithUserId(user.id, lang).subscribe({
               next: () => {
-                this.applyLanguage(lang);
+                this.applyLanguage(lang, true);
               },
               error: (err) => {
                 console.error('Error switching language:', err);
@@ -46,12 +46,17 @@ export class LanguageSwitcherComponent {
         },
       });
     } else {
-      this.applyLanguage(lang);
+      this.applyLanguage(lang, false);
     }
   }
 
-  private applyLanguage(lang: string) {
+  private applyLanguage(lang: string, isAuthenticated: boolean) {
     this.translate.use(lang);
+    if (isAuthenticated) {
+      localStorage.setItem('userLanguage', lang);
+    } else {
+      localStorage.setItem('language', lang);
+    }
     this.closeModal.emit();
   }
 }
