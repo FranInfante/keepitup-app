@@ -6,6 +6,7 @@ import { PLAN_ROUTES } from '../routes/plan-routes';
 import { WorkoutExercise } from '../interfaces/workoutexercise';
 import { Workout } from '../interfaces/workout';
 import { UserService } from './user.service';
+import { NewPlan } from '../interfaces/newplan';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class PlanService {
     return this.http.get<Plan>(PLAN_ROUTES.update(id));
   }
 
-  addPlan(plan: Plan): Observable<Plan> {
+  addPlan(plan: NewPlan): Observable<Plan> {
     return this.http.post<Plan>(PLAN_ROUTES.create(), plan);
   }
 

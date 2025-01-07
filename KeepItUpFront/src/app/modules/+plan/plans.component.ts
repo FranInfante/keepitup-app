@@ -12,6 +12,7 @@ import { WorkoutsComponent } from './workouts/workouts.component';
 import { CommonModule } from '@angular/common';
 import { TabsComponent } from './tabs/tabs.component';
 import { Router } from '@angular/router';
+import { NewPlan } from '../../shared/interfaces/newplan';
 
 @Component({
   selector: 'app-plan-tabs',
@@ -134,12 +135,12 @@ export class PlansComponent implements OnInit {
 
   addPlan(): void {
     if (this.currentUser) {
-      const newPlan: Plan = {
-        id: 0,
+      const newPlan: NewPlan = {
         name: `Plan ${this.plans.length + 1}`,
         userId: this.currentUser.id!,
         workouts: [],
       };
+  
       this.planService.addPlan(newPlan).subscribe((plan) => {
         this.plans.push(plan);
         this.selectPlan(plan.id);
