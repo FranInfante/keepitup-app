@@ -1,19 +1,25 @@
-<div class="fixed-bottom-container">
-    <ul class="nav nav-tabs" #navTabs>
-      <li class="nav-item" *ngFor="let plan of plans">
-        <a
-          class="nav-link"
-          [class.active]="plan.id === activePlanId"
-          (click)="selectPlan(plan.id)"
-        >
-          {{ plan.name }}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="addPlan()">
-          <img [src]="PlusSignIcon" alt="PlusSignIcon" class="w-75 h-75" />
-        </a>
-      </li>
-    </ul>
-  </div>
-  
+<div class="fixed bottom-0 w-full bg-gray-100 dark:bg-gray-800 shadow-lg">
+  <ul class="flex border-b border-gray-300 dark:border-gray-700" #navTabs>
+    <li
+      class="flex-1"
+      *ngFor="let plan of plans"
+    >
+      <a
+        class="block text-center py-2 px-4 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+        [class.font-bold]="plan.id === activePlanId"
+        [class.text-blue-500]="plan.id === activePlanId"
+        (click)="selectPlan(plan.id)"
+      >
+        {{ plan.name }}
+      </a>
+    </li>
+    <li class="flex-1">
+      <a
+        class="block text-center py-2 px-4 cursor-pointer"
+        (click)="addPlan()"
+      >
+        <img [src]="PlusSignIcon" alt="PlusSignIcon" class="w-8 h-8 mx-auto" />
+      </a>
+    </li>
+  </ul>
+</div>
