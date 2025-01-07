@@ -55,9 +55,6 @@ export class MenuComponent {
     this.router.navigate([LOCATIONS.weighins]);
   }
 
-  navigateToWorkouts() {
-    this.router.navigate([LOCATIONS.workouts]);
-  }
   navigateToPlans() {
     this.router.navigate([LOCATIONS.plans]);
   }

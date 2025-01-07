@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -5,17 +6,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Workout } from '../../shared/interfaces/workout';
-import { WorkoutsService } from '../../shared/service/workouts.service';
-import { CommonModule } from '@angular/common';
-import { UserService } from '../../shared/service/user.service';
-import { forkJoin, SubscriptionLike } from 'rxjs';
-import { User } from '../../shared/interfaces/users';
-import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
-import { LoadingService } from '../../shared/service/loading.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageService } from '../../shared/service/language.service';
-import { ThemeService } from '../../shared/service/theme.service';
+import { SubscriptionLike, forkJoin } from 'rxjs';
+import { BackToMenuComponent } from '../../../../../shared/components/back-to-menu/back-to-menu.component';
+import { User } from '../../../../../shared/interfaces/users';
+import { Workout } from '../../../../../shared/interfaces/workout';
+import { LanguageService } from '../../../../../shared/service/language.service';
+import { LoadingService } from '../../../../../shared/service/loading.service';
+import { ThemeService } from '../../../../../shared/service/theme.service';
+import { UserService } from '../../../../../shared/service/user.service';
+import { WorkoutsService } from '../../../../../shared/service/workouts.service';
 
 @Component({
   selector: 'app-workouts',
@@ -26,7 +26,7 @@ import { ThemeService } from '../../shared/service/theme.service';
     CommonModule,
     TranslateModule,
   ],
-  templateUrl: './workouts.component.html',
+  templateUrl: 'workoutsbasic.component.html',
   styleUrl: './workouts.component.css',
 })
 export class WorkoutsComponent implements OnInit {

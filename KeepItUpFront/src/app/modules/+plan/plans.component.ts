@@ -6,18 +6,25 @@ import { Workout } from '../../shared/interfaces/workout';
 import { PlanService } from '../../shared/service/plan.service';
 import { ToastService } from '../../shared/service/toast.service';
 import { UserService } from '../../shared/service/user.service';
-import { BackToMenuComponent } from "../../shared/components/back-to-menu/back-to-menu.component";
-import { PlanHeaderComponent } from "./plan-header/plan-header.component";
+import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
+import { PlanHeaderComponent } from './plan-header/plan-header.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { CommonModule } from '@angular/common';
-import { TabsComponent } from "./tabs/tabs.component";
+import { TabsComponent } from './tabs/tabs.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plan-tabs',
   standalone: true,
   templateUrl: './plans.component.html',
   styleUrls: ['./plans.component.css'],
-  imports: [BackToMenuComponent, PlanHeaderComponent, CommonModule, WorkoutsComponent, TabsComponent],
+  imports: [
+    BackToMenuComponent,
+    PlanHeaderComponent,
+    CommonModule,
+    WorkoutsComponent,
+    TabsComponent,
+  ],
 })
 export class PlansComponent implements OnInit {
   plans: Plan[] = [];
@@ -34,21 +41,22 @@ export class PlansComponent implements OnInit {
   constructor(
     private planService: PlanService,
     private userService: UserService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     const storedActivePlanId = localStorage.getItem('activePlanId');
-  if (storedActivePlanId) {
-    this.activePlanId = parseInt(storedActivePlanId, 10);
-  }
-    this.userService.getCurrentUser().subscribe(user => {
+    if (storedActivePlanId) {
+      this.activePlanId = parseInt(storedActivePlanId, 10);
+    }
+    this.userService.getCurrentUser().subscribe((user) => {
       if (user && user.id) {
         this.user = user;
       }
     });
 
-    this.userService.userSubject.subscribe(user => {
+    this.userService.userSubject.subscribe((user) => {
       if (user && user.id !== undefined) {
         this.currentUser = user;
         this.fetchUserPlans(user.id);
@@ -62,16 +70,23 @@ export class PlansComponent implements OnInit {
             this.currentUser = user;
             this.fetchUserPlans(user.id);
           }
-        }
+        },
       });
     }
+  }
+
+  navigateToWorkouts() {
+    this.router.navigate([LOCATIONS.workouts]);
   }
 
   fetchUserPlans(userId: number): void {
     this.planService.getPlansByUserId(userId).subscribe((plans) => {
       this.plans = plans.sort((a, b) => a.id - b.id);
       if (this.plans.length > 0) {
-        if (this.activePlanId && this.plans.some(plan => plan.id === this.activePlanId)) {
+        if (
+          this.activePlanId &&
+          this.plans.some((plan) => plan.id === this.activePlanId)
+        ) {
           this.selectPlan(this.activePlanId);
         } else {
           this.selectPlan(this.plans[0].id);
@@ -102,18 +117,18 @@ export class PlansComponent implements OnInit {
       }
     });
   }
-  
+
   resetPlanHeader(): void {
     const headerElement = document.querySelector('h3') as HTMLElement;
     if (headerElement) {
-      headerElement.innerText = ''; 
+      headerElement.innerText = '';
     }
   }
-  
+
   updatePlanHeader(planName: string): void {
     const headerElement = document.querySelector('h3') as HTMLElement;
     if (headerElement) {
-      headerElement.innerText = planName; 
+      headerElement.innerText = planName;
     }
   }
 
@@ -134,8 +149,8 @@ export class PlansComponent implements OnInit {
 
   deletePlan(id: number): void {
     this.planService.deletePlan(id).subscribe(() => {
-      this.plans = this.plans.filter(plan => plan.id !== id);
-  
+      this.plans = this.plans.filter((plan) => plan.id !== id);
+
       if (this.activePlanId === id) {
         if (this.plans.length > 0) {
           this.selectPlan(this.plans[0].id);
@@ -153,7 +168,7 @@ export class PlansComponent implements OnInit {
     }
   }
   onPlanNameUpdated(updatedPlan: Plan): void {
-    const index = this.plans.findIndex(plan => plan.id === updatedPlan.id);
+    const index = this.plans.findIndex((plan) => plan.id === updatedPlan.id);
     if (index !== -1) {
       this.plans[index].name = updatedPlan.name;
     }

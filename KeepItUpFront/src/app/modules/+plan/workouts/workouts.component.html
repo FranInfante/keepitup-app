@@ -72,7 +72,9 @@
 <!-- Workouts List -->
 <div [ngClass]="{ 'content-to-blur': selectedWorkout }">
   <div class="container">
+   
     <div class="row mt-3">
+     
       <ng-container *ngIf="workouts && workouts.length > 0; else noWorkouts">
         <div
           cdkDropList
@@ -119,6 +121,7 @@
       <ng-template #noWorkouts>
         <div>
           <p class="text-center px-3">No workouts available for this plan.</p>
+         
         </div>
       </ng-template>
     </div>
