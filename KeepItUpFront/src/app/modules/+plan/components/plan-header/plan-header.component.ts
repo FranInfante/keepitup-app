@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Plan } from '../../../shared/interfaces/plan';
-import { Workout } from '../../../shared/interfaces/workout';
-import { PlanService } from '../../../shared/service/plan.service';
+import { Plan } from '../../../../shared/interfaces/plan';
+import { Workout } from '../../../../shared/interfaces/workout';
+import { PlanService } from '../../../../shared/service/plan.service';
 
 @Component({
   selector: 'app-plan-header',
@@ -22,11 +22,29 @@ export class PlanHeaderComponent {
   maxLen = 20;
   specialKeys = ['Backspace', 'Shift', 'Control', 'Alt', 'Delete'];
   navigationalKeys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'];
+  isDropdownOpen: boolean = false;
+  isDeleteModalOpen: boolean = false;
 
   constructor(private planService: PlanService) {}
 
   toggleEditMode(): void {
     this.editModeToggle.emit();
+  }
+
+  openDeleteModal(): void {
+    this.isDeleteModalOpen = true;
+  }
+  
+  closeDeleteModal(): void {
+    this.isDeleteModalOpen = false;
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  
+  closeDropdown() {
+    this.isDropdownOpen = false;
   }
 
   deletePlan(): void {

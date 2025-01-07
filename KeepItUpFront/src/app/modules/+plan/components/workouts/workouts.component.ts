@@ -19,13 +19,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Workout } from '../../../shared/interfaces/workout';
-import { ASSET_URLS, LOCATIONS, TOAST_MSGS } from '../../../shared/constants';
-import { PlanService } from '../../../shared/service/plan.service';
-import { ToastService } from '../../../shared/service/toast.service';
+import { Workout } from '../../../../shared/interfaces/workout';
+import { ASSET_URLS, LOCATIONS, TOAST_MSGS } from '../../../../shared/constants';
+import { PlanService } from '../../../../shared/service/plan.service';
+import { ToastService } from '../../../../shared/service/toast.service';
 import { Router } from '@angular/router';
-import { WorkoutDataService } from '../../../shared/service/workoutdata.service';
-import { WorkoutExercise } from '../../../shared/interfaces/workoutexercise';
+import { WorkoutDataService } from '../../../../shared/service/workoutdata.service';
+import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 
 
 @Component({

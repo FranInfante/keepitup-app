@@ -7,12 +7,13 @@ import { PlanService } from '../../shared/service/plan.service';
 import { ToastService } from '../../shared/service/toast.service';
 import { UserService } from '../../shared/service/user.service';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
-import { PlanHeaderComponent } from './plan-header/plan-header.component';
-import { WorkoutsComponent } from './workouts/workouts.component';
+import { PlanHeaderComponent } from './components/plan-header/plan-header.component';
+import { WorkoutsComponent } from './components/workouts/workouts.component';
 import { CommonModule } from '@angular/common';
-import { TabsComponent } from './tabs/tabs.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 import { Router } from '@angular/router';
 import { NewPlan } from '../../shared/interfaces/newplan';
+import { DeletePlanModalComponent } from './components/delete-plan-modal/delete-plan-modal.component';
 
 @Component({
   selector: 'app-plan-tabs',
@@ -25,6 +26,7 @@ import { NewPlan } from '../../shared/interfaces/newplan';
     CommonModule,
     WorkoutsComponent,
     TabsComponent,
+    DeletePlanModalComponent,
   ],
 })
 export class PlansComponent implements OnInit {
@@ -38,6 +40,7 @@ export class PlansComponent implements OnInit {
 
   PlusSignIcon: string = ASSET_URLS.PlusSignIcon;
   editMode = false;
+  isDeleteModalOpen: boolean = false;
 
   constructor(
     private planService: PlanService,
@@ -78,6 +81,13 @@ export class PlansComponent implements OnInit {
 
   navigateToWorkouts() {
     this.router.navigate([LOCATIONS.workouts]);
+  }
+  openDeleteModal(): void {
+    this.isDeleteModalOpen = true;
+  }
+
+  closeDeleteModal(): void {
+    this.isDeleteModalOpen = false;
   }
 
   fetchUserPlans(userId: number): void {
@@ -140,7 +150,7 @@ export class PlansComponent implements OnInit {
         userId: this.currentUser.id!,
         workouts: [],
       };
-  
+
       this.planService.addPlan(newPlan).subscribe((plan) => {
         this.plans.push(plan);
         this.selectPlan(plan.id);
