@@ -12,6 +12,7 @@
         (editModeToggle)="toggleEditMode()"
         (planDelete)="deletePlan(activePlan.id)"
         (planNameUpdated)="onPlanNameUpdated($event)"
+        (toggleDeleteModal)="toggleDeleteModal($event)"
       ></app-plan-header>
       <app-workouts
         [workouts]="activePlan.workouts"

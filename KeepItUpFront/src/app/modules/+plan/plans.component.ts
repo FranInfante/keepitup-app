@@ -86,13 +86,6 @@ export class PlansComponent implements OnInit {
   navigateToWorkouts() {
     this.router.navigate([LOCATIONS.workouts]);
   }
-  openDeleteModal(): void {
-    this.isDeleteModalOpen = true;
-  }
-
-  closeDeleteModal(): void {
-    this.isDeleteModalOpen = false;
-  }
 
   fetchUserPlans(userId: number): void {
     this.planService.getPlansByUserId(userId).subscribe((plans) => {
@@ -195,5 +188,13 @@ export class PlansComponent implements OnInit {
   }
   isDarkMode(): boolean {
     return this.themeService.isDarkMode();
+  }
+
+  toggleDeleteModal(isOpen: boolean): void {
+    this.isDeleteModalOpen = isOpen;
+  }
+  
+  closeDeleteModal(): void {
+    this.isDeleteModalOpen = false;
   }
 }

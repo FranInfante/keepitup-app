@@ -20,6 +20,7 @@ export class PlanHeaderComponent {
   @Output() editModeToggle = new EventEmitter<void>();
   @Output() planDelete = new EventEmitter<void>();
   @Output() planNameUpdated = new EventEmitter<Plan>();
+  @Output() toggleDeleteModal = new EventEmitter<boolean>();
 
   maxLen = 20;
   specialKeys = ['Backspace', 'Shift', 'Control', 'Alt', 'Delete'];
@@ -37,7 +38,7 @@ export class PlanHeaderComponent {
   }
 
   openDeleteModal(): void {
-    this.isDeleteModalOpen = true;
+    this.toggleDeleteModal.emit(true);
   }
 
   closeDeleteModal(): void {
