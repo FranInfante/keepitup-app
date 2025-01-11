@@ -14,6 +14,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { Router } from '@angular/router';
 import { NewPlan } from '../../shared/interfaces/newplan';
 import { DeletePlanModalComponent } from './components/delete-plan-modal/delete-plan-modal.component';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-plan-tabs',
@@ -46,10 +47,13 @@ export class PlansComponent implements OnInit {
     private planService: PlanService,
     private userService: UserService,
     private toastService: ToastService,
+    private themeService: ThemeService,
     private router: Router
-  ) {}
+  ) {    this.themeService.initializeThemeUserFromLocalStorage();
+  }
 
   ngOnInit(): void {
+
     const storedActivePlanId = localStorage.getItem('activePlanId');
     if (storedActivePlanId) {
       this.activePlanId = parseInt(storedActivePlanId, 10);
@@ -188,5 +192,8 @@ export class PlansComponent implements OnInit {
     if (this.activePlan) {
       this.activePlan.workouts = updatedWorkouts;
     }
+  }
+  isDarkMode(): boolean {
+    return this.themeService.isDarkMode();
   }
 }

@@ -3,17 +3,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Plan } from '../../../../shared/interfaces/plan';
 import { Workout } from '../../../../shared/interfaces/workout';
 import { PlanService } from '../../../../shared/service/plan.service';
+import { ThemeService } from '../../../../shared/service/theme.service';
 
 @Component({
   selector: 'app-plan-header',
   imports: [CommonModule],
   standalone: true,
   templateUrl: './plan-header.component.html',
-  styleUrls: ['./plan-header.component.css']
+  styleUrls: ['./plan-header.component.css'],
 })
 export class PlanHeaderComponent {
   @Input() activePlan!: Plan;
   @Input() threeDotsIcon!: string;
+  @Input() isDarkMode!: boolean;
   @Input() workouts: Workout[] = [];
   @Output() editModeToggle = new EventEmitter<void>();
   @Output() planDelete = new EventEmitter<void>();
@@ -25,7 +27,10 @@ export class PlanHeaderComponent {
   isDropdownOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
 
-  constructor(private planService: PlanService) {}
+  constructor(
+    private planService: PlanService,
+    private themeService: ThemeService
+  ) {}
 
   toggleEditMode(): void {
     this.editModeToggle.emit();
@@ -34,7 +39,7 @@ export class PlanHeaderComponent {
   openDeleteModal(): void {
     this.isDeleteModalOpen = true;
   }
-  
+
   closeDeleteModal(): void {
     this.isDeleteModalOpen = false;
   }
@@ -42,7 +47,7 @@ export class PlanHeaderComponent {
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
-  
+
   closeDropdown() {
     this.isDropdownOpen = false;
   }
@@ -69,8 +74,8 @@ export class PlanHeaderComponent {
       this.planService.updatePlanName(this.activePlan.id, newName).subscribe({
         next: (updatedPlan) => {
           this.planNameUpdated.emit(updatedPlan);
-          this.activePlan.name = updatedPlan.name; 
-        }
+          this.activePlan.name = updatedPlan.name;
+        },
       });
     }
   }
@@ -84,14 +89,14 @@ export class PlanHeaderComponent {
 
     const isSpecial = this.specialKeys.includes(key);
     const isNavigational = this.navigationalKeys.includes(key);
-    
+
     if (selection) {
       hasSelection = !!selection.toString();
     }
 
     // Handle Enter key press
     if (key === 'Enter') {
-      event.preventDefault(); 
+      event.preventDefault();
       this.updatePlanName();
       input.blur();
       return false;
@@ -104,4 +109,5 @@ export class PlanHeaderComponent {
 
     return true;
   }
+  
 }

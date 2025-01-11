@@ -5,6 +5,7 @@
   >
     <ng-container *ngIf="activePlan; else noPlans">
       <app-plan-header
+      [isDarkMode]="isDarkMode()"
         [activePlan]="activePlan"
         [threeDotsIcon]="ThreeDotsIcon"
         [workouts]="activePlan.workouts"
