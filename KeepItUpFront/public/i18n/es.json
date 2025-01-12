@@ -62,7 +62,8 @@
     "UNAUTHORIZED": "Acceso no autorizado. Por favor, inicia sesión de nuevo.",
     "NO_TOKEN": "No hay un token de autenticación disponible.",
     "NO_AUTH_TOKEN": "No hay un token de autenticación disponible.",
-    "LOGIN_ERROR": "Error de inicio de sesión:"
+    "LOGIN_ERROR": "Error de inicio de sesión:",
+      "ERROR_CREATING_WORKOUT": "Error al crear el entrenamiento. Por favor, inténtalo más tarde."
   },
   "TOAST_MSGS": {
     "LOGIN": "Sesión iniciada con éxito.",
@@ -75,7 +76,8 @@
       "EDIT_MODE_DISABLED": "Modo edición desactivado.",
       "EDIT_MODE": "Modo edición activado.",
       "WORKOUT_DELETED_SAVED": "Entrenamiento borrado y guardado con éxito.",
-      "NO_EXERCISES_IN_WORKOUT": "No hay ejercicios en este entrenamiento."
+      "NO_EXERCISES_IN_WORKOUT": "No hay ejercicios en este entrenamiento.",
+      "EXERCISE_CREATED ": "Ejercicio creado con éxito."
 
   },
   "REGISTER": {

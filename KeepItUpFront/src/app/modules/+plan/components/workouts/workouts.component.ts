@@ -20,12 +20,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Workout } from '../../../../shared/interfaces/workout';
-import { ASSET_URLS, LOCATIONS, TOAST_MSGS } from '../../../../shared/constants';
+import { ASSET_URLS, LOCATIONS, MSG, TOAST_MSGS } from '../../../../shared/constants';
 import { PlanService } from '../../../../shared/service/plan.service';
 import { ToastService } from '../../../../shared/service/toast.service';
 import { Router } from '@angular/router';
 import { WorkoutDataService } from '../../../../shared/service/workoutdata.service';
 import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
+import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-picker-modal.component';
 
 
 @Component({
@@ -202,29 +203,28 @@ export class WorkoutsComponent {
     }
   }
 
-  // createWorkout(): void {
-  //   if (this.workoutForm.valid && this.planId !== null) {
-  //     this.planService
-  //       .createWorkoutinPlan(this.planId, {
-  //         name: this.workoutForm.value.workoutName,
-  //       })
-  //       .subscribe({
-  //         next: (response: Workout) => {
-  //           if (this.workouts) {
-  //             this.workouts.push(response);
-  //             this.workoutsUpdated.emit(this.workouts);
-  //             this.isEditingChange.emit(this.isEditing);
-  //           }
+  createWorkout(): void {
+    if (this.workoutForm.valid && this.planId !== null) {
+      this.planService
+        .createWorkoutinPlan(this.planId, {
+          name: this.workoutForm.value.workoutName,
+        })
+        .subscribe({
+          next: (response: Workout) => {
+            if (this.workouts) {
+              this.workouts.push(response);
+              this.workoutsUpdated.emit(this.workouts);
+              this.isEditingChange.emit(this.isEditing);
+            }
 
-  //           this.modalService.dismissAll();
-  //           this.resetWorkoutForm();
-  //         },
-  //         error: (error: any) => {
-  //           console.error(MSG.errorcreatingworkout, error);
-  //         },
-  //       });
-  //   }
-  // }
+            this.resetWorkoutForm();
+          },
+          error: (error: any) => {
+            console.error(MSG.errorcreatingworkout, error);
+          },
+        });
+    }
+  }
 
   resetWorkoutForm() {
     this.workoutForm.reset();

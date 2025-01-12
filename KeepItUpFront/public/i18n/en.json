@@ -62,7 +62,8 @@
       "UNAUTHORIZED": "Unauthorized access. Please log in again.",
       "NO_TOKEN": "No authentication token available.",
       "NO_AUTH_TOKEN": "No authentication token available.",
-      "LOGIN_ERROR": "Login error:"
+      "LOGIN_ERROR": "Login error:",
+      "ERROR_CREATING_WORKOUT": "Error creating workout. Please try again later."
     },
     "TOAST_MSGS": {
       "LOGIN": "Logged in successfully.",
@@ -75,7 +76,8 @@
       "EDIT_MODE_DISABLED": "Edit mode is disabled.",
       "EDIT_MODE": "Edit mode is enabled",
       "WORKOUT_DELETED_SAVED": "Workout deleted and saved successfully.",
-      "NO_EXERCISES_IN_WORKOUT": "No exercises in this workout."
+      "NO_EXERCISES_IN_WORKOUT": "No exercises in this workout.",
+      "EXERCISE_CREATED ": "Exercise created successfully."
     },
     "REGISTER": {
       "TITLE": "Register User",

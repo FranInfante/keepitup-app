@@ -1,0 +1,137 @@
+
+import { PlanService } from '../../../../shared/service/plan.service';
+import { TOAST_MSGS } from '../../../../shared/constants';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Exercise } from '../../../../shared/interfaces/exercise';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input } from '@angular/core';
+import { MuscleGroup } from '../../../../shared/interfaces/musclegroup';
+import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
+import { ToastService } from '../../../../shared/service/toast.service';
+import { UserService } from '../../../../shared/service/user.service';
+import { ExerciseService } from '../../../../shared/service/exercise.service';
+
+@Component({
+  selector: 'app-exercise-picker-modal',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  templateUrl: './exercise-picker-modal.component.html',
+  styleUrl: './exercise-picker-modal.component.css'
+})
+export class ExercisePickerModalComponent implements OnInit {
+  exercises: Exercise[] = [];
+  filteredExercises: Exercise[] = [];
+  searchControl: FormControl = new FormControl('');
+  selectedExercise: Exercise | null = null;
+  creatingNewExercise: boolean = false;
+  muscleGroups: MuscleGroup[] = [];
+  userId: number | null = null;
+  noExercisesFound: boolean = false;
+
+  planId: number | null = null;
+  workoutId: number | null = null;
+
+  @Input() existingExercises: string[] = [];
+  @Input() currentExercises: WorkoutExercise[] = [];
+
+
+  newExerciseForm: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    description: new FormControl(''),
+    muscleGroup: new FormControl('', Validators.required)
+  });
+
+  constructor(
+    private exerciseService: ExerciseService,
+    private toastService: ToastService,
+    private userService: UserService,
+    private planService: PlanService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadExercises();
+    this.getCurrentUserId();
+    this.searchControl.valueChanges.subscribe(searchText => {
+      this.filterExercises(searchText);
+    });
+  }
+
+  getCurrentUserId(): void {
+    this.userService.getCurrentUser().subscribe(user => {
+      if (user && user.id) {
+        this.userId = user.id;
+        this.loadExercises();
+      }
+    });
+  }
+
+  loadExercises(): void {
+    if (this.userId !== null) {
+      this.exerciseService.getallExercises(this.userId).subscribe(exercises => {
+        this.exercises = exercises;
+        this.filterExercises('');
+      });
+    }
+  }
+
+  filterExercises(searchText: string): void {
+    this.filteredExercises = this.exercises
+      .filter(exercise =>
+        exercise.name.toLowerCase().includes(searchText.toLowerCase())
+      )
+      .filter(exercise => !this.existingExercises.includes(exercise.name));
+
+    this.noExercisesFound = this.filteredExercises.length === 0;
+  }
+
+  selectExercise(exercise: Exercise): void {
+    this.selectedExercise = exercise;
+  
+    const nextOrder = this.currentExercises.length > 0
+    ? Math.max(...this.currentExercises.map((ex) => ex.exerciseOrder || 0)) + 1
+    : 1;
+  
+    const workoutExercise: WorkoutExercise = {
+      exerciseName: exercise.name,
+      exerciseOrder: nextOrder, 
+      workoutId: this.workoutId!,
+      exerciseId: exercise.id, 
+    };
+  
+    this.toastService.showToast(
+      `${TOAST_MSGS.exercisecreated} ${exercise.name}`,
+      'success'
+    );
+    
+    // this.activeModal.close(workoutExercise);
+  }
+
+  deselectExercise(): void {
+    this.selectedExercise = null;
+  }
+
+  onSubmit(): void {
+    if (this.selectedExercise) {
+      const workoutExercise = { 
+        exerciseName: this.selectedExercise.name
+      };
+      // this.activeModal.close(workoutExercise);
+    }
+  }
+
+  onCancel(): void {
+    // this.activeModal.dismiss();
+  }
+  // openCreateExerciseModal(): void {
+  //   const modalRef = this.modalService.open(CreateExerciseModalComponent, { size: 'lg' });
+  //   modalRef.componentInstance.planId = this.planId;
+  //   modalRef.componentInstance.workoutId = this.workoutId;
+
+  //   modalRef.result.then((newExercise: WorkoutExercise | null) => {
+  //     if (newExercise) {
+  //       this.activeModal.close(newExercise);
+  //     }
+  //   });
+  // }
+
+}

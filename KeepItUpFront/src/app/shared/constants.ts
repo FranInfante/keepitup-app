@@ -16,6 +16,7 @@ export const MSG = {
   notoken: 'MSG.NO_TOKEN',
   noauthtoken: 'MSG.NO_AUTH_TOKEN',
   loginerror: 'MSG.LOGIN_ERROR',
+  errorcreatingworkout : 'MSG.ERROR_CREATING_WORKOUT',
 };
 
 export const TOAST_MSGS = {
@@ -30,6 +31,7 @@ export const TOAST_MSGS = {
   editmode: 'TOAST_MSGS.EDIT_MODE',
   workoutdeletedsaved: 'TOAST_MSGS.WORKOUT_DELETED_SAVED',
   noexercisesinworkout: 'TOAST_MSGS.NO_EXERCISES_IN_WORKOUT',
+  exercisecreated: 'TOAST_MSGS.EXERCISE_CREATED',
 
 };
 
