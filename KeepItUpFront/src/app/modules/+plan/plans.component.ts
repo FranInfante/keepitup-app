@@ -11,7 +11,6 @@ import { PlanHeaderComponent } from './components/plan-header/plan-header.compon
 import { WorkoutsComponent } from './components/workouts/workouts.component';
 import { CommonModule } from '@angular/common';
 import { TabsComponent } from './components/tabs/tabs.component';
-import { Router } from '@angular/router';
 import { NewPlan } from '../../shared/interfaces/newplan';
 import { DeletePlanModalComponent } from './components/delete-plan-modal/delete-plan-modal.component';
 import { ThemeService } from '../../shared/service/theme.service';
