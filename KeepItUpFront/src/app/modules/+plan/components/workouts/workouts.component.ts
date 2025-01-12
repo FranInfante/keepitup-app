@@ -172,7 +172,7 @@ export class WorkoutsComponent {
     this.planService.getWorkoutById(workout.id).subscribe((updatedWorkout: Workout) => {
       this.selectedWorkout = {
         ...updatedWorkout,
-        workoutExercises: updatedWorkout.workoutExercises.sort(
+        workoutExercises: (updatedWorkout.workoutExercises || []).sort(
           (a, b) => a.exerciseOrder - b.exerciseOrder
         )
       };
@@ -225,6 +225,7 @@ export class WorkoutsComponent {
               this.workouts.push(response);
               this.workoutsUpdated.emit(this.workouts);
               this.isEditingChange.emit(this.isEditing);
+              this.isModalOpen = false;
             }
 
             this.resetWorkoutForm();
