@@ -4,6 +4,8 @@ import { Plan } from '../../../../shared/interfaces/plan';
 import { Workout } from '../../../../shared/interfaces/workout';
 import { PlanService } from '../../../../shared/service/plan.service';
 import { ThemeService } from '../../../../shared/service/theme.service';
+import { LOCATIONS } from '../../../../shared/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plan-header',
@@ -27,10 +29,11 @@ export class PlanHeaderComponent {
   navigationalKeys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'];
   isDropdownOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
+  LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
   constructor(
     private planService: PlanService,
-    private themeService: ThemeService
+    private router: Router
   ) {}
 
   toggleEditMode(): void {
@@ -110,5 +113,8 @@ export class PlanHeaderComponent {
 
     return true;
   }
-  
+
+  navigateToWorkouts() {
+    this.router.navigate([LOCATIONS.workouts]);
+  }
 }

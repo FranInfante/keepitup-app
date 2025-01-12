@@ -47,8 +47,7 @@ export class PlansComponent implements OnInit {
     private planService: PlanService,
     private userService: UserService,
     private toastService: ToastService,
-    private themeService: ThemeService,
-    private router: Router
+    private themeService: ThemeService
   ) {    this.themeService.initializeThemeUserFromLocalStorage();
   }
 
@@ -83,9 +82,7 @@ export class PlansComponent implements OnInit {
     }
   }
 
-  navigateToWorkouts() {
-    this.router.navigate([LOCATIONS.workouts]);
-  }
+  
 
   fetchUserPlans(userId: number): void {
     this.planService.getPlansByUserId(userId).subscribe((plans) => {
