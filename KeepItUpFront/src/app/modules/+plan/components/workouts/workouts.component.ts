@@ -64,6 +64,7 @@ export class WorkoutsComponent {
   maxLen = 20;
   specialKeys = ['Backspace', 'Shift', 'Control', 'Alt', 'Delete'];
   navigationalKeys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'];
+  isModalOpen = false; 
 
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
@@ -201,6 +202,15 @@ export class WorkoutsComponent {
             );
         });
     }
+  }
+
+  openCreateWorkoutModal(): void {
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.workoutForm.reset();
   }
 
   createWorkout(): void {
