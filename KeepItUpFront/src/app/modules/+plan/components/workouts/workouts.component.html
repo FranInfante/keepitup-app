@@ -13,7 +13,7 @@
     </button>
     <div class="workout-details-content text-center">
       <h4
-        class="mb-3 custom-heading"
+        class="mb-3 text-lg w-full p-4"
         contenteditable="true"
         (blur)="updateWorkoutName()"
         (keydown)="onKeyDown($event, 'workout')"
@@ -120,16 +120,16 @@
         Save changes
       </button>
 
-      <div class="flex justify-end mt-3 mb-4">
+     
         <div
-          class="add-box flex justify-content-center align-items-center"
+          class="flex justify-center items-center bg-blue-600 hover:bg-blue-700 w-12 h-12 rounded-xl cursor-pointer fixed bottom-16 right-8 z-50 shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out border border-gray-300"
           (click)="openCreateWorkoutModal()"
         >
-          <h4 class="text-blue-600 flex items-center justify-center">
-            <img [src]="PlusSignIcon" alt="PlusSignIcon" />
-          </h4>
+          <img [src]="PlusSignIcon" alt="PlusSignIcon" class="w-6 h-6" />
         </div>
-      </div>
+     
+      
+      
       <ng-template #noWorkouts>
         <div>
           <p class="text-center px-3">No workouts available for this plan.</p>
@@ -146,7 +146,7 @@
   (click)="closeModal()"
 >
   <div
-    class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+    class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg w-full p-6 mx-4 relative"
     (click)="$event.stopPropagation()"
   >
     <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
