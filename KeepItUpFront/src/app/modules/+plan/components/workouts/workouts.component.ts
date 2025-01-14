@@ -129,40 +129,6 @@ export class WorkoutsComponent {
     }
   }
   
-
-  // openExercisePickerModal(): void {
-  //   const modalRef = this.modalService.open(ExercisePickerModalComponent, {
-  //     size: 'lg',
-  //   });
-
-  //   modalRef.componentInstance.planId = this.planId!;
-  //   modalRef.componentInstance.workoutId = this.selectedWorkout!.id;
-  //   modalRef.componentInstance.existingExercises =
-  //     this.selectedWorkout!.workoutExercises.map((ex) => ex.exerciseName);
-  //     modalRef.componentInstance.currentExercises = this.selectedWorkout!.workoutExercises; 
-
-  //   modalRef.result.then(
-  //     (workoutExercise: WorkoutExercise) => {
-  //       if (workoutExercise && this.selectedWorkout) {
-  //         this.planService
-  //           .addExerciseToWorkout(
-  //             this.planId!,
-  //             this.selectedWorkout.id,
-  //             workoutExercise,
-  //           )
-  //           .subscribe((updatedWorkout: Workout) => {
-  //             this.selectedWorkout!.workoutExercises =
-  //               updatedWorkout.workoutExercises;
-  //             setTimeout(() => {
-  //               this.scrollToLastExercise();
-  //             }, 100);
-  //           });
-  //       }
-  //     },
-  //     () => {},
-  //   );
-  // }
-
   // openCreateExerciseModal(): void {
   //   const modalRef = this.modalService.open(CreateExerciseModalComponent, {
   //     size: 'lg',
