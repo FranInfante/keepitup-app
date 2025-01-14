@@ -37,7 +37,8 @@ import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-  ],
+    ExercisePickerModalComponent
+],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
@@ -65,6 +66,8 @@ export class WorkoutsComponent {
   specialKeys = ['Backspace', 'Shift', 'Control', 'Alt', 'Delete'];
   navigationalKeys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'];
   isModalOpen = false; 
+  isExercisePickerModalOpen = false;
+
 
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
@@ -94,6 +97,14 @@ export class WorkoutsComponent {
     }
   }
 
+  toggleExercisePickerModal(isOpen: boolean): void {
+    this.isExercisePickerModalOpen = isOpen;
+  }
+  
+  closeExercisePickerModal(): void {
+    this.isExercisePickerModalOpen = false;
+  }
+
   markWorkoutForDeletion(workout: Workout): void {
     this.workoutsMarkedForDeletion.push(workout);
 
@@ -105,6 +116,19 @@ export class WorkoutsComponent {
   openExerciseOptions(): void {
     this.showExerciseOptions = !this.showExerciseOptions;
   }
+
+  addExerciseToWorkout(workoutExercise: WorkoutExercise): void {
+    if (this.selectedWorkout && this.planId !== null) {
+      this.planService
+        .addExerciseToWorkout(this.planId, this.selectedWorkout.id, workoutExercise)
+        .subscribe((updatedWorkout) => {
+          this.selectedWorkout!.workoutExercises = updatedWorkout.workoutExercises;
+          this.workoutsUpdated.emit(this.workouts); // Notify parent of updates
+          this.closeExercisePickerModal(); // Close the modal
+        });
+    }
+  }
+  
 
   // openExercisePickerModal(): void {
   //   const modalRef = this.modalService.open(ExercisePickerModalComponent, {

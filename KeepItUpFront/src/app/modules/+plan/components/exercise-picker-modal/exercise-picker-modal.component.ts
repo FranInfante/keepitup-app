@@ -1,10 +1,15 @@
-
 import { PlanService } from '../../../../shared/service/plan.service';
 import { TOAST_MSGS } from '../../../../shared/constants';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Exercise } from '../../../../shared/interfaces/exercise';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MuscleGroup } from '../../../../shared/interfaces/musclegroup';
 import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ToastService } from '../../../../shared/service/toast.service';
@@ -16,7 +21,7 @@ import { ExerciseService } from '../../../../shared/service/exercise.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './exercise-picker-modal.component.html',
-  styleUrl: './exercise-picker-modal.component.css'
+  styleUrl: './exercise-picker-modal.component.css',
 })
 export class ExercisePickerModalComponent implements OnInit {
   exercises: Exercise[] = [];
@@ -31,14 +36,16 @@ export class ExercisePickerModalComponent implements OnInit {
   planId: number | null = null;
   workoutId: number | null = null;
 
+  @Input() isExercisePickerModalOpen: boolean = false; // Add this property
   @Input() existingExercises: string[] = [];
   @Input() currentExercises: WorkoutExercise[] = [];
-
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() exerciseSelected = new EventEmitter<WorkoutExercise>();
 
   newExerciseForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl(''),
-    muscleGroup: new FormControl('', Validators.required)
+    muscleGroup: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -51,13 +58,16 @@ export class ExercisePickerModalComponent implements OnInit {
   ngOnInit(): void {
     this.loadExercises();
     this.getCurrentUserId();
-    this.searchControl.valueChanges.subscribe(searchText => {
+    this.searchControl.valueChanges.subscribe((searchText) => {
       this.filterExercises(searchText);
     });
   }
+  closeExercisePickerModal(): void {
+    this.closeModal.emit(); // Emit the event to close the modal
+  }
 
   getCurrentUserId(): void {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.userService.getCurrentUser().subscribe((user) => {
       if (user && user.id) {
         this.userId = user.id;
         this.loadExercises();
@@ -67,43 +77,34 @@ export class ExercisePickerModalComponent implements OnInit {
 
   loadExercises(): void {
     if (this.userId !== null) {
-      this.exerciseService.getallExercises(this.userId).subscribe(exercises => {
-        this.exercises = exercises;
-        this.filterExercises('');
-      });
+      this.exerciseService
+        .getallExercises(this.userId)
+        .subscribe((exercises) => {
+          this.exercises = exercises;
+          this.filterExercises('');
+        });
     }
   }
 
   filterExercises(searchText: string): void {
     this.filteredExercises = this.exercises
-      .filter(exercise =>
+      .filter((exercise) =>
         exercise.name.toLowerCase().includes(searchText.toLowerCase())
       )
-      .filter(exercise => !this.existingExercises.includes(exercise.name));
+      .filter((exercise) => !this.existingExercises.includes(exercise.name));
 
     this.noExercisesFound = this.filteredExercises.length === 0;
   }
 
   selectExercise(exercise: Exercise): void {
-    this.selectedExercise = exercise;
-  
-    const nextOrder = this.currentExercises.length > 0
-    ? Math.max(...this.currentExercises.map((ex) => ex.exerciseOrder || 0)) + 1
-    : 1;
-  
     const workoutExercise: WorkoutExercise = {
       exerciseName: exercise.name,
-      exerciseOrder: nextOrder, 
+      exerciseOrder: this.currentExercises.length + 1,
       workoutId: this.workoutId!,
-      exerciseId: exercise.id, 
+      exerciseId: exercise.id,
     };
   
-    this.toastService.showToast(
-      `${TOAST_MSGS.exercisecreated} ${exercise.name}`,
-      'success'
-    );
-    
-    // this.activeModal.close(workoutExercise);
+    this.exerciseSelected.emit(workoutExercise);
   }
 
   deselectExercise(): void {
@@ -112,8 +113,8 @@ export class ExercisePickerModalComponent implements OnInit {
 
   onSubmit(): void {
     if (this.selectedExercise) {
-      const workoutExercise = { 
-        exerciseName: this.selectedExercise.name
+      const workoutExercise = {
+        exerciseName: this.selectedExercise.name,
       };
       // this.activeModal.close(workoutExercise);
     }
@@ -133,5 +134,4 @@ export class ExercisePickerModalComponent implements OnInit {
   //     }
   //   });
   // }
-
 }
