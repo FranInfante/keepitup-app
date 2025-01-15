@@ -58,4 +58,6 @@ public class UriConstants {
     public static final String REORDER = "/{planId}/workouts/reorder";
     public static final String WORKOUTS_BY_USER = "/user/{userId}";
 
+    public static final String MUSCLE_GROUPS = BASE_URL + "/musclegroups";
+
 }
