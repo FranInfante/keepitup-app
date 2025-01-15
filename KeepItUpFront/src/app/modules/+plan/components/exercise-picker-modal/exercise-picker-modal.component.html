@@ -1,6 +1,6 @@
 <!-- Exercise Picker Modal -->
 <div
-  class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+  class="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center"
   (click)="closeExercisePickerModal()"
 >
   <div
@@ -38,11 +38,17 @@
       </ul>
       <div *ngIf="noExercisesFound" class="text-center mt-4">
         <button
-          class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-500"
+          class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-500" (click)="openCreateExerciseModal()"
         >
           Create New Exercise
         </button>
       </div>
+      <app-create-exercise-modal
+        *ngIf="isCreateExerciseModalOpen"
+        [planId]="planId"
+        [workoutId]="workoutId"
+        (closeModal)="closeCreateExerciseModal()"
+        ></app-create-exercise-modal>
     </div>
 
     <!-- Modal Footer -->

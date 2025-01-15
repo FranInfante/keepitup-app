@@ -15,11 +15,12 @@ import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ToastService } from '../../../../shared/service/toast.service';
 import { UserService } from '../../../../shared/service/user.service';
 import { ExerciseService } from '../../../../shared/service/exercise.service';
+import { CreateExerciseModalComponent } from "../create-exercise-modal/create-exercise-modal.component";
 
 @Component({
   selector: 'app-exercise-picker-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, CreateExerciseModalComponent],
   templateUrl: './exercise-picker-modal.component.html',
   styleUrl: './exercise-picker-modal.component.css',
 })
@@ -35,8 +36,10 @@ export class ExercisePickerModalComponent implements OnInit {
 
   planId: number | null = null;
   workoutId: number | null = null;
+  isCreateExerciseModalOpen = false;
 
-  @Input() isExercisePickerModalOpen: boolean = false; // Add this property
+
+  @Input() isExercisePickerModalOpen: boolean = false;
   @Input() existingExercises: string[] = [];
   @Input() currentExercises: WorkoutExercise[] = [];
   @Output() closeModal = new EventEmitter<void>();
@@ -62,8 +65,16 @@ export class ExercisePickerModalComponent implements OnInit {
       this.filterExercises(searchText);
     });
   }
+
+  openCreateExerciseModal(): void {
+    this.isCreateExerciseModalOpen = true;
+  }
+  
+  closeCreateExerciseModal(): void {
+    this.isCreateExerciseModalOpen = false;
+  }
   closeExercisePickerModal(): void {
-    this.closeModal.emit(); // Emit the event to close the modal
+    this.closeModal.emit();
   }
 
   getCurrentUserId(): void {
