@@ -28,7 +28,7 @@ export class CreateExerciseModalComponent implements OnInit {
   newExerciseForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl(''),
-    muscleGroup: new FormControl('', Validators.required),
+    muscleGroup: new FormControl(''),
   });
   muscleGroups: MuscleGroup[] = [];
   userId: number | null = null;
@@ -60,11 +60,16 @@ export class CreateExerciseModalComponent implements OnInit {
   }
 
   onCreateNewExercise(): void {
+    console.log("onCreateNewExercise");
     const newExerciseName = this.newExerciseForm.get('name')?.value.trim();
     const description = this.newExerciseForm.get('description')?.value;
     const muscleGroupId = this.newExerciseForm.get('muscleGroup')?.value;
+    console.log("Form Values - Name:", newExerciseName, "Description:", description, "Muscle Group ID:", muscleGroupId);
+
 
     if (!this.userId || !this.planId || !this.workoutId) {
+      console.log("userId, planId, or workoutId is null " + this.userId + " " + this.planId + " " + this.workoutId);
+
       return;
     }
 
@@ -78,27 +83,37 @@ export class CreateExerciseModalComponent implements OnInit {
         workoutId: this.workoutId,
       };
 
+      console.log("Constructed New Exercise Object:", newExercise);
+
       this.exerciseService.createOrCheckExercise(newExercise).subscribe({
         next: (response) => {
+          console.log("Backend Response:", response);
+
           const exercise = response as any;
 
           if (exercise) {
             if (exercise.exists) {
+              console.log("Exercise already exists:", exercise.name);
+
               this.toastService.showToast('hola' + exercise.name, 'danger');
             } else {
+              console.log("Exercise successfully created:", exercise.name);
+
               this.toastService.showToast(
                 TOAST_MSGS.exercisecreated + exercise.name,
                 'success'
               );
               const workoutExercise = { exerciseName: exercise.name };
-              // this.activeModal.close(workoutExercise);
+              console.log("Workout Exercise Object:", workoutExercise);
+
+              this.closeCreateExercise();
             }
           }
         },
       });
     }
   }
-
+  
   closeCreateExercise(): void {
     this.closeModal.emit();
   }

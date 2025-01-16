@@ -34,11 +34,10 @@ export class ExercisePickerModalComponent implements OnInit {
   userId: number | null = null;
   noExercisesFound: boolean = false;
 
-  planId: number | null = null;
-  workoutId: number | null = null;
   isCreateExerciseModalOpen = false;
 
-
+  @Input() planId: number | null = null;
+  @Input() workoutId: number | null = null;
   @Input() isExercisePickerModalOpen: boolean = false;
   @Input() existingExercises: string[] = [];
   @Input() currentExercises: WorkoutExercise[] = [];

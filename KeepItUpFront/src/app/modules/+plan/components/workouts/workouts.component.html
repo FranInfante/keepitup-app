@@ -208,6 +208,8 @@
   *ngIf="isExercisePickerModalOpen"
   [isExercisePickerModalOpen]="isExercisePickerModalOpen"
   (closeModal)="closeExercisePickerModal()"
+  [planId]="planId"
+  [workoutId]="selectedWorkout!.id"
   [currentExercises]="selectedWorkout?.workoutExercises || []"
   (exerciseSelected)="addExerciseToWorkout($event)"
 ></app-exercise-picker-modal>
