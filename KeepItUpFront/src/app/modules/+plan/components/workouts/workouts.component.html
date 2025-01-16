@@ -4,7 +4,7 @@
   class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10 flex items-center justify-center"
   (click)="closeWorkoutDetails()"
 >
-  <div class="modal-content" (click)="$event.stopPropagation()">
+  <div class="modal-content min-h-[50%] max-h[80%]" (click)="$event.stopPropagation()">
     <button
       class="absolute top-2 right-2 cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
       (click)="closeWorkoutDetails()"
@@ -43,33 +43,20 @@
       </ng-template>
         <div class="add-exercise-container"></div>
       </div>
+      <div class="absolute bottom-3 left-4 right-3 flex justify-between items-center">
 
-      <!-- <div class="d-flex justify-content-between align-items-center">
-        <button
-          class="btn btn-primary btn-lg"
-          type="button"
-          (click)="openExercisePickerModal()"
-        >
-          <img class="pluss" [src]="PlusSignIcon" alt="PlusSignIcon" />
-        </button>
-        <button (click)="goToLogPage()"
-          class="btn btn-success btn-lg"
-          type="button"
-        >
-          <img class="pluss" [src]="PlayButton" alt="PlayButton" />
-        </button>
-      </div> -->
-      <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-primary btn-lg" type="button" (click)="toggleExercisePickerModal(true)">
-          <img class="pluss" [src]="PlusSignIcon" alt="PlusSignIcon" />
+        <button class="btn btn-primary btn-lg left-0" type="button" (click)="toggleExercisePickerModal(true)">
+          <img class="h-8" [src]="PlusSignIcon" alt="PlusSignIcon" />
         </button>
         <button
-          (click)="goToLogPage()"
-          class="btn btn-success btn-lg"
-          type="button"
+        (click)="goToLogPage()"
+        class="btn btn-success btn-lg right-0 bg-blue-500 px-4 py-2 rounded-lg font-medium text-white hover:bg-blue-600"
+        type="button"
         >
-          <img class="pluss" [src]="PlayButton" alt="PlayButton" />
-        </button>
+        <!-- <img class="h-30" [src]="PlayButton" alt="PlayButton" /> -->
+        Begin
+      </button>
+      
       </div>
     </div>
   </div>
