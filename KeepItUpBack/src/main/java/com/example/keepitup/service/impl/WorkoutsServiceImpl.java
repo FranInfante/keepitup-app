@@ -9,6 +9,8 @@ import com.example.keepitup.repository.WorkoutsRepository;
 import com.example.keepitup.service.WorkoutsService;
 import com.example.keepitup.util.mappers.WeighInsMapper;
 import com.example.keepitup.util.mappers.WorkoutsMapper;
+import com.example.keepitup.util.msgs.MessageConstants;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +50,18 @@ public class WorkoutsServiceImpl implements WorkoutsService {
     @Override
     public void deleteWeighIn(Integer weighInId) {
         workoutsRepository.deleteById(weighInId);
+    }
+
+    @Override
+    public WorkoutsDTO updateWorkoutName(Integer id, String name) throws Exception {
+        Workouts workout = workoutsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
+
+        if (name != null) {
+            workout.setName(name);
+        }
+
+        Workouts savedWorkout = workoutsRepository.save(workout);
+        return WorkoutsMapper.workoutsEntityToDTO(savedWorkout);
     }
 }

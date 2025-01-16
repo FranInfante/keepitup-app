@@ -1,5 +1,6 @@
 package com.example.keepitup.controller;
 
+import com.example.keepitup.model.dtos.UpdateWorkoutNameDTO;
 import com.example.keepitup.model.dtos.WorkoutsDTO;
 import com.example.keepitup.util.UriConstants;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,12 @@ public interface WorkoutsApi {
     ResponseEntity<List<WorkoutsDTO>> getWorkoutsByUserId(@PathVariable("id") Integer userId);
 
     @GetMapping(UriConstants.UNIQUEWORKOUTSBYID)
-    public ResponseEntity<List<String>> getUniqueWorkoutNames(@PathVariable Integer userId);
+    ResponseEntity<List<String>> getUniqueWorkoutNames(@PathVariable Integer userId);
 
     @DeleteMapping(UriConstants.BY_ID)
     ResponseEntity<Void> deleteWorkout(@PathVariable("id") Integer userId);
+
+    @PatchMapping(UriConstants.UPDATE_NAME)
+    ResponseEntity<WorkoutsDTO> updateWorkoutName(@PathVariable Integer id, @RequestBody UpdateWorkoutNameDTO updateWorkoutNameDTO);
+
 }

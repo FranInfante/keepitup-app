@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -32,7 +34,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @Transactional
     public void seedMuscleGroups() {
-        MuscleGroup[] muscleGroups = {
+        List<MuscleGroup> muscleGroups = Arrays.asList(
                 MuscleGroup.builder().name(MuscleGroupType.LEGS).build(),
                 MuscleGroup.builder().name(MuscleGroupType.BACK).build(),
                 MuscleGroup.builder().name(MuscleGroupType.CHEST).build(),
@@ -44,9 +46,13 @@ public class DataSeeder implements CommandLineRunner {
                 MuscleGroup.builder().name(MuscleGroupType.BICEPS).build(),
                 MuscleGroup.builder().name(MuscleGroupType.FOREARMS).build(),
                 MuscleGroup.builder().name(MuscleGroupType.OTHER).build()
-        };
+        );
 
-        muscleGroupRepository.saveAll(Arrays.asList(muscleGroups));
+        muscleGroups.forEach(muscleGroup -> {
+            Optional<MuscleGroup> existingMuscleGroup = Optional.ofNullable(muscleGroupRepository.findByName(muscleGroup.getName()));
+            if (existingMuscleGroup.isEmpty()) {
+                muscleGroupRepository.save(muscleGroup);
+            }
+        });
     }
-
 }
