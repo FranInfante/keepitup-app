@@ -28,6 +28,15 @@
           placeholder="Exercise name"
           maxlength="40"
         />
+        <div
+        *ngIf="
+          newExerciseForm.get('name')?.touched &&
+          newExerciseForm.get('name')?.invalid
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        Name is required.
+      </div>
       </div>
 
       <div class="mb-4">
@@ -53,6 +62,15 @@
             {{ group.name }}
           </option>
         </select>
+        <div
+        *ngIf="
+          newExerciseForm.get('muscleGroup')?.touched &&
+          newExerciseForm.get('muscleGroup')?.invalid
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        Muscle Group is required.
+      </div>
       </div>
 
       <!-- Modal Footer -->
@@ -66,7 +84,6 @@
         </button>
         <button
           type="submit"
-          [disabled]="!newExerciseForm.valid"
           class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-500"
         >
           Create Exercise

@@ -28,14 +28,13 @@ export class CreateExerciseModalComponent implements OnInit {
   newExerciseForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl(''),
-    muscleGroup: new FormControl(''),
+    muscleGroup: new FormControl('', Validators.required),
   });
   muscleGroups: MuscleGroup[] = [];
   userId: number | null = null;
 
   constructor(
     private exerciseService: ExerciseService,
-    // public activeModal: NgbActiveModal,
     private toastService: ToastService,
     private userService: UserService
   ) {}
@@ -60,15 +59,48 @@ export class CreateExerciseModalComponent implements OnInit {
   }
 
   onCreateNewExercise(): void {
-    console.log("onCreateNewExercise");
+
+    if (this.newExerciseForm.invalid) {
+      Object.keys(this.newExerciseForm.controls).forEach((field) => {
+        const control = this.newExerciseForm.get(field);
+        control?.markAsTouched();
+      });
+      return;
+    }
+
     const newExerciseName = this.newExerciseForm.get('name')?.value.trim();
     const description = this.newExerciseForm.get('description')?.value;
     const muscleGroupId = this.newExerciseForm.get('muscleGroup')?.value;
-    console.log("Form Values - Name:", newExerciseName, "Description:", description, "Muscle Group ID:", muscleGroupId);
+    console.log(
+      'Form Values - Name:',
+      newExerciseName,
+      'Description:',
+      description,
+      'Muscle Group ID:',
+      muscleGroupId
+    );
 
+    if (!newExerciseName) {
+      this.toastService.showToast(
+        'Please provide a name for the exercise.',
+        'danger'
+      );
+      return;
+    }
+
+    if (!muscleGroupId) {
+      this.toastService.showToast(
+        'Please select a muscle group or leave it empty.',
+        'danger'
+      );
+      return;
+    }
 
     if (!this.userId || !this.planId || !this.workoutId) {
-      console.log("userId, planId, or workoutId is null " + this.userId + " " + this.planId + " " + this.workoutId);
+      this.toastService.showToast(
+        'Error creating exercise. Please try again later.',
+        'danger'
+      );
 
       return;
     }
@@ -83,37 +115,38 @@ export class CreateExerciseModalComponent implements OnInit {
         workoutId: this.workoutId,
       };
 
-      console.log("Constructed New Exercise Object:", newExercise);
-
       this.exerciseService.createOrCheckExercise(newExercise).subscribe({
         next: (response) => {
-          console.log("Backend Response:", response);
+          console.log('Backend Response:', response);
 
           const exercise = response as any;
 
           if (exercise) {
             if (exercise.exists) {
-              console.log("Exercise already exists:", exercise.name);
+              console.log('Exercise already exists:', exercise.name);
 
               this.toastService.showToast('hola' + exercise.name, 'danger');
             } else {
-              console.log("Exercise successfully created:", exercise.name);
-
               this.toastService.showToast(
                 TOAST_MSGS.exercisecreated + exercise.name,
                 'success'
               );
-              const workoutExercise = { exerciseName: exercise.name };
-              console.log("Workout Exercise Object:", workoutExercise);
 
               this.closeCreateExercise();
             }
           }
         },
+        error: (err) => {
+          console.error('Error creating exercise:', err);
+          this.toastService.showToast(
+            'Error creating exercise. Please try again.',
+            'danger'
+          );
+        },
       });
     }
   }
-  
+
   closeCreateExercise(): void {
     this.closeModal.emit();
   }

@@ -1,29 +1,26 @@
 package com.example.keepitup.service.impl;
 
-import com.example.keepitup.model.dtos.ExerciseDTO;
-import com.example.keepitup.model.entities.Exercise;
-import com.example.keepitup.repository.ExerciseRepository;
-import com.example.keepitup.repository.WorkoutExerciseRepository;
-import com.example.keepitup.repository.WorkoutsRepository;
-import com.example.keepitup.service.ExerciseService;
-import com.example.keepitup.util.mappers.ExerciseMapper;
-import com.example.keepitup.util.msgs.MessageConstants;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
+import com.example.keepitup.model.dtos.ExerciseDTO;
+import com.example.keepitup.model.entities.Exercise;
+import com.example.keepitup.repository.ExerciseRepository;
+import com.example.keepitup.service.ExerciseService;
+import com.example.keepitup.util.mappers.ExerciseMapper;
+import com.example.keepitup.util.msgs.MessageConstants;
+
 import static ch.qos.logback.core.util.StringUtil.capitalizeFirstLetter;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ExerciseServiceImpl implements ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
-    private final WorkoutsRepository workoutRepository;
-    private final WorkoutExerciseRepository workoutExerciseRepository;
 
     @Override
     public List<ExerciseDTO> getAllExercises(Integer userId) {
