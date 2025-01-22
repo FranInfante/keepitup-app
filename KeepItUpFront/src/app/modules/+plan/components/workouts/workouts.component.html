@@ -4,9 +4,9 @@
   class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10 flex items-center justify-center"
   (click)="closeWorkoutDetails()"
 >
-  <div class="bg-gray-800 mx-8 rounded-lg shadow-lg max-w-lg w-full p-6 relative" (click)="$event.stopPropagation()">
+  <div class="bg-gray-800  mx-8 rounded-lg shadow-lg max-w-lg w-full p-6 relative" (click)="$event.stopPropagation()">
     <button
-      class="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+      class="absolute text-2xl top-2 right-2 text-gray-400 hover:text-gray-600"
       (click)="closeWorkoutDetails()"
     >
       &times;
@@ -22,13 +22,13 @@
       </h4>
 
       <div *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises" >
-        <ul class="list-none h-[calc(100vh-280px)] overflow-y-auto">
+        <ul class="list-none h-[calc(80vh-280px)] overflow-y-auto">
           <li
             *ngFor="let exercise of selectedWorkout.workoutExercises"
             class="flex justify-between items-center mb-2 bg-gray-700 text-gray-200 p-3 rounded-md"
           >
             <span>{{ exercise.exerciseName }}</span>
-            <button class="text-red-500 hover:text-red-700" (click)="deleteExercise(exercise.id!)">&times;</button>
+            <button class="text-red-500 hover:text-red-500 text-2xl" (click)="deleteExercise(exercise.id!)">&times;</button>
           </li>
         </ul>
       </div>

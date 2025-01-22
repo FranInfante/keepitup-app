@@ -7,6 +7,7 @@ import { authGuard } from './auth.guard';
 import { LandingComponent } from './modules/+landing/landing.component';
 import { PlansComponent } from './modules/+plan/plans.component';
 import { WorkoutsBasicComponent } from './modules/+workouts-basic-log/workoutsbasic.component';
+import { LogpageComponent } from './modules/+logpage/logpage.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponent},
@@ -15,5 +16,7 @@ export const routes: Routes = [
     {path: "menu", component: MenuComponent, canActivate: [authGuard]},
     {path: "weighins", component: WeighInsComponent, canActivate: [authGuard]},
     {path: "workouts", component: WorkoutsBasicComponent, canActivate: [authGuard]},
-    {path: "plans", component: PlansComponent}
+    {path: "plans", component: PlansComponent},
+    { path: "logpage", component: LogpageComponent },
+
 ];
