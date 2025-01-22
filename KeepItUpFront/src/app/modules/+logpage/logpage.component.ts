@@ -19,6 +19,7 @@ import { WorkoutDataService } from '../../shared/service/workoutdata.service';
 import { WorkoutLog } from '../../shared/interfaces/workoutlog';
 import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { ConfirmationModalComponent } from '../../shared/components/comfirmation-modal/cofirmation-modal.component';
+import { ContinueOrResetModalComponent } from '../../shared/components/continue-or-reset-modal/continue-or-reset-modal.component';
 
 @Component({
   selector: 'app-logpage',
@@ -29,6 +30,7 @@ import { ConfirmationModalComponent } from '../../shared/components/comfirmation
     BackToMenuComponent,
     FormsModule,
     ConfirmationModalComponent,
+    ContinueOrResetModalComponent,
   ],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
@@ -52,6 +54,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
   workoutName: string = '';
 
   isConfirmationModalOpen: boolean = false;
+  isContinueOrResetModalOpen: boolean = false;
+
+  editingLog: WorkoutLog | null = null;
+
 
   constructor(
     private fb: FormBuilder,
@@ -90,10 +96,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
   backToPlans() {
     this.isConfirmationModalOpen = true;
-    console.log('Confirmation modal opened');
   }
-  handleModalResponse(action: string) {
-    this.isConfirmationModalOpen = false; 
+  handleModalConfirmResponse(action: string) {
+    this.isConfirmationModalOpen = false;
     if (action === 'save') {
       this.saveAndNavigate();
     } else if (action === 'discard') {
@@ -163,33 +168,30 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   askUserToContinueOrReset(editingLog: WorkoutLog) {
-    // const modalRef = this.modalService.open(ContinueOrResetModalComponent);
-    // modalRef.result.then(
-    //   (result) => {
-    //     if (result === 'continue') {
-    //       this.workoutLogId = editingLog.id;
-    //       this.populateFormWithSavedData(editingLog);
-    //       this.trackFormChanges();
-    //     } else if (result === 'reset') {
-    //       this.workoutLogService.deleteWorkoutLog(editingLog.id).subscribe({
-    //         next: () => {
-    //           console.log('Existing workout log deleted successfully.');
-    //           this.createAndLoadWorkoutLog();
-    //         },
-    //         error: (err) => {
-    //           console.error('Error deleting existing workout log', err);
-    //         },
-    //       });
-    //     }
-    //   },
-    //   () => {
-    //     this.workoutLogId = editingLog.id;
-    //       this.populateFormWithSavedData(editingLog);
-    //       this.trackFormChanges();
-    //   }
-    // );
+    this.editingLog = editingLog;
+    this.isContinueOrResetModalOpen = true;
   }
 
+  handleModalResetResponse(action: string) {
+    this.isContinueOrResetModalOpen = false;
+  
+    if (action === 'continue' && this.editingLog) {
+      this.workoutLogId = this.editingLog.id; 
+      this.populateFormWithSavedData(this.editingLog);
+      this.trackFormChanges();
+    } else if (action === 'reset' && this.editingLog) {
+      this.workoutLogService.deleteWorkoutLog(this.editingLog.id).subscribe({
+        next: () => {
+          console.log('Existing workout log deleted successfully.');
+          this.createAndLoadWorkoutLog();
+        },
+        error: (err) => {
+          console.error('Error deleting existing workout log', err);
+        },
+      });
+    }
+    this.editingLog = null; // Clear the reference
+  }
   trackFormChanges() {
     if (!this.workoutLogId) {
       return;

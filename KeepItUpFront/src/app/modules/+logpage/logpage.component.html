@@ -152,7 +152,15 @@
 
 <app-confirmation-modal
   *ngIf="isConfirmationModalOpen"
-  (onSave)="handleModalResponse('save')"
-  (onDiscard)="handleModalResponse('discard')"
+  (onSave)="handleModalConfirmResponse('save')"
+  (onDiscard)="handleModalConfirmResponse('discard')"
   (onCancel)="isConfirmationModalOpen = false"
 ></app-confirmation-modal>
+
+
+<app-continue-or-reset-modal
+  *ngIf="isContinueOrResetModalOpen"
+  (onContinue)="handleModalResetResponse('continue')"
+  (onReset)="handleModalResetResponse('reset')"
+  (onCancel)="isContinueOrResetModalOpen = false"
+></app-continue-or-reset-modal>
