@@ -1,4 +1,5 @@
-<app-back-to-menu (click)="backToPlans()" ></app-back-to-menu>
+<app-back-to-menu (click)="backToPlans()" ></app-back-to-menu> 
+
 <h3 class="text-center mt-5">Logging {{ workoutName }}</h3>
 
 <form [formGroup]="workoutLogForm" (ngSubmit)="submitWorkoutLog()">
@@ -148,3 +149,10 @@
     </button>
   </div>
 </form>
+
+<app-confirmation-modal
+  *ngIf="isConfirmationModalOpen"
+  (onSave)="handleModalResponse('save')"
+  (onDiscard)="handleModalResponse('discard')"
+  (onCancel)="isConfirmationModalOpen = false"
+></app-confirmation-modal>

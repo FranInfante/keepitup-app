@@ -16,6 +16,7 @@ import { LoadingService } from '../../shared/service/loading.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../shared/service/language.service';
 import { ThemeService } from '../../shared/service/theme.service';
+import { LOCATIONS } from '../../shared/constants';
 
 @Component({
   selector: 'app-weighins',
@@ -39,6 +40,8 @@ export class WeighInsComponent implements OnInit {
   showForm: boolean = false;
   showDeleteModal: boolean = false;
   logToDeleteId?: number;
+    LOCATIONS: typeof LOCATIONS = LOCATIONS;
+  
 
   constructor(
     private fb: FormBuilder,
