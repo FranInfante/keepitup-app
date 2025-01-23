@@ -57,6 +57,8 @@ export class LogpageComponent implements OnInit, OnDestroy {
   isContinueOrResetModalOpen: boolean = false;
 
   editingLog: WorkoutLog | null = null;
+  isNotesModalOpen: boolean = false;
+
 
 
   constructor(
@@ -97,6 +99,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
       this.formChangesSubscription.unsubscribe();
     }
   }
+
+  toggleNotesModal(): void {
+    this.isNotesModalOpen = !this.isNotesModalOpen;
+  }
+
   backToPlans() {
     this.isConfirmationModalOpen = true;
   }

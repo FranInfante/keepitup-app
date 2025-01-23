@@ -1,136 +1,170 @@
+<app-back-to-menu (click)="backToPlans()"></app-back-to-menu>
+<div
+  class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
+>
+  <h3 class="text-center mt-5">Logging {{ workoutName }}</h3>
 
-<app-back-to-menu (click)="backToPlans()" ></app-back-to-menu> 
-<div class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col">
+  <form [formGroup]="workoutLogForm" (ngSubmit)="submitWorkoutLog()">
+    <div formArrayName="exercises" class="text-center mt-5">
+      <div
+        *ngFor="let exercise of exercises.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="exercise-dropdown">
+          <button
+            class="dropdown-btn"
+            type="button"
+            (click)="toggleDropdown(i)"
+          >
+            {{ exercise.get("name")?.value }}
+          </button>
 
-<h3 class="text-center mt-5">Logging {{ workoutName }}</h3>
-
-<form [formGroup]="workoutLogForm" (ngSubmit)="submitWorkoutLog()">
-  <div formArrayName="exercises" class="text-center mt-5">
-    <div
-      *ngFor="let exercise of exercises.controls; let i = index"
-      [formGroupName]="i"
-    >
-      <div class="exercise-dropdown">
-        <button class="dropdown-btn" type="button" (click)="toggleDropdown(i)">
-          {{ exercise.get("name")?.value }}
-        </button>
-
-        <div
-          [ngClass]="{
+          <div
+            [ngClass]="{
             collapse: !exercise.get('open')?.value,
             show: exercise.get('open')?.value,
           }"
-        >
-          <div class="exercise-form">
-            <div formArrayName="sets">
-              <div
-                *ngFor="let set of getSets(exercise).controls; let j = index"
-                [formGroupName]="j"
-                class="d-flex justify-content-between align-items-center mt-3"
-              >
-                <span>Set {{ j + 1 }}</span>
-                <div class="input-container">
-                  <label for="reps-{{ i }}-{{ j }}">Reps:</label>
-                  <input
-                    type="number"
-                    formControlName="reps"
-                    class="form-control"
-                    [id]="'reps-' + i + '-' + j"
-                    (focus)="onInputFocus()"
-                    (blur)="onInputBlur()"
-                    (focus)="clearInput(i, j, 'reps')"
-                    (input)="limitInputLength($event, 3); triggerWorkoutLogUpdate(i, j)"
-                    (blur)="onInputBlur(); resetToZero(i, j, 'reps'); triggerWorkoutLogUpdate(i, j)"
-                  />
-                </div>
-                <div class="input-container">
-                  <label for="weight-{{ i }}-{{ j }}">Weight:</label>
-                  <div class="input-group">
+          >
+            <div class="exercise-form space-y-6">
+              <div formArrayName="sets" class="space-y-4">
+                <div
+                  *ngFor="let set of getSets(exercise).controls; let j = index"
+                  [formGroupName]="j"
+                  class="flex items-center justify-between gap-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md"
+                >
+                  <span class="font-medium text-gray-800 dark:text-gray-100"
+                    >Set {{ j + 1 }}</span
+                  >
+                  <div class="input-container flex-1">
+                    <label
+                      for="reps-{{ i }}-{{ j }}"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      Reps:
+                    </label>
                     <input
                       type="number"
-                      formControlName="weight"
-                      class="form-control"
-                      [id]="'weight-' + i + '-' + j"
-                      (focus)="onInputFocus()"
-                      (blur)="onInputBlur()"
-                      (focus)="clearInput(i, j, 'weight')"
-                      (input)="limitInputLength($event, 3);  triggerWorkoutLogUpdate(i, j)"
-                      (blur)="onInputBlur(); resetToZero(i, j, 'weight'); triggerWorkoutLogUpdate(i, j)"
+                      formControlName="reps"
+                      class="form-input w-full px-3 py-2 bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-500 rounded-lg"
+                      [id]="'reps-' + i + '-' + j"
+                      (input)="triggerWorkoutLogUpdate(i, j)"
                     />
-                    <span class="input-group-text">kg</span>
                   </div>
+                  <div class="input-container flex-1">
+                    <label
+                      for="weight-{{ i }}-{{ j }}"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      Weight:
+                    </label>
+                    <div class="relative">
+                      <input
+                        type="number"
+                        formControlName="weight"
+                        class="form-input w-full px-3 py-2 bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-500 rounded-lg"
+                        [id]="'weight-' + i + '-' + j"
+                        (input)="triggerWorkoutLogUpdate(i, j)"
+                      />
+                      <span
+                        class="absolute inset-y-0 right-2 flex items-center text-sm text-gray-500 dark:text-gray-400"
+                        >kg</span
+                      >
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition"
+                    (click)="deleteSet(i, j)"
+                  >
+                    <img [src]="DeleteIcon" alt="Delete Icon" class="w-5 h-5" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  class="btn btn-sm ml-2"
-                  (click)="deleteSet(i, j)"
-                >
-                  <img [src]="DeleteIcon" alt="DeleteIcon" />
-                </button>
               </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-              <!-- Add Set Button (Centered) -->
-              <div class="d-flex justify-content-center flex-grow-1">
+
+              <div class="flex justify-between items-center">
+                <!-- Add Set Button -->
                 <button
                   type="button"
-                  class="btn btn-sm btn-success"
+                  class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
                   (click)="addSet(i)"
                   [disabled]="!isLastSetValid(i)"
                 >
                   + Add Set
                 </button>
-              </div>
 
-              <!-- Notes Button (Right-aligned) -->
-              <button
-                type="button"
-                class="btn btn-primary ml-2"
-                data-bs-toggle="modal"
-                data-bs-target="#NotesModal"
-                (click)="setSelectedExercise(i)"
-              >
-                <img [src]="NotesIcon" alt="Notes Icon" />
-              </button>
-            </div>
-            <div
-              class="modal fade"
-              id="NotesModal"
-              tabindex="-1"
-            >
-              <div class="modal-dialog">
-                <div class="modal-content bg-dark">
-                  <div class="modal-header">
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <form *ngIf="selectedExerciseIndex !== null" [formGroup]="getExerciseFormGroup(selectedExerciseIndex)">
-                      <div class="mb-3">
-                        <label for="notes-{{ selectedExerciseIndex }}" class="col-form-label">
-                          Notes for {{ selectedExercise }}:
-                        </label>
-                        <textarea formControlName="notes" class="form-control bg-dark text-white" id="notes-{{ selectedExerciseIndex }}"></textarea>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
+                <!-- Notes Button -->
+                <button
+                  type="button"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                  (click)="setSelectedExercise(i); toggleNotesModal()"
+                >
+                  <img [src]="NotesIcon" alt="Notes Icon" class="w-5 h-5" />
+                </button>
+
+                <!-- Notes Modal -->
+                <div
+                  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+                  [ngClass]="{
+                    hidden: !isNotesModalOpen,
+                    block: isNotesModalOpen
+                  }"
+                >
+                  <div
+                    class="bg-gray-800 text-white rounded-lg shadow-lg w-full max-w-lg"
+                  >
+                    <div
+                      class="modal-header flex justify-between items-center border-b border-gray-700 p-4"
                     >
-                      Close
-                    </button>
-                    <button type="button" class="btn btn-primary" 
-                    data-bs-dismiss="modal"
-                    (click)="saveExerciseNotes()">
-                      Save notes
-                    </button>
+                      <h5 class="text-lg font-bold">Notes</h5>
+                      <button
+                        type="button"
+                        class="text-gray-400 hover:text-gray-300 transition"
+                        (click)="toggleNotesModal()"
+                        aria-label="Close"
+                      >
+                        ✖
+                      </button>
+                    </div>
+                    <div class="modal-body p-4">
+                      <form
+                        *ngIf="selectedExerciseIndex !== null"
+                        [formGroup]="
+                          getExerciseFormGroup(selectedExerciseIndex)
+                        "
+                      >
+                        <div>
+                          <label
+                            for="notes-{{ selectedExerciseIndex }}"
+                            class="block text-sm font-medium mb-2"
+                          >
+                            Notes for {{ selectedExercise }}:
+                          </label>
+                          <textarea
+                            formControlName="notes"
+                            id="notes-{{ selectedExerciseIndex }}"
+                            class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg resize-none"
+                          ></textarea>
+                        </div>
+                      </form>
+                    </div>
+                    <div
+                      class="modal-footer flex justify-end gap-4 p-4 border-t border-gray-700"
+                    >
+                      <button
+                        type="button"
+                        class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition"
+                        (click)="toggleNotesModal()"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
+                        (click)="saveExerciseNotes(); toggleNotesModal()"
+                      >
+                        Save notes
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -139,31 +173,29 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="text-center">
-    <button
-      type="submit"
-      class="btn btn-primary mt-5 mb-5"
-      [disabled]="!workoutLogForm.valid || !hasSets()"
-    >
-      Submit Log
-    </button>
-  </div>
-</form>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-primary mt-5 mb-5"
+        [disabled]="!workoutLogForm.valid || !hasSets()"
+      >
+        Submit Log
+      </button>
+    </div>
+  </form>
 
-<app-confirmation-modal
-  *ngIf="isConfirmationModalOpen"
-  (onSave)="handleModalConfirmResponse('save')"
-  (onDiscard)="handleModalConfirmResponse('discard')"
-  (onCancel)="isConfirmationModalOpen = false"
-></app-confirmation-modal>
+  <app-confirmation-modal
+    *ngIf="isConfirmationModalOpen"
+    (onSave)="handleModalConfirmResponse('save')"
+    (onDiscard)="handleModalConfirmResponse('discard')"
+    (onCancel)="isConfirmationModalOpen = false"
+  ></app-confirmation-modal>
 
-
-<app-continue-or-reset-modal
-  *ngIf="isContinueOrResetModalOpen"
-  (onContinue)="handleModalResetResponse('continue')"
-  (onReset)="handleModalResetResponse('reset')"
-  (onCancel)="isContinueOrResetModalOpen = false"
-></app-continue-or-reset-modal>
+  <app-continue-or-reset-modal
+    *ngIf="isContinueOrResetModalOpen"
+    (onContinue)="handleModalResetResponse('continue')"
+    (onReset)="handleModalResetResponse('reset')"
+    (onCancel)="isContinueOrResetModalOpen = false"
+  ></app-continue-or-reset-modal>
 </div>
