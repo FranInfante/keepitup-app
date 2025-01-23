@@ -64,4 +64,11 @@ public class WorkoutsServiceImpl implements WorkoutsService {
         Workouts savedWorkout = workoutsRepository.save(workout);
         return WorkoutsMapper.workoutsEntityToDTO(savedWorkout);
     }
+
+    @Override
+    public WorkoutsDTO getWorkoutById(Integer id) {
+        Workouts workout = workoutsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
+        return WorkoutsMapper.workoutsEntityToDTO(workout);
+    }
 }

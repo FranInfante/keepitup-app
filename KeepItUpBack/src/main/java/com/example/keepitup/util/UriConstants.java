@@ -30,6 +30,7 @@ public class UriConstants {
     public static final String WORKOUTS = BASE_URL + "/workouts";
 
     public static final String BY_ID = "/{id}";
+    public static final String BY_WORKOUT_ID = "workoutsid/{id}";
 
     public static final String UNIQUEWORKOUTSBYID = "/unique-names/{userId}";
 

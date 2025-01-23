@@ -10,4 +10,6 @@ public interface WorkoutsService {
     List<String> getDistinctWorkoutNamesByUserId(Integer userId);
     void deleteWeighIn(Integer weighInId);
     WorkoutsDTO updateWorkoutName(Integer id, String name) throws Exception;
+    WorkoutsDTO getWorkoutById(Integer id);
+
 }

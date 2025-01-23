@@ -52,4 +52,10 @@ public class WorkoutsController implements WorkoutsApi {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+    @Override
+    public ResponseEntity<WorkoutsDTO> getWorkoutById(Integer id) {
+        WorkoutsDTO workout = workoutsService.getWorkoutById(id);
+        return ResponseEntity.ok(workout);
+    }
 }
