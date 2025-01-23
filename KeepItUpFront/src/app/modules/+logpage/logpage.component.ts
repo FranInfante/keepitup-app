@@ -71,8 +71,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.workoutLogForm = this.fb.group({
+      
       exercises: this.fb.array([]),
     });
+
+
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
@@ -114,11 +117,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   discardAndNavigate() {
-    console.log('Discarding workout log');
     if (this.workoutLogId) {
       this.workoutLogService.deleteWorkoutLog(this.workoutLogId).subscribe({
         next: () => {
-          console.log('Workout log deleted successfully');
           this.router.navigate([LOCATIONS.plans]);
         },
         error: (error) => {
@@ -126,8 +127,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
         },
       });
     } else {
-      console.log('error deleting workout log');
-
       this.router.navigate([LOCATIONS.plans]);
     }
   }
@@ -182,7 +181,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
     } else if (action === 'reset' && this.editingLog) {
       this.workoutLogService.deleteWorkoutLog(this.editingLog.id).subscribe({
         next: () => {
-          console.log('Existing workout log deleted successfully.');
           this.createAndLoadWorkoutLog();
         },
         error: (err) => {

@@ -28,6 +28,6 @@
       `${WORKOUTS_EXERCISES_API_URL}/${workoutexerciseId}`,
     deleteworkoutid: (planId: number, workoutId: number) => 
       `${PLAN_API_URL}/${planId}/workout/${workoutId}`,
-    getworkoutbyid: (workoutId: number) => `${WORKOUTS_API_URL}/${workoutId}`
+    getworkoutbyid: (workoutId: number) => `${WORKOUTS_API_URL}/workoutsid/${workoutId}`
 
   };
