@@ -1,4 +1,6 @@
+
 <app-back-to-menu (click)="backToPlans()" ></app-back-to-menu> 
+<div class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col">
 
 <h3 class="text-center mt-5">Logging {{ workoutName }}</h3>
 
@@ -164,3 +166,4 @@
   (onReset)="handleModalResetResponse('reset')"
   (onCancel)="isContinueOrResetModalOpen = false"
 ></app-continue-or-reset-modal>
+</div>
