@@ -1,35 +1,42 @@
-<div class="modal-header border-b border-gray-300 dark:border-gray-600 text-gray-800 dark:text-white">
-  <h5 class="text-lg font-bold">Resume or Create New Log</h5>
-  <button
-    type="button"
-    class="text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full p-2 transition"
-    aria-label="Close"
-    (click)="cancel()"
+<div
+  class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
+  (click)="cancel()"
+>
+  <div
+    class="bg-gray-800 rounded-lg shadow-lg p-6 w-[90%] max-w-sm relative"
+    (click)="$event.stopPropagation()"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  </button>
-</div>
-<div class="modal-body p-4">
-  <p class="text-base text-gray-700 dark:text-gray-300">
-    You already have a workout log in progress. Would you like to continue
-    editing it or delete it and create a new one?
-  </p>
-</div>
-<div class="modal-footer border-t border-gray-300 dark:border-gray-600 flex justify-end space-x-4 p-4">
-  <button
-    type="button"
-    class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition focus:outline-none focus:ring focus:ring-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-    (click)="reset()"
-  >
-    Create New Log
-  </button>
-  <button
-    type="button"
-    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition focus:outline-none focus:ring focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-600"
-    (click)="continue()"
-  >
-    Continue Editing
-  </button>
+   
+
+    <!-- Modal Header -->
+    <div class="modal-header border-b border-gray-600 text-white mb-4">
+      <h5 class="text-lg font-bold text-center">Resume or Create New Log</h5>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body text-center">
+      <p class="text-base text-gray-300 mb-6">
+        You already have a workout log in progress. Would you like to continue
+        editing it or delete it and create a new one?
+      </p>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer flex justify-center space-x-4">
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition focus:outline-none focus:ring focus:ring-gray-400"
+        (click)="reset()"
+      >
+        Create New Log
+      </button>
+      <button
+        type="button"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition focus:outline-none focus:ring focus:ring-blue-300"
+        (click)="continue()"
+      >
+        Continue Editing
+      </button>
+    </div>
+  </div>
 </div>
