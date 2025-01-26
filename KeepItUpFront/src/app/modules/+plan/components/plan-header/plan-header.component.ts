@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Plan } from '../../../../shared/interfaces/plan';
 import { Workout } from '../../../../shared/interfaces/workout';
 import { PlanService } from '../../../../shared/service/plan.service';
@@ -54,6 +54,14 @@ export class PlanHeaderComponent {
 
   closeDropdown() {
     this.isDropdownOpen = false;
+  }
+  
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(targetElement: HTMLElement): void {
+    const clickedInside = targetElement.closest('.dropdown-container');
+    if (!clickedInside) {
+      this.closeDropdown();
+    }
   }
 
   deletePlan(): void {

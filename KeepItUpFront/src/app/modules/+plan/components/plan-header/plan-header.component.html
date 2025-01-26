@@ -12,6 +12,7 @@
       {{ activePlan.name }}
     </h3>
   </div>
+  <div class=" dropdown-container">
   <button
     class="p-2 ml-3 btn relative"
     type="button"
@@ -34,7 +35,7 @@
       <ng-container *ngIf="workouts.length > 0">
         <li>
           <a
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:rounded cursor-pointer"
             (click)="toggleEditMode()"
           >
             Edit Workouts
@@ -59,4 +60,5 @@
       </li>
     </ul>
   </button>
+  </div> 
 </div>
