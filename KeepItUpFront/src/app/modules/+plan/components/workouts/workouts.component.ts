@@ -46,6 +46,7 @@ export class WorkoutsComponent {
   @Input() workouts!: Workout[];
   @Input() planId: number | null = null;
   @Input() isEditing = false;
+  @Input() isDarkMode!: boolean;
   @Output() isEditingChange: EventEmitter<boolean> = new EventEmitter();
   @Output() workoutsUpdated = new EventEmitter<Workout[]>();
   @Output() workoutNameUpdated = new EventEmitter<Workout>();

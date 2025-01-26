@@ -4,7 +4,10 @@
   class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10 flex items-center justify-center"
   (click)="closeWorkoutDetails()"
 >
-  <div class="bg-gray-800  mx-8 rounded-lg shadow-lg max-w-lg w-full p-6 relative" (click)="$event.stopPropagation()">
+  <div
+    class="bg-gray-100 dark:bg-gray-800 mx-8 rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+    (click)="$event.stopPropagation()"
+  >
     <button
       class="absolute text-2xl top-2 right-2 text-gray-400 hover:text-gray-600"
       (click)="closeWorkoutDetails()"
@@ -13,7 +16,7 @@
     </button>
     <div class="text-center mb-12">
       <h4
-        class="text-lg font-bold mb-4 text-white"
+        class="text-lg font-bold mb-4 text-gray-700 dark:text-gray-300"
         contenteditable="true"
         (blur)="updateWorkoutName()"
         (keydown)="onKeyDown($event, 'workout')"
@@ -21,40 +24,60 @@
         {{ selectedWorkout.name }}
       </h4>
 
-      <div *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises" >
+      <div
+        *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises"
+      >
         <ul class="list-none h-[calc(80vh-280px)] overflow-y-auto">
           <li
             *ngFor="let exercise of selectedWorkout.workoutExercises"
-            class="flex justify-between items-center mb-2 bg-gray-700 text-gray-200 p-3 rounded-md"
+            class="flex justify-between items-center mb-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-600 dark:border-gray-500 p-3 rounded-md"
           >
             <span>{{ exercise.exerciseName }}</span>
-            <button class="text-red-500 hover:text-red-500 text-2xl" (click)="deleteExercise(exercise.id!)">&times;</button>
+            <button
+              class="text-red-500 hover:text-red-500 text-2xl"
+              (click)="deleteExercise(exercise.id!)"
+            >
+              &times;
+            </button>
           </li>
         </ul>
       </div>
       <ng-template #noExercises>
         <p class="text-center text-gray-400">No exercises available.</p>
       </ng-template>
-        <div class="add-exercise-container"></div>
-      </div>  
-      <div class="absolute bottom-3 left-4 right-3 flex justify-between items-center">
-
-        <button class="btn btn-primary btn-lg left-0" type="button" (click)="toggleExercisePickerModal(true)">
-          <img class="h-8" [src]="PlusSignIcon" alt="PlusSignIcon" />
-        </button>
-        <button
+      <div class="add-exercise-container"></div>
+    </div>
+    <div
+      class="absolute bottom-3 left-4 right-3 flex justify-between items-center"
+    >
+      <button
+        class="btn btn-primary btn-lg left-0"
+        type="button"
+        (click)="toggleExercisePickerModal(true)"
+      >
+        <!-- <img class="h-8" [src]="PlusSignIcon" alt="PlusSignIcon" /> -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          [attr.fill]="isDarkMode ? 'white' : 'black'"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+          />
+        </svg>
+      </button>
+      <button
         (click)="goToLogPage()"
         class="btn btn-success btn-lg right-0 bg-blue-500 px-4 py-2 rounded-lg font-medium text-white hover:bg-blue-600"
         type="button"
-        >
-        <!-- <img class="h-30" [src]="PlayButton" alt="PlayButton" /> -->
+      >
         Begin
       </button>
-      
-      </div>
     </div>
   </div>
-
+</div>
 
 <!-- Workouts List -->
 <div
@@ -72,12 +95,14 @@
         >
           <div
             *ngFor="let workout of workouts; let i = index"
-            class="p-5 border border-gray-300 rounded-md relative flex flex-col cursor-pointer items-center justify-center text-white text-center h-20 w-60"
+            class="p-5 border border-gray-800 dark:border-gray-300 rounded-md relative flex flex-col cursor-pointer items-center justify-center text-black dark:text-white text-center h-20 w-60"
             (click)="showWorkoutDetails(workout)"
             [cdkDragData]="workout"
             cdkDrag
             [cdkDragDisabled]="!isEditing"
-            [ngClass]="isEditing ? 'bg-gray-400' : 'bg-gray-800'"
+            [ngClass]="
+              isEditing ? 'bg-gray-400' : 'bg-gray-300 dark:bg-gray-800'
+            "
           >
             <button
               *ngIf="isEditing"
@@ -112,7 +137,9 @@
 
       <ng-template #noWorkouts>
         <div>
-          <p class="text-center px-3 text-white">No workouts available for this plan.</p>
+          <p class="text-center px-3 text-white">
+            No workouts available for this plan.
+          </p>
         </div>
       </ng-template>
     </div>
@@ -194,4 +221,3 @@
   [currentExercises]="selectedWorkout?.workoutExercises || []"
   (exerciseSelected)="addExerciseToWorkout($event)"
 ></app-exercise-picker-modal>
-
