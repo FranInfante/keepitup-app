@@ -20,6 +20,7 @@ import { WorkoutLog } from '../../shared/interfaces/workoutlog';
 import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { ConfirmationModalComponent } from '../../shared/components/comfirmation-modal/cofirmation-modal.component';
 import { ContinueOrResetModalComponent } from '../../shared/components/continue-or-reset-modal/continue-or-reset-modal.component';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-logpage',
@@ -59,8 +60,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
   editingLog: WorkoutLog | null = null;
   isNotesModalOpen: boolean = false;
 
-
-
   constructor(
     private fb: FormBuilder,
     private planService: PlanService,
@@ -68,16 +67,16 @@ export class LogpageComponent implements OnInit, OnDestroy {
     private workoutDataService: WorkoutDataService,
     private userService: UserService,
     private toastService: ToastService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private themeService: ThemeService
+  ) {
+    this.themeService.initializeThemeUserFromLocalStorage();
+  }
 
   ngOnInit() {
     this.workoutLogForm = this.fb.group({
-      
       exercises: this.fb.array([]),
     });
-
-
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
@@ -180,9 +179,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   handleModalResetResponse(action: string) {
     this.isContinueOrResetModalOpen = false;
-  
+
     if (action === 'continue' && this.editingLog) {
-      this.workoutLogId = this.editingLog.id; 
+      this.workoutLogId = this.editingLog.id;
       this.populateFormWithSavedData(this.editingLog);
       this.trackFormChanges();
     } else if (action === 'reset' && this.editingLog) {
@@ -330,6 +329,14 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   addSet(exerciseIndex: number) {
+    if (!this.isLastSetValid(exerciseIndex)) {
+      this.toastService.showToast(
+        'Please fill out the last set before adding a new one.',
+        'danger'
+      );
+      return;
+    }
+
     const sets = this.getSets(this.exercises.at(exerciseIndex));
     sets.push(this.createSet());
 
@@ -609,15 +616,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
   handleSubmitClick(): void {
     if (!this.workoutLogForm.valid || !this.hasSets()) {
       let errorMessage = '';
-  
+
       if (!this.workoutLogForm.valid) {
         errorMessage += '\n- Ensure all required fields are filled correctly.';
       }
-  
+
       if (!this.hasSets()) {
         errorMessage += '\n- Add at least one valid set to each exercise.';
       }
-  
+
       this.toastService.showToast(errorMessage, 'danger');
     } else {
       this.submitWorkoutLog();
