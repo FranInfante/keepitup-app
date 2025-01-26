@@ -124,8 +124,8 @@ export class WorkoutsComponent {
         .addExerciseToWorkout(this.planId, this.selectedWorkout.id, workoutExercise)
         .subscribe((updatedWorkout) => {
           this.selectedWorkout!.workoutExercises = updatedWorkout.workoutExercises;
-          this.workoutsUpdated.emit(this.workouts); // Notify parent of updates
-          this.closeExercisePickerModal(); // Close the modal
+          this.workoutsUpdated.emit(this.workouts);
+          this.closeExercisePickerModal();
         });
     }
   }
