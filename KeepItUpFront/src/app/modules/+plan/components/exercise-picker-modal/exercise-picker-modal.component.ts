@@ -133,15 +133,5 @@ export class ExercisePickerModalComponent implements OnInit {
   onCancel(): void {
     // this.activeModal.dismiss();
   }
-  // openCreateExerciseModal(): void {
-  //   const modalRef = this.modalService.open(CreateExerciseModalComponent, { size: 'lg' });
-  //   modalRef.componentInstance.planId = this.planId;
-  //   modalRef.componentInstance.workoutId = this.workoutId;
-
-  //   modalRef.result.then((newExercise: WorkoutExercise | null) => {
-  //     if (newExercise) {
-  //       this.activeModal.close(newExercise);
-  //     }
-  //   });
-  // }
+ 
 }

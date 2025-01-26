@@ -130,33 +130,6 @@ export class WorkoutsComponent {
     }
   }
   
-  // openCreateExerciseModal(): void {
-  //   const modalRef = this.modalService.open(CreateExerciseModalComponent, {
-  //     size: 'lg',
-  //   });
-
-  //   modalRef.componentInstance.planId = this.planId!;
-  //   modalRef.componentInstance.workoutId = this.selectedWorkout!.id;
-
-  //   modalRef.result.then((newExercise) => {
-  //     if (newExercise && this.selectedWorkout) {
-  //       this.selectedWorkout!.workoutExercises.push(newExercise);
-
-  //       // Add to backend
-  //       this.planService
-  //         .addExerciseToWorkout(
-  //           this.planId!,
-  //           this.selectedWorkout.id,
-  //           newExercise,
-  //         )
-  //         .subscribe((updatedWorkout: Workout) => {
-  //           this.selectedWorkout!.workoutExercises =
-  //             updatedWorkout.workoutExercises;
-  //           this.scrollToLastExercise();
-  //         });
-  //     }
-  //   });
-  // }
 
   showWorkoutDetails(workout: Workout): void { 
 
