@@ -582,9 +582,46 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   hasSets(): boolean {
-    return this.exercises.controls.some(
-      (exercise) => this.getSets(exercise).length > 0
+    return (
+      this.exercises.controls.some(
+        (exercise) => this.getSets(exercise).length > 0
+      ) && this.areAllSetsValid()
     );
+  }
+
+  areAllSetsValid(): boolean {
+    return this.exercises.controls.every((exercise) =>
+      this.getSets(exercise).controls.every((set) => {
+        const reps = set.get('reps')?.value;
+        const weight = set.get('weight')?.value;
+        return (
+          reps !== null &&
+          reps !== undefined &&
+          reps > 0 &&
+          weight !== null &&
+          weight !== undefined &&
+          weight >= 0
+        );
+      })
+    );
+  }
+
+  handleSubmitClick(): void {
+    if (!this.workoutLogForm.valid || !this.hasSets()) {
+      let errorMessage = '';
+  
+      if (!this.workoutLogForm.valid) {
+        errorMessage += '\n- Ensure all required fields are filled correctly.';
+      }
+  
+      if (!this.hasSets()) {
+        errorMessage += '\n- Add at least one valid set to each exercise.';
+      }
+  
+      this.toastService.showToast(errorMessage, 'danger');
+    } else {
+      this.submitWorkoutLog();
+    }
   }
 
   setSelectedExercise(exerciseIndex: number) {
