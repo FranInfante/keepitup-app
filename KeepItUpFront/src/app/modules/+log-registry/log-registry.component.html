@@ -1,0 +1,61 @@
+<app-back-to-menu [navigationPath]="LOCATIONS.plans"></app-back-to-menu>
+<div class="container mx-auto mt-8 px-4">
+  <h3 class="text-center text-2xl font-bold text-gray-800 dark:text-gray-100">Your Workout Logs</h3>
+
+  <!-- Filter Dropdown -->
+  <div class="text-center mt-6">
+    <label for="workoutFilter" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Filter by Workout:</label>
+    <select
+      id="workoutFilter"
+      class="block w-full max-w-md mx-auto rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      [(ngModel)]="selectedWorkoutId"
+      (change)="filterWorkoutLogs()"
+    >
+      <option value="">All Workouts</option>
+
+      <!-- Group workouts by plan using optgroup -->
+      <optgroup *ngFor="let plan of plans" [label]="plan.name">
+        <option *ngFor="let workout of plan.workouts" [value]="workout.id">
+          {{ workout.name }}
+        </option>
+      </optgroup>
+    </select>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center mt-6">
+    <p class="text-gray-600 dark:text-gray-400">Loading workout logs...</p>
+  </div>
+
+  <!-- No Logs Found -->
+  <div *ngIf="!isLoading && filteredWorkoutLogs.length === 0" class="text-center mt-6">
+    <p class="text-gray-600 dark:text-gray-400">No workout logs found.</p>
+  </div>
+
+  <!-- Logs List -->
+  <ul *ngIf="!isLoading && filteredWorkoutLogs.length > 0" class="mt-6 space-y-4">
+    <li
+      *ngFor="let log of filteredWorkoutLogs"
+      class="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition"
+    >
+      <div>
+        <h5 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ log.workoutName }}</h5>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Date: {{ log.date | date: 'shortDate' }}</p>
+      </div>
+      <button
+        type="button"
+        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition"
+        (click)="viewWorkoutLog(log)"
+      >
+        View Details
+      </button>
+    </li>
+  </ul>
+
+  <!-- Modal -->
+  <app-work-log-detail
+    [workoutLog]="selectedWorkoutLog"
+    [showModal]="showModal"
+    (closeModal)="closeWorkoutLogModal()"
+  ></app-work-log-detail>
+</div>

@@ -1,0 +1,65 @@
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+  [ngClass]="{ hidden: !showModal }"
+  (click)="onBackdropClick($event)"
+>
+  <div
+    class="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full mx-4"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+      <h5 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+        Workout Log Details
+      </h5>
+      <button
+        type="button"
+        class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition"
+        (click)="onClose()"
+      >
+        ✖
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-4 space-y-4 overflow-y-auto max-h-[70vh]">
+      <div *ngIf="workoutLog">
+        <p class="text-gray-700 dark:text-gray-300">
+          <strong>Workout Name:</strong> {{ workoutLog.workoutName }}
+        </p>
+        <p class="text-gray-700 dark:text-gray-300">
+          <strong>Date:</strong> {{ workoutLog.date | date: 'shortDate' }}
+        </p>
+        <div *ngIf="workoutLog.exercises && workoutLog.exercises.length > 0">
+          <h6 class="text-gray-800 dark:text-gray-200 font-medium">Exercises:</h6>
+          <ul class="space-y-2 h-[calc(80vh-280px)] overflow-y-auto">
+            <li
+              *ngFor="let exercise of workoutLog.exercises"
+              class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg shadow"
+            >
+              <p class="font-semibold text-gray-800 dark:text-gray-100">
+                {{ exercise.exerciseName }}
+              </p>
+              <ul class="mt-2 space-y-1">
+                <li *ngFor="let set of exercise.sets" class="text-gray-700 dark:text-gray-300">
+                  Set {{ set.set }}: {{ set.reps }} reps at {{ set.weight }} kg
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="flex justify-end px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+      <button
+        type="button"
+        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition"
+        (click)="onClose()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>

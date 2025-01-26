@@ -8,6 +8,7 @@ import { LandingComponent } from './modules/+landing/landing.component';
 import { PlansComponent } from './modules/+plan/plans.component';
 import { WorkoutsBasicComponent } from './modules/+workouts-basic-log/workoutsbasic.component';
 import { LogpageComponent } from './modules/+logpage/logpage.component';
+import { LogRegistryComponent } from './modules/+log-registry/log-registry.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponent},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path: "workouts", component: WorkoutsBasicComponent, canActivate: [authGuard]},
     {path: "plans", component: PlansComponent},
     { path: "logpage", component: LogpageComponent },
+    { path: "log-registry", component: LogRegistryComponent }
 
 ];
