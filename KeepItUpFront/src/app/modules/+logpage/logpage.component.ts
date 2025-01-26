@@ -618,11 +618,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
       let errorMessage = '';
 
       if (!this.workoutLogForm.valid) {
-        errorMessage += '\n- Ensure all required fields are filled correctly.';
+        errorMessage += '\n Ensure all required fields are filled correctly.';
       }
 
       if (!this.hasSets()) {
-        errorMessage += '\n- Add at least one valid set to each exercise.';
+        errorMessage += '\n Add at least one valid set to each exercise.';
       }
 
       this.toastService.showToast(errorMessage, 'danger');
