@@ -97,11 +97,14 @@ export class ExercisePickerModalComponent implements OnInit {
   }
 
   filterExercises(searchText: string): void {
+    const existingExerciseIds = this.currentExercises.map((exercise) => exercise.exerciseId);
+
+
     this.filteredExercises = this.exercises
       .filter((exercise) =>
         exercise.name.toLowerCase().includes(searchText.toLowerCase())
       )
-      .filter((exercise) => !this.existingExercises.includes(exercise.name));
+      .filter((exercise) => !existingExerciseIds.includes(exercise.id));
 
     this.noExercisesFound = this.filteredExercises.length === 0;
   }
