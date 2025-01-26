@@ -10,6 +10,7 @@ import { Plan } from '../../../../shared/interfaces/plan';
   styleUrl: './tabs.component.css'
 })
 export class TabsComponent {
+  @Input() isDarkMode!: boolean;
   @Input() plans: Plan[] = [];
   @Input() activePlanId: number | null = null;
   @Input() PlusSignIcon: string = '';

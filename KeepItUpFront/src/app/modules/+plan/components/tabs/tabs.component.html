@@ -7,7 +7,7 @@
       class="flex-1 text-gray-700 dark:text-gray-200  rounded-t-lg mx-1 "
       *ngFor="let plan of plans"
       [ngClass]="{
-        'text-white border border-gray-50': plan.id === activePlanId
+        'text-black dark:text-white border border-gray-800 dark:border-gray-50': plan.id === activePlanId
       }"
     >
       <a
@@ -19,8 +19,18 @@
       </a>
     </li>
     <li class="flex-shrink-0">
-      <a class="block text-center py-2 px-4 cursor-pointer" (click)="addPlan()">
-        <img [src]="PlusSignIcon" alt="PlusSignIcon" class="w-8 h-8 mx-auto" />
+      <a class="block text-center py-2 px-4 cursor-pointer" (click)="addPlan()" title="Add Plan">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          [attr.fill]="isDarkMode ? 'white' : 'black'"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+          />
+        </svg>
       </a>
     </li>
   </ul>

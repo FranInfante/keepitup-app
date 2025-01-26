@@ -132,12 +132,12 @@
         class="flex justify-center items-center bg-blue-600 hover:bg-blue-700 w-12 h-12 rounded-xl cursor-pointer fixed bottom-16 right-8 shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out border border-gray-300"
         (click)="openCreateWorkoutModal()"
       >
-        <img [src]="PlusSignIcon" alt="PlusSignIcon" class="w-6 h-6" />
+        <img [src]="PlusSignIcon" alt="PlusSignIcon" class="w-6 h-6" title="Create Workout" />
       </div>
 
       <ng-template #noWorkouts>
         <div>
-          <p class="text-center px-3 text-white">
+          <p class="text-center px-3 text-black dark:text-white">
             No workouts available for this plan.
           </p>
         </div>
