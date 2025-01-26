@@ -1,5 +1,5 @@
 export const LOCATIONS = {
-  landing: '',
+  landing: '/',
   login: '/login',
   register: '/register',
   menu: '/menu',
