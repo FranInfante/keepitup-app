@@ -123,6 +123,6 @@ export class PlanHeaderComponent {
   }
 
   navigateToWorkouts() {
-    this.router.navigate([LOCATIONS.workouts]);
+    this.router.navigate([LOCATIONS.logregistry]);
   }
 }

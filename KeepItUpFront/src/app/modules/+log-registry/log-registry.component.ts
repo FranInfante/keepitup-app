@@ -3,18 +3,24 @@ import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { UserService } from '../../shared/service/user.service';
 import { CommonModule } from '@angular/common';
 import { WorkoutLogDetailModalComponent } from './components/work-log-detail/work-log-detail.component';
-import { BackToMenuComponent } from "../../shared/components/back-to-menu/back-to-menu.component";
+import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
 import { PlanService } from '../../shared/service/plan.service';
 import { FormsModule } from '@angular/forms';
 import { WorkoutDataService } from '../../shared/service/workoutdata.service';
 import { LOCATIONS, MSG } from '../../shared/constants';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-log-registry',
   standalone: true,
-  imports: [CommonModule, WorkoutLogDetailModalComponent, BackToMenuComponent, FormsModule],
+  imports: [
+    CommonModule,
+    WorkoutLogDetailModalComponent,
+    BackToMenuComponent,
+    FormsModule,
+  ],
   templateUrl: './log-registry.component.html',
-  styleUrl: './log-registry.component.css'
+  styleUrl: './log-registry.component.css',
 })
 export class LogRegistryComponent implements OnInit {
   userId!: number;
@@ -32,8 +38,10 @@ export class LogRegistryComponent implements OnInit {
     private workoutLogService: WorkoutLogService,
     private userService: UserService,
     private planService: PlanService,
-    private workoutDataService: WorkoutDataService
-  ) {}
+    private workoutDataService: WorkoutDataService,
+    private themeService: ThemeService
+  ) {    this.themeService.initializeThemeUserFromLocalStorage();
+  }
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe({
@@ -48,11 +56,11 @@ export class LogRegistryComponent implements OnInit {
             this.filterWorkoutLogs();
           }
         } else {
-          console.error("MSG.useridundefined");
+          console.error('MSG.useridundefined');
         }
       },
       error: (err) => {
-        console.error("MSG.failedtogetuserid", err);
+        console.error('MSG.failedtogetuserid', err);
       },
     });
   }
@@ -63,8 +71,15 @@ export class LogRegistryComponent implements OnInit {
         this.workoutLogs = logs.map((log) => {
           return {
             ...log,
-            date: new Date(log.date[0], log.date[1] - 1, log.date[2], log.date[3], log.date[4], log.date[5]),
-            exercises: log.exercises
+            date: new Date(
+              log.date[0],
+              log.date[1] - 1,
+              log.date[2],
+              log.date[3],
+              log.date[4],
+              log.date[5]
+            ),
+            exercises: log.exercises,
           };
         });
         this.isLoading = false;
@@ -74,23 +89,25 @@ export class LogRegistryComponent implements OnInit {
         this.isLoading = false;
       },
     });
-  } 
+  }
   getGroupedExercises(exercises: any[]): any[] {
     const groupedExercises: any[] = [];
     exercises.forEach((exercise: any) => {
-      const existingExercise = groupedExercises.find(e => e.exerciseId === exercise.exerciseId);
-    
+      const existingExercise = groupedExercises.find(
+        (e) => e.exerciseId === exercise.exerciseId
+      );
+
       if (existingExercise) {
         existingExercise.sets.push(...exercise.sets);
       } else {
         groupedExercises.push({
           exerciseId: exercise.exerciseId,
           exerciseName: exercise.exerciseName,
-          sets: [...exercise.sets]
+          sets: [...exercise.sets],
         });
       }
     });
-  
+
     return groupedExercises;
   }
 
@@ -98,12 +115,11 @@ export class LogRegistryComponent implements OnInit {
     const groupedExercises = this.getGroupedExercises(log.exercises);
     this.selectedWorkoutLog = {
       ...log,
-      exercises: groupedExercises
+      exercises: groupedExercises,
     };
-  
+
     this.showModal = true;
   }
-
 
   closeWorkoutLogModal() {
     this.showModal = false;
@@ -114,14 +130,14 @@ export class LogRegistryComponent implements OnInit {
     this.planService.getPlansByUserId(this.userId).subscribe({
       next: (plans) => {
         this.plans = plans;
-      }
+      },
     });
   }
 
   filterWorkoutLogs() {
     if (this.selectedWorkoutId) {
       this.filteredWorkoutLogs = this.workoutLogs.filter(
-        (log) => log.workoutId === parseInt(this.selectedWorkoutId, 10),
+        (log) => log.workoutId === parseInt(this.selectedWorkoutId, 10)
       );
     } else {
       this.filteredWorkoutLogs = [...this.workoutLogs];

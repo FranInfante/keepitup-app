@@ -5,7 +5,8 @@ export const LOCATIONS = {
   menu: '/menu',
   weighins: '/weighins',
   workouts: '/workouts',
-  plans: '/plans'
+  plans: '/plans',
+  logregistry: '/log-registry',
 };
 
 export const MSG = {

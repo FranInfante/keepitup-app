@@ -1,9 +1,10 @@
 <app-back-to-menu [navigationPath]="LOCATIONS.plans"></app-back-to-menu>
-<div class="container mx-auto mt-8 px-4">
-  <h3 class="text-center text-2xl font-bold text-gray-800 dark:text-gray-100">Your Workout Logs</h3>
+<div   class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
+>
+  <h3 class="text-center text-2xl font-extrabold text-gray-800 dark:text-gray-100 py-6">Your Workout Logs</h3>
 
   <!-- Filter Dropdown -->
-  <div class="text-center mt-6">
+  <div class="text-center mt-6 mx-10">
     <label for="workoutFilter" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Filter by Workout:</label>
     <select
       id="workoutFilter"
@@ -22,21 +23,16 @@
     </select>
   </div>
 
-  <!-- Loading State -->
-  <div *ngIf="isLoading" class="text-center mt-6">
-    <p class="text-gray-600 dark:text-gray-400">Loading workout logs...</p>
-  </div>
-
   <!-- No Logs Found -->
   <div *ngIf="!isLoading && filteredWorkoutLogs.length === 0" class="text-center mt-6">
     <p class="text-gray-600 dark:text-gray-400">No workout logs found.</p>
   </div>
 
   <!-- Logs List -->
-  <ul *ngIf="!isLoading && filteredWorkoutLogs.length > 0" class="mt-6 space-y-4">
+  <ul *ngIf="!isLoading && filteredWorkoutLogs.length > 0" class="mt-6 space-y-4 mx-10">
     <li
       *ngFor="let log of filteredWorkoutLogs"
-      class="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition"
+      class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-lg shadow hover:shadow-lg transition"
     >
       <div>
         <h5 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ log.workoutName }}</h5>
