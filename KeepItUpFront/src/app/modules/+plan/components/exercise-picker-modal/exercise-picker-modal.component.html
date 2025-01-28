@@ -3,7 +3,7 @@
   (click)="closeExercisePickerModal()"
 >
   <div
-    class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+    class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg max-w-lg w-full p-6 relative m-5"
     (click)="$event.stopPropagation()"
   >
     <!-- Modal Header -->
@@ -23,7 +23,7 @@
       <ul class="max-h-60 overflow-y-auto">
         <li
           *ngFor="let exercise of filteredExercises"
-          class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2 px-4 mx-2 mb-2 rounded-md cursor-pointer hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 transition"
+          class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2 px-2 mx-2 mb-2 rounded-md cursor-pointer hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 transition"
           (click)="selectExercise(exercise)"
         >
           {{ exercise.name }}
