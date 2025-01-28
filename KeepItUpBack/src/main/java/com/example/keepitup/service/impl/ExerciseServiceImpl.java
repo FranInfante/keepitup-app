@@ -24,7 +24,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public List<ExerciseDTO> getAllExercises(Integer userId) {
-        List<Exercise> exercises = exerciseRepository.findByUserIdIsNullOrUserId(userId);
+        List<Exercise> exercises = exerciseRepository.findAllByUserIdAndIsAvailableTrue(userId);
         return ExerciseMapper.listExerciseEntityToDTO(exercises);
     }
 
@@ -44,6 +44,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public void deleteExercise(Integer id) {
         Exercise exercise = exerciseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageConstants.EXERCISE_NOT_FOUND));
+
         exercise.setIsAvailable(false);
         exerciseRepository.save(exercise);
     }

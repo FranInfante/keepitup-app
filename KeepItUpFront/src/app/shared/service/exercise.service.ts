@@ -10,6 +10,7 @@ import { MUSCLEGROUPS_API_URL } from '../routes/musclegroups-routes';
   providedIn: 'root',
 })
 export class ExerciseService {
+  
   constructor(private http: HttpClient) {}
 
   getallExercises(userId: number): Observable<Exercise[]> {
@@ -32,4 +33,8 @@ export class ExerciseService {
   getMuscleGroups(): Observable<MuscleGroup[]> {
     return this.http.get<MuscleGroup[]>(MUSCLEGROUPS_API_URL);
   }
+
+  deleteExercise(exerciseId: number): Observable<void> {
+      return this.http.delete<void>(EXERCISES_ROUTES.delete(exerciseId));
+    }
 }

@@ -7,9 +7,10 @@
     (click)="$event.stopPropagation()"
   >
     <!-- Modal Header -->
-    <div class="modal-header flex justify-between items-center mb-4 border-b border-gray-300 dark:border-gray-700">
+    <div
+      class="modal-header flex justify-between items-center mb-4 border-b border-gray-300 dark:border-gray-700"
+    >
       <h5 class="text-lg font-semibold">Add Exercise to Workout</h5>
-      
     </div>
 
     <!-- Modal Body -->
@@ -27,6 +28,12 @@
           (click)="selectExercise(exercise)"
         >
           {{ exercise.name }}
+          <button
+            class="text-red-500 hover:text-red-700 text-lg ml-4"
+            (click)="deleteExercise(exercise.id); $event.stopPropagation()"
+          >
+            &times;
+          </button>
         </li>
       </ul>
       <div *ngIf="noExercisesFound" class="text-center mt-4">
@@ -42,11 +49,13 @@
         [planId]="planId"
         [workoutId]="workoutId"
         (closeModal)="closeCreateExerciseModal()"
-        ></app-create-exercise-modal>
+      ></app-create-exercise-modal>
     </div>
 
     <!-- Modal Footer -->
-    <div class="modal-footer flex justify-end mt-4 pt-4 border-gray-300 dark:border-gray-700">
+    <div
+      class="modal-footer flex justify-end mt-4 pt-4 border-gray-300 dark:border-gray-700"
+    >
       <button
         class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 transition"
         (click)="closeExercisePickerModal()"

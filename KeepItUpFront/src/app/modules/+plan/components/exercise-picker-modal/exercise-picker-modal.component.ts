@@ -15,12 +15,17 @@ import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ToastService } from '../../../../shared/service/toast.service';
 import { UserService } from '../../../../shared/service/user.service';
 import { ExerciseService } from '../../../../shared/service/exercise.service';
-import { CreateExerciseModalComponent } from "../create-exercise-modal/create-exercise-modal.component";
+import { CreateExerciseModalComponent } from '../create-exercise-modal/create-exercise-modal.component';
 
 @Component({
   selector: 'app-exercise-picker-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, CreateExerciseModalComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CreateExerciseModalComponent,
+  ],
   templateUrl: './exercise-picker-modal.component.html',
   styleUrl: './exercise-picker-modal.component.css',
 })
@@ -68,7 +73,7 @@ export class ExercisePickerModalComponent implements OnInit {
   openCreateExerciseModal(): void {
     this.isCreateExerciseModalOpen = true;
   }
-  
+
   closeCreateExerciseModal(): void {
     this.isCreateExerciseModalOpen = false;
   }
@@ -97,8 +102,9 @@ export class ExercisePickerModalComponent implements OnInit {
   }
 
   filterExercises(searchText: string): void {
-    const existingExerciseIds = this.currentExercises.map((exercise) => exercise.exerciseId);
-
+    const existingExerciseIds = this.currentExercises.map(
+      (exercise) => exercise.exerciseId
+    );
 
     this.filteredExercises = this.exercises
       .filter((exercise) =>
@@ -116,7 +122,7 @@ export class ExercisePickerModalComponent implements OnInit {
       workoutId: this.workoutId!,
       exerciseId: exercise.id,
     };
-  
+
     this.exerciseSelected.emit(workoutExercise);
   }
 
@@ -136,5 +142,20 @@ export class ExercisePickerModalComponent implements OnInit {
   onCancel(): void {
     // this.activeModal.dismiss();
   }
- 
+
+  deleteExercise(exerciseId: number): void {
+    this.exerciseService.deleteExercise(exerciseId).subscribe({
+      next: () => {
+        this.exercises = this.exercises.filter(
+          (exercise) => exercise.id !== exerciseId
+        );
+        this.filterExercises(this.searchControl.value || '');
+        this.toastService.showToast('Exercise deleted successfully', 'success');
+      },
+      error: (err) => {
+        console.error('Failed to delete exercise:', err);
+        this.toastService.showToast('Failed to delete exercise', 'danger');
+      },
+    });
+  }
 }
