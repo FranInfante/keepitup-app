@@ -24,10 +24,9 @@
       <ul class="max-h-60 overflow-y-auto">
         <li
           *ngFor="let exercise of filteredExercises"
-          class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2 px-2 mx-2 mb-2 rounded-md cursor-pointer hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 transition"
-          (click)="selectExercise(exercise)"
+          class="flex items-center justify-between bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2 px-4 mx-2 mb-2 rounded-md hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 transition"
         >
-          {{ exercise.name }}
+          <span class="flex-1 text-center">{{ exercise.name }}</span>
           <button
             class="text-red-500 hover:text-red-700 text-lg ml-4"
             (click)="deleteExercise(exercise.id); $event.stopPropagation()"
