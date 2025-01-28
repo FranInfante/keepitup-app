@@ -278,11 +278,7 @@ export class WorkoutsComponent {
                 )
               )
               .subscribe({
-                next: (result) => {
-                  if (result) {
-                    console.log(`Successfully deleted workout with ID `);
-                  }
-                },
+                
                 complete: () => {
                   this.toastService.showToast(
                     TOAST_MSGS.workoutdeletedsaved,
