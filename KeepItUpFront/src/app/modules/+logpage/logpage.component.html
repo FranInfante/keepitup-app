@@ -218,4 +218,12 @@
     (onReset)="handleModalResetResponse('reset')"
     (onCancel)="isContinueOrResetModalOpen = false"
   ></app-continue-or-reset-modal>
+
+  <app-delete-exercise-modal
+  *ngIf="isDeleteModalOpen"
+  [exerciseName]="selectedExercise"
+  (confirmDelete)="handleConfirmDelete()"
+  (cancelDelete)="handleCancelDelete()"
+></app-delete-exercise-modal>
+
 </div>

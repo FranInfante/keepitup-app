@@ -21,6 +21,7 @@ import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { ConfirmationModalComponent } from '../../shared/components/comfirmation-modal/cofirmation-modal.component';
 import { ContinueOrResetModalComponent } from '../../shared/components/continue-or-reset-modal/continue-or-reset-modal.component';
 import { ThemeService } from '../../shared/service/theme.service';
+import { DeleteExerciseModalComponent } from './components/delete-exercise-modal/delete-exercise-modal.component';
 
 @Component({
   selector: 'app-logpage',
@@ -32,6 +33,7 @@ import { ThemeService } from '../../shared/service/theme.service';
     FormsModule,
     ConfirmationModalComponent,
     ContinueOrResetModalComponent,
+    DeleteExerciseModalComponent,
   ],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
@@ -59,6 +61,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   editingLog: WorkoutLog | null = null;
   isNotesModalOpen: boolean = false;
+  isDeleteModalOpen: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -739,21 +742,42 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
   deleteWorkoutLogExercise(index: number): void {
     const exerciseControl = this.exercises.at(index);
-    const exerciseId = exerciseControl.get('id')?.value;
+    this.selectedExercise = exerciseControl.get('name')?.value || 'Unknown';
+    this.selectedExerciseIndex = index;
+    this.isDeleteModalOpen = true;
+  }
 
-    if (exerciseId) {
+  handleConfirmDelete(): void {
+    if (this.selectedExerciseIndex !== null) {
+      const exerciseControl = this.exercises.at(this.selectedExerciseIndex);
+      const exerciseId = exerciseControl.get('id')?.value;
+
+      if (exerciseId) {
         this.workoutLogService.deleteWorkoutLogExercise(exerciseId).subscribe({
-            next: () => {
-                this.exercises.removeAt(index);
-                this.toastService.showToast('Exercise deleted successfully', 'success');
-            },
-            error: (error) => {
-                this.toastService.showToast('Failed to delete exercise', 'danger');
-                console.error('Error deleting exercise', error);
-            },
+          next: () => {
+            this.exercises.removeAt(this.selectedExerciseIndex!);
+            this.toastService.showToast(
+              'Exercise deleted successfully',
+              'success'
+            );
+            this.isDeleteModalOpen = false;
+            this.selectedExerciseIndex = null;
+          },
+          error: (error) => {
+            this.toastService.showToast('Failed to delete exercise', 'danger');
+            console.error('Error deleting exercise', error);
+          },
         });
-    } else {
-        this.exercises.removeAt(index);
+      } else {
+        this.exercises.removeAt(this.selectedExerciseIndex!);
+        this.isDeleteModalOpen = false;
+        this.selectedExerciseIndex = null;
+      }
     }
-}
+  }
+
+  handleCancelDelete(): void {
+    this.isDeleteModalOpen = false;
+    this.selectedExerciseIndex = null;
+  }
 }
