@@ -53,7 +53,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     public ExerciseDTO checkAndCreateExercise(ExerciseDTO exerciseDTO, Integer planId, Integer workoutId) {
         exerciseDTO.setName(capitalizeFirstLetter(exerciseDTO.getName()));
 
-        Optional<Exercise> existingExercise = exerciseRepository.findByNameIgnoreCaseAndUserId(
+        Optional<Exercise> existingExercise = exerciseRepository.findByNameIgnoreCaseAndUserIdAndIsAvailableTrue(
                 exerciseDTO.getName(), exerciseDTO.getUserId());
 
         if (existingExercise.isPresent()) {
