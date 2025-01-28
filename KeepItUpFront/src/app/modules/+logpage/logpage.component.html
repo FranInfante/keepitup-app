@@ -2,9 +2,17 @@
 <div
   class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
 >
-  <h3 class="text-center text-2xl font-extrabold text-gray-800 dark:text-gray-100 py-6">Logging {{ workoutName }}</h3>
+  <h3
+    class="text-center text-2xl font-extrabold text-gray-800 dark:text-gray-100 py-6"
+  >
+    Logging {{ workoutName }}
+  </h3>
 
-  <form [formGroup]="workoutLogForm" (ngSubmit)="submitWorkoutLog()" class="space-y-8">
+  <form
+    [formGroup]="workoutLogForm"
+    (ngSubmit)="submitWorkoutLog()"
+    class="space-y-8"
+  >
     <div formArrayName="exercises" class="space-y-6 flex flex-col items-center">
       <div
         *ngFor="let exercise of exercises.controls; let i = index"
@@ -18,7 +26,7 @@
             type="button"
             (click)="toggleDropdown(i)"
           >
-            {{ exercise.get('name')?.value }}
+            {{ exercise.get("name")?.value }}
           </button>
         </div>
 
@@ -85,7 +93,7 @@
                 class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition"
                 (click)="deleteSet(i, j)"
               >
-              <img [src]="DeleteIcon" alt="Delete Icon" class="w-5 h-5" />
+                <img [src]="DeleteIcon" alt="Delete Icon" class="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -117,8 +125,10 @@
         type="button"
         class="py-3 px-6 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-500"
         [ngClass]="{
-          'bg-indigo-600 text-white hover:bg-indigo-500': workoutLogForm.valid && hasSets(),
-          'bg-gray-300 text-gray-500 cursor-not-allowed': !workoutLogForm.valid || !hasSets()
+          'bg-indigo-600 text-white hover:bg-indigo-500':
+            workoutLogForm.valid && hasSets(),
+          'bg-gray-300 text-gray-500 cursor-not-allowed':
+            !workoutLogForm.valid || !hasSets()
         }"
         (click)="handleSubmitClick()"
       >
@@ -132,7 +142,9 @@
     *ngIf="isNotesModalOpen"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
   >
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-lg w-full">
+    <div
+      class="mx-4 h-[50vh] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-lg w-full"
+    >
       <div class="flex justify-between items-center mb-4">
         <h5 class="text-lg font-bold">Notes</h5>
         <button
@@ -147,12 +159,15 @@
         [formGroup]="getExerciseFormGroup(selectedExerciseIndex)"
       >
         <textarea
+          rows="7"
+          maxlength="300"
+          placeholder="Enter notes here... 
+        (max 300 characters)"
           formControlName="notes"
-          class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border rounded-lg resize-none"
+          class="w-full rows-30 px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border rounded-lg resize-none"
         ></textarea>
       </form>
       <div class="flex justify-end gap-4 mt-4">
-       
         <button
           type="button"
           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
@@ -163,20 +178,18 @@
       </div>
     </div>
   </div>
-  
+
   <app-confirmation-modal
-  *ngIf="isConfirmationModalOpen"
-  (onSave)="handleModalConfirmResponse('save')"
-  (onDiscard)="handleModalConfirmResponse('discard')"
-  (onCancel)="isConfirmationModalOpen = false"
+    *ngIf="isConfirmationModalOpen"
+    (onSave)="handleModalConfirmResponse('save')"
+    (onDiscard)="handleModalConfirmResponse('discard')"
+    (onCancel)="isConfirmationModalOpen = false"
   ></app-confirmation-modal>
-  
+
   <app-continue-or-reset-modal
-  *ngIf="isContinueOrResetModalOpen"
-  (onContinue)="handleModalResetResponse('continue')"
-  (onReset)="handleModalResetResponse('reset')"
-  (onCancel)="isContinueOrResetModalOpen = false"
+    *ngIf="isContinueOrResetModalOpen"
+    (onContinue)="handleModalResetResponse('continue')"
+    (onReset)="handleModalResetResponse('reset')"
+    (onCancel)="isContinueOrResetModalOpen = false"
   ></app-continue-or-reset-modal>
-  
-  
 </div>
