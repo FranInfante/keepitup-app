@@ -11,6 +11,7 @@ import com.example.keepitup.util.mappers.WorkoutExerciseMapper;
 import com.example.keepitup.util.mappers.WorkoutsMapper;
 import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,8 @@ public class PlanServiceImpl implements PlanService {
     private final WorkoutsRepository workoutsRepository;
     private final WorkoutExerciseRepository workoutExerciseRepository;
     private final ExerciseRepository exerciseRepository;
+    private final WorkoutLogRepository workoutLogRepository;
+
 
     @Override
     public List<PlanDTO> getAllPlans() {
@@ -89,11 +92,23 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    @Transactional
     public void deletePlan(Integer planId) {
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.PLAN_NOT_FOUND));
+
+        plan.getWorkouts().forEach(workout -> {
+            List<WorkoutLog> workoutLogs = workoutLogRepository.findByWorkout(workout);
+
+            workoutLogRepository.deleteAll(workoutLogs);
+
+            workoutsRepository.delete(workout);
+        });
+
         planRepository.delete(plan);
     }
+
+
 
     @Override
     public WorkoutsDTO addWorkoutToPlan(Integer planId, WorkoutsDTO workoutDTO) throws Exception {

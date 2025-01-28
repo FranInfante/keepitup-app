@@ -17,7 +17,7 @@ public class WorkoutLogExercise {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "workout_log_id", nullable = false)
+    @JoinColumn(name = "workout_log_id")
     private WorkoutLog workoutLog;
 
     @ManyToOne

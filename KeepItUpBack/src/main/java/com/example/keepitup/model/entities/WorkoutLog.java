@@ -24,7 +24,7 @@ public class WorkoutLog {
     private Users user;
 
     @ManyToOne
-    @JoinColumn(name = "workout_id", nullable = false)
+    @JoinColumn(name = "workout_id")
     private Workouts workout;
 
     @OneToMany(mappedBy = "workoutLog", cascade = CascadeType.ALL)

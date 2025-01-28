@@ -1,6 +1,7 @@
 package com.example.keepitup.repository;
 
 import com.example.keepitup.model.entities.WorkoutLog;
+import com.example.keepitup.model.entities.Workouts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface WorkoutLogRepository extends JpaRepository<WorkoutLog, Integer>
     Optional<WorkoutLog> findFirstByUserIdAndIsEditing(Integer userId, Boolean isEditing);
 
     List<WorkoutLog> findByWorkoutId(Integer id);
+
+    List<WorkoutLog> findByWorkout(Workouts workout);
 }

@@ -16,7 +16,7 @@ public class WorkoutExercise {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "workout_id", nullable = false)
+    @JoinColumn(name = "workout_id")
     @JsonIgnore
     private Workouts workout;
 
