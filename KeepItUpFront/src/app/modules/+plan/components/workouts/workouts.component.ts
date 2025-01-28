@@ -20,14 +20,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { Workout } from '../../../../shared/interfaces/workout';
-import { ASSET_URLS, LOCATIONS, MSG, TOAST_MSGS } from '../../../../shared/constants';
+import {
+  ASSET_URLS,
+  LOCATIONS,
+  MSG,
+  TOAST_MSGS,
+} from '../../../../shared/constants';
 import { PlanService } from '../../../../shared/service/plan.service';
 import { ToastService } from '../../../../shared/service/toast.service';
 import { Router } from '@angular/router';
 import { WorkoutDataService } from '../../../../shared/service/workoutdata.service';
 import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-picker-modal.component';
-
 
 @Component({
   selector: 'app-workouts',
@@ -37,8 +41,8 @@ import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    ExercisePickerModalComponent
-],
+    ExercisePickerModalComponent,
+  ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',
 })
@@ -66,9 +70,8 @@ export class WorkoutsComponent {
   maxLen = 20;
   specialKeys = ['Backspace', 'Shift', 'Control', 'Alt', 'Delete'];
   navigationalKeys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'];
-  isModalOpen = false; 
+  isModalOpen = false;
   isExercisePickerModalOpen = false;
-
 
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
@@ -77,7 +80,7 @@ export class WorkoutsComponent {
     private fb: FormBuilder,
     private toastService: ToastService,
     private router: Router,
-    private workoutDataService: WorkoutDataService,
+    private workoutDataService: WorkoutDataService
   ) {
     this.workoutForm = this.fb.group({
       workoutName: ['', [Validators.required, Validators.maxLength(20)]],
@@ -91,7 +94,7 @@ export class WorkoutsComponent {
 
     if (storedWorkoutId) {
       const selectedWorkout = this.workouts.find(
-        (workout) => workout.id === storedWorkoutId,
+        (workout) => workout.id === storedWorkoutId
       );
       if (selectedWorkout) {
         this.showWorkoutDetails(selectedWorkout);
@@ -102,7 +105,7 @@ export class WorkoutsComponent {
   toggleExercisePickerModal(isOpen: boolean): void {
     this.isExercisePickerModalOpen = isOpen;
   }
-  
+
   closeExercisePickerModal(): void {
     this.isExercisePickerModalOpen = false;
   }
@@ -122,32 +125,22 @@ export class WorkoutsComponent {
   addExerciseToWorkout(workoutExercise: WorkoutExercise): void {
     if (this.selectedWorkout && this.planId !== null) {
       this.planService
-        .addExerciseToWorkout(this.planId, this.selectedWorkout.id, workoutExercise)
+        .addExerciseToWorkout(
+          this.planId,
+          this.selectedWorkout.id,
+          workoutExercise
+        )
         .subscribe((updatedWorkout) => {
-          this.selectedWorkout!.workoutExercises = updatedWorkout.workoutExercises;
+          this.selectedWorkout!.workoutExercises =
+            updatedWorkout.workoutExercises;
           this.workoutsUpdated.emit(this.workouts);
           this.closeExercisePickerModal();
         });
     }
   }
-  
 
-  showWorkoutDetails(workout: Workout): void { 
-
+  showWorkoutDetails(workout: Workout): void {
     this.selectedWorkout = workout;
-
-    // Fetch the latest data from the backend
-    // this.planService.getWorkoutById(workout.id).subscribe((updatedWorkout: Workout) => {
-
-    //   this.selectedWorkout = {
-    //     ...updatedWorkout,
-    //     workoutExercises: (updatedWorkout.workoutExercises || []).sort(
-    //       (a, b) => a.exerciseOrder - b.exerciseOrder
-    //     )
-    //   };
-
-
-    // });
   }
 
   closeWorkoutDetails(): void {
@@ -168,7 +161,7 @@ export class WorkoutsComponent {
         .subscribe(() => {
           this.selectedWorkout!.workoutExercises =
             this.selectedWorkout!.workoutExercises.filter(
-              (ex) => ex.id !== exerciseId,
+              (ex) => ex.id !== exerciseId
             );
         });
     }
@@ -213,7 +206,7 @@ export class WorkoutsComponent {
 
   drop(event: CdkDragDrop<Workout[]>) {
     const previousIndex = this.workouts.findIndex(
-      (workout) => workout.id === event.item.data.id,
+      (workout) => workout.id === event.item.data.id
     );
     const currentIndex = event.currentIndex;
 
@@ -222,41 +215,89 @@ export class WorkoutsComponent {
     }
   }
 
+  // saveReorderedWorkouts() {
+  //   if (this.planId !== null) {
+  //     const workoutIds = this.workouts.map((workout) => workout.id);
+
+  //     // Reorder the remaining workouts
+  //     this.planService
+  //       .reorderWorkouts(this.planId, workoutIds)
+  //       .subscribe(() => {
+  //         // Check if any workouts are marked for deletion
+  //         if (this.workoutsMarkedForDeletion.length > 0) {
+  //           // Send delete requests for workouts marked for deletion
+  //           this.workoutsMarkedForDeletion.forEach((workout) => {
+  //             this.planService.deleteWorkout(this.planId!, workout.id)
+  //               .subscribe(() => {
+  //                 // Optionally handle response or errors
+  //               });
+  //           });
+
+  //           // Show a toast message after successfully saving changes if any workout was deleted
+  //           this.toastService.showToast(
+  //             TOAST_MSGS.workoutdeletedsaved,
+  //             'success'
+  //           );
+
+  //           // Clear the deletion list after the changes are saved
+  //           this.workoutsMarkedForDeletion = [];
+  //         }
+
+  //         // Update UI and reset editing mode
+  //         this.isEditing = false;
+  //         this.isEditingChange.emit(this.isEditing);
+  //       });
+  //   }
+  // }
+
   saveReorderedWorkouts() {
     if (this.planId !== null) {
       const workoutIds = this.workouts.map((workout) => workout.id);
-
+  
       // Reorder the remaining workouts
       this.planService
         .reorderWorkouts(this.planId, workoutIds)
-        .subscribe(() => {
-          // Check if any workouts are marked for deletion
-          if (this.workoutsMarkedForDeletion.length > 0) {
-            // Send delete requests for workouts marked for deletion
-            this.workoutsMarkedForDeletion.forEach((workout) => {
-              this.planService
-                .deleteWorkout(this.planId!, workout.id)
-                .subscribe(() => {
-                  // Optionally handle response or errors
+        .subscribe({
+          next: () => {
+  
+            // Check if any workouts are marked for deletion
+            if (this.workoutsMarkedForDeletion.length > 0) {
+  
+              // Send delete requests for workouts marked for deletion
+              this.workoutsMarkedForDeletion.forEach((workout) => {
+                this.planService.deleteWorkout(this.planId!, workout.id).subscribe({
+                  next: () => {
+                  },
+                  error: (err) => {
+                    console.error(
+                      `Failed to delete workout with ID ${workout.id}:`,
+                      err
+                    );
+                  },
                 });
-            });
-
-            // Show a toast message after successfully saving changes if any workout was deleted
-            this.toastService.showToast(
-              TOAST_MSGS.workoutdeletedsaved,
-              'success',
-            );
-
-            // Clear the deletion list after the changes are saved
-            this.workoutsMarkedForDeletion = [];
-          }
-
-          // Update UI and reset editing mode
-          this.isEditing = false;
-          this.isEditingChange.emit(this.isEditing);
+              });
+  
+              // Show a toast message after successfully saving changes if any workout was deleted
+              this.toastService.showToast(
+                TOAST_MSGS.workoutdeletedsaved,
+                'success'
+              );
+  
+              // Clear the deletion list after the changes are saved
+              this.workoutsMarkedForDeletion = [];
+            }
+  
+            // Update UI and reset editing mode
+            this.isEditing = false;
+            this.isEditingChange.emit(this.isEditing);
+          },
+          error: (err) => {
+            console.error('Failed to reorder workouts in the backend:', err);
+          },
         });
-    }
+    } 
   }
+  
 
   deleteWorkout(workoutId: number, event: Event): void {
     event.stopPropagation();
@@ -264,7 +305,7 @@ export class WorkoutsComponent {
     if (this.planId !== null) {
       this.planService.deleteWorkout(this.planId, workoutId).subscribe(() => {
         this.workouts = this.workouts.filter(
-          (workout) => workout.id !== workoutId,
+          (workout) => workout.id !== workoutId
         );
 
         this.workoutsUpdated.emit(this.workouts);
@@ -309,7 +350,7 @@ export class WorkoutsComponent {
           next: (updatedWorkout) => {
             this.workoutNameUpdated.emit(updatedWorkout);
             const index = this.workouts.findIndex(
-              (w) => w.id === updatedWorkout.id,
+              (w) => w.id === updatedWorkout.id
             );
             if (index !== -1) {
               this.workouts[index] = updatedWorkout;
@@ -374,19 +415,18 @@ export class WorkoutsComponent {
         event.previousIndex,
         event.currentIndex
       );
-  
+
       this.selectedWorkout.workoutExercises.forEach((exercise, index) => {
         exercise.exerciseOrder = index + 1;
         exercise.exerciseOrder = exercise.exerciseOrder;
         exercise.workoutId = this.selectedWorkout!.id;
       });
-  
+
       this.selectedWorkout.workoutExercises.forEach((exercise) => {
-        this.planService.updateWorkoutExercise(exercise.id!, exercise)
-          .subscribe({
-          });
+        this.planService
+          .updateWorkoutExercise(exercise.id!, exercise)
+          .subscribe({});
       });
     }
   }
-  
 }
