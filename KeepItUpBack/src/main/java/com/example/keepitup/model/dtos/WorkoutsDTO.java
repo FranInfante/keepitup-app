@@ -30,5 +30,7 @@ public class WorkoutsDTO {
 
     private Integer sort;
 
+    private Boolean isAvailable;
+
 
 }

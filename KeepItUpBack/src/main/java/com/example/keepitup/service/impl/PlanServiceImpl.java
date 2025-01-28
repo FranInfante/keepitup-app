@@ -236,7 +236,9 @@ public class PlanServiceImpl implements PlanService {
         Workouts workouts = workoutsRepository.findById(workoutId)
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
         plan.getWorkouts().remove(workouts);
-        workoutsRepository.delete(workouts);
+
+        workouts.setIsAvailable(false);
+        workoutsRepository.save(workouts);
         planRepository.save(plan);
     }
 

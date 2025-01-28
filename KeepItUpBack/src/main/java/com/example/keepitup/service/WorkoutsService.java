@@ -8,7 +8,7 @@ public interface WorkoutsService {
     WorkoutsDTO logWorkout(WorkoutsDTO workoutDTO);
     List<WorkoutsDTO> getWorkoutsByUserId(Integer userId);
     List<String> getDistinctWorkoutNamesByUserId(Integer userId);
-    void deleteWeighIn(Integer weighInId);
+    void deleteWorkout(Integer id);
     WorkoutsDTO updateWorkoutName(Integer id, String name) throws Exception;
     WorkoutsDTO getWorkoutById(Integer id);
 

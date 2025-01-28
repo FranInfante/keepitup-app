@@ -3,8 +3,10 @@ package com.example.keepitup.service.impl;
 import com.example.keepitup.model.dtos.WorkoutsDTO;
 import com.example.keepitup.model.entities.Users;
 import com.example.keepitup.model.entities.WeighIns;
+import com.example.keepitup.model.entities.WorkoutLog;
 import com.example.keepitup.model.entities.Workouts;
 import com.example.keepitup.repository.UsersRepository;
+import com.example.keepitup.repository.WorkoutLogRepository;
 import com.example.keepitup.repository.WorkoutsRepository;
 import com.example.keepitup.service.WorkoutsService;
 import com.example.keepitup.util.mappers.WeighInsMapper;
@@ -22,6 +24,7 @@ public class WorkoutsServiceImpl implements WorkoutsService {
 
     private final WorkoutsRepository workoutsRepository;
     private final UsersRepository usersRepository;
+    private final WorkoutLogRepository workoutLogRepository;
 
 
     @Override
@@ -47,10 +50,6 @@ public class WorkoutsServiceImpl implements WorkoutsService {
         return workoutsRepository.findDistinctWorkoutNamesByUserId(userId);
     }
 
-    @Override
-    public void deleteWeighIn(Integer weighInId) {
-        workoutsRepository.deleteById(weighInId);
-    }
 
     @Override
     public WorkoutsDTO updateWorkoutName(Integer id, String name) throws Exception {
@@ -71,4 +70,13 @@ public class WorkoutsServiceImpl implements WorkoutsService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
         return WorkoutsMapper.workoutsEntityToDTO(workout);
     }
+
+    @Override
+    public void deleteWorkout(Integer id) {
+        Workouts workout = workoutsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
+        workout.setIsAvailable(false);
+        workoutsRepository.save(workout);
+    }
+
 }

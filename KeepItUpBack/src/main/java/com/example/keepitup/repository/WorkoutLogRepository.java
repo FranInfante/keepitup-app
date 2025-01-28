@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface WorkoutLogRepository extends JpaRepository<WorkoutLog, Integer> {
     List<WorkoutLog> findByUserId(Integer userId);
     Optional<WorkoutLog> findFirstByUserIdAndIsEditing(Integer userId, Boolean isEditing);
+
+    List<WorkoutLog> findByWorkoutId(Integer id);
 }

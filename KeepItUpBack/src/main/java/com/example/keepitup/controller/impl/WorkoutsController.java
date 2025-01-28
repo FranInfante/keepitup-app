@@ -38,9 +38,9 @@ public class WorkoutsController implements WorkoutsApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteWorkout(Integer id) {
-        workoutsService.deleteWeighIn(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> deleteWorkoutById(Integer id) {
+        workoutsService.deleteWorkout(id);
+        return ResponseEntity.noContent().build();
     }
 
     @Override

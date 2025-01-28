@@ -23,7 +23,7 @@ public class Plan {
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("sort ASC")
     private List<Workouts> workouts;
 }

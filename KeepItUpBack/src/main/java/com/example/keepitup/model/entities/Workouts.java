@@ -36,5 +36,5 @@ public class Workouts {
 
     private Integer sort;
 
-
+    private Boolean isAvailable = true;
 }
