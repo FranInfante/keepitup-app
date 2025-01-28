@@ -195,7 +195,7 @@ public class PlanServiceImpl implements PlanService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
 
 
-        Exercise exercise = exerciseRepository.findFirstByNameIgnoreCase(exerciseDTO.getExerciseName())
+        Exercise exercise = exerciseRepository.findFirstByNameIgnoreCaseAndIsAvailableTrue(exerciseDTO.getExerciseName())
                 .orElseGet(() -> {
                     Exercise newExercise = new Exercise();
                     newExercise.setName(exerciseDTO.getExerciseName());

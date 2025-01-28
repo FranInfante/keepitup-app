@@ -20,4 +20,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
     List<Exercise> findAllByUserIdAndIsAvailableTrue(Integer userId);
 
     Optional<Exercise> findByNameIgnoreCaseAndUserIdAndIsAvailableTrue(String name, Integer userId);
+
+    Optional<Exercise> findFirstByNameIgnoreCaseAndIsAvailableTrue(String exerciseName);
 }
