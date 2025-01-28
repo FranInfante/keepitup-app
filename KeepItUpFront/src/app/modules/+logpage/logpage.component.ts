@@ -737,4 +737,23 @@ export class LogpageComponent implements OnInit, OnDestroy {
       lastSet.get('weight')?.value >= 0
     );
   }
+  deleteWorkoutLogExercise(index: number): void {
+    const exerciseControl = this.exercises.at(index);
+    const exerciseId = exerciseControl.get('id')?.value;
+
+    if (exerciseId) {
+        this.workoutLogService.deleteWorkoutLogExercise(exerciseId).subscribe({
+            next: () => {
+                this.exercises.removeAt(index);
+                this.toastService.showToast('Exercise deleted successfully', 'success');
+            },
+            error: (error) => {
+                this.toastService.showToast('Failed to delete exercise', 'danger');
+                console.error('Error deleting exercise', error);
+            },
+        });
+    } else {
+        this.exercises.removeAt(index);
+    }
+}
 }
