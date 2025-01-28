@@ -1,8 +1,9 @@
-package com.example.MoreGains.controller.impl;
+package com.example.keepitup.controller.impl;
 
-import com.example.MoreGains.controller.WorkoutExerciseApi;
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
-import com.example.MoreGains.service.WorkoutExerciseService;
+
+import com.example.keepitup.controller.WorkoutExerciseApi;
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.service.WorkoutExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

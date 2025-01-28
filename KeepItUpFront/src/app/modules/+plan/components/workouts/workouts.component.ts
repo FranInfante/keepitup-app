@@ -140,6 +140,11 @@ export class WorkoutsComponent {
 
   showWorkoutDetails(workout: Workout): void {
     this.selectedWorkout = workout;
+    if (this.selectedWorkout.workoutExercises) {
+      this.selectedWorkout.workoutExercises.sort(
+        (a, b) => a.exerciseOrder - b.exerciseOrder
+      );
+    }
   }
 
   closeWorkoutDetails(): void {
@@ -410,22 +415,27 @@ export class WorkoutsComponent {
 
   dropExercise(event: CdkDragDrop<WorkoutExercise[]>): void {
     if (this.selectedWorkout) {
+      // Reorder the exercises in the local array
       moveItemInArray(
         this.selectedWorkout.workoutExercises,
         event.previousIndex,
         event.currentIndex
       );
-
+  
+      // Update the exercise order in the local array
       this.selectedWorkout.workoutExercises.forEach((exercise, index) => {
         exercise.exerciseOrder = index + 1;
-        exercise.exerciseOrder = exercise.exerciseOrder;
         exercise.workoutId = this.selectedWorkout!.id;
       });
-
+  
+      // Send updates to the backend
       this.selectedWorkout.workoutExercises.forEach((exercise) => {
-        this.planService
-          .updateWorkoutExercise(exercise.id!, exercise)
-          .subscribe({});
+        this.planService.updateWorkoutExercise(exercise.id!, exercise).subscribe({
+          next: () => {
+          },
+          error: (err) => {
+          },
+        });
       });
     }
   }

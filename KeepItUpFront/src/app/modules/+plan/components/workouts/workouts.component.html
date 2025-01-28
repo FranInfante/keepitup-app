@@ -27,11 +27,42 @@
       <div
         *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises"
       >
-        <ul class="list-none h-[calc(80vh-280px)] overflow-y-auto list-without-scrollbar">
+        <ul
+          class="list-none h-[calc(80vh-280px)] overflow-y-auto list-without-scrollbar"
+          cdkDropList
+          (cdkDropListDropped)="dropExercise($event)"
+        >
           <li
             *ngFor="let exercise of selectedWorkout.workoutExercises"
             class="flex justify-between items-center mb-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-600 dark:border-gray-500 p-3 rounded-md"
+            cdkDrag
           >
+            <div cdkDragHandle>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-grip-vertical"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              </svg>
+            </div>
+
+            <ng-container *cdkDragPlaceholder>
+              <div class="invisible h-12"></div>
+            </ng-container>
             <span>{{ exercise.exerciseName }}</span>
             <button
               class="text-red-500 hover:text-red-500 text-2xl"
@@ -108,9 +139,9 @@
               isEditing ? 'bg-gray-400' : 'bg-gray-300 dark:bg-gray-800'
             "
           >
-          <ng-container *cdkDragPlaceholder>
-            <div class="invisible">Placeholder</div>
-          </ng-container>
+            <ng-container *cdkDragPlaceholder>
+              <div class="invisible">Placeholder</div>
+            </ng-container>
             <button
               *ngIf="isEditing"
               class="absolute text-4xl top-0 right-2 text-red-500 hover:text-red-700"

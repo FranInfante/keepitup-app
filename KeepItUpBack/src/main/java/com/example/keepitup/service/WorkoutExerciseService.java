@@ -1,6 +1,7 @@
-package com.example.MoreGains.service;
+package com.example.keepitup.service;
 
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
+
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
 
 import java.util.List;
 

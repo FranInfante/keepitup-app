@@ -1,9 +1,10 @@
-package com.example.MoreGains.controller;
+package com.example.keepitup.controller;
 
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
+
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.util.UriConstants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.MoreGains.util.UriConstants;
 
 import java.util.List;
 

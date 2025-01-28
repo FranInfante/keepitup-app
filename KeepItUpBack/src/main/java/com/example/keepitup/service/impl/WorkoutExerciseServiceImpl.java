@@ -1,14 +1,15 @@
-package com.example.MoreGains.service.impl;
+package com.example.keepitup.service.impl;
 
-import com.example.MoreGains.model.dtos.WorkoutExerciseDTO;
-import com.example.MoreGains.model.entities.Exercise;
-import com.example.MoreGains.model.entities.WorkoutExercise;
-import com.example.MoreGains.repository.ExerciseRepository;
-import com.example.MoreGains.repository.WorkoutExerciseRepository;
-import com.example.MoreGains.repository.WorkoutRepository;
-import com.example.MoreGains.service.WorkoutExerciseService;
-import com.example.MoreGains.util.mappers.WorkoutExerciseMapper;
-import com.example.MoreGains.util.messages.MessageConstants;
+
+import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.model.entities.Exercise;
+import com.example.keepitup.model.entities.WorkoutExercise;
+import com.example.keepitup.repository.ExerciseRepository;
+import com.example.keepitup.repository.WorkoutExerciseRepository;
+import com.example.keepitup.repository.WorkoutsRepository;
+import com.example.keepitup.service.WorkoutExerciseService;
+import com.example.keepitup.util.mappers.WorkoutExerciseMapper;
+import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class WorkoutExerciseServiceImpl implements WorkoutExerciseService {
 
     private final WorkoutExerciseRepository workoutExerciseRepository;
 
-    private final WorkoutRepository workoutRepository;
+    private final WorkoutsRepository workoutRepository;
     private final ExerciseRepository exerciseRepository;
 
     @Override
