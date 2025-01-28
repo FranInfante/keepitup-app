@@ -32,6 +32,7 @@ import { Router } from '@angular/router';
 import { WorkoutDataService } from '../../../../shared/service/workoutdata.service';
 import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-picker-modal.component';
+import { from, concatMap, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-workouts',
@@ -259,48 +260,49 @@ export class WorkoutsComponent {
     if (this.planId !== null) {
       const workoutIds = this.workouts.map((workout) => workout.id);
   
-      // Reorder the remaining workouts
-      this.planService
-        .reorderWorkouts(this.planId, workoutIds)
-        .subscribe({
-          next: () => {
-  
-            // Check if any workouts are marked for deletion
-            if (this.workoutsMarkedForDeletion.length > 0) {
-  
-              // Send delete requests for workouts marked for deletion
-              this.workoutsMarkedForDeletion.forEach((workout) => {
-                this.planService.deleteWorkout(this.planId!, workout.id).subscribe({
-                  next: () => {
-                  },
-                  error: (err) => {
-                    console.error(
-                      `Failed to delete workout with ID ${workout.id}:`,
-                      err
-                    );
-                  },
-                });
+      this.planService.reorderWorkouts(this.planId, workoutIds).subscribe({
+        next: () => {
+          if (this.workoutsMarkedForDeletion.length > 0) {
+            from(this.workoutsMarkedForDeletion)
+              .pipe(
+                concatMap((workout) =>
+                  this.planService.deleteWorkout(this.planId!, workout.id).pipe(
+                    catchError((err) => {
+                      console.error(
+                        `Failed to delete workout with ID ${workout.id}:`,
+                        err
+                      );
+                      return of(null); // Allow other deletions to continue
+                    })
+                  )
+                )
+              )
+              .subscribe({
+                next: (result) => {
+                  if (result) {
+                    console.log(`Successfully deleted workout with ID `);
+                  }
+                },
+                complete: () => {
+                  this.toastService.showToast(
+                    TOAST_MSGS.workoutdeletedsaved,
+                    'success'
+                  );
+                  this.workoutsMarkedForDeletion = [];
+                  this.isEditing = false;
+                  this.isEditingChange.emit(this.isEditing);
+                },
               });
-  
-              // Show a toast message after successfully saving changes if any workout was deleted
-              this.toastService.showToast(
-                TOAST_MSGS.workoutdeletedsaved,
-                'success'
-              );
-  
-              // Clear the deletion list after the changes are saved
-              this.workoutsMarkedForDeletion = [];
-            }
-  
-            // Update UI and reset editing mode
+          } else {
             this.isEditing = false;
             this.isEditingChange.emit(this.isEditing);
-          },
-          error: (err) => {
-            console.error('Failed to reorder workouts in the backend:', err);
-          },
-        });
-    } 
+          }
+        },
+        error: (err) => {
+          console.error('Failed to reorder workouts:', err);
+        },
+      });
+    }
   }
   
 
