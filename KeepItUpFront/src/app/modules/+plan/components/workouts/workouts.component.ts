@@ -177,6 +177,7 @@ export class WorkoutsComponent {
 
   createWorkout(): void {
     if (this.workoutForm.valid && this.planId !== null) {
+     
       this.planService
         .createWorkoutinPlan(this.planId, {
           name: this.workoutForm.value.workoutName,

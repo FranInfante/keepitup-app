@@ -6,5 +6,6 @@ export interface Workout {
     name: string;
     date: string;
     workoutExercises: WorkoutExercise[];
+    sort: number;
     
   }

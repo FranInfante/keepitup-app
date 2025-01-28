@@ -138,11 +138,20 @@ public class PlanServiceImpl implements PlanService {
             plan.setWorkouts(new ArrayList<>());
         }
 
+        int nextSort = plan.getWorkouts() != null && !plan.getWorkouts().isEmpty()
+                ? plan.getWorkouts().stream()
+                .mapToInt(Workouts::getSort)
+                .max()
+                .orElse(0) + 1
+                : 0;
+        workout.setSort(nextSort);
+        workout.setSort(nextSort);
+
         plan.getWorkouts().add(workout);
 
         workoutsRepository.save(workout);
 
-        Plan savedPlan = planRepository.save(plan);
+        planRepository.save(plan);
 
         return WorkoutsMapper.workoutsEntityToDTO(workout);
     }
