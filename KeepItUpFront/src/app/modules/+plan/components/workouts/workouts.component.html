@@ -27,7 +27,7 @@
       <div
         *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises"
       >
-        <ul class="list-none h-[calc(80vh-280px)] overflow-y-auto">
+        <ul class="list-none h-[calc(80vh-280px)] overflow-y-auto list-without-scrollbar">
           <li
             *ngFor="let exercise of selectedWorkout.workoutExercises"
             class="flex justify-between items-center mb-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-600 dark:border-gray-500 p-3 rounded-md"
