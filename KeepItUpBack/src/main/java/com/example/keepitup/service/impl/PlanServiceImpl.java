@@ -245,17 +245,25 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    @Transactional
     public void deleteWorkout(Integer planId, Integer workoutId) {
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.PLAN_NOT_FOUND));
-        Workouts workouts = workoutsRepository.findById(workoutId)
+
+        Workouts workout = workoutsRepository.findById(workoutId)
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
-        plan.getWorkouts().remove(workouts);
 
-        workouts.setIsAvailable(false);
-        workoutsRepository.save(workouts);
+        if (!plan.getWorkouts().contains(workout)) {
+            throw new IllegalArgumentException(MessageConstants.WORKOUT_NOT_FOUND);
+        }
+
+        plan.getWorkouts().remove(workout);
         planRepository.save(plan);
-    }
 
+        List<WorkoutLog> workoutLogs = workoutLogRepository.findByWorkout(workout);
+        workoutLogRepository.deleteAll(workoutLogs);
+
+        workoutsRepository.delete(workout);
+    }
 
 }
