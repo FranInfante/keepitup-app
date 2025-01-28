@@ -103,6 +103,7 @@ export class LogRegistryComponent implements OnInit {
         groupedExercises.push({
           exerciseId: exercise.exerciseId,
           exerciseName: exercise.exerciseName,
+          notes: exercise.notes || '',
           sets: [...exercise.sets],
         });
       }

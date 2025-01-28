@@ -13,10 +13,19 @@ export class WorkoutLogDetailModalComponent {
   @Input() showModal: boolean = false;
   @Output() closeModal = new EventEmitter<void>();
 
+  isNotesModalOpen: boolean = false;
+  selectedExerciseNotes: string | null = null;
+
   onClose() {
     this.closeModal.emit();
   }
   onBackdropClick(event: MouseEvent) {
     this.onClose();
+  }
+  toggleNotesModal(notes?: string | null): void {
+    if (notes !== undefined) {
+      this.selectedExerciseNotes = notes;
+    }
+    this.isNotesModalOpen = !this.isNotesModalOpen; 
   }
 }
