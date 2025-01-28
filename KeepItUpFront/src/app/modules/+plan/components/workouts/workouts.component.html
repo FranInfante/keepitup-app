@@ -93,7 +93,7 @@
           class="flex flex-col items-center gap-4 p-4 min-h-[60px] rounded-md box-border mb-8"
           [ngClass]="{
             'max-h-[75vh] overflow-y-auto': !isEditing,
-            'max-h-[calc(60vh)] overflow-y-scroll': isEditing
+            'max-h-[70vh] overflow-y-auto': isEditing
           }"
           (cdkDropListDropped)="drop($event)"
         >
