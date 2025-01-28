@@ -90,7 +90,6 @@ export class WorkoutsComponent {
 
   ngOnInit() {
     const storedWorkoutId = this.workoutDataService.getWorkoutId();
-    // console.log(storedWorkoutId);
 
     if (storedWorkoutId) {
       const selectedWorkout = this.workouts.find(

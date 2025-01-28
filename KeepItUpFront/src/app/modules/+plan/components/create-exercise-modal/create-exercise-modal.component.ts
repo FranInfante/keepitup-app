@@ -71,14 +71,7 @@ export class CreateExerciseModalComponent implements OnInit {
     const newExerciseName = this.newExerciseForm.get('name')?.value.trim();
     const description = this.newExerciseForm.get('description')?.value;
     const muscleGroupId = this.newExerciseForm.get('muscleGroup')?.value;
-    console.log(
-      'Form Values - Name:',
-      newExerciseName,
-      'Description:',
-      description,
-      'Muscle Group ID:',
-      muscleGroupId
-    );
+    
 
     if (!newExerciseName) {
       this.toastService.showToast(
@@ -117,13 +110,11 @@ export class CreateExerciseModalComponent implements OnInit {
 
       this.exerciseService.createOrCheckExercise(newExercise).subscribe({
         next: (response) => {
-          console.log('Backend Response:', response);
 
           const exercise = response as any;
 
           if (exercise) {
             if (exercise.exists) {
-              console.log('Exercise already exists:', exercise.name);
 
               this.toastService.showToast('hola' + exercise.name, 'danger');
             } else {
