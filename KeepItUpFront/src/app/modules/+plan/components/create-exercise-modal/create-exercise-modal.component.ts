@@ -24,6 +24,8 @@ export class CreateExerciseModalComponent implements OnInit {
   @Input() planId: number | null = null;
   @Input() workoutId: number | null = null;
   @Output() closeModal = new EventEmitter<void>();
+  @Output() exerciseCreated = new EventEmitter<any>();
+
 
   newExerciseForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -38,6 +40,57 @@ export class CreateExerciseModalComponent implements OnInit {
     private toastService: ToastService,
     private userService: UserService
   ) {}
+
+  onCreateNewExercise(): void {
+    if (this.newExerciseForm.invalid) {
+      Object.keys(this.newExerciseForm.controls).forEach((field) => {
+        const control = this.newExerciseForm.get(field);
+        control?.markAsTouched();
+      });
+      return;
+    }
+  
+    const newExerciseName = this.newExerciseForm.get('name')?.value.trim();
+    const description = this.newExerciseForm.get('description')?.value;
+    const muscleGroupId = this.newExerciseForm.get('muscleGroup')?.value;
+  
+    if (!newExerciseName || !muscleGroupId || !this.userId || !this.planId || !this.workoutId) {
+      this.toastService.showToast('Error creating exercise. Please check all fields.', 'danger');
+      return;
+    }
+  
+    const newExercise = {
+      name: newExerciseName,
+      description: description || null,
+      muscleGroup: { id: muscleGroupId },
+      userId: this.userId,
+      planId: this.planId,
+      workoutId: this.workoutId,
+    };
+  
+    this.exerciseService.createOrCheckExercise(newExercise).subscribe({
+      next: (response) => {
+        const exercise = response as any;
+  
+        if (exercise) {
+          if (exercise.exists) {
+            this.toastService.showToast('Exercise already exists: ' + exercise.name, 'danger');
+          } else {
+            this.toastService.showToast('Exercise created: ' + exercise.name, 'success');
+  
+            // Emit the created exercise
+            this.exerciseCreated.emit(exercise);
+  
+            this.closeCreateExercise();
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error creating exercise:', err);
+        this.toastService.showToast('Error creating exercise. Please try again.', 'danger');
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.loadMuscleGroups();
@@ -58,85 +111,7 @@ export class CreateExerciseModalComponent implements OnInit {
     });
   }
 
-  onCreateNewExercise(): void {
-
-    if (this.newExerciseForm.invalid) {
-      Object.keys(this.newExerciseForm.controls).forEach((field) => {
-        const control = this.newExerciseForm.get(field);
-        control?.markAsTouched();
-      });
-      return;
-    }
-
-    const newExerciseName = this.newExerciseForm.get('name')?.value.trim();
-    const description = this.newExerciseForm.get('description')?.value;
-    const muscleGroupId = this.newExerciseForm.get('muscleGroup')?.value;
-    
-
-    if (!newExerciseName) {
-      this.toastService.showToast(
-        'Please provide a name for the exercise.',
-        'danger'
-      );
-      return;
-    }
-
-    if (!muscleGroupId) {
-      this.toastService.showToast(
-        'Please select a muscle group or leave it empty.',
-        'danger'
-      );
-      return;
-    }
-
-    if (!this.userId || !this.planId || !this.workoutId) {
-      this.toastService.showToast(
-        'Error creating exercise. Please try again later.',
-        'danger'
-      );
-
-      return;
-    }
-
-    if (newExerciseName && muscleGroupId) {
-      const newExercise = {
-        name: newExerciseName,
-        description: description || null,
-        muscleGroup: { id: muscleGroupId },
-        userId: this.userId,
-        planId: this.planId,
-        workoutId: this.workoutId,
-      };
-
-      this.exerciseService.createOrCheckExercise(newExercise).subscribe({
-        next: (response) => {
-
-          const exercise = response as any;
-
-          if (exercise) {
-            if (exercise.exists) {
-
-              this.toastService.showToast('hola' + exercise.name, 'danger');
-            } else {
-              this.toastService.showToast(
-                TOAST_MSGS.exercisecreated + exercise.name,
-                'success'
-              );
-
-              this.closeCreateExercise();
-            }
-          }
-        },
-        error: (err) => {
-          console.error('Error creating exercise:', err);
-          this.toastService.showToast(
-            'Error creating exercise. Please try again.',
-            'danger'
-          );
-        },
-      });
-    }
-  }
+ 
 
   closeCreateExercise(): void {
     this.closeModal.emit();

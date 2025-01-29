@@ -158,4 +158,12 @@ export class ExercisePickerModalComponent implements OnInit {
       },
     });
   }
+  handleCreatedExercise(exercise: any): void {
+    // Agregar el nuevo ejercicio a la lista de ejercicios
+    this.exercises.push(exercise);
+    this.filterExercises(''); // Actualizar lista filtrada
+  
+    // Selecciona el ejercicio recién creado automáticamente
+    this.selectExercise(exercise);
+  }
 }

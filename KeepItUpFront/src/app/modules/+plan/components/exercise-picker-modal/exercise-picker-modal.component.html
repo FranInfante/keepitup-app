@@ -49,6 +49,8 @@
         [planId]="planId"
         [workoutId]="workoutId"
         (closeModal)="closeCreateExerciseModal()"
+        (exerciseCreated)="handleCreatedExercise($event)"
+
       ></app-create-exercise-modal>
     </div>
 
