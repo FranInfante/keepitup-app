@@ -87,7 +87,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
     const planId = localStorage.getItem('activePlanId');
   if (planId) {
     this.planId = parseInt(planId, 10); // Convierte a número si es necesario
-    console.log('Plan ID:', this.planId);
   } else {
     console.error('Plan ID is missing in localStorage');
   }

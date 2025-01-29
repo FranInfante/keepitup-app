@@ -71,12 +71,9 @@ export class CreateExerciseModalComponent implements OnInit {
       planId: this.planId,
       workoutId: this.workoutId,
     };
-  
-    console.log("📡 Sending request to createOrCheckExercise:", newExercise);
-  
+    
     this.exerciseService.createOrCheckExercise(newExercise).subscribe({
       next: (response) => {
-        console.log("✅ Response from API:", response);
         const exercise = response as any;
   
         if (exercise) {

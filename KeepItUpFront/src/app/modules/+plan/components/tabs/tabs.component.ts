@@ -19,8 +19,12 @@ export class TabsComponent {
   @Output() addNewPlan = new EventEmitter<void>();
   @Output() toggleEditMode = new EventEmitter<void>();
   @ViewChild('navTabs', { static: false }) navTabs!: ElementRef<HTMLUListElement>;
+  @Output() tabClicked = new EventEmitter<void>();
+
 
   selectPlan(id: number): void {
+    this.tabClicked.emit();
+
     this.planSelected.emit(id);
 
     if (this.editMode) {

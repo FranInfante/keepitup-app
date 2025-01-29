@@ -42,6 +42,7 @@
     [activePlanId]="activePlanId"
     [PlusSignIcon]="PlusSignIcon"
     (planSelected)="selectPlan($event)"
+    (tabClicked)="onTabClicked()"
     (toggleEditMode)="toggleEditMode()"
     (addNewPlan)="addPlan()"
   ></app-tabs>

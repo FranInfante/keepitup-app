@@ -55,6 +55,8 @@ export class WorkoutsComponent {
   @Output() isEditingChange: EventEmitter<boolean> = new EventEmitter();
   @Output() workoutsUpdated = new EventEmitter<Workout[]>();
   @Output() workoutNameUpdated = new EventEmitter<Workout>();
+  @Output() modalClosed = new EventEmitter<void>();
+
 
   @ViewChild('exerciseList') exerciseList!: ElementRef;
 
@@ -90,6 +92,13 @@ export class WorkoutsComponent {
   showExerciseOptions = false;
 
   ngOnInit() {
+
+    const element = document.querySelector('app-workouts');
+  if (element) {
+    element.addEventListener('modalClosed', () => {
+      this.closeWorkoutDetails(); // Close the modal
+    });
+  }
     const storedWorkoutId = this.workoutDataService.getWorkoutId();
 
     if (storedWorkoutId) {
@@ -149,14 +158,9 @@ export class WorkoutsComponent {
   }
 
   closeWorkoutDetails(): void {
-    const inputElement = document.querySelector('h4') as HTMLElement;
-    this.workoutDataService.clearWorkoutId();
-
-    if (inputElement) {
-      inputElement.blur();
-    }
-    this.selectedWorkout = null;
-    document.body.classList.remove('modal-open');
+    this.selectedWorkout = null; 
+  this.modalClosed.emit(); 
+  document.body.classList.remove('modal-open');
   }
 
   deleteExercise(exerciseId: number): void {

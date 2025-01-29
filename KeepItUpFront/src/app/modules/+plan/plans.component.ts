@@ -193,4 +193,11 @@ export class PlansComponent implements OnInit {
   closeDeleteModal(): void {
     this.isDeleteModalOpen = false;
   }
+  
+  onTabClicked(): void {
+    const workoutsComponent = document.querySelector('app-workouts');
+    if (workoutsComponent) {
+      workoutsComponent.dispatchEvent(new CustomEvent('modalClosed'));
+    }
+  }
 }
