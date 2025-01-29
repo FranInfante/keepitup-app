@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkoutDataService } from '../../shared/service/workoutdata.service';
 import { LOCATIONS, MSG } from '../../shared/constants';
 import { ThemeService } from '../../shared/service/theme.service';
+import { SetDetails, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
 
 @Component({
   selector: 'app-log-registry',
@@ -91,41 +92,47 @@ export class LogRegistryComponent implements OnInit {
       },
     });
   }
-  getGroupedExercises(exercises: any[]): any[] {
-    const groupedExercises: any[] = [];
-    exercises.forEach((exercise: any) => {
-      const existingExercise = groupedExercises.find(
-        (e) => e.exerciseId === exercise.exerciseId
-      );
-
+  getGroupedExercises(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
+    const groupedExercises: WorkoutLogExercise[] = [];
+  
+    exercises.forEach((exercise: WorkoutLogExercise) => {
+      const existingExercise = groupedExercises.find(e => e.exerciseId === exercise.exerciseId);
+  
       if (existingExercise) {
         existingExercise.sets.push(...exercise.sets);
       } else {
         groupedExercises.push({
-          exerciseId: exercise.exerciseId,
-          exerciseName: exercise.exerciseName,
-          notes: exercise.notes || '',
+          ...exercise,
           sets: [...exercise.sets],
-          exercise_order: exercise.exerciseOrder,
         });
       }
     });
-
-    return groupedExercises.sort((a, b) => a.exercise_order - b.exercise_order);
+  
+    // 🔹 Ensure exercises are sorted by exerciseOrder
+    return groupedExercises.sort((a, b) => a.exerciseOrder - b.exerciseOrder);
   }
+  
 
   viewWorkoutLog(log: any) {
     const groupedExercises = this.getGroupedExercises(log.exercises);
-
-    groupedExercises.sort((a, b) => a.exercise_order - b.exercise_order);
-
+  
+    // Ensure exercises are sorted by exerciseOrder
+    groupedExercises.sort((a: WorkoutLogExercise, b: WorkoutLogExercise) => a.exerciseOrder - b.exerciseOrder);
+  
+    // Ensure sets inside each exercise are sorted from 1 to N
+    groupedExercises.forEach((exercise: WorkoutLogExercise) => {
+      exercise.sets.sort((a: SetDetails, b: SetDetails) => a.set - b.set);
+    });
+  
     this.selectedWorkoutLog = {
       ...log,
       exercises: groupedExercises,
     };
-
+  
     this.showModal = true;
   }
+  
+
 
   closeWorkoutLogModal() {
     this.showModal = false;
