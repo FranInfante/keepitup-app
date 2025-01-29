@@ -181,4 +181,29 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.EXERCISE_NOT_FOUND));
         return ExerciseMapper.exerciseEntityToDTO(exercise);
     }
+    @Override
+    public void reorderExercises(Integer workoutLogId, List<WorkoutLogExerciseDTO> exercises) {
+        WorkoutLog workoutLog = workoutLogRepository.findById(workoutLogId)
+                .orElseThrow(() -> new RuntimeException(MessageConstants.WORKOUT_LOG_NOT_FOUND));
+
+        // Map existing exercises by their ID
+        Map<Integer, WorkoutLogExercise> existingExercises = workoutLog.getExercises()
+                .stream()
+                .collect(Collectors.toMap(WorkoutLogExercise::getId, e -> e));
+
+        for (WorkoutLogExerciseDTO exerciseDTO : exercises) {
+            WorkoutLogExercise exercise = existingExercises.get(exerciseDTO.getId());
+            if (exercise != null) {
+                // Update exercise order
+                exercise.setExerciseOrder(exerciseDTO.getExerciseOrder());
+            } else {
+                throw new RuntimeException("Exercise ID " + exerciseDTO.getId() + " not found for workout log ID " + workoutLogId);
+            }
+        }
+
+        // Save changes
+        workoutLogRepository.save(workoutLog);
+    }
+
+
 }

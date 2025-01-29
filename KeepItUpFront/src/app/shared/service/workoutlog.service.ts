@@ -59,5 +59,17 @@ export class WorkoutLogService {
     return this.http.delete<void>(WORKOUT_LOG_ROUTES.deleteSet(workoutLogId, exerciseId, setNumber)
     );
   }
+
+  updateWorkoutExerciseOrder(
+    workoutLogId: number,
+    exercises: { id: number; exerciseOrder: number }[]
+  ): Observable<void> {
+    return this.http.patch<void>(
+      WORKOUT_LOG_ROUTES.reorderWorkoutLogExercises(workoutLogId),
+      exercises 
+    );
+  } 
+  
+  
   
 }

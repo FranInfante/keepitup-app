@@ -4,6 +4,7 @@ package com.example.keepitup.controller;
 
 import com.example.keepitup.model.dtos.ExerciseDTO;
 import com.example.keepitup.model.dtos.WorkoutLogDTO;
+import com.example.keepitup.model.dtos.WorkoutLogExerciseDTO;
 import com.example.keepitup.model.dtos.WorkoutLogSearchRequest;
 import com.example.keepitup.util.UriConstants;
 import org.springframework.http.ResponseEntity;
@@ -37,4 +38,10 @@ public interface WorkoutLogApi {
 
     @GetMapping(UriConstants.EXERCISE_BY_ID)
     ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable Integer exerciseId);
+
+    @PatchMapping(UriConstants.REORDERWORKOUTLOGEXERCISES)
+    ResponseEntity<Void> reorderExercises(
+            @PathVariable Integer workoutLogId,
+            @RequestBody List<WorkoutLogExerciseDTO> exercises);
+
 }

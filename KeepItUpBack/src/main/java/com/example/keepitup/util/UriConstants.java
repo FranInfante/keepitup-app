@@ -69,5 +69,6 @@ public class UriConstants {
     public static final String EXERCISE_BY_ID = "/exercise/{exerciseId}";
     public static final String BY_WORKOUT_LOG_ID_EXERCISE_ID_AND_SET_NUMBER = "/workout-log/{workoutLogId}/exercise/{exerciseId}/set/{setNumber}";
 
+    public static final String REORDERWORKOUTLOGEXERCISES = "/{workoutLogId}/exercises/reorder";
 
 }

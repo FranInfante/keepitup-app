@@ -22,5 +22,9 @@ export const WORKOUT_LOG_ROUTES = {
   exerciseById: (exerciseId: number) =>
     `${WORKOUT_LOGS_API_URL}/exercise/${exerciseId}`,
   deleteSet: (workoutLogId: number, exerciseId: number, setNumber: number) =>
-    `${WORKOUT_LOG_EXERCISES_API_URL}/workout-log/${workoutLogId}/exercise/${exerciseId}/set/${setNumber}`
+    `${WORKOUT_LOG_EXERCISES_API_URL}/workout-log/${workoutLogId}/exercise/${exerciseId}/set/${setNumber}`,
+  reorderWorkoutLogExercises: (workoutLogId: number) =>
+    `${WORKOUT_LOGS_API_URL}/${workoutLogId}/exercises/reorder`,
+  createWorkoutLogExercise: () => `${WORKOUT_LOG_EXERCISES_API_URL}`,
+  
 };

@@ -24,11 +24,16 @@ import { ThemeService } from '../../shared/service/theme.service';
 import { DeleteExerciseModalComponent } from './components/delete-exercise-modal/delete-exercise-modal.component';
 import { ExercisePickerModalComponent } from "../+plan/components/exercise-picker-modal/exercise-picker-modal.component";
 import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+
 
 @Component({
   selector: 'app-logpage',
   standalone: true,
   imports: [
+    DragDropModule,
     CommonModule,
     ReactiveFormsModule,
     BackToMenuComponent,
@@ -137,21 +142,52 @@ export class LogpageComponent implements OnInit, OnDestroy {
   addExerciseToLog(workoutExercise: WorkoutExercise): void {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
   
+    // Add a temporary exercise to the form array with a placeholder id (null)
     const newExerciseGroup = this.fb.group({
-      id: [null], // Se llenará cuando se guarde en la DB
+      id: [null], // Placeholder id, to be updated after backend creation
       exerciseId: [workoutExercise.exerciseId],
       workoutLogId: [this.workoutLogId],
       name: [workoutExercise.exerciseName],
       notes: [''],
       open: [false],
-      sets: this.fb.array([this.createSet()]), // Empieza con un set vacío
+      sets: this.fb.array([this.createSet()]), // Start with one empty set
+      exerciseOrder: [exercisesArray.length + 1], // Add it at the end
     });
   
     exercisesArray.push(newExerciseGroup);
   
-    // Guardar en la DB el nuevo ejercicio en el workout log
-    this.updateWorkoutLog();
+    // Call the backend to create the exercise
+    const newExercisePayload = {
+      workoutLogId: this.workoutLogId,
+      exerciseId: workoutExercise.exerciseId,
+      exerciseName: workoutExercise.exerciseName,
+      notes: '',
+      sets: [
+        {
+          set: 1, // Default first set
+          reps: 0,
+          weight: 0,
+        },
+      ],
+      exerciseOrder: exercisesArray.length, // Default order (last in array)
+    };
+  
+    this.workoutLogService.addWorkoutLogExercise(newExercisePayload).subscribe({
+      next: (createdExercise) => {
+        // Update the form with the valid id returned by the backend
+        newExerciseGroup.patchValue({ id: createdExercise.id });
+      },
+      error: (error) => {
+        console.error('Failed to create exercise:', error);
+        this.toastService.showToast('Failed to create exercise.', 'danger');
+  
+        // Remove the exercise from the form if creation fails
+        exercisesArray.removeAt(exercisesArray.length - 1);
+      },
+    });
   }
+  
+  
   
 
   backToPlans() {
@@ -330,29 +366,30 @@ export class LogpageComponent implements OnInit, OnDestroy {
     exercisesArray.clear();
   
     if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      // Group exercises by exerciseId to merge sets properly
       const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
   
-      // Sort exercises by their order (exerciseOrder)
-      groupedExercises.sort((a, b) => a.exerciseOrder - b.exerciseOrder);
+      // Sort and assign default exerciseOrder if missing
+      groupedExercises
+        .sort((a, b) => a.exerciseOrder - b.exerciseOrder || 0) // Fallback to 0 if missing
+        .forEach((exercise, index) => {
+          const formGroup = this.fb.group({
+            id: [exercise.id],
+            exerciseId: [exercise.exerciseId],
+            workoutLogId: [exercise.workoutLogId],
+            name: [exercise.exerciseName],
+            notes: [exercise.notes || ''],
+            open: [false],
+            exerciseOrder: [exercise.exerciseOrder || index + 1], // Default to index + 1
+            sets: this.fb.array(
+              exercise.sets.map((set) => this.createSetWithValues(set))
+            ),
+          });
   
-      groupedExercises.forEach((exercise) => {
-        const formGroup = this.fb.group({
-          id: [exercise.id],
-          exerciseId: [exercise.exerciseId],
-          workoutLogId: [exercise.workoutLogId],
-          name: [exercise.exerciseName],
-          notes: [exercise.notes || ''],
-          open: [false],
-          sets: this.fb.array(
-            exercise.sets.map((set) => this.createSetWithValues(set))
-          ),
+          exercisesArray.push(formGroup);
         });
-  
-        exercisesArray.push(formGroup);
-      });
     }
   }
+  
   
   
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
@@ -855,4 +892,42 @@ export class LogpageComponent implements OnInit, OnDestroy {
       set.get(field)?.setValue(0);
     }
   }
+  dropExercise(event: CdkDragDrop<FormGroup[]>): void {
+    const exercises = this.exercises.controls;
+  
+    // Reorder exercises in the array
+    moveItemInArray(exercises, event.previousIndex, event.currentIndex);
+  
+    // Update the exercise order
+    exercises.forEach((exercise, index) => {
+      exercise.patchValue({ exerciseOrder: index + 1 });
+    });
+  
+    // Prepare the reordered exercises to send to the backend
+    const reorderedExercises = exercises
+      .map((exercise) => ({
+        id: exercise.get('id')?.value,
+        exerciseOrder: exercise.get('exerciseOrder')?.value,
+      }))
+      .filter((exercise) => exercise.id !== null); // Only include exercises with valid ids
+  
+    console.log('Payload sent to backend:', reorderedExercises);
+  
+    // Send the reordered exercises to the backend
+    this.workoutLogService
+      .updateWorkoutExerciseOrder(this.workoutLogId, reorderedExercises)
+      .subscribe({
+        next: () => {
+          this.toastService.showToast('Reordering saved successfully!', 'success');
+        },
+        error: (err) => {
+          console.error('Failed to save reordering:', err);
+          this.toastService.showToast('Failed to save reordering.', 'danger');
+        },
+      });
+  }
+  
+  
+  
+  
 }
