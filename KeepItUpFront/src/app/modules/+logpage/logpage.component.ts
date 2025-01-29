@@ -539,19 +539,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
     }
   }
 
-  resetToZero(
-    exerciseIndex: number,
-    setIndex: number,
-    field: 'reps' | 'weight'
-  ) {
-    const exercise = this.exercises.at(exerciseIndex);
-    const set = this.getSets(exercise).at(setIndex);
-
-    const fieldValue = set.get(field)?.value;
-    if (fieldValue === '' || fieldValue === null || fieldValue === undefined) {
-      set.get(field)?.setValue(0);
-    }
-  }
+  
 
   deleteSet(exerciseIndex: number, setIndex: number) {
     const exerciseControl = this.exercises.at(exerciseIndex);
@@ -779,5 +767,25 @@ export class LogpageComponent implements OnInit, OnDestroy {
   handleCancelDelete(): void {
     this.isDeleteModalOpen = false;
     this.selectedExerciseIndex = null;
+  }
+
+  clearDefaultValue(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight') {
+    const exercise = this.exercises.at(exerciseIndex);
+    const set = this.getSets(exercise).at(setIndex);
+  
+    // If the value is 0, clear it so the user can type directly
+    if (set.get(field)?.value === 0) {
+      set.get(field)?.setValue('');
+    }
+  }
+  
+  resetToZero(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight') {
+    const exercise = this.exercises.at(exerciseIndex);
+    const set = this.getSets(exercise).at(setIndex);
+  
+    // If the field is left empty, reset it to 0
+    if (set.get(field)?.value === '' || set.get(field)?.value === null) {
+      set.get(field)?.setValue(0);
+    }
   }
 }
