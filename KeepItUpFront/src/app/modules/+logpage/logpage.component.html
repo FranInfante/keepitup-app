@@ -32,8 +32,8 @@
           <div cdkDragHandle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -182,22 +182,29 @@
       </div>
     </div>
 
-    <!-- Submit Button -->
-    <div class="text-center pb-6">
-      <button
-        type="button"
-        class="py-3 px-6 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        [ngClass]="{
-          'bg-indigo-600 text-white hover:bg-indigo-500':
-            workoutLogForm.valid && hasSets(),
-          'bg-gray-300 text-gray-500 cursor-not-allowed':
-            !workoutLogForm.valid || !hasSets()
-        }"
-        (click)="handleSubmitClick()"
-      >
-        Submit Log
-      </button>
-    </div>
+   <!-- Buttons Container -->
+<div class="flex justify-center gap-4 pb-6">
+ 
+
+  <!-- Add Exercise Button -->
+  <button
+    class="bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-500"
+    (click)="toggleExercisePickerModal(true)"
+  >
+    + Exercise
+  </button>
+
+   <!-- Submit Log Button -->
+   <button
+   type="button"
+   class="bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-indigo-500 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+   [disabled]="!workoutLogForm.valid || !hasSets()"
+   (click)="handleSubmitClick()"
+ >
+   Submit Log
+ </button>
+</div>
+
   </form>
 
   <!-- Notes Modal -->
@@ -241,14 +248,7 @@
       </div>
     </div>
   </div>
-  <div class="flex justify-center w-full">
-    <button
-      class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-transform duration-200"
-      (click)="toggleExercisePickerModal(true)"
-    >
-      + Add Exercise
-    </button>
-  </div>
+  
 
   <app-confirmation-modal
     *ngIf="isConfirmationModalOpen"
