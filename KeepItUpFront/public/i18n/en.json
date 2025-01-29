@@ -46,7 +46,8 @@
     "FOOTER": {
       "COPYRIGHT": "© 2024 KeepItUp. All rights reserved."
     }
-  },"LOGIN": {
+  },
+  "LOGIN": {
     "EMAIL_OR_USERNAME": "Email or username",
     "EMAIL_OR_USERNAME_REQUIRED": "Email or username is required.",
     "PASSWORD": "Password",
@@ -55,124 +56,174 @@
     "NO_ACCOUNT": "Don’t have an account?",
     "REGISTER": "Register"
   },
-  
-    "MSG": {
-      "FAILED_CREDENTIALS": "Invalid email or password. Please try again.",
-      "UNKNOWN_LOGIN_ERROR": "An error occurred while logging in. Please try again later.",
-      "FETCH_ERROR": "An error occurred while fetching user information. Please try again later.",
-      "UNAUTHORIZED": "Unauthorized access. Please log in again.",
-      "NO_TOKEN": "No authentication token available.",
-      "NO_AUTH_TOKEN": "No authentication token available.",
-      "LOGIN_ERROR": "Login error:",
-      "ERROR_CREATING_WORKOUT": "Error creating workout. Please try again later.",
-      "ERRORFETCHINGCURRENTUSER": "Failed to fetch current user:"
+
+  "MSG": {
+    "FAILED_CREDENTIALS": "Invalid email or password. Please try again.",
+    "UNKNOWN_LOGIN_ERROR": "An error occurred while logging in. Please try again later.",
+    "FETCH_ERROR": "An error occurred while fetching user information. Please try again later.",
+    "UNAUTHORIZED": "Unauthorized access. Please log in again.",
+    "NO_TOKEN": "No authentication token available.",
+    "NO_AUTH_TOKEN": "No authentication token available.",
+    "LOGIN_ERROR": "Login error:",
+    "ERROR_CREATING_WORKOUT": "Error creating workout. Please try again later.",
+    "ERRORFETCHINGCURRENTUSER": "Failed to fetch current user:"
+  },
+  "TOAST_MSGS": {
+    "LOGIN": "Logged in successfully.",
+    "LOGOUT": "Logged out successfully.",
+    "REGISTER": "Registered successfully. You can now log in.",
+    "ERROR_REGISTER": "Error registering user. Please try again later.",
+    "ALREADY_EXISTS": "Email or username already registered.",
+    "FILL_ALL_FIELDS": "Please fill out all fields.",
+    "EMAIL_SENT": "We've sent you a verificaion code to your email address",
+    "EDIT_MODE_DISABLED": "Edit mode is disabled.",
+    "EDIT_MODE": "Edit mode is enabled",
+    "WORKOUT_DELETED_SAVED": "Workout deleted and saved successfully.",
+    "NO_EXERCISES_IN_WORKOUT": "No exercises in this workout.",
+    "EXERCISE_CREATED ": "Exercise created successfully."
+  },
+  "REGISTER": {
+    "TITLE": "Register User",
+    "EMAIL": {
+      "LABEL": "Email*",
+      "PLACEHOLDER": "Example: email@example.com",
+      "REQUIRED": "Email is required.",
+      "INVALID": "Invalid email format."
     },
-    "TOAST_MSGS": {
-      "LOGIN": "Logged in successfully.",
-      "LOGOUT": "Logged out successfully.",
-      "REGISTER": "Registered successfully. You can now log in.",
-      "ERROR_REGISTER": "Error registering user. Please try again later.",
-      "ALREADY_EXISTS": "Email or username already registered.",
-      "FILL_ALL_FIELDS": "Please fill out all fields.",
-      "EMAIL_SENT": "We've sent you a verificaion code to your email address",
-      "EDIT_MODE_DISABLED": "Edit mode is disabled.",
-      "EDIT_MODE": "Edit mode is enabled",
-      "WORKOUT_DELETED_SAVED": "Workout deleted and saved successfully.",
-      "NO_EXERCISES_IN_WORKOUT": "No exercises in this workout.",
-      "EXERCISE_CREATED ": "Exercise created successfully."
+    "USERNAME": {
+      "LABEL": "Username*",
+      "PLACEHOLDER": "Example: JohnDoe123",
+      "REQUIRED": "Username is required.",
+      "MIN_LENGTH": "Username must be at least 5 characters long."
     },
-    "REGISTER": {
-      "TITLE": "Register User",
-      "EMAIL": {
-        "LABEL": "Email*",
-        "PLACEHOLDER": "Example: email@example.com",
-        "REQUIRED": "Email is required.",
-        "INVALID": "Invalid email format."
-      },
-      "USERNAME": {
-        "LABEL": "Username*",
-        "PLACEHOLDER": "Example: JohnDoe123",
-        "REQUIRED": "Username is required.",
-        "MIN_LENGTH": "Username must be at least 5 characters long."
-      },
-      "PASSWORD": {
-        "LABEL": "Password*",
-        "REQUIRED": "Password is required.",
-        "MIN_LENGTH": "Password must be at least 6 characters long."
-      },
-      "BUTTON": "Create User",
-      "HAVE_ACCOUNT": "Already have an account?",
-      "LOGIN": "Login"
+    "PASSWORD": {
+      "LABEL": "Password*",
+      "REQUIRED": "Password is required.",
+      "MIN_LENGTH": "Password must be at least 6 characters long."
     },
-    "WEIGH_INS": {
-      "TITLE": "Weigh-Ins",
-      "STATS": {
-        "TITLE": "Stats",
-        "TOTAL_WEIGHT_CHANGE": "Total Weight Loss/Gain"
+    "BUTTON": "Create User",
+    "HAVE_ACCOUNT": "Already have an account?",
+    "LOGIN": "Login"
+  },
+  "WEIGH_INS": {
+    "TITLE": "Weigh-Ins",
+    "STATS": {
+      "TITLE": "Stats",
+      "TOTAL_WEIGHT_CHANGE": "Total Weight Loss/Gain"
+    },
+    "PREVIOUS_LOGS": {
+      "TITLE": "Previous Logs",
+      "NO_LOGS": "No previous logs available."
+    },
+    "LOG": {
+      "DATE": "Date",
+      "WEIGHT": "Weight"
+    },
+    "MODAL": {
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Confirm Deletion",
+        "BODY": "Are you sure you want to delete this log? This action cannot be undone.",
+        "CONFIRM": "Delete",
+        "CANCEL": "Cancel"
       },
-      "PREVIOUS_LOGS": {
-        "TITLE": "Previous Logs",
-        "NO_LOGS": "No previous logs available."
-      },
-      "LOG": {
-        "DATE": "Date",
-        "WEIGHT": "Weight"
-      },
-      "MODAL": {
-        "DELETE_CONFIRMATION": {
-          "TITLE": "Confirm Deletion",
-          "BODY": "Are you sure you want to delete this log? This action cannot be undone.",
-          "CONFIRM": "Delete",
-          "CANCEL": "Cancel"
-        },
-        "DELETE_CLOSE_MODAL": "Close modal",
-        "ADD_LOG": {
-          "TITLE": "Add Weigh-In Log",
-          "WEIGHT_LABEL": "Weight (kg)",
-          "WEIGHT_PLACEHOLDER": "Example: 82.35kg",
-          "DATE_LABEL": "Date",
-          "CANCEL": "Cancel",
-          "SAVE": "Save"
-        }
+      "DELETE_CLOSE_MODAL": "Close modal",
+      "ADD_LOG": {
+        "TITLE": "Add Weigh-In Log",
+        "WEIGHT_LABEL": "Weight (kg)",
+        "WEIGHT_PLACEHOLDER": "Example: 82.35kg",
+        "DATE_LABEL": "Date",
+        "CANCEL": "Cancel",
+        "SAVE": "Save"
       }
+    }
+  },
+  "WORKOUTS": {
+    "DETAILS_MODAL": {
+      "TITLE": "Workout Details",
+      "CLOSE": "Close",
+      "NO_EXERCISES": "No exercises available.",
+      "BEGIN_BUTTON": "Begin",
+      "ADD_EXERCISE": "Add Exercise"
     },
-    "WORKOUTS": {
-  "TITLE": "Workouts",
-  "STATS": {
-    "TITLE": "Stats",
-    "TOTAL_LOGGED": "Total Workouts Logged"
-  },
-  "PREVIOUS_LOGS": {
-    "TITLE": "Previous Workouts",
-    "NO_LOGS": "No previous workouts available"
-  },
-  "LOG": {
-    "DATE": "Date",
-    "WORKOUT_NAME": "Workout"
-  },
-  "MODAL": {
-    "DELETE_CONFIRMATION": {
+    "LIST": {
+      "NO_WORKOUTS": "No workouts available for this plan.",
+      "SAVE_CHANGES": "Save changes",
+      "CREATE_WORKOUT": "Create Workout"
+    },
+    "CREATE_MODAL": {
+      "TITLE": "Create Workout",
+      "WORKOUT_NAME_LABEL": "Workout Name:",
+      "NAME_REQUIRED": "Workout name is required.",
+      "NAME_MAXLENGTH": "Workout name cannot exceed 20 characters.",
+      "CLOSE": "Close",
+      "CREATE": "Create Workout"
+    },"DELETE_CONFIRMATION": {
       "TITLE": "Confirm Deletion",
-      "BODY": "Are you sure you want to delete this log? This action cannot be undone.",
+      "BODY": "Are you sure you want to delete this workout?",
       "CONFIRM": "Delete",
       "CANCEL": "Cancel"
     },
-    "ADD_LOG": {
-      "TITLE": "Add Workout Log",
-      "WORKOUT_NAME_LABEL": "Workout Name",
-      "WORKOUT_NAME_PLACEHOLDER": "Select or type a workout name",
-      "DATE_LABEL": "Date",
-      "CANCEL": "Cancel",
-      "SAVE": "Save"
+    "TITLE": "Workouts",
+    "STATS": {
+      "TITLE": "Stats",
+      "TOTAL_LOGGED": "Total Workouts Logged"
     },
-    "CLOSE": "Close modal"
-  }
-},"VERIFY": {
+    "PREVIOUS_LOGS": {
+      "TITLE": "Previous Workouts",
+      "NO_LOGS": "No previous workouts available"
+    },
+    "LOG": {
+      "DATE": "Date",
+      "WORKOUT_NAME": "Workout"
+    },
+    "MODAL": {
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Confirm Deletion",
+        "BODY": "Are you sure you want to delete this log? This action cannot be undone.",
+        "CONFIRM": "Delete",
+        "CANCEL": "Cancel"
+      },
+      "ADD_LOG": {
+        "TITLE": "Add Workout Log",
+        "WORKOUT_NAME_LABEL": "Workout Name",
+        "WORKOUT_NAME_PLACEHOLDER": "Select or type a workout name",
+        "DATE_LABEL": "Date",
+        "CANCEL": "Cancel",
+        "SAVE": "Save"
+      },
+      "CLOSE": "Close modal"
+    }
+  },
+  "VERIFY": {
     "TITLE": "Verify Email",
     "CODE": "Verification Code",
     "CODEREQUIRED": "Code is required and must be 4 digits. ",
     "VERIFY": "Verify",
     "PLACEHOLDER": "Enter the code"
+  },
+  "MODAL": {
+    "RESUME_OR_CREATE": {
+      "TITLE": "Resume or Create New Log",
+      "BODY": "You already have a workout log in progress. Would you like to continue editing it or delete it and create a new one?",
+      "CREATE_NEW_LOG": "Create New Log",
+      "CONTINUE_EDITING": "Continue Editing",
+      "SAVE_BEFORE_LEAVING": {
+        "TITLE": "Save before leaving?",
+        "BODY": "Do you want to save your workout log before leaving?",
+        "DISCARD": "Discard",
+        "SAVE": "Save"
+      }
+    }
+  },
+  "PLAN_PAGE": {
+  "NO_PLANS": "No plans available. Please add a plan to get started.",
+  "MODALS": {
+    "EDIT_WORKOUTS": "Edit Workouts",
+    "DELETE_PLAN": {
+      "TITLE": "Delete",
+      "BODY": "Are you sure you want to delete the plan {{ planName }}?"
+    },
+    "VIEW_WORKOUTS": "View All Workouts"
   }
-
+}
 }

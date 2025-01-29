@@ -8,8 +8,6 @@ import {
 } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
-import { LanguageSwitcherComponent } from '../lang-modal/lang-modal.component';
-import { LanguageService } from '../../service/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

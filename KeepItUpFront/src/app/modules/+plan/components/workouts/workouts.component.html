@@ -74,7 +74,7 @@
         </ul>
       </div>
       <ng-template #noExercises>
-        <p class="text-center text-gray-400">No exercises available.</p>
+        <p class="text-center text-gray-400">{{ "WORKOUTS.DETAILS_MODAL.NO_EXERCISES" | translate }}</p>
       </ng-template>
       <div class="add-exercise-container"></div>
     </div>
@@ -104,7 +104,7 @@
         class="btn btn-success btn-lg right-0 bg-blue-500 px-4 py-2 rounded-lg font-medium text-white hover:bg-blue-600"
         type="button"
       >
-        Begin
+      {{ "WORKOUTS.DETAILS_MODAL.BEGIN_BUTTON" | translate }}
       </button>
     </div>
   </div>
@@ -162,7 +162,7 @@
           class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-transform duration-200"
           (click)="saveReorderedWorkouts()"
         >
-          Save changes
+        {{ "WORKOUTS.LIST.SAVE_CHANGES" | translate }}
         </button>
       </div>
 
@@ -181,7 +181,7 @@
       <ng-template #noWorkouts>
         <div>
           <p class="text-center px-3 text-black dark:text-white">
-            No workouts available for this plan.
+            {{ "WORKOUTS.LIST.NO_WORKOUTS" | translate }}
           </p>
         </div>
       </ng-template>
@@ -200,7 +200,7 @@
     (click)="$event.stopPropagation()"
   >
     <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-      Create Workout
+      {{ "WORKOUTS.CREATE_MODAL.TITLE" | translate }}
     </h3>
     <form [formGroup]="workoutForm" (ngSubmit)="createWorkout()">
       <!-- Workout Name Input -->
@@ -209,7 +209,7 @@
           for="workout-name"
           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
         >
-          Workout Name:
+        {{ "WORKOUTS.CREATE_MODAL.WORKOUT_NAME_LABEL" | translate }}
         </label>
         <input
           type="text"
@@ -227,10 +227,10 @@
           class="text-red-500 text-sm mt-1"
         >
           <div *ngIf="workoutForm.get('workoutName')?.errors?.['required']">
-            Workout name is required.
+            {{ "WORKOUTS.CREATE_MODAL.NAME_REQUIRED" | translate }}
           </div>
           <div *ngIf="workoutForm.get('workoutName')?.errors?.['maxlength']">
-            Workout name cannot exceed 20 characters.
+            {{ "WORKOUTS.CREATE_MODAL.NAME_MAXLENGTH" | translate }}
           </div>
         </div>
       </div>
@@ -241,14 +241,14 @@
           class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
           (click)="closeModal()"
         >
-          Close
+        {{ "WORKOUTS.CREATE_MODAL.CLOSE" | translate }}
         </button>
         <button
           type="submit"
           class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
           [disabled]="workoutForm.invalid"
         >
-          Create Workout
+        {{ "WORKOUTS.CREATE_MODAL.CREATE" | translate }}
         </button>
       </div>
     </form>

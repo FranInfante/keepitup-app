@@ -6,10 +6,11 @@ import { PlanService } from '../../../../shared/service/plan.service';
 import { ThemeService } from '../../../../shared/service/theme.service';
 import { LOCATIONS } from '../../../../shared/constants';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-plan-header',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   standalone: true,
   templateUrl: './plan-header.component.html',
   styleUrls: ['./plan-header.component.css'],

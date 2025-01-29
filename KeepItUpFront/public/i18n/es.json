@@ -137,6 +137,32 @@
     }
   },
   "WORKOUTS": {
+    "DETAILS_MODAL": {
+      "TITLE": "Detalles del Entrenamiento",
+      "CLOSE": "Cerrar",
+      "NO_EXERCISES": "No hay ejercicios disponibles.",
+      "BEGIN_BUTTON": "Comenzar",
+      "ADD_EXERCISE": "Agregar Ejercicio"
+    },
+    "LIST": {
+      "NO_WORKOUTS": "No hay entrenamientos disponibles para este plan.",
+      "SAVE_CHANGES": "Guardar cambios",
+      "CREATE_WORKOUT": "Crear Entrenamiento"
+    },
+    "CREATE_MODAL": {
+      "TITLE": "Crear Entrenamiento",
+      "WORKOUT_NAME_LABEL": "Nombre del Entrenamiento:",
+      "NAME_REQUIRED": "El nombre del entrenamiento es obligatorio.",
+      "NAME_MAXLENGTH": "El nombre del entrenamiento no puede exceder los 20 caracteres.",
+      "CLOSE": "Cerrar",
+      "CREATE": "Crear Entrenamiento"
+    },
+    "DELETE_CONFIRMATION": {
+      "TITLE": "Confirmar Eliminación",
+      "BODY": "¿Estás seguro de que deseas eliminar este entrenamiento?",
+      "CONFIRM": "Eliminar",
+      "CANCEL": "Cancelar"
+    },
     "TITLE": "Entrenamientos",
     "STATS": {
       "TITLE": "Estadísticas",
@@ -167,11 +193,36 @@
       },
       "CLOSE": "Cerrar modal"
     }
-  },"VERIFY": {
+  },
+  "VERIFY": {
     "TITLE": "Verifica Correo Electrónico",
     "CODE": "Códido de Verificación",
     "CODEREQUIRED": "El código debe de ser de 4 dígitos.",
     "VERIFY": "Verificar",
     "PLACEHOLDER": "Introduce el código de verificación"
+  },
+  "MODAL": {
+    "RESUME_OR_CREATE": {
+      "TITLE": "Reanudar o Crear Nuevo Registro",
+      "BODY": "Ya tienes un registro de entrenamiento en progreso. ¿Te gustaría continuar editándolo o eliminarlo y crear uno nuevo?",
+      "CREATE_NEW_LOG": "Crear Nuevo Registro",
+      "CONTINUE_EDITING": "Continuar Editando","SAVE_BEFORE_LEAVING": {
+      "TITLE": "¿Guardar antes de salir?",
+      "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
+      "DISCARD": "Descartar",
+      "SAVE": "Guardar"
+    }
   }
+},
+"PLAN_PAGE": {
+  "NO_PLANS": "No hay planes disponibles. Por favor, agrega un plan para comenzar.",
+  "MODALS": {
+    "EDIT_WORKOUTS": "Editar Entrenamientos",
+    "DELETE_PLAN": {
+      "TITLE": "Eliminar",
+      "BODY": "¿Estás seguro de que deseas eliminar el plan {{ planName }}?"
+    },
+    "VIEW_WORKOUTS": "Ver todos los entrenamientos"
+  }
+}
 }

@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-continue-or-reset-modal',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './continue-or-reset-modal.component.html',
   styleUrl: './continue-or-reset-modal.component.css',
 })

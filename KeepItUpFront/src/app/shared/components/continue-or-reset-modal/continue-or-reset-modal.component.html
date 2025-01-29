@@ -10,14 +10,14 @@
 
     <!-- Modal Header -->
     <div class="modal-header border-b border-gray-600 text-black dark:text-white mb-4">
-      <h5 class="text-lg font-bold text-center">Resume or Create New Log</h5>
+      <h5 class="text-lg font-bold text-center">        {{ "MODAL.RESUME_OR_CREATE.TITLE" | translate }}
+      </h5>
     </div>
 
     <!-- Modal Body -->
     <div class="modal-body text-center">
       <p class="text-base text-black dark:text-white mb-6">
-        You already have a workout log in progress. Would you like to continue
-        editing it or delete it and create a new one?
+        {{ "MODAL.RESUME_OR_CREATE.BODY" | translate }}
       </p>
     </div>
 
@@ -28,14 +28,14 @@
         class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition focus:outline-none focus:ring focus:ring-gray-400"
         (click)="reset()"
       >
-        Create New Log
+      {{ "MODAL.RESUME_OR_CREATE.CREATE_NEW_LOG" | translate }}
       </button>
       <button
         type="button"
         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition focus:outline-none focus:ring focus:ring-blue-300"
         (click)="continue()"
       >
-        Continue Editing
+      {{ "MODAL.RESUME_OR_CREATE.CONTINUE_EDITING" | translate }}
       </button>
     </div>
   </div>

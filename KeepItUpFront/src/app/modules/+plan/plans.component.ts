@@ -14,6 +14,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { NewPlan } from '../../shared/interfaces/newplan';
 import { DeletePlanModalComponent } from './components/delete-plan-modal/delete-plan-modal.component';
 import { ThemeService } from '../../shared/service/theme.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-plan-tabs',
@@ -27,6 +28,7 @@ import { ThemeService } from '../../shared/service/theme.service';
     WorkoutsComponent,
     TabsComponent,
     DeletePlanModalComponent,
+    TranslateModule
   ],
 })
 export class PlansComponent implements OnInit {

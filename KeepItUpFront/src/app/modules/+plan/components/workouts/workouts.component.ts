@@ -17,7 +17,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { Workout } from '../../../../shared/interfaces/workout';
 import {
@@ -33,6 +33,7 @@ import { WorkoutDataService } from '../../../../shared/service/workoutdata.servi
 import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-picker-modal.component';
 import { from, concatMap, catchError, of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-workouts',
@@ -43,6 +44,7 @@ import { from, concatMap, catchError, of } from 'rxjs';
     ReactiveFormsModule,
     DragDropModule,
     ExercisePickerModalComponent,
+    TranslateModule
   ],
   templateUrl: './workouts.component.html',
   styleUrl: './workouts.component.css',

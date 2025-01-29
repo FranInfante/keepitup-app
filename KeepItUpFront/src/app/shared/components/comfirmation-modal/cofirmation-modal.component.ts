@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirmation-modal',
   standalone: true,
+  imports: [TranslateModule],
   templateUrl: './confirmation-modal.component.html',
   styleUrls: ['./confirmation-modal.component.css'],
 })
