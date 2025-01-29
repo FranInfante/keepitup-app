@@ -895,25 +895,19 @@ export class LogpageComponent implements OnInit, OnDestroy {
   dropExercise(event: CdkDragDrop<FormGroup[]>): void {
     const exercises = this.exercises.controls;
   
-    // Reorder exercises in the array
     moveItemInArray(exercises, event.previousIndex, event.currentIndex);
   
-    // Update the exercise order
     exercises.forEach((exercise, index) => {
       exercise.patchValue({ exerciseOrder: index + 1 });
     });
   
-    // Prepare the reordered exercises to send to the backend
     const reorderedExercises = exercises
       .map((exercise) => ({
         id: exercise.get('id')?.value,
         exerciseOrder: exercise.get('exerciseOrder')?.value,
       }))
-      .filter((exercise) => exercise.id !== null); // Only include exercises with valid ids
+      .filter((exercise) => exercise.id !== null);
   
-    console.log('Payload sent to backend:', reorderedExercises);
-  
-    // Send the reordered exercises to the backend
     this.workoutLogService
       .updateWorkoutExerciseOrder(this.workoutLogId, reorderedExercises)
       .subscribe({
