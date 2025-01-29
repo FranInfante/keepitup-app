@@ -18,6 +18,7 @@ export const MSG = {
   noauthtoken: 'MSG.NO_AUTH_TOKEN',
   loginerror: 'MSG.LOGIN_ERROR',
   errorcreatingworkout : 'MSG.ERROR_CREATING_WORKOUT',
+  errorfetchcurrentuser: 'MSG.ERRORFETCHINGCURRENTUSER',
 };
 
 export const TOAST_MSGS = {

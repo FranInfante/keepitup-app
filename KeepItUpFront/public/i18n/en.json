@@ -64,7 +64,8 @@
       "NO_TOKEN": "No authentication token available.",
       "NO_AUTH_TOKEN": "No authentication token available.",
       "LOGIN_ERROR": "Login error:",
-      "ERROR_CREATING_WORKOUT": "Error creating workout. Please try again later."
+      "ERROR_CREATING_WORKOUT": "Error creating workout. Please try again later.",
+      "ERRORFETCHINGCURRENTUSER": "Failed to fetch current user:"
     },
     "TOAST_MSGS": {
       "LOGIN": "Logged in successfully.",
@@ -166,6 +167,12 @@
     },
     "CLOSE": "Close modal"
   }
-}
+},"VERIFY": {
+    "TITLE": "Verify Email",
+    "CODE": "Verification Code",
+    "CODEREQUIRED": "Code is required and must be 4 digits. ",
+    "VERIFY": "Verify",
+    "PLACEHOLDER": "Enter the code"
+  }
 
 }

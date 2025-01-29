@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from './user.service';
 import { BehaviorSubject } from 'rxjs';
+import { MSG } from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,8 @@ export class LanguageService {
             }
           },
           error: (err) => {
-            console.error('Failed to fetch current user:', err);
+            console.error(MSG.errorfetchcurrentuser, err);
+
             this.applyLanguage('en', true);
           },
         });

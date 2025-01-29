@@ -16,7 +16,7 @@
       ✖
     </button>
 
-    <h2 class="text-xl font-bold text-center mb-6 text-white">Verify Your Email</h2>
+    <h2 class="text-xl font-bold text-center mb-6 text-white">{{ "VERIFY.TITLE" | translate }}</h2>
 
     <form [formGroup]="verifyForm" (ngSubmit)="verifyCode()">
       <!-- Verification Code Input -->
@@ -25,20 +25,19 @@
           for="code"
           class="block text-sm font-medium text-gray-400 mb-2"
         >
-          Verification Code
+          {{ "VERIFY.TITLE" | translate }}
         </label>
         <input
           type="text"
           id="code"
           formControlName="code"
           class="w-full px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg text-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          placeholder="Enter the code"
+          [placeholder]="'VERIFY.TITLE' | translate"
         />
         <small
           *ngIf="verifyForm.get('code')?.invalid && verifyForm.get('code')?.touched"
           class="text-red-400 text-sm"
-        >
-          Code is required and must be 4 digits.
+        >{{ "VERIFY.CODEREQUIRED" | translate }}
         </small>
       </div>
 
@@ -53,7 +52,7 @@
         [disabled]="verifyForm.invalid"
         class="w-full px-4 py-3 bg-blue-700 hover:bg-blue-600 text-white rounded-lg shadow-md font-semibold transition duration-150 disabled:bg-gray-600 disabled:cursor-not-allowed"
       >
-        Verify
+      {{ "VERIFY.VERIFY" | translate }}
       </button>
     </form>
   </div>

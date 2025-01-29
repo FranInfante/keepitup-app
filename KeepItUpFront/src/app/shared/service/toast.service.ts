@@ -22,25 +22,24 @@ export class ToastService {
 
     const newToast: Toast = {
       id: this.toastId++,
-      show: false, // Start with `false` for initial state
+      show: false, 
       body: translatedBody,
       type,
     };
     this.toasts.push(newToast);
     this.toastState.next([...this.toasts]);
   
-    // Delay setting `show` to true for the enter transition
+   
     setTimeout(() => {
       newToast.show = true;
       this.toastState.next([...this.toasts]);
-    }, 10); // Slight delay to ensure the initial state is applied
+    }, 10); 
   
-    // Fade out and remove after duration
     setTimeout(() => {
-      newToast.show = false; // Trigger exit transition
+      newToast.show = false; 
       this.toastState.next([...this.toasts]);
   
-      setTimeout(() => this.removeToast(newToast.id), 300); // Match CSS duration
+      setTimeout(() => this.removeToast(newToast.id), 300); 
     }, duration);
   }
 

@@ -11,7 +11,6 @@
     "WEIGH_INS": "Pesajes",
     "WORKOUTS": "Entrenamientos",
     "PLANS": "Planes"
-
   },
   "LANDING": {
     "HERO": {
@@ -65,7 +64,8 @@
     "NO_TOKEN": "No hay un token de autenticación disponible.",
     "NO_AUTH_TOKEN": "No hay un token de autenticación disponible.",
     "LOGIN_ERROR": "Error de inicio de sesión:",
-      "ERROR_CREATING_WORKOUT": "Error al crear el entrenamiento. Por favor, inténtalo más tarde."
+    "ERROR_CREATING_WORKOUT": "Error al crear el entrenamiento. Por favor, inténtalo más tarde.",
+    "ERRORFETCHINGCURRENTUSER": "Error al encontrar el usuario:"
   },
   "TOAST_MSGS": {
     "LOGIN": "Sesión iniciada con éxito.",
@@ -74,13 +74,12 @@
     "ERROR_REGISTER": "Error al registrar el usuario. Por favor, inténtalo más tarde.",
     "ALREADY_EXISTS": "Email o nombre de usuario ya registrados.",
     "FILL_ALL_FIELDS": "Por favor, completa todos los campos.",
-      "EMAIL_SENT": "Te hemos mandado un código de verificaion a tu email.",
-      "EDIT_MODE_DISABLED": "Modo edición desactivado.",
-      "EDIT_MODE": "Modo edición activado.",
-      "WORKOUT_DELETED_SAVED": "Entrenamiento borrado y guardado con éxito.",
-      "NO_EXERCISES_IN_WORKOUT": "No hay ejercicios en este entrenamiento.",
-      "EXERCISE_CREATED ": "Ejercicio creado con éxito."
-
+    "EMAIL_SENT": "Te hemos mandado un código de verificaion a tu email.",
+    "EDIT_MODE_DISABLED": "Modo edición desactivado.",
+    "EDIT_MODE": "Modo edición activado.",
+    "WORKOUT_DELETED_SAVED": "Entrenamiento borrado y guardado con éxito.",
+    "NO_EXERCISES_IN_WORKOUT": "No hay ejercicios en este entrenamiento.",
+    "EXERCISE_CREATED ": "Ejercicio creado con éxito."
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
@@ -138,36 +137,41 @@
     }
   },
   "WORKOUTS": {
-  "TITLE": "Entrenamientos",
-  "STATS": {
-    "TITLE": "Estadísticas",
-    "TOTAL_LOGGED": "Entrenamientos registrados"
-  },
-  "PREVIOUS_LOGS": {
-    "TITLE": "Entrenamientos previos",
-    "NO_LOGS": "No hay entrenamientos previos disponibles"
-  },
-  "LOG": {
-    "DATE": "Fecha",
-    "WORKOUT_NAME": "Entrenamiento"
-  },
-  "MODAL": {
-    "DELETE_CONFIRMATION": {
-      "TITLE": "Confirmar eliminación",
-      "BODY": "¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.",
-      "CONFIRM": "Eliminar",
-      "CANCEL": "Cancelar"
+    "TITLE": "Entrenamientos",
+    "STATS": {
+      "TITLE": "Estadísticas",
+      "TOTAL_LOGGED": "Entrenamientos registrados"
     },
-    "ADD_LOG": {
-      "TITLE": "Añadir registro de entrenamiento",
-      "WORKOUT_NAME_LABEL": "Nombre del entrenamiento",
-      "WORKOUT_NAME_PLACEHOLDER": "Selecciona o escribe un nombre de entrenamiento",
-      "DATE_LABEL": "Fecha",
-      "CANCEL": "Cancelar",
-      "SAVE": "Guardar"
+    "PREVIOUS_LOGS": {
+      "TITLE": "Entrenamientos previos",
+      "NO_LOGS": "No hay entrenamientos previos disponibles"
     },
-    "CLOSE": "Cerrar modal"
+    "LOG": {
+      "DATE": "Fecha",
+      "WORKOUT_NAME": "Entrenamiento"
+    },
+    "MODAL": {
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Confirmar eliminación",
+        "BODY": "¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.",
+        "CONFIRM": "Eliminar",
+        "CANCEL": "Cancelar"
+      },
+      "ADD_LOG": {
+        "TITLE": "Añadir registro de entrenamiento",
+        "WORKOUT_NAME_LABEL": "Nombre del entrenamiento",
+        "WORKOUT_NAME_PLACEHOLDER": "Selecciona o escribe un nombre de entrenamiento",
+        "DATE_LABEL": "Fecha",
+        "CANCEL": "Cancelar",
+        "SAVE": "Guardar"
+      },
+      "CLOSE": "Cerrar modal"
+    }
+  },"VERIFY": {
+    "TITLE": "Verifica Correo Electrónico",
+    "CODE": "Códido de Verificación",
+    "CODEREQUIRED": "El código debe de ser de 4 dígitos.",
+    "VERIFY": "Verificar",
+    "PLACEHOLDER": "Introduce el código de verificación"
   }
-}
-
 }
