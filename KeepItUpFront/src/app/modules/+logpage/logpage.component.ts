@@ -16,7 +16,7 @@ import { PlanService } from '../../shared/service/plan.service';
 import { ToastService } from '../../shared/service/toast.service';
 import { UserService } from '../../shared/service/user.service';
 import { WorkoutDataService } from '../../shared/service/workoutdata.service';
-import { WorkoutLog } from '../../shared/interfaces/workoutlog';
+import { WorkoutLog, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
 import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { ConfirmationModalComponent } from '../../shared/components/comfirmation-modal/cofirmation-modal.component';
 import { ContinueOrResetModalComponent } from '../../shared/components/continue-or-reset-modal/continue-or-reset-modal.component';
@@ -280,14 +280,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
   populateFormWithSavedData(savedWorkoutLog: WorkoutLog) {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
     exercisesArray.clear();
-
+  
     if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      // Sort exercises by exerciseOrder
-      const sortedExercises = savedWorkoutLog.exercises.sort(
-        (a, b) => a.exerciseOrder - b.exerciseOrder
-      );
-
-      sortedExercises.forEach((exercise) => {
+      // Group exercises by exerciseId to merge sets properly
+      const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
+  
+      // Sort exercises by their order (exerciseOrder)
+      groupedExercises.sort((a, b) => a.exerciseOrder - b.exerciseOrder);
+  
+      groupedExercises.forEach((exercise) => {
         const formGroup = this.fb.group({
           id: [exercise.id],
           exerciseId: [exercise.exerciseId],
@@ -295,18 +296,36 @@ export class LogpageComponent implements OnInit, OnDestroy {
           name: [exercise.exerciseName],
           notes: [exercise.notes || ''],
           open: [false],
-          sets: this.fb.array([]),
+          sets: this.fb.array(
+            exercise.sets.map((set) => this.createSetWithValues(set))
+          ),
         });
-
+  
         exercisesArray.push(formGroup);
-
-        const setsArray = formGroup.get('sets') as FormArray;
-        exercise.sets.forEach((set) => {
-          setsArray.push(this.createSetWithValues(set));
-        });
       });
     }
   }
+  
+  
+  groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
+    const grouped: { [key: number]: WorkoutLogExercise } = {};
+  
+    exercises.forEach((exercise) => {
+      if (!grouped[exercise.exerciseId]) {
+        // Create new entry if it doesn't exist
+        grouped[exercise.exerciseId] = {
+          ...exercise,
+          sets: [...exercise.sets], // Ensure it's an array
+        };
+      } else {
+        // Merge sets into the existing exercise entry
+        grouped[exercise.exerciseId].sets.push(...exercise.sets);
+      }
+    });
+  
+    return Object.values(grouped);
+  }
+  
 
   createSetWithValues(set: any): FormGroup {
     return this.fb.group({
