@@ -11,5 +11,6 @@ public enum MuscleGroupType {
     GLUTES,
     BICEPS,
     FOREARMS,
-    OTHER
-}
+    OTHER,
+    TRICEPS
+    }

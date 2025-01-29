@@ -4,6 +4,8 @@ package com.example.keepitup.config;
 import com.example.keepitup.model.entities.*;
 import com.example.keepitup.model.enums.MuscleGroupType;
 import com.example.keepitup.repository.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -19,10 +21,13 @@ public class DataSeeder implements CommandLineRunner {
 
     private final MuscleGroupRepository muscleGroupRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+        modifyMuscleGroupConstraint();
         seedData();
     }
 
@@ -45,14 +50,25 @@ public class DataSeeder implements CommandLineRunner {
                 MuscleGroup.builder().name(MuscleGroupType.GLUTES).build(),
                 MuscleGroup.builder().name(MuscleGroupType.BICEPS).build(),
                 MuscleGroup.builder().name(MuscleGroupType.FOREARMS).build(),
-                MuscleGroup.builder().name(MuscleGroupType.OTHER).build()
+                MuscleGroup.builder().name(MuscleGroupType.OTHER).build(),
+                MuscleGroup.builder().name(MuscleGroupType.TRICEPS).build()
+
         );
 
         muscleGroups.forEach(muscleGroup -> {
-            Optional<MuscleGroup> existingMuscleGroup = Optional.ofNullable(muscleGroupRepository.findByName(muscleGroup.getName()));
-            if (existingMuscleGroup.isEmpty()) {
+            if (muscleGroupRepository.findByName(muscleGroup.getName()) == null) {
                 muscleGroupRepository.save(muscleGroup);
             }
         });
+    }
+
+    @Transactional
+    public void modifyMuscleGroupConstraint() {
+        entityManager.createNativeQuery("ALTER TABLE muscle_group DROP CONSTRAINT IF EXISTS muscle_group_name_check").executeUpdate();
+
+        entityManager.createNativeQuery(
+                "ALTER TABLE muscle_group ADD CONSTRAINT muscle_group_name_check " +
+                        "CHECK (name IN ('LEGS', 'BACK', 'CHEST', 'ARMS', 'SHOULDERS', 'HAMSTRINGS', 'QUADS', 'GLUTES', 'BICEPS', 'FOREARMS', 'OTHER', 'TRICEPS'))"
+        ).executeUpdate();
     }
 }
