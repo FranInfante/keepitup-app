@@ -40,7 +40,8 @@ export class LogRegistryComponent implements OnInit {
     private planService: PlanService,
     private workoutDataService: WorkoutDataService,
     private themeService: ThemeService
-  ) {    this.themeService.initializeThemeUserFromLocalStorage();
+  ) {
+    this.themeService.initializeThemeUserFromLocalStorage();
   }
 
   ngOnInit() {
@@ -105,15 +106,19 @@ export class LogRegistryComponent implements OnInit {
           exerciseName: exercise.exerciseName,
           notes: exercise.notes || '',
           sets: [...exercise.sets],
+          exercise_order: exercise.exerciseOrder,
         });
       }
     });
 
-    return groupedExercises;
+    return groupedExercises.sort((a, b) => a.exercise_order - b.exercise_order);
   }
 
   viewWorkoutLog(log: any) {
     const groupedExercises = this.getGroupedExercises(log.exercises);
+
+    groupedExercises.sort((a, b) => a.exercise_order - b.exercise_order);
+
     this.selectedWorkoutLog = {
       ...log,
       exercises: groupedExercises,
