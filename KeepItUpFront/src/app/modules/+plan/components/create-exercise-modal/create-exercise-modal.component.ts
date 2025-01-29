@@ -43,6 +43,7 @@ export class CreateExerciseModalComponent implements OnInit {
     private userService: UserService
   ) {}
 
+ 
   onCreateNewExercise(): void {
     if (this.newExerciseForm.invalid) {
       Object.keys(this.newExerciseForm.controls).forEach((field) => {
@@ -55,8 +56,9 @@ export class CreateExerciseModalComponent implements OnInit {
     const newExerciseName = this.newExerciseForm.get('name')?.value.trim();
     const description = this.newExerciseForm.get('description')?.value;
     const muscleGroupId = this.newExerciseForm.get('muscleGroup')?.value;
-  
-    if (!newExerciseName || !muscleGroupId || !this.userId || !this.planId || !this.workoutId) {
+
+
+    if (!newExerciseName || !muscleGroupId || !this.userId || !this.planId || !this.workoutId) {  
       this.toastService.showToast('Error creating exercise. Please check all fields.', 'danger');
       return;
     }
@@ -70,8 +72,11 @@ export class CreateExerciseModalComponent implements OnInit {
       workoutId: this.workoutId,
     };
   
+    console.log("📡 Sending request to createOrCheckExercise:", newExercise);
+  
     this.exerciseService.createOrCheckExercise(newExercise).subscribe({
       next: (response) => {
+        console.log("✅ Response from API:", response);
         const exercise = response as any;
   
         if (exercise) {
@@ -82,19 +87,21 @@ export class CreateExerciseModalComponent implements OnInit {
   
             // Emit the created exercise
             this.exerciseCreated.emit(exercise);
-  
             this.closeCreateExercise();
           }
         }
       },
       error: (err) => {
-        console.error('Error creating exercise:', err);
+        console.error("❌ Error creating exercise:", err);
         this.toastService.showToast('Error creating exercise. Please try again.', 'danger');
       },
     });
   }
+  
 
   ngOnInit(): void {
+  
+
     this.loadMuscleGroups();
     this.getCurrentUserId();
 

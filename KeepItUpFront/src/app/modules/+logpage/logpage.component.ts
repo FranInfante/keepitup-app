@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -22,6 +22,8 @@ import { ConfirmationModalComponent } from '../../shared/components/comfirmation
 import { ContinueOrResetModalComponent } from '../../shared/components/continue-or-reset-modal/continue-or-reset-modal.component';
 import { ThemeService } from '../../shared/service/theme.service';
 import { DeleteExerciseModalComponent } from './components/delete-exercise-modal/delete-exercise-modal.component';
+import { ExercisePickerModalComponent } from "../+plan/components/exercise-picker-modal/exercise-picker-modal.component";
+import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 
 @Component({
   selector: 'app-logpage',
@@ -34,11 +36,15 @@ import { DeleteExerciseModalComponent } from './components/delete-exercise-modal
     ConfirmationModalComponent,
     ContinueOrResetModalComponent,
     DeleteExerciseModalComponent,
-  ],
+    ExercisePickerModalComponent
+],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
 })
 export class LogpageComponent implements OnInit, OnDestroy {
+
+  @Input() planId: number | null = null;
+
   workoutLogForm!: FormGroup;
   workoutId!: number;
   workoutLogId!: number;
@@ -62,6 +68,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
   editingLog: WorkoutLog | null = null;
   isNotesModalOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
+  isExercisePickerModalOpen = false;
 
   constructor(
     private fb: FormBuilder,
@@ -77,6 +84,13 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const planId = localStorage.getItem('activePlanId');
+  if (planId) {
+    this.planId = parseInt(planId, 10); // Convierte a número si es necesario
+    console.log('Plan ID:', this.planId);
+  } else {
+    console.error('Plan ID is missing in localStorage');
+  }
     this.workoutLogForm = this.fb.group({
       exercises: this.fb.array([]),
     });
@@ -102,9 +116,44 @@ export class LogpageComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleExercisePickerModal(isOpen: boolean): void {
+    this.isExercisePickerModalOpen = isOpen;
+  }
   toggleNotesModal(): void {
     this.isNotesModalOpen = !this.isNotesModalOpen;
   }
+  getCurrentExercises(): WorkoutExercise[] {
+    return this.exercises.controls.map((exerciseControl) => ({
+      id: exerciseControl.get('id')?.value || 0,
+      exerciseId: exerciseControl.get('exerciseId')?.value,
+      workoutId: this.workoutId, // 🔹 Añade workoutId aquí
+      exerciseName: exerciseControl.get('name')?.value,
+      sets: exerciseControl.get('sets')?.value || [],
+      exerciseOrder: this.exercises.controls.indexOf(exerciseControl) + 1,
+    }));
+  }
+  
+  
+  
+  addExerciseToLog(workoutExercise: WorkoutExercise): void {
+    const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
+  
+    const newExerciseGroup = this.fb.group({
+      id: [null], // Se llenará cuando se guarde en la DB
+      exerciseId: [workoutExercise.exerciseId],
+      workoutLogId: [this.workoutLogId],
+      name: [workoutExercise.exerciseName],
+      notes: [''],
+      open: [false],
+      sets: this.fb.array([this.createSet()]), // Empieza con un set vacío
+    });
+  
+    exercisesArray.push(newExerciseGroup);
+  
+    // Guardar en la DB el nuevo ejercicio en el workout log
+    this.updateWorkoutLog();
+  }
+  
 
   backToPlans() {
     this.isConfirmationModalOpen = true;

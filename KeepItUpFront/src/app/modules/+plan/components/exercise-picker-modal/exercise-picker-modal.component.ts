@@ -170,5 +170,7 @@ export class ExercisePickerModalComponent implements OnInit {
 
     // Selecciona el ejercicio recién creado automáticamente
     this.selectExercise(exercise);
+    this.closeModal.emit();
+
   }
 }
