@@ -28,7 +28,7 @@
         *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises"
       >
         <ul
-          class="list-none h-[calc(80vh-280px)] overflow-y-auto list-without-scrollbar"
+          class="list-none h-[calc(100vh-280px)] overflow-y-auto list-without-scrollbar"
           cdkDropList
           (cdkDropListDropped)="dropExercise($event)"
         >
@@ -121,16 +121,16 @@
         <div
           cdkDropList
           cdkDropListOrientation="vertical"
-          class="flex flex-col items-center gap-4 p-4 min-h-[60px] rounded-md box-border mb-8"
+          class="flex flex-col items-center gap-4 p-4  rounded-md box-border mb-8 list-without-scrollbar"
           [ngClass]="{
             'max-h-[75vh] overflow-y-auto': !isEditing,
-            'max-h-[70vh] overflow-y-auto': isEditing
+            'max-h-[60vh] overflow-y-auto': isEditing
           }"
           (cdkDropListDropped)="drop($event)"
         >
           <div
             *ngFor="let workout of workouts; let i = index"
-            class="p-5 border border-gray-800 dark:border-gray-300 rounded-md relative flex flex-col cursor-pointer items-center justify-center text-black dark:text-white text-center h-20 w-60"
+            class="p-5 border border-gray-800 dark:border-gray-300 rounded-md relative flex flex-col cursor-pointer items-center justify-center text-black dark:text-white text-center h-20 w-60 "
             (click)="showWorkoutDetails(workout)"
             [cdkDragData]="workout"
             cdkDrag
