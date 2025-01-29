@@ -72,6 +72,11 @@ export class ExercisePickerModalComponent implements OnInit {
 
   openCreateExerciseModal(): void {
     this.isCreateExerciseModalOpen = true;
+
+    const currentSearchText = this.searchControl.value.trim();
+    if (currentSearchText) {
+      this.newExerciseForm.patchValue({ name: currentSearchText });
+    }
   }
 
   closeCreateExerciseModal(): void {
@@ -162,7 +167,7 @@ export class ExercisePickerModalComponent implements OnInit {
     // Agregar el nuevo ejercicio a la lista de ejercicios
     this.exercises.push(exercise);
     this.filterExercises(''); // Actualizar lista filtrada
-  
+
     // Selecciona el ejercicio recién creado automáticamente
     this.selectExercise(exercise);
   }

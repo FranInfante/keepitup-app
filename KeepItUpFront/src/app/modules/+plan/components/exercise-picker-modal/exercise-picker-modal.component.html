@@ -50,7 +50,7 @@
         [workoutId]="workoutId"
         (closeModal)="closeCreateExerciseModal()"
         (exerciseCreated)="handleCreatedExercise($event)"
-
+        [defaultExerciseName]="searchControl.value"
       ></app-create-exercise-modal>
     </div>
 

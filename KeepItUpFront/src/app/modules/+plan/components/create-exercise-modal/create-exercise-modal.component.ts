@@ -25,6 +25,8 @@ export class CreateExerciseModalComponent implements OnInit {
   @Input() workoutId: number | null = null;
   @Output() closeModal = new EventEmitter<void>();
   @Output() exerciseCreated = new EventEmitter<any>();
+  @Input() defaultExerciseName: string = ''; 
+
 
 
   newExerciseForm: FormGroup = new FormGroup({
@@ -95,6 +97,10 @@ export class CreateExerciseModalComponent implements OnInit {
   ngOnInit(): void {
     this.loadMuscleGroups();
     this.getCurrentUserId();
+
+    if (this.defaultExerciseName) {
+      this.newExerciseForm.patchValue({ name: this.defaultExerciseName });
+    }
   }
 
   getCurrentUserId(): void {
