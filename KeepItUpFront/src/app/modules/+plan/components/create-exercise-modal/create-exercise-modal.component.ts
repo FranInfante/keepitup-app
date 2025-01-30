@@ -60,7 +60,7 @@ export class CreateExerciseModalComponent implements OnInit {
 
 
     if (!newExerciseName || !muscleGroupId || !this.userId || !this.planId || !this.workoutId) {  
-      this.toastService.showToast('Error creating exercise. Please check all fields.', 'danger');
+      this.toastService.showToast(TOAST_MSGS.errorcreatingexercise, 'danger');
       return;
     }
   
@@ -79,9 +79,9 @@ export class CreateExerciseModalComponent implements OnInit {
   
         if (exercise) {
           if (exercise.exists) {
-            this.toastService.showToast('Exercise already exists: ' + exercise.name, 'danger');
+            this.toastService.showToast(TOAST_MSGS.exercisealreadyexists + exercise.name, 'danger');
           } else {
-            this.toastService.showToast('Exercise created: ' + exercise.name, 'success');
+            this.toastService.showToast(TOAST_MSGS.exercise_created + exercise.name, 'success');
   
             // Emit the created exercise
             this.exerciseCreated.emit(exercise);
@@ -91,7 +91,7 @@ export class CreateExerciseModalComponent implements OnInit {
       },
       error: (err) => {
         console.error("❌ Error creating exercise:", err);
-        this.toastService.showToast('Error creating exercise. Please try again.', 'danger');
+        this.toastService.showToast(TOAST_MSGS.errorcreatingexercise, 'danger');
       },
     });
   }

@@ -83,7 +83,16 @@
     "EXERCISE_CREATED ": "Exercise created successfully.",
     "NOTES_SAVED_SUCCESSFULLY": "Notes saved successfully.",
     "ERROR_CREATED": "Error creating workout. Please try again.",
-    "CANT_DELETE_ALL_SETS": "You cannot delete all sets from an exercise."
+    "CANT_DELETE_ALL_SETS": "You cannot delete all sets from an exercise.",
+    "EXERCISE_DELETED_SUCCESSFULLY": "Exercise deleted successfully.",
+    "FAILED_TO_DELETE_EXERCISE": "Failed to delete exercise.",
+    "ERROR_CREATING_EXERCISE":"Error creating exercise.",
+    "EXERCISEALREADYEXISTS":"Exercise already exists:",
+    "FAILEDTOCREATEEXERCISE":"Failed to create exercise.",
+    "REORDERING_SAVED":"Reordering saved successfully!",
+    "FAILEDTOSAVEREORDERING": "Failed to save the order",
+    "EXERCISECREATED_":"Exercise created: ",
+    "PLEASE_FILL_ALL_FIELDS" : "Please fill out the last set before adding a new one."
   },
   "REGISTER": {
     "TITLE": "Register User",

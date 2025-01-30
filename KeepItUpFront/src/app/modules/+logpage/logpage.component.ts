@@ -16,19 +16,20 @@ import { PlanService } from '../../shared/service/plan.service';
 import { ToastService } from '../../shared/service/toast.service';
 import { UserService } from '../../shared/service/user.service';
 import { WorkoutDataService } from '../../shared/service/workoutdata.service';
-import { WorkoutLog, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
+import {
+  WorkoutLog,
+  WorkoutLogExercise,
+} from '../../shared/interfaces/workoutlog';
 import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { ConfirmationModalComponent } from '../../shared/components/comfirmation-modal/cofirmation-modal.component';
 import { ContinueOrResetModalComponent } from '../../shared/components/continue-or-reset-modal/continue-or-reset-modal.component';
 import { ThemeService } from '../../shared/service/theme.service';
 import { DeleteExerciseModalComponent } from './components/delete-exercise-modal/delete-exercise-modal.component';
-import { ExercisePickerModalComponent } from "../+plan/components/exercise-picker-modal/exercise-picker-modal.component";
+import { ExercisePickerModalComponent } from '../+plan/components/exercise-picker-modal/exercise-picker-modal.component';
 import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateModule } from '@ngx-translate/core';
-
-
 
 @Component({
   selector: 'app-logpage',
@@ -43,13 +44,12 @@ import { TranslateModule } from '@ngx-translate/core';
     ContinueOrResetModalComponent,
     DeleteExerciseModalComponent,
     ExercisePickerModalComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
 })
 export class LogpageComponent implements OnInit, OnDestroy {
-
   @Input() planId: number | null = null;
 
   workoutLogForm!: FormGroup;
@@ -92,11 +92,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const planId = localStorage.getItem('activePlanId');
-  if (planId) {
-    this.planId = parseInt(planId, 10); // Convierte a número si es necesario
-  } else {
-    console.error('Plan ID is missing in localStorage');
-  }
+    if (planId) {
+      this.planId = parseInt(planId, 10); // Convierte a número si es necesario
+    } else {
+      console.error('Plan ID is missing in localStorage');
+    }
     this.workoutLogForm = this.fb.group({
       exercises: this.fb.array([]),
     });
@@ -138,12 +138,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
       exerciseOrder: this.exercises.controls.indexOf(exerciseControl) + 1,
     }));
   }
-  
-  
-  
+
   addExerciseToLog(workoutExercise: WorkoutExercise): void {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
-  
+
     // Add a temporary exercise to the form array with a placeholder id (null)
     const newExerciseGroup = this.fb.group({
       id: [null], // Placeholder id, to be updated after backend creation
@@ -155,9 +153,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
       sets: this.fb.array([this.createSet()]), // Start with one empty set
       exerciseOrder: [exercisesArray.length + 1], // Add it at the end
     });
-  
+
     exercisesArray.push(newExerciseGroup);
-  
+
     // Call the backend to create the exercise
     const newExercisePayload = {
       workoutLogId: this.workoutLogId,
@@ -173,7 +171,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       ],
       exerciseOrder: exercisesArray.length, // Default order (last in array)
     };
-  
+
     this.workoutLogService.addWorkoutLogExercise(newExercisePayload).subscribe({
       next: (createdExercise) => {
         // Update the form with the valid id returned by the backend
@@ -181,16 +179,16 @@ export class LogpageComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Failed to create exercise:', error);
-        this.toastService.showToast('Failed to create exercise.', 'danger');
-  
+        this.toastService.showToast(
+          TOAST_MSGS.failedtocreateexercise,
+          'danger'
+        );
+
         // Remove the exercise from the form if creation fails
         exercisesArray.removeAt(exercisesArray.length - 1);
       },
     });
   }
-  
-  
-  
 
   backToPlans() {
     this.isConfirmationModalOpen = true;
@@ -366,10 +364,12 @@ export class LogpageComponent implements OnInit, OnDestroy {
   populateFormWithSavedData(savedWorkoutLog: WorkoutLog) {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
     exercisesArray.clear();
-  
+
     if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
-  
+      const groupedExercises = this.groupExercisesById(
+        savedWorkoutLog.exercises
+      );
+
       // Sort and assign default exerciseOrder if missing
       groupedExercises
         .sort((a, b) => a.exerciseOrder - b.exerciseOrder || 0) // Fallback to 0 if missing
@@ -386,17 +386,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
               exercise.sets.map((set) => this.createSetWithValues(set))
             ),
           });
-  
+
           exercisesArray.push(formGroup);
         });
     }
   }
-  
-  
-  
+
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const grouped: { [key: number]: WorkoutLogExercise } = {};
-  
+
     exercises.forEach((exercise) => {
       if (!grouped[exercise.exerciseId]) {
         // Create new entry if it doesn't exist
@@ -409,10 +407,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
         grouped[exercise.exerciseId].sets.push(...exercise.sets);
       }
     });
-  
+
     return Object.values(grouped);
   }
-  
 
   createSetWithValues(set: any): FormGroup {
     return this.fb.group({
@@ -439,10 +436,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   addSet(exerciseIndex: number) {
     if (!this.isLastSetValid(exerciseIndex)) {
-      this.toastService.showToast(
-        'Please fill out the last set before adding a new one.',
-        'danger'
-      );
+      this.toastService.showToast(TOAST_MSGS.pleasefillallfields, 'danger');
       return;
     }
 
@@ -519,10 +513,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
         this.trackFormChanges();
       },
       error: (error) => {
-        this.toastService.showToast(
-          TOAST_MSGS.errorcreatingworkout,
-          'danger'
-        );
+        this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
       },
     });
   }
@@ -644,8 +635,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
       input.value = input.value.slice(0, maxLength);
     }
   }
-
-  
 
   deleteSet(exerciseIndex: number, setIndex: number) {
     const exerciseControl = this.exercises.at(exerciseIndex);
@@ -858,7 +847,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
             this.selectedExerciseIndex = null;
           },
           error: (error) => {
-            this.toastService.showToast('Failed to delete exercise', 'danger');
+            this.toastService.showToast(
+              TOAST_MSGS.failedtodeleteexercise,
+              'danger'
+            );
             console.error('Error deleting exercise', error);
           },
         });
@@ -875,20 +867,28 @@ export class LogpageComponent implements OnInit, OnDestroy {
     this.selectedExerciseIndex = null;
   }
 
-  clearDefaultValue(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight') {
+  clearDefaultValue(
+    exerciseIndex: number,
+    setIndex: number,
+    field: 'reps' | 'weight'
+  ) {
     const exercise = this.exercises.at(exerciseIndex);
     const set = this.getSets(exercise).at(setIndex);
-  
+
     // If the value is 0, clear it so the user can type directly
     if (set.get(field)?.value === 0) {
       set.get(field)?.setValue('');
     }
   }
-  
-  resetToZero(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight') {
+
+  resetToZero(
+    exerciseIndex: number,
+    setIndex: number,
+    field: 'reps' | 'weight'
+  ) {
     const exercise = this.exercises.at(exerciseIndex);
     const set = this.getSets(exercise).at(setIndex);
-  
+
     // If the field is left empty, reset it to 0
     if (set.get(field)?.value === '' || set.get(field)?.value === null) {
       set.get(field)?.setValue(0);
@@ -896,34 +896,33 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
   dropExercise(event: CdkDragDrop<FormGroup[]>): void {
     const exercises = this.exercises.controls;
-  
+
     moveItemInArray(exercises, event.previousIndex, event.currentIndex);
-  
+
     exercises.forEach((exercise, index) => {
       exercise.patchValue({ exerciseOrder: index + 1 });
     });
-  
+
     const reorderedExercises = exercises
       .map((exercise) => ({
         id: exercise.get('id')?.value,
         exerciseOrder: exercise.get('exerciseOrder')?.value,
       }))
       .filter((exercise) => exercise.id !== null);
-  
+
     this.workoutLogService
       .updateWorkoutExerciseOrder(this.workoutLogId, reorderedExercises)
       .subscribe({
         next: () => {
-          this.toastService.showToast('Reordering saved successfully!', 'success');
+          this.toastService.showToast(TOAST_MSGS.reorderingsaved, 'success');
         },
         error: (err) => {
           console.error('Failed to save reordering:', err);
-          this.toastService.showToast('Failed to save reordering.', 'danger');
+          this.toastService.showToast(
+            TOAST_MSGS.failedtosavereordering,
+            'danger'
+          );
         },
       });
   }
-  
-  
-  
-  
 }

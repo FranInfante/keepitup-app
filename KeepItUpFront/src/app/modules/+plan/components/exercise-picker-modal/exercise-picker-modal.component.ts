@@ -157,11 +157,14 @@ export class ExercisePickerModalComponent implements OnInit {
           (exercise) => exercise.id !== exerciseId
         );
         this.filterExercises(this.searchControl.value || '');
-        this.toastService.showToast('Exercise deleted successfully', 'success');
-      },
+        this.toastService.showToast(
+          TOAST_MSGS.exercise_deleted_successfully,
+          'success'
+        );      },
       error: (err) => {
         console.error('Failed to delete exercise:', err);
-        this.toastService.showToast('Failed to delete exercise', 'danger');
+        this.toastService.showToast(          TOAST_MSGS.failed_to_delete_exercise,
+          'danger');
       },
     });
   }

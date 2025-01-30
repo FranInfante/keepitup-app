@@ -82,7 +82,17 @@
     "EXERCISE_CREATED ": "Ejercicio creado con éxito.",
     "NOTES_SAVED_SUCCESSFULLY": "Notas guardadas con éxito.",
     "ERROR_CREATED": "Error al crear el entrenamiento. Por favor, inténtalo más tarde.",
-    "CANT_DELETE_ALL_SETS": "No puedes eliminar todas las series de un ejercicio."
+    "CANT_DELETE_ALL_SETS": "No puedes eliminar todas las series de un ejercicio.",
+    "EXERCISE_DELETED_SUCCESSFULLY": "Ejercicio eliminado con éxito.",
+    "FAILED_TO_DELETE_EXERCISE": "No se pudo eliminar el ejercicio.",
+    "ERROR_CREATING_EXERCISE":"Error al crear el ejercicio.",
+    "EXERCISEALREADYEXISTS":"El ejercicio ya existe:" ,
+    "FAILEDTOCREATEEXERCISE":"Error al crear el ejercicio.",
+    "REORDERING_SAVED":"Reordenamiento guardado con éxito!",
+    "FAILEDTOSAVEREORDERING": "Error al guardar el orden",
+    "EXERCISECREATED_":"Ejercicio creado: ",
+    "PLEASE_FILL_ALL_FIELDS" : "Por favor, completa todos los campos de la serie anterior."
+
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
