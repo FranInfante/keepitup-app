@@ -11,11 +11,12 @@ import { MuscleGroup } from '../../../../shared/interfaces/musclegroup';
 import { ExerciseService } from '../../../../shared/service/exercise.service';
 import { ToastService } from '../../../../shared/service/toast.service';
 import { UserService } from '../../../../shared/service/user.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-exercise-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
   templateUrl: './create-exercise-modal.component.html',
   styleUrl: './create-exercise-modal.component.css',
 })

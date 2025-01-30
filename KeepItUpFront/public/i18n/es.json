@@ -236,5 +236,61 @@
   "SEARCH_PLACEHOLDER": "Buscar ejercicio por nombre",
   "CREATE_NEW_EXERCISE": "Crear nuevo ejercicio",
   "CANCEL": "Cancelar"
+},
+"CREATE_EXERCISE_MODAL": {
+  "TITLE": "Crear Nuevo Ejercicio",
+  "NAME_LABEL": "Nombre:",
+  "NAME_PLACEHOLDER": "Nombre del ejercicio",
+  "NAME_REQUIRED": "El nombre es obligatorio.",
+  "DESCRIPTION_LABEL": "Descripción:",
+  "DESCRIPTION_PLACEHOLDER": "Descripción del ejercicio",
+  "MUSCLE_GROUP_LABEL": "Grupo muscular:",
+  "MUSCLE_GROUP_REQUIRED": "El grupo muscular es obligatorio.",
+  "CANCEL": "Cancelar",
+  "CREATE": "Crear Ejercicio"
 }
+,
+"PLAN_DELETE_MODAL": {
+  "TITLE": "¿Estás seguro de que quieres eliminar este plan?",
+  "CANCEL": "Cancelar",
+  "CONFIRM": "Confirmar Eliminación"
+}
+,
+"WORKOUT_LOG": {
+  "TITLE": "Registrando {{ workoutName }}",
+  "ADD_EXERCISE": "+ Ejercicio",
+  "SUBMIT_LOG": "Enviar Registro",
+  "ADD_SET": "+ Agregar Serie",
+  "NOTES": "Notas",
+  "NOTES_PLACEHOLDER": "Introduce notas aquí...",
+  "SAVE_NOTES": "Guardar Notas",
+  "DELETE_EXERCISE_CONFIRMATION": {
+    "TITLE": "Eliminar Ejercicio",
+    "MESSAGE": "¿Estás seguro de que quieres eliminar este ejercicio?",
+    "CONFIRM": "Eliminar",
+    "CANCEL": "Cancelar"
+  },
+  "DELETE_SET": "Eliminar Serie",
+  "EXERCISE_NAME": "Nombre del Ejercicio",
+  "REPS": "Repeticiones",
+  "WEIGHT": "Peso",
+  "KG": "kg"
+},
+"DELETE_EXERCISE_MODAL": {
+  "TITLE": "Confirmar Eliminación",
+  "MESSAGE": "¿Estás seguro de que deseas eliminar <strong>{{ exerciseName }}</strong>?",
+  "CANCEL": "Cancelar",
+  "CONFIRM": "Confirmar Eliminación"
+},
+"WORKOUT_LOGS": {
+  "TITLE": "Tus Registros de Entrenamiento",
+  "FILTER_LABEL": "Filtrar por Entrenamiento:",
+  "ALL_WORKOUTS": "Todos los Entrenamientos",
+  "NO_LOGS_FOUND": "No se encontraron registros de entrenamiento.",
+  "DATE": "Fecha",
+  "VIEW_DETAILS": "Ver Detalles"
+}
+
+
+
 }

@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-plan-modal',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './delete-plan-modal.component.html',
   styleUrl: './delete-plan-modal.component.css'
 })

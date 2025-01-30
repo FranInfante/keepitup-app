@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-exercise-modal',
   standalone: true,
+  imports: [TranslateModule],
   templateUrl: './delete-exercise-modal.component.html',
   styleUrls: ['./delete-exercise-modal.component.css'],
 })

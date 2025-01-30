@@ -7,10 +7,10 @@
     class="relative mx-8 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded-lg shadow-lg w-full max-w-md px-6 py-4"
   >
     <h2 class="text-lg font-bold text-center mb-4">
-      Confirm Deletion
+      {{ "DELETE_EXERCISE_MODAL.TITLE" | translate }}
     </h2>
     <p class="text-center">
-      Are you sure you want to delete <strong>{{ exerciseName }}</strong>?
+      {{ "DELETE_EXERCISE_MODAL.MESSAGE" | translate }}
     </p>
     <div class="mt-6 flex justify-evenly">
       <button
@@ -18,15 +18,16 @@
         class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
         (click)="onCancel()"
       >
-        Cancel
+      {{ "DELETE_EXERCISE_MODAL.CANCEL" | translate }}
+
       </button>
       <button
         type="button"
         class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300"
         (click)="onConfirm()"
       >
-        Confirm Deletion
-      </button>
+      {{ "DELETE_EXERCISE_MODAL.CONFIRM" | translate }}
+    </button>
     </div>
   </div>
 </div>

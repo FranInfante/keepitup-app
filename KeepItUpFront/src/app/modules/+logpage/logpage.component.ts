@@ -26,6 +26,7 @@ import { ExercisePickerModalComponent } from "../+plan/components/exercise-picke
 import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -41,7 +42,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ConfirmationModalComponent,
     ContinueOrResetModalComponent,
     DeleteExerciseModalComponent,
-    ExercisePickerModalComponent
+    ExercisePickerModalComponent,
+    TranslateModule
 ],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
