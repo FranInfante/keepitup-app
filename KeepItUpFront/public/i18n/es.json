@@ -281,7 +281,7 @@
 },
 "DELETE_EXERCISE_MODAL": {
   "TITLE": "Confirmar Eliminación",
-  "MESSAGE": "¿Estás seguro de que deseas eliminar <strong>{{ exerciseName }}</strong>?",
+  "MESSAGE": "¿Estás seguro de que deseas",
   "CANCEL": "Cancelar",
   "CONFIRM": "Confirmar Eliminación"
 },
