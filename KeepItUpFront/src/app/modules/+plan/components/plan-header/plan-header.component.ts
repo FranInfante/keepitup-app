@@ -107,6 +107,10 @@ export class PlanHeaderComponent {
       hasSelection = !!selection.toString();
     }
 
+    if (key === 'Backspace' || key === 'Delete') {
+      return true;
+    }
+
     // Handle Enter key press
     if (key === 'Enter') {
       event.preventDefault();
