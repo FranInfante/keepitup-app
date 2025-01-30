@@ -237,5 +237,11 @@
     },
     "VIEW_WORKOUTS": "View All Workouts"
   }
+},
+"EXERCISE_PICKER_MODAL": {
+  "TITLE": "Add Exercise to Workout",
+  "SEARCH_PLACEHOLDER": "Search exercise by name",
+  "CREATE_NEW_EXERCISE": "Create New Exercise",
+  "CANCEL": "Cancel"
 }
 }

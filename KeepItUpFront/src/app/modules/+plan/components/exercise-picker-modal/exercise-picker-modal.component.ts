@@ -16,6 +16,7 @@ import { ToastService } from '../../../../shared/service/toast.service';
 import { UserService } from '../../../../shared/service/user.service';
 import { ExerciseService } from '../../../../shared/service/exercise.service';
 import { CreateExerciseModalComponent } from '../create-exercise-modal/create-exercise-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-exercise-picker-modal',
@@ -25,6 +26,7 @@ import { CreateExerciseModalComponent } from '../create-exercise-modal/create-ex
     ReactiveFormsModule,
     FormsModule,
     CreateExerciseModalComponent,
+    TranslateModule
   ],
   templateUrl: './exercise-picker-modal.component.html',
   styleUrl: './exercise-picker-modal.component.css',

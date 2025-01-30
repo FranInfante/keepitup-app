@@ -10,7 +10,9 @@
     <div
       class="modal-header flex justify-between items-center mb-4 border-b border-gray-300 dark:border-gray-700"
     >
-      <h5 class="text-lg font-semibold">Add Exercise to Workout</h5>
+      <h5 class="text-lg font-semibold">
+        {{ "EXERCISE_PICKER_MODAL.TITLE" | translate }}
+      </h5>
     </div>
 
     <!-- Modal Body -->
@@ -41,7 +43,7 @@
           class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 transition"
           (click)="openCreateExerciseModal()"
         >
-          Create New Exercise
+          {{ "EXERCISE_PICKER_MODAL.CREATE_NEW_EXERCISE" | translate }}
         </button>
       </div>
       <app-create-exercise-modal
@@ -62,7 +64,7 @@
         class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 transition"
         (click)="closeExercisePickerModal()"
       >
-        Cancel
+        {{ "EXERCISE_PICKER_MODAL.CANCEL" | translate }}
       </button>
     </div>
   </div>

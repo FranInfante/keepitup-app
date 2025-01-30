@@ -230,5 +230,11 @@
     },
     "VIEW_WORKOUTS": "Ver todos los entrenamientos"
   }
+},
+"EXERCISE_PICKER_MODAL": {
+  "TITLE": "Añadir ejercicio al entrenamiento",
+  "SEARCH_PLACEHOLDER": "Buscar ejercicio por nombre",
+  "CREATE_NEW_EXERCISE": "Crear nuevo ejercicio",
+  "CANCEL": "Cancelar"
 }
 }
