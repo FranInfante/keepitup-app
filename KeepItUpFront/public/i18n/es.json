@@ -212,6 +212,12 @@
       "DISCARD": "Descartar",
       "SAVE": "Guardar"
     }
+  },
+  "SAVE_BEFORE_LEAVING": {
+    "TITLE": "¿Guardar antes de salir?",
+    "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
+    "DISCARD": "Descartar",
+    "SAVE": "Guardar"
   }
 },
 "PLAN_PAGE": {

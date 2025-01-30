@@ -134,6 +134,12 @@
         "DATE_LABEL": "Date",
         "CANCEL": "Cancel",
         "SAVE": "Save"
+      },
+      "SAVE_BEFORE_LEAVING": {
+        "TITLE": "Save before leaving?",
+        "BODY": "Do you want to save your workout log before leaving?",
+        "DISCARD": "Discard",
+        "SAVE": "Save"
       }
     }
   },
@@ -213,7 +219,13 @@
         "DISCARD": "Discard",
         "SAVE": "Save"
       }
-    }
+    },
+    "SAVE_BEFORE_LEAVING": {
+    "TITLE": "Save before leaving?",
+    "BODY": "Do you want to save your workout log before leaving?",
+    "DISCARD": "Discard",
+    "SAVE": "Save"
+  }
   },
   "PLAN_PAGE": {
   "NO_PLANS": "No plans available. Please add a plan to get started.",
