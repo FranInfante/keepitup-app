@@ -152,6 +152,8 @@ export class WorkoutsComponent {
 
   showWorkoutDetails(workout: Workout): void {
     this.selectedWorkout = workout;
+    this.workoutDataService.setWorkoutId(workout.id);
+
     if (this.selectedWorkout.workoutExercises) {
       this.selectedWorkout.workoutExercises.sort(
         (a, b) => a.exerciseOrder - b.exerciseOrder
@@ -162,6 +164,7 @@ export class WorkoutsComponent {
   closeWorkoutDetails(): void {
     this.selectedWorkout = null; 
   this.modalClosed.emit(); 
+  this.workoutDataService.clearWorkoutId();
   document.body.classList.remove('modal-open');
   }
 
