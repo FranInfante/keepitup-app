@@ -289,7 +289,18 @@
   "NO_LOGS_FOUND": "No se encontraron registros de entrenamiento.",
   "DATE": "Fecha",
   "VIEW_DETAILS": "Ver Detalles"
+},
+"WORKOUT_LOG_DETAILS": {
+  "TITLE": "Detalles del Registro de Entrenamiento",
+  "WORKOUT_NAME": "Nombre del Entrenamiento",
+  "DATE": "Fecha",
+  "EXERCISES": "Ejercicios",
+  "SET_REPS_WEIGHT": "Serie {{ set }}: {{ reps }} repeticiones con {{ weight }} kg",
+  "NOTES": "Notas",
+  "CLOSE": "Cerrar",
+  "NO_NOTES": "No hay notas disponibles para este ejercicio."
 }
+
 
 
 

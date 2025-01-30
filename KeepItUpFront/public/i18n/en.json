@@ -295,6 +295,16 @@
   "NO_LOGS_FOUND": "No workout logs found.",
   "DATE": "Date",
   "VIEW_DETAILS": "View Details"
+},
+"WORKOUT_LOG_DETAILS": {
+  "TITLE": "Workout Log Details",
+  "WORKOUT_NAME": "Workout Name",
+  "DATE": "Date",
+  "EXERCISES": "Exercises",
+  "SET_REPS_WEIGHT": "Set {{ set }}: {{ reps }} reps at {{ weight }} kg",
+  "NOTES": "Notes",
+  "CLOSE": "Close",
+  "NO_NOTES": "No notes available for this exercise."
 }
 
 

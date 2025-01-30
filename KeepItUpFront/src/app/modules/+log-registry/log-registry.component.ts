@@ -10,6 +10,7 @@ import { WorkoutDataService } from '../../shared/service/workoutdata.service';
 import { LOCATIONS, MSG } from '../../shared/constants';
 import { ThemeService } from '../../shared/service/theme.service';
 import { SetDetails, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-log-registry',
@@ -19,6 +20,7 @@ import { SetDetails, WorkoutLogExercise } from '../../shared/interfaces/workoutl
     WorkoutLogDetailModalComponent,
     BackToMenuComponent,
     FormsModule,
+    TranslateModule
   ],
   templateUrl: './log-registry.component.html',
   styleUrl: './log-registry.component.css',
