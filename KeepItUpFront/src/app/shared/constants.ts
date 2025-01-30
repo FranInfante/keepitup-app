@@ -35,6 +35,11 @@ export const TOAST_MSGS = {
   noexercisesinworkout: 'TOAST_MSGS.NO_EXERCISES_IN_WORKOUT',
   exercisecreated: 'TOAST_MSGS.EXERCISE_CREATED',
 
+  notessavedsuccessfully: 'TOAST_MSGS.NOTES_SAVED_SUCCESSFULLY',
+  errorcreatingworkout: 'TOAST_MSGS.ERROR_CREATED',
+  cantdeleteallsets: 'TOAST_MSGS.CANT_DELETE_ALL_SETS',
+
+
 };
 
 

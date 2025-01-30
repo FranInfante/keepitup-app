@@ -80,7 +80,10 @@
     "EDIT_MODE": "Edit mode is enabled",
     "WORKOUT_DELETED_SAVED": "Workout deleted and saved successfully.",
     "NO_EXERCISES_IN_WORKOUT": "No exercises in this workout.",
-    "EXERCISE_CREATED ": "Exercise created successfully."
+    "EXERCISE_CREATED ": "Exercise created successfully.",
+    "NOTES_SAVED_SUCCESSFULLY": "Notes saved successfully.",
+    "ERROR_CREATED": "Error creating workout. Please try again.",
+    "CANT_DELETE_ALL_SETS": "You cannot delete all sets from an exercise."
   },
   "REGISTER": {
     "TITLE": "Register User",

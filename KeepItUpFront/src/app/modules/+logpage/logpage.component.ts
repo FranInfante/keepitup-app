@@ -520,7 +520,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         this.toastService.showToast(
-          'TOAST_MSGS.errorcreatingworkout',
+          TOAST_MSGS.errorcreatingworkout,
           'danger'
         );
       },
@@ -563,7 +563,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
           error: (error) => {
             console.error('Error updating workout log', error);
             this.toastService.showToast(
-              'TOAST_MSGS.errorcreatingworkout',
+              TOAST_MSGS.errorcreatingworkout,
               'danger'
             );
           },
@@ -613,13 +613,13 @@ export class LogpageComponent implements OnInit, OnDestroy {
             },
             error: (error) => {
               this.toastService.showToast(
-                'TOAST_MSGS.errorcreatingworkout',
+                TOAST_MSGS.errorcreatingworkout,
                 'danger'
               );
             },
           });
       } else {
-        this.toastService.showToast('TOAST_MSGS.fillallfields', 'danger');
+        this.toastService.showToast(TOAST_MSGS.fillallfields, 'danger');
       }
     }, 200);
   }
@@ -652,7 +652,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
     const sets = this.getSets(exerciseControl);
 
     if (sets.length === 1) {
-      this.toastService.showToast('TOAST_MSGS.cantdeleteallsets', 'danger');
+      this.toastService.showToast(TOAST_MSGS.cantdeleteallsets, 'danger');
       return;
     }
 
@@ -669,7 +669,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
           },
           error: (error) => {
             this.toastService.showToast(
-              'TOAST_MSGS.errorcreatingworkout',
+              TOAST_MSGS.errorcreatingworkout,
               'danger'
             );
           },
@@ -769,13 +769,13 @@ export class LogpageComponent implements OnInit, OnDestroy {
           .subscribe({
             next: () => {
               this.toastService.showToast(
-                'TOAST_MSGS.notessavedsuccessfully',
+                TOAST_MSGS.notessavedsuccessfully,
                 'success'
               );
             },
             error: (error) => {
               this.toastService.showToast(
-                'TOAST_MSGS.errorcreatingworkout',
+                TOAST_MSGS.errorcreatingworkout,
                 'danger'
               );
             },

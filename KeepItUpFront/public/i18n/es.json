@@ -79,7 +79,10 @@
     "EDIT_MODE": "Modo edición activado.",
     "WORKOUT_DELETED_SAVED": "Entrenamiento borrado y guardado con éxito.",
     "NO_EXERCISES_IN_WORKOUT": "No hay ejercicios en este entrenamiento.",
-    "EXERCISE_CREATED ": "Ejercicio creado con éxito."
+    "EXERCISE_CREATED ": "Ejercicio creado con éxito.",
+    "NOTES_SAVED_SUCCESSFULLY": "Notas guardadas con éxito.",
+    "ERROR_CREATED": "Error al crear el entrenamiento. Por favor, inténtalo más tarde.",
+    "CANT_DELETE_ALL_SETS": "No puedes eliminar todas las series de un ejercicio."
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
