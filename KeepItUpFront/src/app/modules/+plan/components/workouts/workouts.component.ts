@@ -33,7 +33,8 @@ import { WorkoutDataService } from '../../../../shared/service/workoutdata.servi
 import { WorkoutExercise } from '../../../../shared/interfaces/workoutexercise';
 import { ExercisePickerModalComponent } from '../exercise-picker-modal/exercise-picker-modal.component';
 import { from, concatMap, catchError, of } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../../../shared/service/language.service';
 
 @Component({
   selector: 'app-workouts',
@@ -85,8 +86,11 @@ export class WorkoutsComponent {
     private fb: FormBuilder,
     private toastService: ToastService,
     private router: Router,
-    private workoutDataService: WorkoutDataService
+    private workoutDataService: WorkoutDataService,
+    private languageService: LanguageService
   ) {
+    this.languageService.initializeUserLanguage();
+
     this.workoutForm = this.fb.group({
       workoutName: ['', [Validators.required, Validators.maxLength(20)]],
     });

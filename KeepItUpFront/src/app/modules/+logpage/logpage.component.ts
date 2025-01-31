@@ -29,7 +29,8 @@ import { ExercisePickerModalComponent } from '../+plan/components/exercise-picke
 import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../shared/service/language.service';
 
 @Component({
   selector: 'app-logpage',
@@ -85,10 +86,13 @@ export class LogpageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private toastService: ToastService,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private languageService: LanguageService
   ) {
     this.themeService.initializeThemeUserFromLocalStorage();
+    this.languageService.initializeUserLanguage();
   }
+  
 
   ngOnInit() {
     const planId = localStorage.getItem('activePlanId');

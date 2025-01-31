@@ -74,4 +74,10 @@ export class LanguageService {
       const savedLanguage = localStorage.getItem('language') || 'en';
       this.translate.use(savedLanguage);
     }
+
+    initializeUserLanguage(): void {
+      const savedLanguage = localStorage.getItem('userLanguage') || 'en';
+      this.translate.use(savedLanguage);
+      document.documentElement.lang = savedLanguage;
+    }
 }
