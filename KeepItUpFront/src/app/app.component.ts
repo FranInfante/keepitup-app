@@ -5,6 +5,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
 import { LoadingService } from './shared/service/loading.service';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from './shared/service/language.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,9 +18,10 @@ export class AppComponent {
   title = 'KeepItUp!';
   isLoading$;
 
-  constructor(private loadingService: LoadingService, private translate: TranslateService) {
+  constructor(private loadingService: LoadingService, private translate: TranslateService, private languageService: LanguageService) {
 
     this.translate.setDefaultLang('en');
+    this.languageService.initializeUserLanguage();
 
     this.isLoading$ = this.loadingService.isLoading$;
 

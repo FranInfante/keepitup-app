@@ -43,11 +43,9 @@ export class LogRegistryComponent implements OnInit {
     private userService: UserService,
     private planService: PlanService,
     private workoutDataService: WorkoutDataService,
-    private themeService: ThemeService,
-    private languageService: LanguageService
+    private themeService: ThemeService
   ) {
     this.themeService.initializeThemeUserFromLocalStorage();
-    this.languageService.initializeUserLanguage();
 
   }
 

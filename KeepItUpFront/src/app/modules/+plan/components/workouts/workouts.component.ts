@@ -86,10 +86,8 @@ export class WorkoutsComponent {
     private fb: FormBuilder,
     private toastService: ToastService,
     private router: Router,
-    private workoutDataService: WorkoutDataService,
-    private languageService: LanguageService
+    private workoutDataService: WorkoutDataService
   ) {
-    this.languageService.initializeUserLanguage();
 
     this.workoutForm = this.fb.group({
       workoutName: ['', [Validators.required, Validators.maxLength(20)]],
