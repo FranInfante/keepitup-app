@@ -20,7 +20,7 @@
       <input
         type="text"
         class="bg-gray-30000 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 w-full mb-4"
-        placeholder="Search exercise by name"
+        [placeholder]="'EXERCISE_PICKER_MODAL.PLACEHOLDER_EXERCISE' | translate"
         [formControl]="searchControl"
       />
       <ul class="max-h-60 overflow-y-auto">

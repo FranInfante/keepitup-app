@@ -1,6 +1,8 @@
 <app-back-to-menu [navigationPath]="LOCATIONS.menu"></app-back-to-menu>
 
-<div class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col">
+<div
+  class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
+>
   <!-- Page Header -->
   <div class="py-6 text-center">
     <h1 class="text-3xl font-extrabold text-gray-800 dark:text-gray-100">
@@ -9,7 +11,9 @@
   </div>
 
   <!-- Stats -->
-  <div class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 px-6 py-2">
+  <div
+    class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 px-6 py-2"
+  >
     <div class="max-w-lg mx-auto">
       <h2 class="text-xl text-center font-bold mb-2">
         {{ "WEIGH_INS.STATS.TITLE" | translate }}
@@ -23,7 +27,9 @@
 
   <!-- Main Content -->
   <div class="flex justify-center items-center">
-    <div class="w-full max-w-lg text-gray-800 dark:text-gray-100 rounded-xl px-6 space-y-8">
+    <div
+      class="w-full max-w-lg text-gray-800 dark:text-gray-100 rounded-xl px-6 space-y-8"
+    >
       <!-- Previous Logs -->
       <div>
         <h2 class="text-xl text-center font-bold mb-4">
@@ -134,7 +140,6 @@
             <div
               class="flex justify-end items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600"
             >
-              
               <button
                 (click)="cancelDelete()"
                 type="button"
@@ -235,9 +240,9 @@
                 id="weight"
                 formControlName="weight"
                 class="w-full text-center mt-1 px-3 py-2 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-600 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500"
-                placeholder="{{
+                [placeholder]="
                   'WEIGH_INS.MODAL.ADD_LOG.WEIGHT_PLACEHOLDER' | translate
-                }}"
+                "
                 required
               />
               <small

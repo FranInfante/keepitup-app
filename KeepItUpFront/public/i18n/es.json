@@ -248,7 +248,8 @@
   "TITLE": "Añadir ejercicio al entrenamiento",
   "SEARCH_PLACEHOLDER": "Buscar ejercicio por nombre",
   "CREATE_NEW_EXERCISE": "Crear nuevo ejercicio",
-  "CANCEL": "Cancelar"
+  "CANCEL": "Cancelar",
+  "PLACEHOLDER_EXERCISE": "Buscar ejercicio por nombre"
 },
 "CREATE_EXERCISE_MODAL": {
   "TITLE": "Crear Nuevo Ejercicio",
@@ -260,7 +261,9 @@
   "MUSCLE_GROUP_LABEL": "Grupo muscular:",
   "MUSCLE_GROUP_REQUIRED": "El grupo muscular es obligatorio.",
   "CANCEL": "Cancelar",
-  "CREATE": "Crear Ejercicio"
+  "CREATE": "Crear Ejercicio",
+  "PLACEHOLDER": "Nombre del ejercicio",
+  "PLACEHOLDER_DESCRIPTION": "Descripción del ejercicio"
 }
 ,
 "PLAN_DELETE_MODAL": {
@@ -287,7 +290,8 @@
   "EXERCISE_NAME": "Nombre del Ejercicio",
   "REPS": "Repeticiones",
   "WEIGHT": "Peso",
-  "KG": "kg"
+  "KG": "kg",
+  "PLACEHOLDER": "Introduce tus notas aquí..."
 },
 "DELETE_EXERCISE_MODAL": {
   "TITLE": "Confirmar Eliminación",
@@ -311,7 +315,8 @@
   "SET_REPS_WEIGHT": "Serie {{ set }}: {{ reps }} repeticiones con {{ weight }} kg",
   "NOTES": "Notas",
   "CLOSE": "Cerrar",
-  "NO_NOTES": "No hay notas disponibles para este ejercicio."
+  "NO_NOTES": "No hay notas disponibles para este ejercicio.",
+  "PLACEHOLDER": "Introduce tus notas aquí..."
 }
 
 

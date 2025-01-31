@@ -110,7 +110,7 @@
   rows="6"
   maxlength="300"
   disabled
-  placeholder="Enter notes here... (max 300 characters)"
+  [placeholder]="'WORKOUT_LOG_DETAILS.PLACEHOLDER' | translate"
   formControlName="notes"
   class="w-full rows-30 px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
   [value]="selectedExerciseNotes || ('WORKOUT_LOG_DETAILS.NO_NOTES' | translate)"
