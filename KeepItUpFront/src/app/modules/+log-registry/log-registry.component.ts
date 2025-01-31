@@ -11,6 +11,7 @@ import { LOCATIONS, MSG } from '../../shared/constants';
 import { ThemeService } from '../../shared/service/theme.service';
 import { SetDetails, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../shared/service/language.service';
 
 @Component({
   selector: 'app-log-registry',
@@ -42,9 +43,12 @@ export class LogRegistryComponent implements OnInit {
     private userService: UserService,
     private planService: PlanService,
     private workoutDataService: WorkoutDataService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private languageService: LanguageService
   ) {
     this.themeService.initializeThemeUserFromLocalStorage();
+    this.languageService.initializeUserLanguage();
+
   }
 
   ngOnInit() {
