@@ -67,24 +67,64 @@ public class WorkoutLogExerciseServiceImpl implements WorkoutLogExerciseService 
 
     @Override
     public WorkoutLogExerciseDTO updateWorkoutLogExercise(Integer id, WorkoutLogExerciseDTO workoutLogExerciseDTO) {
+        // Find existing WorkoutLogExercise entities by workoutLogId and exerciseId
+        List<WorkoutLogExercise> existingSets = workoutLogExerciseRepository
+                .findByWorkoutLogIdAndExerciseId(workoutLogExerciseDTO.getWorkoutLogId(), workoutLogExerciseDTO.getExerciseId());
 
+        // Log existing sets
+        System.out.println("Existing sets before update: " + existingSets);
 
-        // Retrieve and update existing WorkoutLogExercise
-        WorkoutLogExercise workoutLogExercise = workoutLogExerciseRepository.findById(id)
+        // Filter out sets that are no longer in the payload and delete them
+        List<WorkoutLogExercise> setsToDelete = existingSets.stream()
+                .filter(existingSet -> workoutLogExerciseDTO.getSets().stream()
+                        .noneMatch(newSet -> newSet.getSet().equals(existingSet.getSet())))
+                .collect(Collectors.toList());
+
+        workoutLogExerciseRepository.deleteAll(setsToDelete);
+
+        // Update or create sets from the payload
+        List<WorkoutLogExercise> updatedOrNewSets = workoutLogExerciseDTO.getSets().stream()
+                .map(setDTO -> {
+                    WorkoutLogExercise existingSet = existingSets.stream()
+                            .filter(set -> set.getSet().equals(setDTO.getSet()))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (existingSet != null) {
+                        // Update existing set
+                        existingSet.setReps(setDTO.getReps());
+                        existingSet.setWeight(setDTO.getWeight());
+                        existingSet.setNotes(workoutLogExerciseDTO.getNotes());
+                        return existingSet;
+                    } else {
+                        // Create a new set
+                        return WorkoutLogExercise.builder()
+                                .exercise(existingSets.get(0).getExercise()) // Use the first existing exercise for reference
+                                .workoutLog(existingSets.get(0).getWorkoutLog())
+                                .set(setDTO.getSet())
+                                .reps(setDTO.getReps())
+                                .weight(setDTO.getWeight())
+                                .notes(workoutLogExerciseDTO.getNotes())
+                                .build();
+                    }
+                })
+                .collect(Collectors.toList());
+
+        System.out.println("Updated or new sets: " + updatedOrNewSets);
+
+        // Save updated and new sets
+        List<WorkoutLogExercise> savedSets = workoutLogExerciseRepository.saveAll(updatedOrNewSets);
+
+        // Log saved sets
+        System.out.println("Saved sets: " + savedSets);
+
+        // Return the updated DTO (for consistency, return the first saved set as a representative)
+        return savedSets.stream()
+                .map(WorkoutLogExerciseMapper::toDTO)
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException(MessageConstants.WORKOUT_LOG_EXERCISE_NOT_FOUND));
-
-        workoutLogExercise.setNotes(workoutLogExerciseDTO.getNotes());
-        if (workoutLogExerciseDTO.getSets() != null && !workoutLogExerciseDTO.getSets().isEmpty()) {
-            // Update with the first set provided, assuming only one set update is allowed here
-            workoutLogExercise.setSet(workoutLogExerciseDTO.getSets().get(0).getSet());
-            workoutLogExercise.setReps(workoutLogExerciseDTO.getSets().get(0).getReps());
-            workoutLogExercise.setWeight(workoutLogExerciseDTO.getSets().get(0).getWeight());
-        }
-
-        // Save and map back to DTO
-        WorkoutLogExercise updatedExercise = workoutLogExerciseRepository.save(workoutLogExercise);
-        return WorkoutLogExerciseMapper.toDTO(updatedExercise);
     }
+
 
     @Override
     public void deleteWorkoutLogExercise(Integer id) {
