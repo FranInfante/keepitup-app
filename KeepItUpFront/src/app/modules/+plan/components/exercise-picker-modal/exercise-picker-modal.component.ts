@@ -131,6 +131,7 @@ export class ExercisePickerModalComponent implements OnInit {
     };
 
     this.exerciseSelected.emit(workoutExercise);
+    this.closeModal.emit();
   }
 
   deselectExercise(): void {

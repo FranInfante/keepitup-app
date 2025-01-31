@@ -85,14 +85,13 @@
     "CANT_DELETE_ALL_SETS": "No puedes eliminar todas las series de un ejercicio.",
     "EXERCISE_DELETED_SUCCESSFULLY": "Ejercicio eliminado con éxito.",
     "FAILED_TO_DELETE_EXERCISE": "No se pudo eliminar el ejercicio.",
-    "ERROR_CREATING_EXERCISE":"Error al crear el ejercicio.",
-    "EXERCISEALREADYEXISTS":"El ejercicio ya existe:" ,
-    "FAILEDTOCREATEEXERCISE":"Error al crear el ejercicio.",
-    "REORDERING_SAVED":"Reordenamiento guardado con éxito!",
+    "ERROR_CREATING_EXERCISE": "Error al crear el ejercicio.",
+    "EXERCISEALREADYEXISTS": "El ejercicio ya existe:",
+    "FAILEDTOCREATEEXERCISE": "Error al crear el ejercicio.",
+    "REORDERING_SAVED": "Reordenamiento guardado con éxito!",
     "FAILEDTOSAVEREORDERING": "Error al guardar el orden",
-    "EXERCISECREATED_":"Ejercicio creado: ",
-    "PLEASE_FILL_ALL_FIELDS" : "Por favor, completa todos los campos de la serie anterior."
-
+    "EXERCISECREATED_": "Ejercicio creado: ",
+    "PLEASE_FILL_ALL_FIELDS": "Por favor, completa todos los campos de la serie anterior."
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
@@ -216,110 +215,105 @@
   },
   "MODAL": {
     "RESUME_OR_CREATE": {
-      "TITLE": "Reanudar o Crear Nuevo Registro",
+      "TITLE": "Reanudar o Crear Nuevo",
       "BODY": "Ya tienes un registro de entrenamiento en progreso. ¿Te gustaría continuar editándolo o eliminarlo y crear uno nuevo?",
-      "CREATE_NEW_LOG": "Crear Nuevo Registro",
-      "CONTINUE_EDITING": "Continuar Editando","SAVE_BEFORE_LEAVING": {
+      "CREATE_NEW_LOG": "Crear Nuevo",
+      "CONTINUE_EDITING": "Continuar",
+      "SAVE_BEFORE_LEAVING": {
+        "TITLE": "¿Guardar antes de salir?",
+        "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
+        "DISCARD": "Descartar",
+        "SAVE": "Guardar"
+      }
+    },
+    "SAVE_BEFORE_LEAVING": {
       "TITLE": "¿Guardar antes de salir?",
       "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
       "DISCARD": "Descartar",
       "SAVE": "Guardar"
     }
   },
-  "SAVE_BEFORE_LEAVING": {
-    "TITLE": "¿Guardar antes de salir?",
-    "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
-    "DISCARD": "Descartar",
-    "SAVE": "Guardar"
-  }
-},
-"PLAN_PAGE": {
-  "NO_PLANS": "No hay planes disponibles. Por favor, agrega un plan para comenzar.",
-  "MODALS": {
-    "EDIT_WORKOUTS": "Editar Entrenamientos",
-    "DELETE_PLAN": {
-      "TITLE": "Eliminar",
-      "BODY": "¿Estás seguro de que deseas eliminar el plan {{ planName }}?"
-    },
-    "VIEW_WORKOUTS": "Ver todos los entrenamientos"
-  }
-},
-"EXERCISE_PICKER_MODAL": {
-  "TITLE": "Añadir ejercicio al entrenamiento",
-  "SEARCH_PLACEHOLDER": "Buscar ejercicio por nombre",
-  "CREATE_NEW_EXERCISE": "Crear nuevo ejercicio",
-  "CANCEL": "Cancelar",
-  "PLACEHOLDER_EXERCISE": "Buscar ejercicio por nombre"
-},
-"CREATE_EXERCISE_MODAL": {
-  "TITLE": "Crear Nuevo Ejercicio",
-  "NAME_LABEL": "Nombre:",
-  "NAME_PLACEHOLDER": "Nombre del ejercicio",
-  "NAME_REQUIRED": "El nombre es obligatorio.",
-  "DESCRIPTION_LABEL": "Descripción:",
-  "DESCRIPTION_PLACEHOLDER": "Descripción del ejercicio",
-  "MUSCLE_GROUP_LABEL": "Grupo muscular:",
-  "MUSCLE_GROUP_REQUIRED": "El grupo muscular es obligatorio.",
-  "CANCEL": "Cancelar",
-  "CREATE": "Crear Ejercicio",
-  "PLACEHOLDER": "Nombre del ejercicio",
-  "PLACEHOLDER_DESCRIPTION": "Descripción del ejercicio"
-}
-,
-"PLAN_DELETE_MODAL": {
-  "TITLE": "¿Estás seguro de que quieres eliminar este plan?",
-  "CANCEL": "Cancelar",
-  "CONFIRM": "Confirmar Eliminación"
-}
-,
-"WORKOUT_LOG": {
-  "TITLE": "Registrando {{ workoutName }}",
-  "ADD_EXERCISE": "+ Ejercicio",
-  "SUBMIT_LOG": "Enviar Registro",
-  "ADD_SET": "+ Agregar Serie",
-  "NOTES": "Notas",
-  "NOTES_PLACEHOLDER": "Introduce notas aquí...",
-  "SAVE_NOTES": "Guardar Notas",
-  "DELETE_EXERCISE_CONFIRMATION": {
-    "TITLE": "Eliminar Ejercicio",
-    "MESSAGE": "¿Estás seguro de que quieres eliminar este ejercicio?",
-    "CONFIRM": "Eliminar",
-    "CANCEL": "Cancelar"
+  "PLAN_PAGE": {
+    "NO_PLANS": "No hay planes disponibles. Por favor, agrega un plan para comenzar.",
+    "MODALS": {
+      "EDIT_WORKOUTS": "Editar Entrenamientos",
+      "DELETE_PLAN": {
+        "TITLE": "Eliminar",
+        "BODY": "¿Estás seguro de que deseas eliminar el plan {{ planName }}?"
+      },
+      "VIEW_WORKOUTS": "Ver todos los entrenamientos"
+    }
   },
-  "DELETE_SET": "Eliminar Serie",
-  "EXERCISE_NAME": "Nombre del Ejercicio",
-  "REPS": "Repeticiones",
-  "WEIGHT": "Peso",
-  "KG": "kg",
-  "PLACEHOLDER": "Introduce tus notas aquí..."
-},
-"DELETE_EXERCISE_MODAL": {
-  "TITLE": "Confirmar Eliminación",
-  "MESSAGE": "¿Estás seguro de que deseas",
-  "CANCEL": "Cancelar",
-  "CONFIRM": "Confirmar Eliminación"
-},
-"WORKOUT_LOGS": {
-  "TITLE": "Tus Registros de Entrenamiento",
-  "FILTER_LABEL": "Filtrar por Entrenamiento:",
-  "ALL_WORKOUTS": "Todos los Entrenamientos",
-  "NO_LOGS_FOUND": "No se encontraron registros de entrenamiento.",
-  "DATE": "Fecha",
-  "VIEW_DETAILS": "Ver Detalles"
-},
-"WORKOUT_LOG_DETAILS": {
-  "TITLE": "Detalles del Registro de Entrenamiento",
-  "WORKOUT_NAME": "Nombre del Entrenamiento",
-  "DATE": "Fecha",
-  "EXERCISES": "Ejercicios",
-  "SET_REPS_WEIGHT": "Serie {{ set }}: {{ reps }} repeticiones con {{ weight }} kg",
-  "NOTES": "Notas",
-  "CLOSE": "Cerrar",
-  "NO_NOTES": "No hay notas disponibles para este ejercicio.",
-  "PLACEHOLDER": "Introduce tus notas aquí..."
-}
-
-
-
-
+  "EXERCISE_PICKER_MODAL": {
+    "TITLE": "Añadir ejercicio al entrenamiento",
+    "SEARCH_PLACEHOLDER": "Buscar ejercicio por nombre",
+    "CREATE_NEW_EXERCISE": "Crear nuevo ejercicio",
+    "CANCEL": "Cancelar",
+    "PLACEHOLDER_EXERCISE": "Buscar ejercicio por nombre"
+  },
+  "CREATE_EXERCISE_MODAL": {
+    "TITLE": "Crear Nuevo Ejercicio",
+    "NAME_LABEL": "Nombre:",
+    "NAME_PLACEHOLDER": "Nombre del ejercicio",
+    "NAME_REQUIRED": "El nombre es obligatorio.",
+    "DESCRIPTION_LABEL": "Descripción:",
+    "DESCRIPTION_PLACEHOLDER": "Descripción del ejercicio",
+    "MUSCLE_GROUP_LABEL": "Grupo muscular:",
+    "MUSCLE_GROUP_REQUIRED": "El grupo muscular es obligatorio.",
+    "CANCEL": "Cancelar",
+    "CREATE": "Crear Ejercicio",
+    "PLACEHOLDER": "Nombre del ejercicio",
+    "PLACEHOLDER_DESCRIPTION": "Descripción del ejercicio"
+  },
+  "PLAN_DELETE_MODAL": {
+    "TITLE": "¿Estás seguro de que quieres eliminar este plan?",
+    "CANCEL": "Cancelar",
+    "CONFIRM": "Confirmar Eliminación"
+  },
+  "WORKOUT_LOG": {
+    "TITLE": "Registrando {{ workoutName }}",
+    "ADD_EXERCISE": "+ Ejercicio",
+    "SUBMIT_LOG": "Enviar Registro",
+    "ADD_SET": "+ Agregar Serie",
+    "NOTES": "Notas",
+    "NOTES_PLACEHOLDER": "Introduce notas aquí...",
+    "SAVE_NOTES": "Guardar Notas",
+    "DELETE_EXERCISE_CONFIRMATION": {
+      "TITLE": "Eliminar Ejercicio",
+      "MESSAGE": "¿Estás seguro de que quieres eliminar este ejercicio?",
+      "CONFIRM": "Eliminar",
+      "CANCEL": "Cancelar"
+    },
+    "DELETE_SET": "Eliminar Serie",
+    "EXERCISE_NAME": "Nombre del Ejercicio",
+    "REPS": "Repeticiones",
+    "WEIGHT": "Peso",
+    "KG": "kg",
+    "PLACEHOLDER": "Introduce tus notas aquí..."
+  },
+  "DELETE_EXERCISE_MODAL": {
+    "TITLE": "Confirmar Eliminación",
+    "MESSAGE": "¿Estás seguro de que deseas",
+    "CANCEL": "Cancelar",
+    "CONFIRM": "Eliminar"
+  },
+  "WORKOUT_LOGS": {
+    "TITLE": "Tus Registros de Entrenamiento",
+    "FILTER_LABEL": "Filtrar por Entrenamiento:",
+    "ALL_WORKOUTS": "Todos los Entrenamientos",
+    "NO_LOGS_FOUND": "No se encontraron registros de entrenamiento.",
+    "DATE": "Fecha",
+    "VIEW_DETAILS": "Ver Detalles"
+  },
+  "WORKOUT_LOG_DETAILS": {
+    "TITLE": "Detalles del Registro de Entrenamiento",
+    "WORKOUT_NAME": "Nombre del Entrenamiento",
+    "DATE": "Fecha",
+    "EXERCISES": "Ejercicios",
+    "SET_REPS_WEIGHT": "Serie {{ set }}: {{ reps }} repeticiones con {{ weight }} kg",
+    "NOTES": "Notas",
+    "CLOSE": "Cerrar",
+    "NO_NOTES": "No hay notas disponibles para este ejercicio.",
+    "PLACEHOLDER": "Introduce tus notas aquí..."
+  }
 }

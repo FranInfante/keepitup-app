@@ -221,10 +221,10 @@
   },
   "MODAL": {
     "RESUME_OR_CREATE": {
-      "TITLE": "Resume or Create New Log",
+      "TITLE": "Resume or Create New",
       "BODY": "You already have a workout log in progress. Would you like to continue editing it or delete it and create a new one?",
-      "CREATE_NEW_LOG": "Create New Log",
-      "CONTINUE_EDITING": "Continue Editing",
+      "CREATE_NEW_LOG": "Create New",
+      "CONTINUE_EDITING": "Continue",
       "SAVE_BEFORE_LEAVING": {
         "TITLE": "Save before leaving?",
         "BODY": "Do you want to save your workout log before leaving?",
@@ -303,7 +303,7 @@
   "TITLE": "Confirm Deletion",
   "MESSAGE": "Are you sure you want to delete",
   "CANCEL": "Cancel",
-  "CONFIRM": "Confirm Deletion"
+  "CONFIRM": "Delete"
 },
 "WORKOUT_LOGS": {
   "TITLE": "Your Workout Logs",
