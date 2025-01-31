@@ -74,20 +74,23 @@ export class LogRegistryComponent implements OnInit {
   getWorkoutLogsForUser() {
     this.workoutLogService.getWorkoutLogByUserId(this.userId).subscribe({
       next: (logs) => {
-        this.workoutLogs = logs.map((log) => {
-          return {
-            ...log,
-            date: new Date(
-              log.date[0],
-              log.date[1] - 1,
-              log.date[2],
-              log.date[3],
-              log.date[4],
-              log.date[5]
-            ),
-            exercises: log.exercises,
-          };
-        });
+        this.workoutLogs = logs
+          .map((log) => {
+            return {
+              ...log,
+              date: new Date(
+                log.date[0],
+                log.date[1] - 1,
+                log.date[2],
+                log.date[3],
+                log.date[4],
+                log.date[5]
+              ),
+              exercises: log.exercises,
+            };
+          })
+          .sort((a, b) => b.date.getTime() - a.date.getTime());
+  
         this.isLoading = false;
         this.filterWorkoutLogs();
       },
