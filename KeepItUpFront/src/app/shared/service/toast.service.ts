@@ -16,14 +16,16 @@ export class ToastService {
   constructor(private translate: TranslateService) {}
 
 
-  showToast(bodyKey: string, type: 'success' | 'danger' | 'info', duration: number = 3000) {
+  showToast(bodyKey: string, type: 'success' | 'danger' | 'info', extraText?: string, duration: number = 2000) {
 
     const translatedBody = this.translate.instant(bodyKey);
+    const fullMessage = extraText ? `${translatedBody} ${extraText}` : translatedBody; 
+
 
     const newToast: Toast = {
       id: this.toastId++,
       show: false, 
-      body: translatedBody,
+      body: fullMessage,
       type,
     };
     this.toasts.push(newToast);

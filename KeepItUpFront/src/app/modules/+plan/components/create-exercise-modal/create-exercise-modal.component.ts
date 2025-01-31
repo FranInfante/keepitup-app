@@ -79,9 +79,10 @@ export class CreateExerciseModalComponent implements OnInit {
   
         if (exercise) {
           if (exercise.exists) {
-            this.toastService.showToast(TOAST_MSGS.exercisealreadyexists + exercise.name, 'danger');
+            this.toastService.showToast(TOAST_MSGS.exercisealreadyexists, 'danger', exercise.name);
           } else {
-            this.toastService.showToast(TOAST_MSGS.exercise_created + exercise.name, 'success');
+            this.toastService.showToast(TOAST_MSGS.exercise_created, 'success', exercise.name);
+
   
             // Emit the created exercise
             this.exerciseCreated.emit(exercise);
