@@ -6,6 +6,7 @@ import { LoadingService } from './shared/service/loading.service';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './shared/service/language.service';
+import { ThemeService } from './shared/service/theme.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -18,12 +19,15 @@ export class AppComponent {
   title = 'KeepItUp!';
   isLoading$;
 
-  constructor(private loadingService: LoadingService, private translate: TranslateService, private languageService: LanguageService) {
+  constructor(private loadingService: LoadingService, private translate: TranslateService, private languageService: LanguageService,
+    private themeService: ThemeService
+  ) {
 
     this.translate.setDefaultLang('en');
     this.languageService.initializeUserLanguage();
 
     this.isLoading$ = this.loadingService.isLoading$;
+    this.themeService.initializeTheme();
 
     
   }

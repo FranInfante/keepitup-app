@@ -10,6 +10,40 @@ export class ThemeService {
   themeLoaded$ = this._themeLoaded.asObservable();
 
   constructor(private userService: UserService) {}
+
+  initializeUserTheme(): void {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        if (user && user.id) {
+          this.userService.getUserInfo(user.id).subscribe({
+            next: (userInfo) => {
+              const theme = userInfo?.theme || 'dark';
+              this.applyTheme(theme);
+              // Optionally update local storage if needed
+              localStorage.setItem('themeUser', theme);
+              this._themeLoaded.next(true);
+            },
+            error: (err) => {
+              console.error('Failed to fetch user info:', err);
+              this.applyTheme('dark');
+              this._themeLoaded.next(true);
+            },
+          });
+        } else {
+          // Fallback for non-authenticated users if necessary
+          const localStorageTheme = localStorage.getItem('themeUser') || 'dark';
+          this.applyTheme(localStorageTheme);
+          this._themeLoaded.next(true);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to fetch current user:', err);
+        const localStorageTheme = localStorage.getItem('themeUser') || 'dark';
+        this.applyTheme(localStorageTheme);
+        this._themeLoaded.next(true);
+      },
+    });
+  }
   initializeTheme(): void {
     const localStorageTheme = localStorage.getItem('themeUser');
     if (localStorageTheme) {

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ASSET_URLS, LOCATIONS } from '../../shared/constants';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -19,7 +19,7 @@ import { LanguageService } from '../../shared/service/language.service';
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit {
   bg: string = ASSET_URLS.background;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal: boolean = false;
@@ -33,15 +33,18 @@ export class LandingComponent {
 
   constructor(
     private translate: TranslateService,
-    private themeService: ThemeService,
     private languageService: LanguageService
   ) {
-    this.themeService.initializeThemeFromLocalStorage();
-    this.isDark = this.themeService.isDarkMode();
     this.languageService.initializeLanguage();
   }
 
  
+  ngOnInit(): void {
+
+    this.isDark = localStorage.getItem('themeUser') === 'dark';
+    this.applyTheme(localStorage.getItem('themeUser') || 'dark');
+    
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -99,9 +102,13 @@ export class LandingComponent {
     this.translate.use(lang);
   }
   toggleDarkMode() {
-    this.themeService.toggleThemeForUnauthenticated();
-    this.isDark = this.themeService.isDarkMode();
-
+    const newTheme = this.isDark ? 'light' : 'dark';
+    this.applyTheme(newTheme);
+    localStorage.setItem('themeUser', newTheme);
+  }
+  applyTheme(theme: string) {
+    this.isDark = theme === 'dark';
+    document.documentElement.classList.toggle('dark', this.isDark);
   }
 
 }
