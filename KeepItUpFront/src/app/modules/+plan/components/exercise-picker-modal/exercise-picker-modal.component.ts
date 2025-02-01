@@ -81,6 +81,13 @@ export class ExercisePickerModalComponent implements OnInit {
     }
   }
 
+  onEnter(): void {
+  
+    if (this.noExercisesFound) {
+      this.openCreateExerciseModal();
+    }
+  }
+
   closeCreateExerciseModal(): void {
     this.isCreateExerciseModalOpen = false;
   }
