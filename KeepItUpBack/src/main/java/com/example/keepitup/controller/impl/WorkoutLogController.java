@@ -76,4 +76,10 @@ public class WorkoutLogController implements WorkoutLogApi {
         workoutLogService.reorderExercises(workoutLogId, exercises);
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<WorkoutLogDTO> getLastCompletedWorkoutLog(@PathVariable Integer userId, @PathVariable Integer workoutId) {
+        WorkoutLogDTO workoutLogDTO = workoutLogService.getLastCompletedWorkoutLog(userId, workoutId);
+        return ResponseEntity.ok(workoutLogDTO);
+    }
 }

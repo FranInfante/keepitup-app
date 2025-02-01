@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -203,6 +204,14 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
 
         // Save changes
         workoutLogRepository.save(workoutLog);
+    }
+
+    @Override
+    public WorkoutLogDTO getLastCompletedWorkoutLog(Integer userId, Integer workoutId) {
+        Optional<WorkoutLog> workoutLogOptional =
+                workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditingFalseOrderByDateDesc(userId, workoutId);
+        return workoutLogOptional.map(WorkoutLogMapper::toDTO)
+                .orElse(null); // or throw an exception if you prefer
     }
 
 
