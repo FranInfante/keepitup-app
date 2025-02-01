@@ -232,6 +232,12 @@
         "SAVE": "Save"
       }
     },
+    "LAST_COMPLETED_LOG": {
+      "TITLE": "Load Last Log?",
+      "BODY": "Load your last workout or start fresh.",
+      "CREATE_NEW": "Start Fresh",
+      "USE_LAST": "Load Last Log"
+    },
     "SAVE_BEFORE_LEAVING": {
     "TITLE": "Save before leaving?",
     "BODY": "Do you want to save your workout log before leaving?",

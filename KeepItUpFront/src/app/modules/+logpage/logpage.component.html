@@ -258,6 +258,13 @@
     (onCancel)="isConfirmationModalOpen = false"
   ></app-confirmation-modal>
 
+  <app-last-completed-log-modal
+  *ngIf="isLastLogModalOpen"
+  (onUseLast)="handleLastLogUse()"
+  (onCreateNew)="handleLastLogCreateNew()"
+  (onCancel)="handleLastLogCancel()"
+></app-last-completed-log-modal>
+
   <app-continue-or-reset-modal
     *ngIf="isContinueOrResetModalOpen"
     (onContinue)="handleModalResetResponse('continue')"

@@ -30,6 +30,7 @@ import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateModule } from '@ngx-translate/core';
+import { LastCompletedLogModalComponent } from "../../shared/components/last-completed-log-modal/last-completed-log-modal.component";
 
 @Component({
   selector: 'app-logpage',
@@ -45,7 +46,8 @@ import { TranslateModule } from '@ngx-translate/core';
     DeleteExerciseModalComponent,
     ExercisePickerModalComponent,
     TranslateModule,
-  ],
+    LastCompletedLogModalComponent
+],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
 })
@@ -271,12 +273,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
     this.workoutLogService.getLastCompletedWorkoutLog(this.userId, this.workoutId).subscribe({
       next: (lastCompletedLog) => {
         if (lastCompletedLog && lastCompletedLog.id) {
-          // If a last completed log is found, prefill the form with its data.
-          this.populateFormWithSavedData(lastCompletedLog);
-          // Then create a new workout log (with editing: true) based on this data.
-          this.createWorkoutLog();
+          // Store the last completed log and open the new modal.
+          this.lastCompletedLog = lastCompletedLog;
+          this.isLastLogModalOpen = true;
         } else {
-          // If no completed log is found, fall back to the default behavior.
+          // No completed log found; fall back to default.
           this.createAndLoadWorkoutLog();
         }
       },
@@ -285,6 +286,30 @@ export class LogpageComponent implements OnInit, OnDestroy {
         this.createAndLoadWorkoutLog();
       },
     });
+  }
+
+  // New handlers for the last completed log modal:
+  handleLastLogUse() {
+    // User wants to continue with the last completed log.
+    if (this.lastCompletedLog) {
+      this.populateFormWithSavedData(this.lastCompletedLog);
+      this.createWorkoutLog();
+    }
+    this.isLastLogModalOpen = false;
+    this.lastCompletedLog = null;
+  }
+
+  handleLastLogCreateNew() {
+    // User wants to start a new log.
+    this.createAndLoadWorkoutLog();
+    this.isLastLogModalOpen = false;
+    this.lastCompletedLog = null;
+  }
+
+  handleLastLogCancel() {
+    // Optionally, if the user cancels the modal, simply close it.
+    this.isLastLogModalOpen = false;
+    this.lastCompletedLog = null;
   }
   
 

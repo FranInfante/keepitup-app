@@ -226,6 +226,12 @@
         "SAVE": "Guardar"
       }
     },
+    "LAST_COMPLETED_LOG": {
+      "TITLE": "¿Cargar último registro?",
+      "BODY": "Carga tu último entrenamiento o crea uno nuevo.",
+      "CREATE_NEW": "Empezar de Cero",
+      "USE_LAST": "Cargar Último Registro"
+    },
     "SAVE_BEFORE_LEAVING": {
       "TITLE": "¿Guardar antes de salir?",
       "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
