@@ -18,6 +18,12 @@ export class ToastService {
 
   showToast(bodyKey: string, type: 'success' | 'danger' | 'info', extraText?: string, duration: number = 2000) {
 
+    if (this.toasts.length >= 3) {
+      // Remove the first toast (oldest)
+      this.toasts.shift();
+      this.toastState.next([...this.toasts]);
+    }
+
     const translatedBody = this.translate.instant(bodyKey);
     const fullMessage = extraText ? `${translatedBody} ${extraText}` : translatedBody; 
 
