@@ -29,8 +29,7 @@ import { ExercisePickerModalComponent } from '../+plan/components/exercise-picke
 import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageService } from '../../shared/service/language.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-logpage',
@@ -73,6 +72,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
   isConfirmationModalOpen: boolean = false;
   isContinueOrResetModalOpen: boolean = false;
 
+  lastCompletedLog: WorkoutLog | null = null;
+  isLastLogModalOpen: boolean = false;
+
   editingLog: WorkoutLog | null = null;
   isNotesModalOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
@@ -95,7 +97,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const planId = localStorage.getItem('activePlanId');
     if (planId) {
-      this.planId = parseInt(planId, 10); // Convierte a número si es necesario
+      this.planId = parseInt(planId, 10);
     } else {
       console.error('Plan ID is missing in localStorage');
     }
@@ -245,10 +247,14 @@ export class LogpageComponent implements OnInit, OnDestroy {
               if (editingLog) {
                 this.askUserToContinueOrReset(editingLog);
               } else {
-                this.createAndLoadWorkoutLog();
+                this.loadLastCompletedWorkoutLog();
+
+                // this.createAndLoadWorkoutLog();
               }
             } else {
-              this.createAndLoadWorkoutLog();
+              this.loadLastCompletedWorkoutLog();
+
+              // this.createAndLoadWorkoutLog();
             }
           },
           error: (err) => {
@@ -260,6 +266,27 @@ export class LogpageComponent implements OnInit, OnDestroy {
       this.router.navigate([LOCATIONS.plans]);
     }
   }
+
+  loadLastCompletedWorkoutLog() {
+    this.workoutLogService.getLastCompletedWorkoutLog(this.userId, this.workoutId).subscribe({
+      next: (lastCompletedLog) => {
+        if (lastCompletedLog && lastCompletedLog.id) {
+          // If a last completed log is found, prefill the form with its data.
+          this.populateFormWithSavedData(lastCompletedLog);
+          // Then create a new workout log (with editing: true) based on this data.
+          this.createWorkoutLog();
+        } else {
+          // If no completed log is found, fall back to the default behavior.
+          this.createAndLoadWorkoutLog();
+        }
+      },
+      error: (err) => {
+        console.error('Error loading last completed workout log:', err);
+        this.createAndLoadWorkoutLog();
+      },
+    });
+  }
+  
 
   askUserToContinueOrReset(editingLog: WorkoutLog) {
     this.editingLog = editingLog;
