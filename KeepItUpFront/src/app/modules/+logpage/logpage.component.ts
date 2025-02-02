@@ -147,10 +147,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   addExerciseToLog(workoutExercise: WorkoutExercise): void {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
-
-    // Add a temporary exercise to the form array with a placeholder id (null)
+  
     const newExerciseGroup = this.fb.group({
-      id: [null], // Placeholder id, to be updated after backend creation
+      id: [null],
       exerciseId: [workoutExercise.exerciseId],
       workoutLogId: [this.workoutLogId],
       name: [workoutExercise.exerciseName],
@@ -159,10 +158,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
       sets: this.fb.array([this.createSet()]), // Start with one empty set
       exerciseOrder: [exercisesArray.length + 1], // Add it at the end
     });
-
+  
     exercisesArray.push(newExerciseGroup);
-
-    // Call the backend to create the exercise
+  
     const newExercisePayload = {
       workoutLogId: this.workoutLogId,
       exerciseId: workoutExercise.exerciseId,
@@ -177,24 +175,19 @@ export class LogpageComponent implements OnInit, OnDestroy {
       ],
       exerciseOrder: exercisesArray.length, // Default order (last in array)
     };
-
+  
     this.workoutLogService.addWorkoutLogExercise(newExercisePayload).subscribe({
       next: (createdExercise) => {
-        // Update the form with the valid id returned by the backend
-        newExerciseGroup.patchValue({ id: createdExercise.id });
+        newExerciseGroup.patchValue({ id: createdExercise.id }); 
       },
       error: (error) => {
         console.error('Failed to create exercise:', error);
-        this.toastService.showToast(
-          TOAST_MSGS.failedtocreateexercise,
-          'danger'
-        );
-
-        // Remove the exercise from the form if creation fails
-        exercisesArray.removeAt(exercisesArray.length - 1);
+        this.toastService.showToast(TOAST_MSGS.failedtocreateexercise, 'danger');
+        exercisesArray.removeAt(exercisesArray.length - 1); 
       },
     });
   }
+  
 
   backToPlans() {
     this.isConfirmationModalOpen = true;
@@ -872,18 +865,20 @@ export class LogpageComponent implements OnInit, OnDestroy {
     const exerciseControl = this.exercises.at(index);
     this.selectedExercise = exerciseControl.get('name')?.value || 'Unknown';
     this.selectedExerciseIndex = index;
+  
     this.isDeleteModalOpen = true;
   }
+  
 
   handleConfirmDelete(): void {
     if (this.selectedExerciseIndex !== null) {
       const exerciseControl = this.exercises.at(this.selectedExerciseIndex);
       const exerciseId = exerciseControl.get('id')?.value;
-
+  
       if (exerciseId) {
         this.workoutLogService.deleteWorkoutLogExercise(exerciseId).subscribe({
           next: () => {
-            this.exercises.removeAt(this.selectedExerciseIndex!);
+            this.loadSavedWorkoutLog(); // Reload the updated log
             this.toastService.showToast(
               'Exercise deleted successfully',
               'success'
@@ -899,14 +894,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
             console.error('Error deleting exercise', error);
           },
         });
-      } else {
-        this.exercises.removeAt(this.selectedExerciseIndex!);
-        this.isDeleteModalOpen = false;
-        this.selectedExerciseIndex = null;
       }
     }
   }
-
   handleCancelDelete(): void {
     this.isDeleteModalOpen = false;
     this.selectedExerciseIndex = null;
