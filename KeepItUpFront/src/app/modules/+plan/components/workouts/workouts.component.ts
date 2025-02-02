@@ -138,19 +138,18 @@ export class WorkoutsComponent {
   addExerciseToWorkout(workoutExercise: WorkoutExercise): void {
     if (this.selectedWorkout && this.planId !== null) {
       this.planService
-        .addExerciseToWorkout(
-          this.planId,
-          this.selectedWorkout.id,
-          workoutExercise
-        )
+        .addExerciseToWorkout(this.planId, this.selectedWorkout.id, workoutExercise)
         .subscribe((updatedWorkout) => {
-          this.selectedWorkout!.workoutExercises =
-            updatedWorkout.workoutExercises;
+          // Ensure the exercise is added at the end
+          this.selectedWorkout!.workoutExercises = updatedWorkout.workoutExercises.sort(
+            (a, b) => a.exerciseOrder - b.exerciseOrder
+          );
           this.workoutsUpdated.emit(this.workouts);
           this.closeExercisePickerModal();
         });
     }
   }
+  
 
   showWorkoutDetails(workout: Workout): void {
     this.selectedWorkout = workout;
