@@ -232,16 +232,17 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   initializeWorkoutLog() {
     const workoutId = this.workoutDataService.getWorkoutId();
-
+  
     if (workoutId) {
       this.workoutId = workoutId;
-
+  
       this.fetchWorkoutName(workoutId);
-
+  
       this.workoutLogService
         .getWorkoutLogByUserIdAndIsEditing(this.userId, true)
         .subscribe({
           next: (editingLogs) => {
+  
             if (editingLogs && editingLogs.length > 0) {
               const editingLog = editingLogs.find(
                 (log: WorkoutLog) => log.editing === true
@@ -250,13 +251,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
                 this.askUserToContinueOrReset(editingLog);
               } else {
                 this.loadLastCompletedWorkoutLog();
-
-                // this.createAndLoadWorkoutLog();
               }
             } else {
               this.loadLastCompletedWorkoutLog();
-
-              // this.createAndLoadWorkoutLog();
             }
           },
           error: (err) => {
@@ -268,6 +265,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       this.router.navigate([LOCATIONS.plans]);
     }
   }
+  
 
   loadLastCompletedWorkoutLog() {
     this.workoutLogService.getLastCompletedWorkoutLog(this.userId, this.workoutId).subscribe({
@@ -416,35 +414,33 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   populateFormWithSavedData(savedWorkoutLog: WorkoutLog) {
-    const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
-    exercisesArray.clear();
+  const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
+  exercisesArray.clear();
 
-    if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      const groupedExercises = this.groupExercisesById(
-        savedWorkoutLog.exercises
-      );
+  if (savedWorkoutLog && savedWorkoutLog.exercises) {
+    const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
 
-      // Sort and assign default exerciseOrder if missing
-      groupedExercises
-        .sort((a, b) => a.exerciseOrder - b.exerciseOrder || 0) // Fallback to 0 if missing
-        .forEach((exercise, index) => {
-          const formGroup = this.fb.group({
-            id: [exercise.id],
-            exerciseId: [exercise.exerciseId],
-            workoutLogId: [exercise.workoutLogId],
-            name: [exercise.exerciseName],
-            notes: [exercise.notes || ''],
-            open: [false],
-            exerciseOrder: [exercise.exerciseOrder || index + 1], // Default to index + 1
-            sets: this.fb.array(
-              exercise.sets.map((set) => this.createSetWithValues(set))
-            ),
-          });
-
-          exercisesArray.push(formGroup);
+    groupedExercises
+      .sort((a, b) => (a.exerciseOrder || 0) - (b.exerciseOrder || 0)) 
+      .forEach((exercise, index) => {
+        const formGroup = this.fb.group({
+          id: [exercise.id],
+          exerciseId: [exercise.exerciseId],
+          workoutLogId: [exercise.workoutLogId],
+          name: [exercise.exerciseName],
+          notes: [exercise.notes || ''],
+          open: [false],
+          exerciseOrder: [exercise.exerciseOrder || index + 1], 
+          sets: this.fb.array(
+            exercise.sets.map((set) => this.createSetWithValues(set))
+          ),
         });
-    }
+
+        exercisesArray.push(formGroup);
+      });
   }
+}
+
 
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const grouped: { [key: number]: WorkoutLogExercise } = {};
@@ -620,14 +616,14 @@ export class LogpageComponent implements OnInit, OnDestroy {
     if (this.formChangesSubscription) {
       this.formChangesSubscription.unsubscribe();
     }
-
     setTimeout(() => {
       if (this.workoutLogForm.valid) {
         const exercisesArray = this.exercises.controls.map(
-          (exerciseControl) => ({
+          (exerciseControl, index) => ({
             id: exerciseControl.get('id')?.value,
             exerciseId: exerciseControl.get('exerciseId')?.value,
             workoutLogId: this.workoutLogId,
+            exerciseOrder: index + 1,
             sets: this.getSets(exerciseControl).controls.map(
               (setControl, setIndex) => ({
                 set: setIndex + 1,
@@ -637,30 +633,25 @@ export class LogpageComponent implements OnInit, OnDestroy {
             ),
           })
         );
-
+  
         const workoutLogData = {
           userId: this.userId,
           workoutId: this.workoutId,
           date: new Date().toISOString(),
           exercises: exercisesArray,
-          editing: false, // Set editing to false since the log is being submitted
+          editing: false,
         };
-
+  
+  
         this.workoutLogService
           .updateWorkoutLog(this.workoutLogId, workoutLogData)
           .subscribe({
             next: () => {
-              this.toastService.showToast(
-                TOAST_MSGS.workoutdeletedsaved,
-                'success'
-              );
+              this.toastService.showToast(TOAST_MSGS.workoutdeletedsaved, 'success');
               this.router.navigate(['/log-registry']);
             },
             error: (error) => {
-              this.toastService.showToast(
-                TOAST_MSGS.errorcreatingworkout,
-                'danger'
-              );
+              this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
             },
           });
       } else {
