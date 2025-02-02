@@ -1,10 +1,22 @@
 package com.example.keepitup.service.impl;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.example.keepitup.model.dtos.ExerciseDTO;
 import com.example.keepitup.model.dtos.WorkoutLogDTO;
 import com.example.keepitup.model.dtos.WorkoutLogExerciseDTO;
-import com.example.keepitup.model.entities.*;
+import com.example.keepitup.model.entities.Exercise;
+import com.example.keepitup.model.entities.Users;
+import com.example.keepitup.model.entities.WorkoutLog;
+import com.example.keepitup.model.entities.WorkoutLogExercise;
+import com.example.keepitup.model.entities.Workouts;
 import com.example.keepitup.repository.ExerciseRepository;
 import com.example.keepitup.repository.UsersRepository;
 import com.example.keepitup.repository.WorkoutLogRepository;
@@ -13,15 +25,9 @@ import com.example.keepitup.service.WorkoutLogService;
 import com.example.keepitup.util.mappers.ExerciseMapper;
 import com.example.keepitup.util.mappers.WorkoutLogMapper;
 import com.example.keepitup.util.msgs.MessageConstants;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -69,12 +75,20 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                             .exercise(exercise)
                             .workoutLog(workoutLog)
                             .exerciseOrder(exerciseDTO.getExerciseOrder())
-                            .set(setDTO.getSet())  // Each set has set, reps, and weight
+                            .set(setDTO.getSet())
                             .reps(setDTO.getReps())
                             .weight(setDTO.getWeight())
                             .build();
                 }))
                 .collect(Collectors.toList());
+
+        Map<Integer, Integer> exerciseOrderMap = workoutLogDTO.getExercises().stream()
+                .collect(Collectors.toMap(WorkoutLogExerciseDTO::getExerciseId, WorkoutLogExerciseDTO::getExerciseOrder));
+
+        exercises.forEach(exercise -> {
+            Integer order = exerciseOrderMap.get(exercise.getExercise().getId());
+            exercise.setExerciseOrder(order); // Set the consistent exerciseOrder
+        });
 
         // Set exercises to the workout log
         workoutLog.setExercises(exercises);
@@ -145,6 +159,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                         // Update the existing set
                         existingSet.setReps(setDTO.getReps());
                         existingSet.setWeight(setDTO.getWeight());
+                        existingSet.setExerciseOrder(exerciseDTO.getExerciseOrder()); // Ensure order consistency
                         return existingSet;
                     } else {
                         // Create a new set if no existing one matches
@@ -155,6 +170,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                                 .set(setDTO.getSet())
                                 .reps(setDTO.getReps())
                                 .weight(setDTO.getWeight())
+                                .exerciseOrder(exerciseDTO.getExerciseOrder()) // Ensure order consistency
                                 .build();
                     }
                 }))
