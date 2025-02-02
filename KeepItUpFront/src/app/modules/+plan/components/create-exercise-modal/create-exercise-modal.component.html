@@ -1,0 +1,96 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+  (click)="closeCreateExercise()"
+>
+  <div
+    class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg max-w-md w-full p-6 relative mx-4"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center mb-4 border-b border-gray-300 dark:border-gray-700">
+      <h3 class="text-lg font-semibold">    {{ "CREATE_EXERCISE_MODAL.TITLE" | translate }}
+      </h3>
+    </div>
+
+    <!-- Modal Body -->
+    <form [formGroup]="newExerciseForm" (ngSubmit)="onCreateNewExercise()">
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">      {{ "CREATE_EXERCISE_MODAL.NAME_LABEL" | translate }}
+        </label>
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-md px-3 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [placeholder]="'CREATE_EXERCISE_MODAL.PLACEHOLDER_NAME' | translate"
+          maxlength="40"
+        />
+        <div
+          *ngIf="
+            newExerciseForm.get('name')?.touched &&
+            newExerciseForm.get('name')?.invalid
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+        {{ "CREATE_EXERCISE_MODAL.NAME_REQUIRED" | translate }}
+
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">      {{ "CREATE_EXERCISE_MODAL.DESCRIPTION_LABEL" | translate }}
+        </label>
+        <textarea
+          formControlName="description"
+          class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-md px-3 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [placeholder]="'CREATE_EXERCISE_MODAL.PLACEHOLDER_DESCRIPTION' | translate"
+        ></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">      {{ "CREATE_EXERCISE_MODAL.MUSCLE_GROUP_LABEL" | translate }}
+        </label>
+        <select
+          formControlName="muscleGroup"
+          class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-md px-3 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onfocus='this.size=3;' onblur='this.size=1;' onchange='this.size=1; this.blur();'
+          required
+        >
+          <option
+            *ngFor="let group of muscleGroups"
+            [value]="group.id"
+            class="bg-gray-200 dark:bg-gray-800"
+          >
+            {{ group.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            newExerciseForm.get('muscleGroup')?.touched &&
+            newExerciseForm.get('muscleGroup')?.invalid
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+        {{ "CREATE_EXERCISE_MODAL.MUSCLE_GROUP_REQUIRED" | translate }}
+      </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex justify-end space-x-4">
+        <button
+          type="button"
+          class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600"
+          (click)="closeCreateExercise()"
+        >
+        {{ "CREATE_EXERCISE_MODAL.CANCEL" | translate }}
+
+        </button>
+        <button
+          type="submit"
+          class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-500"
+        >
+        {{ "CREATE_EXERCISE_MODAL.CREATE" | translate }}
+      </button>
+      </div>
+    </form>
+  </div>
+</div>

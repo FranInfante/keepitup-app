@@ -1,0 +1,32 @@
+
+
+
+
+.no-plans-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0px 1rem; 
+    padding-bottom: 25%;
+  }
+
+@media (max-width: 250px) {
+    h3 {
+        font-size: 1.25rem;
+        margin-top: 3rem;
+    }
+
+    .navbar-text {
+        font-size: 1rem;
+    }
+
+    .tab-content {
+        padding-top: 2.5rem;
+    }
+
+    .fixed-bottom-container {
+        padding-bottom: 2rem;
+    }
+}
+

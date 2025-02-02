@@ -1,0 +1,290 @@
+<app-back-to-menu (click)="backToPlans()"></app-back-to-menu>
+<div
+  class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 flex flex-col"
+>
+  <h3
+    class="text-center text-xl font-extrabold text-gray-800 dark:text-gray-100 py-6 mx-11"
+  >
+  {{ "WORKOUT_LOG.TITLE" | translate: { workoutName: workoutName } }}
+</h3>
+
+  <form
+    [formGroup]="workoutLogForm"
+    (ngSubmit)="submitWorkoutLog()"
+    class="space-y-8"
+  >
+    <div
+      formArrayName="exercises"
+      cdkDropList
+      (cdkDropListDropped)="dropExercise($event)"
+      class="space-y-6 flex flex-col items-center"
+    >
+      <div
+        *ngFor="let exercise of exercises.controls; let i = index"
+        [formGroupName]="i"
+        class="bg-white dark:bg-gray-900 rounded-lg shadow-md p-2 w-[95%]"
+        cdkDrag
+      >
+        <!-- Exercise Dropdown -->
+        <div
+          class="exercise-dropdown relative mb-4 flex items-center justify-between"
+        >
+          <div cdkDragHandle>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-grip-vertical"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            </svg>
+          </div>
+          <ng-container *cdkDragPlaceholder>
+            <div class="invisible h-12"></div>
+          </ng-container>
+
+          <!-- Exercise Name -->
+          <button
+            class="text-center flex-1 text-black dark:text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 hover:dark:bg-gray-500 transition"
+            type="button"
+            (click)="toggleDropdown(i)"
+          >
+            {{ exercise.get("name")?.value }}
+          </button>
+
+          <!-- Delete Button -->
+          <button
+            type="button"
+            class="ml-2 bg-transparent text-red-600 hover:text-red-800 transition"
+            (click)="deleteWorkoutLogExercise(i)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <span class="sr-only">{{ "WORKOUT_LOG.DELETE_EXERCISE_CONFIRMATION.TITLE" | translate }}</span>
+          </button>
+        </div>
+
+        <!-- Exercise Details -->
+        <div
+          [ngClass]="{
+            hidden: !exercise.get('open')?.value,
+            block: exercise.get('open')?.value
+          }"
+          class="space-y-6"
+        >
+          <div formArrayName="sets" class="space-y-4">
+            <!-- Set Loop -->
+            <div
+              *ngFor="let set of getSets(exercise).controls; let j = index"
+              [formGroupName]="j"
+              class="flex items-center gap-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow"
+            >
+              <span class="font-medium text-gray-800 dark:text-gray-100">
+                Set {{ j + 1 }}
+              </span>
+              <!-- Reps Input -->
+              <div class="flex-1">
+                <label
+                  for="reps-{{ i }}-{{ j }}"
+                  class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                {{ "WORKOUT_LOG.REPS" | translate }}:
+              </label>
+                <input
+                  type="number"
+                  formControlName="reps"
+                  class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-gray-100 border rounded-lg remove-arrow"
+                  [id]="'reps-' + i + '-' + j"
+                  (focus)="clearDefaultValue(i, j, 'reps')"
+                  (blur)="resetToZero(i, j, 'reps')"
+                  (input)="triggerWorkoutLogUpdate(i, j)"
+                />
+              </div>
+
+              <!-- Weight Input -->
+              <div class="flex-1">
+                <label
+                  for="weight-{{ i }}-{{ j }}"
+                  class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                {{ "WORKOUT_LOG.WEIGHT" | translate }}:
+              </label>
+                <div class="relative">
+                  <input
+                    type="number"
+                    formControlName="weight"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-gray-100 border rounded-lg remove-arrow"
+                    [id]="'weight-' + i + '-' + j"
+                    (focus)="clearDefaultValue(i, j, 'weight')"
+                    (blur)="resetToZero(i, j, 'weight')"
+                    (input)="triggerWorkoutLogUpdate(i, j)"
+                  />
+                  <span
+                    class="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-400 text-sm"
+                  >
+                  {{ "WORKOUT_LOG.KG" | translate }}
+                </span>
+                </div>
+              </div>
+              <!-- Delete Button -->
+              <button
+                type="button"
+                class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition"
+                (click)="deleteSet(i, j)"
+              >
+                <img [src]="DeleteIcon" alt="Delete Icon" class="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Add Set & Notes Buttons -->
+          <div class="flex justify-between items-center">
+            <button
+              type="button"
+              class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition cursor-pointer"
+              (click)="addSet(i)"
+            >
+            {{ "WORKOUT_LOG.ADD_SET" | translate }}
+          </button>
+            <button
+              type="button"
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              (click)="setSelectedExercise(i); toggleNotesModal()"
+            >
+            {{ "WORKOUT_LOG.NOTES" | translate }}
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons Container -->
+    <div class="flex justify-center gap-4 pb-6">
+      <!-- Add Exercise Button -->
+      <button
+        type="button"
+        class="bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-500"
+        (click)="toggleExercisePickerModal(true)"
+      >
+      {{ "WORKOUT_LOG.ADD_EXERCISE" | translate }}
+    </button>
+
+      <!-- Submit Log Button -->
+      <button
+        type="button"
+        class="bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-indigo-500 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+        [disabled]="!workoutLogForm.valid || !hasSets()"
+        (click)="handleSubmitClick()"
+      >
+      {{ "WORKOUT_LOG.SUBMIT_LOG" | translate }}
+    </button>
+    </div>
+  </form>
+
+  <!-- Notes Modal -->
+  <div
+    *ngIf="isNotesModalOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    (click)="toggleNotesModal()"
+
+    
+  >
+    <div
+      class="mx-4 h-[50vh] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-lg w-full"    (click)="$event.stopPropagation()"
+
+    >
+      <div class="flex justify-between items-center mb-4">
+        <h5 class="text-lg font-bold">{{ "WORKOUT_LOG.NOTES" | translate }}</h5>
+        <button
+          class="text-gray-400 hover:text-gray-300 transition"
+          (click)="toggleNotesModal()"
+        >
+          ✖
+        </button>
+      </div>
+      <form
+        *ngIf="selectedExerciseIndex !== null"
+        [formGroup]="getExerciseFormGroup(selectedExerciseIndex)"
+      >
+        <textarea
+          rows="6"
+          maxlength="200"
+          [placeholder]="'WORKOUT_LOG.PLACEHOLDER' | translate"
+          formControlName="notes"
+          class="w-full rows-30 px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border rounded-lg resize-none"
+        ></textarea>
+      </form>
+      <div class="flex justify-end gap-4 mt-4">
+        <button
+          type="button"
+          class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
+          (click)="saveExerciseNotes(); toggleNotesModal()"
+        >
+        {{ "WORKOUT_LOG.SAVE_NOTES" | translate }}
+      </button>
+      </div>
+    </div>
+  </div>
+
+  <app-confirmation-modal
+    *ngIf="isConfirmationModalOpen"
+    (onSave)="handleModalConfirmResponse('save')"
+    (onDiscard)="handleModalConfirmResponse('discard')"
+    (onCancel)="isConfirmationModalOpen = false"
+  ></app-confirmation-modal>
+
+  <app-last-completed-log-modal
+  *ngIf="isLastLogModalOpen"
+  (onUseLast)="handleLastLogUse()"
+  (onCreateNew)="handleLastLogCreateNew()"
+  (onCancel)="handleLastLogCancel()"
+></app-last-completed-log-modal>
+
+  <app-continue-or-reset-modal
+    *ngIf="isContinueOrResetModalOpen"
+    (onContinue)="handleModalResetResponse('continue')"
+    (onReset)="handleModalResetResponse('reset')"
+    (onCancel)="isContinueOrResetModalOpen = false"
+  ></app-continue-or-reset-modal>
+
+  <app-delete-exercise-modal
+    *ngIf="isDeleteModalOpen"
+    [exerciseName]="selectedExercise"
+    (confirmDelete)="handleConfirmDelete()"
+    (cancelDelete)="handleCancelDelete()"
+  ></app-delete-exercise-modal>
+  <app-exercise-picker-modal
+    *ngIf="isExercisePickerModalOpen"
+    [planId]="planId"
+    [isExercisePickerModalOpen]="isExercisePickerModalOpen"
+    (closeModal)="toggleExercisePickerModal(false)"
+    [workoutId]="workoutId"
+    [currentExercises]="getCurrentExercises()"
+    (exerciseSelected)="addExerciseToLog($event)"
+  ></app-exercise-picker-modal>
+</div>

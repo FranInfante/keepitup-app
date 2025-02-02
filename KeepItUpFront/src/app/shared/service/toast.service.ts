@@ -16,31 +16,38 @@ export class ToastService {
   constructor(private translate: TranslateService) {}
 
 
-  showToast(bodyKey: string, type: 'success' | 'danger' | 'info', duration: number = 3000) {
+  showToast(bodyKey: string, type: 'success' | 'danger' | 'info', extraText?: string, duration: number = 2000) {
+
+    if (this.toasts.length >= 3) {
+      // Remove the first toast (oldest)
+      this.toasts.shift();
+      this.toastState.next([...this.toasts]);
+    }
 
     const translatedBody = this.translate.instant(bodyKey);
+    const fullMessage = extraText ? `${translatedBody} ${extraText}` : translatedBody; 
+
 
     const newToast: Toast = {
       id: this.toastId++,
-      show: false, // Start with `false` for initial state
-      body: translatedBody,
+      show: false, 
+      body: fullMessage,
       type,
     };
     this.toasts.push(newToast);
     this.toastState.next([...this.toasts]);
   
-    // Delay setting `show` to true for the enter transition
+   
     setTimeout(() => {
       newToast.show = true;
       this.toastState.next([...this.toasts]);
-    }, 10); // Slight delay to ensure the initial state is applied
+    }, 10); 
   
-    // Fade out and remove after duration
     setTimeout(() => {
-      newToast.show = false; // Trigger exit transition
+      newToast.show = false; 
       this.toastState.next([...this.toasts]);
   
-      setTimeout(() => this.removeToast(newToast.id), 300); // Match CSS duration
+      setTimeout(() => this.removeToast(newToast.id), 300); 
     }, duration);
   }
 

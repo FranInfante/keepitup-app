@@ -1,0 +1,266 @@
+<!-- Workout Details Modal -->
+<div
+  *ngIf="selectedWorkout"
+  class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10 flex items-center justify-center"
+  (click)="closeWorkoutDetails()"
+>
+  <div
+    class="bg-gray-100 dark:bg-gray-800 mx-8 rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+    (click)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute text-2xl top-2 right-2 text-gray-400 hover:text-gray-600"
+      (click)="closeWorkoutDetails()"
+    >
+      &times;
+    </button>
+    <div class="text-center mb-12">
+      <h4
+        class="text-lg font-bold mb-4 text-gray-700 dark:text-gray-300"
+        contenteditable="true"
+        (blur)="updateWorkoutName()"
+        (keydown)="onKeyDown($event, 'workout')"
+      >
+        {{ selectedWorkout.name }}
+      </h4>
+
+      <div
+        *ngIf="selectedWorkout.workoutExercises.length > 0; else noExercises"
+      >
+        <ul
+          class="list-none h-[calc(100vh-280px)] overflow-y-auto list-without-scrollbar"
+          cdkDropList
+          (cdkDropListDropped)="dropExercise($event)"
+        >
+          <li
+            *ngFor="let exercise of selectedWorkout.workoutExercises"
+            class="flex justify-between items-center mb-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-600 dark:border-gray-500 p-3 rounded-md"
+            cdkDrag
+          >
+            <div cdkDragHandle>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-grip-vertical"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              </svg>
+            </div>
+
+            <ng-container *cdkDragPlaceholder>
+              <div class="invisible h-12"></div>
+            </ng-container>
+            <span>{{ exercise.exerciseName }}</span>
+            <button
+              class="text-red-500 hover:text-red-500 text-2xl"
+              (click)="deleteExercise(exercise.id!)"
+            >
+              &times;
+            </button>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noExercises>
+        <p class="text-center text-gray-400">{{ "WORKOUTS.DETAILS_MODAL.NO_EXERCISES" | translate }}</p>
+      </ng-template>
+      <div class="add-exercise-container"></div>
+    </div>
+    <div
+      class="absolute bottom-3 left-4 right-3 flex justify-between items-center"
+    >
+      <button
+        class="btn btn-primary btn-lg left-0"
+        type="button"
+        (click)="toggleExercisePickerModal(true)"
+      >
+        <!-- <img class="h-8" [src]="PlusSignIcon" alt="PlusSignIcon" /> -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          [attr.fill]="isDarkMode ? 'white' : 'black'"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+          />
+        </svg>
+      </button>
+      <button
+        (click)="goToLogPage()"
+        class="btn btn-success btn-lg right-0 bg-blue-500 px-4 py-2 rounded-lg font-medium text-white hover:bg-blue-600"
+        type="button"
+      >
+      {{ "WORKOUTS.DETAILS_MODAL.BEGIN_BUTTON" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Workouts List -->
+<div
+  [ngClass]="{ 'content-to-blur': selectedWorkout }"
+  class="items-center justify-center w-full"
+>
+  <div class="flex flex-col items-center gap-4">
+    <div class="row mt-3">
+      <ng-container *ngIf="workouts && workouts.length > 0; else noWorkouts">
+        <div
+          cdkDropList
+          cdkDropListOrientation="vertical"
+          class="flex flex-col items-center gap-4 p-4  rounded-md box-border mb-3 list-without-scrollbar"
+          [ngClass]="{
+            'max-h-[75vh] overflow-y-auto': !isEditing,
+            'max-h-[60vh] overflow-y-auto': isEditing
+          }"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div
+            *ngFor="let workout of workouts; let i = index"
+            class="p-5 border border-gray-800 dark:border-gray-300 rounded-md relative flex flex-col cursor-pointer items-center justify-center text-black dark:text-white text-center h-20 w-60 "
+            (click)="showWorkoutDetails(workout)"
+            [cdkDragData]="workout"
+            cdkDrag
+            [cdkDragDisabled]="!isEditing"
+            [ngClass]="
+              isEditing ? 'bg-gray-400' : 'bg-gray-300 dark:bg-gray-800'
+            "
+          >
+            <ng-container *cdkDragPlaceholder>
+              <div class="invisible">Placeholder</div>
+            </ng-container>
+            <button
+              *ngIf="isEditing"
+              class="absolute text-4xl top-0 right-2 text-red-500 hover:text-red-700"
+              (click)="
+                markWorkoutForDeletion(workout); $event.stopPropagation()
+              "
+            >
+              &times;
+            </button>
+            <h5 class="text-sm">{{ workout.name }}</h5>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="flex justify-center w-full">
+        <button
+          *ngIf="isEditing"
+          class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-transform duration-200"
+          (click)="saveReorderedWorkouts()"
+        >
+        {{ "WORKOUTS.LIST.SAVE_CHANGES" | translate }}
+        </button>
+      </div>
+
+      <div
+        class="flex justify-center items-center bg-blue-600 hover:bg-blue-700 w-12 h-12 rounded-xl cursor-pointer fixed bottom-16 right-3 shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out border border-gray-300"
+        (click)="openCreateWorkoutModal()"
+      >
+        <img
+          [src]="PlusSignIcon"
+          alt="PlusSignIcon"
+          class="w-6 h-6"
+          title="Create Workout"
+        />
+      </div>
+
+      <ng-template #noWorkouts>
+        <div>
+          <p class="text-center px-3 text-black dark:text-white">
+            {{ "WORKOUTS.LIST.NO_WORKOUTS" | translate }}
+          </p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Workout Creation Modal -->
+<div
+  *ngIf="isModalOpen"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+  (click)="closeModal()"
+>
+  <div
+    class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg w-full p-6 mx-4 relative"
+    (click)="$event.stopPropagation()"
+  >
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+      {{ "WORKOUTS.CREATE_MODAL.TITLE" | translate }}
+    </h3>
+    <form [formGroup]="workoutForm" (ngSubmit)="createWorkout()">
+      <!-- Workout Name Input -->
+      <div class="mb-4">
+        <label
+          for="workout-name"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+        {{ "WORKOUTS.CREATE_MODAL.WORKOUT_NAME_LABEL" | translate }}
+        </label>
+        <input
+          type="text"
+          id="workout-name"
+          formControlName="workoutName"
+          class="w-full px-4 py-2 text-sm text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          maxlength="20"
+          required
+        />
+        <div
+          *ngIf="
+            workoutForm.get('workoutName')?.invalid &&
+            workoutForm.get('workoutName')?.touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="workoutForm.get('workoutName')?.errors?.['required']">
+            {{ "WORKOUTS.CREATE_MODAL.NAME_REQUIRED" | translate }}
+          </div>
+          <div *ngIf="workoutForm.get('workoutName')?.errors?.['maxlength']">
+            {{ "WORKOUTS.CREATE_MODAL.NAME_MAXLENGTH" | translate }}
+          </div>
+        </div>
+      </div>
+      <!-- Buttons -->
+      <div class="flex justify-end space-x-4">
+        <button
+          type="button"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          (click)="closeModal()"
+        >
+        {{ "WORKOUTS.CREATE_MODAL.CLOSE" | translate }}
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+          [disabled]="workoutForm.invalid"
+        >
+        {{ "WORKOUTS.CREATE_MODAL.CREATE" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-exercise-picker-modal
+  *ngIf="isExercisePickerModalOpen"
+  [isExercisePickerModalOpen]="isExercisePickerModalOpen"
+  (closeModal)="closeExercisePickerModal()"
+  [planId]="planId"
+  [workoutId]="selectedWorkout!.id"
+  [currentExercises]="selectedWorkout?.workoutExercises || []"
+  (exerciseSelected)="addExerciseToWorkout($event)"
+></app-exercise-picker-modal>
