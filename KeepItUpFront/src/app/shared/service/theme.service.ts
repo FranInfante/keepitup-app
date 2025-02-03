@@ -19,7 +19,6 @@ export class ThemeService {
             next: (userInfo) => {
               const theme = userInfo?.theme || 'dark';
               this.applyTheme(theme);
-              // Optionally update local storage if needed
               localStorage.setItem('themeUser', theme);
               this._themeLoaded.next(true);
             },
@@ -30,7 +29,6 @@ export class ThemeService {
             },
           });
         } else {
-          // Fallback for non-authenticated users if necessary
           const localStorageTheme = localStorage.getItem('themeUser') || 'dark';
           this.applyTheme(localStorageTheme);
           this._themeLoaded.next(true);
