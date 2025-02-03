@@ -1,0 +1,41 @@
+<div
+  class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
+  (click)="cancel()"
+>
+  <div
+    class="bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-6 w-[90%] max-w-sm"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div class="modal-header border-b border-gray-600 text-black dark:text-white mb-4">
+      <h5 class="text-lg font-bold text-center">
+        {{ "MODAL.LAST_COMPLETED_LOG.TITLE" | translate }}
+      </h5>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body text-center">
+      <p class="text-base text-black dark:text-white mb-6">
+        {{ "MODAL.LAST_COMPLETED_LOG.BODY" | translate }}
+      </p>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer flex justify-center space-x-4">
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition focus:outline-none focus:ring focus:ring-gray-400"
+        (click)="createNew()"
+      >
+        {{ "MODAL.LAST_COMPLETED_LOG.CREATE_NEW" | translate }}
+      </button>
+      <button
+        type="button"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition focus:outline-none focus:ring focus:ring-blue-300"
+        (click)="useLast()"
+      >
+        {{ "MODAL.LAST_COMPLETED_LOG.USE_LAST" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

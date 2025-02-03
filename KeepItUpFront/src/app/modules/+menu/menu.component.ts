@@ -35,8 +35,7 @@ export class MenuComponent {
 
   ngOnInit(): void {
     this.loadingService.setLoading(true);
-    
-    this.themeService.initializeTheme();
+    this.themeService.initializeUserTheme();
     this.languageService.setUserLanguage();
 
     combineLatest([
@@ -55,8 +54,8 @@ export class MenuComponent {
     this.router.navigate([LOCATIONS.weighins]);
   }
 
-  navigateToWorkouts() {
-    this.router.navigate([LOCATIONS.workouts]);
+  navigateToPlans() {
+    this.router.navigate([LOCATIONS.plans]);
   }
 
   logout() {

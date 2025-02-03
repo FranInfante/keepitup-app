@@ -1,0 +1,72 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center"
+  (click)="closeExercisePickerModal()"
+>
+  <div
+    class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg max-w-lg w-full p-6 relative m-5"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Modal Header -->
+    <div
+      class="modal-header flex justify-between items-center mb-4 border-b border-gray-300 dark:border-gray-700"
+    >
+      <h5 class="text-lg font-semibold">
+        {{ "EXERCISE_PICKER_MODAL.TITLE" | translate }}
+      </h5>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <input
+        type="text"
+        class="bg-gray-30000 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 w-full mb-4"
+        [placeholder]="'EXERCISE_PICKER_MODAL.PLACEHOLDER_EXERCISE' | translate"
+        [formControl]="searchControl"
+        (keydown.enter)="onEnter()"
+      />
+      <ul class="max-h-60 overflow-y-auto">
+        <li
+          *ngFor="let exercise of filteredExercises"
+          class="flex items-center justify-between bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2 px-4 mx-2 mb-2 rounded-md hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 transition"
+          (click)="selectExercise(exercise)"
+        >
+          <span class="flex-1 text-center">{{ exercise.name }}</span>
+          <button
+            class="text-red-500 hover:text-red-700 text-lg ml-4"
+            (click)="deleteExercise(exercise.id); $event.stopPropagation()"
+          >
+            &times;
+          </button>
+        </li>
+      </ul>
+      <div *ngIf="noExercisesFound" class="text-center mt-4">
+        <button
+          class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+          (click)="openCreateExerciseModal()"
+        >
+          {{ "EXERCISE_PICKER_MODAL.CREATE_NEW_EXERCISE" | translate }}
+        </button>
+      </div>
+      <app-create-exercise-modal
+        *ngIf="isCreateExerciseModalOpen"
+        [planId]="planId"
+        [workoutId]="workoutId"
+        (closeModal)="closeCreateExerciseModal()"
+        (exerciseCreated)="handleCreatedExercise($event)"
+        [defaultExerciseName]="searchControl.value"
+      ></app-create-exercise-modal>
+    </div>
+
+    <!-- Modal Footer -->
+    <div
+      class="modal-footer flex justify-end mt-4 pt-4 border-gray-300 dark:border-gray-700"
+    >
+      <button
+        class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+        (click)="closeExercisePickerModal()"
+      >
+        {{ "EXERCISE_PICKER_MODAL.CANCEL" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verify-code-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [TranslateModule,CommonModule, ReactiveFormsModule],
   templateUrl: './verify-code-modal.component.html',
-  styleUrl: './verify-code-modal.component.css'
+  styleUrl: './verify-code-modal.component.css',
 })
 export class VerifyCodeModalComponent {
   @Input() email!: string;
@@ -18,7 +24,10 @@ export class VerifyCodeModalComponent {
   errorMessage: string = '';
   isOpen: boolean = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {
     this.verifyForm = this.fb.group({
       code: ['', [Validators.required, Validators.minLength(4)]],
     });
@@ -29,7 +38,7 @@ export class VerifyCodeModalComponent {
       const { code } = this.verifyForm.value;
       this.userService.verifyCode({ email: this.email, code }).subscribe({
         next: () => {
-          this.codeVerified.emit(); 
+          this.codeVerified.emit();
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 401) {

@@ -22,7 +22,7 @@ RUN npm run build -- --configuration production --project keep-it-up-frontend
 FROM nginx:alpine
 
 # Copy built Angular files from the build stage
-COPY --from=build /app/dist/keep-it-up-frontend/browser /usr/share/nginx/html
+COPY --from=build /usr/share/nginx/html/keep-it-up-frontend /usr/share/nginx/html
 # Copy the NGINX configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 

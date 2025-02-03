@@ -1,9 +1,11 @@
 package com.example.keepitup.controller.impl;
 
 import com.example.keepitup.controller.WorkoutsApi;
+import com.example.keepitup.model.dtos.UpdateWorkoutNameDTO;
 import com.example.keepitup.model.dtos.WorkoutsDTO;
 import com.example.keepitup.service.WorkoutsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +38,24 @@ public class WorkoutsController implements WorkoutsApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteWorkout(Integer id) {
-        workoutsService.deleteWeighIn(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> deleteWorkoutById(Integer id) {
+        workoutsService.deleteWorkout(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<WorkoutsDTO> updateWorkoutName(Integer id, UpdateWorkoutNameDTO updateWorkoutNameDTO) {
+        try {
+            WorkoutsDTO updatedWorkout = workoutsService.updateWorkoutName(id, updateWorkoutNameDTO.getName());
+            return ResponseEntity.ok(updatedWorkout);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @Override
+    public ResponseEntity<WorkoutsDTO> getWorkoutById(Integer id) {
+        WorkoutsDTO workout = workoutsService.getWorkoutById(id);
+        return ResponseEntity.ok(workout);
     }
 }
