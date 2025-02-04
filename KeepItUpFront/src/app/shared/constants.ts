@@ -7,6 +7,8 @@ export const LOCATIONS = {
   workouts: '/workouts',
   plans: '/plans',
   logregistry: '/log-registry',
+  forgotPassword: '/forgot-password',
+  resetPassword: '/reset-password',
 };
 
 export const MSG = {
@@ -37,7 +39,6 @@ export const TOAST_MSGS = {
   notessavedsuccessfully: 'TOAST_MSGS.NOTES_SAVED_SUCCESSFULLY',
   errorcreatingworkout: 'TOAST_MSGS.ERROR_CREATED',
   cantdeleteallsets: 'TOAST_MSGS.CANT_DELETE_ALL_SETS',
-
   failedtodeleteexercise: 'TOAST_MSGS.FAILED_TO_DELETE_EXERCISE',
   errorcreatingexercise: 'TOAST_MSGS.ERROR_CREATING_EXERCISE',
   exercisealreadyexists: 'TOAST_MSGS.EXERCISEALREADYEXISTS',
@@ -48,6 +49,11 @@ export const TOAST_MSGS = {
   pleasefillallfields:'TOAST_MSGS.PLEASE_FILL_ALL_FIELDS',
   exercise_deleted_successfully:'TOAST_MSGS.EXERCISE_DELETED_SUCCESSFULLY',
   failed_to_delete_exercise:'TOAST_MSGS.FAILED_TO_DELETE_EXERCISE',
+
+  successfulresetpassword: 'TOAST_MSGS.SUCCESSFUL_RESETPASSWORD',
+  failedreseting: 'TOAST_MSGS.FAILED_RESETING',
+  successcheckyouremail: 'TOAST_MSGS.SUCCESS_CHECK_YOUR_EMAIL',
+  failedresetlink: 'TOAST_MSGS.FAILED_RESET_LINK',
 };
 
 export const ASSET_URLS = {

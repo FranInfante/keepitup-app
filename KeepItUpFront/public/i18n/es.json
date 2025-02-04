@@ -54,7 +54,8 @@
     "PASSWORD_REQUIRED": "Se requiere contraseña.",
     "BUTTON": "Iniciar sesión",
     "NO_ACCOUNT": "¿No tienes una cuenta?",
-    "REGISTER": "Regístrate"
+    "REGISTER": "Regístrate",
+    "FORGOT_PASSWORD": "¿Has olvidado tu contraseña?"
   },
   "MSG": {
     "FAILED_CREDENTIALS": "Correo electrónico o contraseña inválidos. Por favor, inténtalo de nuevo.",
@@ -91,7 +92,12 @@
     "REORDERING_SAVED": "Reordenamiento guardado con éxito!",
     "FAILEDTOSAVEREORDERING": "Error al guardar el orden",
     "EXERCISECREATED_": "Ejercicio creado: ",
-    "PLEASE_FILL_ALL_FIELDS": "Por favor, completa todos los campos de la serie anterior."
+    "PLEASE_FILL_ALL_FIELDS": "Por favor, completa todos los campos de la serie anterior.",
+
+    "SUCCESSFUL_RESETPASSWORD": "Contraseña restablecida con éxito. Por favor, inicia sesión.",
+    "FAILED_RESETING": "Error al restablecer la contraseña. Por favor, inténtalo más tarde.",
+    "SUCCESS_CHECK_YOUR_EMAIL": "Exito! Revisa tu email para recuperar tu contraseña.",
+    "FAILED_RESET_LINK": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo más tarde."
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
@@ -321,5 +327,24 @@
     "CLOSE": "Cerrar",
     "NO_NOTES": "No hay notas disponibles para este ejercicio.",
     "PLACEHOLDER": "Introduce tus notas aquí..."
+  },
+
+  "FORGOT_PASSWORD": {
+    "EMAIL": "Correo electrónico",
+    "EMAIL_REQUIRED": "El correo electrónico es obligatorio.",
+    "INVALID_EMAIL": "Por favor, ingresa un correo electrónico válido.",
+    "BUTTON": "Enviar enlace de restablecimiento",
+    "BACK_TO_LOGIN": "Volver al inicio de sesión",
+    "SUCCESS_MESSAGE": "¡Enlace de restablecimiento de contraseña enviado con éxito!",
+    "ERROR_MESSAGE": "No se pudo enviar el enlace de restablecimiento de contraseña. Por favor, inténtalo de nuevo."
+  },
+  "RESET_PASSWORD": {
+    "TITLE": "Restablecer tu contraseña",
+    "NEW_PASSWORD": "Nueva contraseña",
+    "CONFIRM_PASSWORD": "Confirmar contraseña",
+    "SUBMIT": "Restablecer contraseña",
+    "BACK_TO_LOGIN": "Volver al inicio de sesión",
+    "SUCCESS_MESSAGE": "¡Tu contraseña ha sido restablecida con éxito!",
+    "ERROR_MESSAGE": "No se pudo restablecer tu contraseña. Por favor, inténtalo de nuevo."
   }
 }

@@ -1,19 +1,12 @@
 package com.example.keepitup.model.dtos;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ExerciseDTO {
-    private Integer id;
-    private String name;
-    private String description;
-    private String videoUrl;
-    private Boolean isAvailable;
-    private MuscleGroupDTO muscleGroup;
-    private Integer userId;
-    private boolean exists;
+public class PasswordResetDTO {
+    private String email;
+    private String token;
+    private String newPassword;
 }

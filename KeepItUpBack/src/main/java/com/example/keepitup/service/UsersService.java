@@ -38,4 +38,9 @@ public interface UsersService {
 
     Optional<UsersDTO> getUserByUsername(String username);
 
+    void requestPasswordReset(String email);
+
+    boolean resetPassword(String token, String newPassword);
+
+
 }

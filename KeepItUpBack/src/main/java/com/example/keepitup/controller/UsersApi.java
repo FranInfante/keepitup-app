@@ -1,6 +1,7 @@
 package com.example.keepitup.controller;
 
 import com.example.keepitup.model.dtos.MailDTO;
+import com.example.keepitup.model.dtos.PasswordResetDTO;
 import com.example.keepitup.model.dtos.UsersDTO;
 import com.example.keepitup.model.dtos.VerificationDTO;
 import com.example.keepitup.util.UriConstants;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(UriConstants.USERS)
 public interface UsersApi {
@@ -48,4 +50,11 @@ public interface UsersApi {
 
     @PostMapping(UriConstants.VERIFY)
     ResponseEntity<UsersDTO> verifyCode(@RequestBody VerificationDTO verificationDTO) throws Exception;
+
+    @PostMapping(UriConstants.PASSWORD_RESET_REQUEST)
+    ResponseEntity<Map<String, String>> requestPasswordReset(@RequestBody PasswordResetDTO resetDTO);
+
+    @PostMapping(UriConstants.PASSWORD_RESET_CONFIRM)
+    ResponseEntity<Map<String, String>> resetPassword(@RequestBody PasswordResetDTO resetDTO);
+
 }
