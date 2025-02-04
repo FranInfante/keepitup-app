@@ -45,18 +45,18 @@ public class UsersServiceImpl implements UsersService {
 
 
 
-    @Override
-    public List<UsersDTO> getAllUsers() {
-        List<Users> users = usersRepository.findAll();
-        return UsersMapper.listUserEntityToDTO(users);
-    }
+//    @Override
+//    public List<UsersDTO> getAllUsers() {
+//        List<Users> users = usersRepository.findAll();
+//        return UsersMapper.listUserEntityToDTO(users);
+//    }
 
-    @Override
-    public UsersDTO getUserById(Integer id) {
-        Users user = usersRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException(MessageConstants.USER_NOT_FOUND));
-        return UsersMapper.userEntityToDTO(user);
-    }
+//    @Override
+//    public UsersDTO getUserById(Integer id) {
+//        Users user = usersRepository.findById(id)
+//                    .orElseThrow(() -> new EntityNotFoundException(MessageConstants.USER_NOT_FOUND));
+//        return UsersMapper.userEntityToDTO(user);
+//    }
 
     @Override
     public UsersDTO createUser(UsersDTO newUser) throws Exception {
@@ -202,6 +202,9 @@ public class UsersServiceImpl implements UsersService {
         boolean usernameExists = usersRepository.findByUsernameIgnoreCase(username).isPresent();
         return emailExists || usernameExists;
     }
-
+    public Optional<UsersDTO> getUserByUsername(String username) {
+        return usersRepository.findByUsernameIgnoreCase(username)
+                .map(UsersMapper::userEntityToDTO);
+    }
 
 }

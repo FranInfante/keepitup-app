@@ -40,4 +40,12 @@ public class WeighInsServiceImpl implements WeighInsService {
     public void deleteWeighIn(Integer weighInId) {
         weighInsRepository.deleteById(weighInId);
     }
+
+    @Override
+    public WeighInsDTO getWeighInById(Integer weighInId) {
+        WeighIns weighIn = weighInsRepository.findById(weighInId)
+                .orElseThrow(() -> new IllegalArgumentException("Weigh-in not found with id: " + weighInId));
+        return WeighInsMapper.weighInsEntityToDTO(weighIn);
+    }
+
 }

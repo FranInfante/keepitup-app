@@ -13,11 +13,11 @@ import java.util.List;
 @RequestMapping(UriConstants.USERS)
 public interface UsersApi {
 
-    @GetMapping(UriConstants.BY_ID)
-    ResponseEntity<UsersDTO> getUserById(@PathVariable Integer id);
+//    @GetMapping(UriConstants.BY_ID)
+//    ResponseEntity<UsersDTO> getUserById(@PathVariable Integer id);
 
-    @GetMapping
-    ResponseEntity<List<UsersDTO>> getAllUsers();
+//    @GetMapping
+//    ResponseEntity<List<UsersDTO>> getAllUsers();
 
     @GetMapping(UriConstants.USERS_SEARCH)
     ResponseEntity<List<UsersDTO>> searchUsers(@RequestParam String username);

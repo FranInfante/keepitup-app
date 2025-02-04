@@ -107,6 +107,7 @@ export class WeighInsComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error logging weight:', error);
+          this.loadingService.setLoading(false);
         },
         complete: () => {
           this.loadingService.setLoading(false);
@@ -126,6 +127,7 @@ export class WeighInsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching logs:', error);
+        
       },
       complete: () => {
         this.loadingService.setLoading(false);
@@ -180,6 +182,7 @@ export class WeighInsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error deleting log:', error);
+        this.loadingService.setLoading(false);
       },
       complete: () => {
         this.loadingService.setLoading(false);

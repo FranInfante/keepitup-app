@@ -27,16 +27,30 @@ export class PlanService {
   }
 
   addPlan(plan: NewPlan): Observable<Plan> {
-    return this.http.post<Plan>(PLAN_ROUTES.create(), plan);
+    const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Add the Bearer token
+    });
+  
+    return this.http.post<Plan>(PLAN_ROUTES.create(), plan, { headers });
   }
+  
 
   updatePlan(id: number, plan: Plan): Observable<Plan> {
     return this.http.put<Plan>(PLAN_ROUTES.update(id), plan);
   }
 
   deletePlan(id: number): Observable<void> {
-    return this.http.delete<void>(PLAN_ROUTES.delete(id));
+    const token = localStorage.getItem('authToken'); 
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, 
+    });
+  
+    return this.http.delete<void>(PLAN_ROUTES.delete(id), { headers });
   }
+  
 
   addWorkoutToPlan(planId: number, workout: any): Observable<Plan> {
     return this.http.post<Plan>(PLAN_ROUTES.workouttoplan(planId), workout);
@@ -55,20 +69,31 @@ export class PlanService {
     workoutId: number,
     workoutExercise: WorkoutExercise
   ): Observable<Workout> {
-    const token = this.userService.getToken();
-
+    const token = localStorage.getItem('authToken'); 
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  
     return this.http.post<Workout>(
       PLAN_ROUTES.addexerciseInWorkout(planId, workoutId),
-      workoutExercise
+      workoutExercise,
+      { headers }
     );
   }
+  
   createWorkoutinPlan(
     planId: number,
     workout: { name: string }
   ): Observable<Workout> {
+    const token = localStorage.getItem('authToken'); 
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, 
+    });
     return this.http.post<Workout>(
       PLAN_ROUTES.createWorkoutinPlan(planId),
-      workout
+      workout, { headers }
     );
   }
 
@@ -93,8 +118,14 @@ export class PlanService {
 
   deleteWorkout(planId: number,
     workoutId: number): Observable<void> {
+      const token = localStorage.getItem('authToken'); 
+  
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`, 
+      });
+
     return this.http.delete<void>(
-      PLAN_ROUTES.deleteworkoutid(planId, workoutId)
+      PLAN_ROUTES.deleteworkoutid(planId, workoutId), { headers }
     );
   }
   getWorkoutById(workoutId: number): Observable<Workout> {
