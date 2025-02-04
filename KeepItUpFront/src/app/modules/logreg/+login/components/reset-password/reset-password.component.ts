@@ -73,7 +73,7 @@ export class ResetPasswordComponent implements OnInit {
           TOAST_MSGS.successfulresetpassword,
           'success'
         );
-        this.router.navigate(['/logpage']);
+        this.router.navigate(['/login']);
       },
       error: () => {
         this.toastService.showToast(TOAST_MSGS.failedreseting, 'danger');
