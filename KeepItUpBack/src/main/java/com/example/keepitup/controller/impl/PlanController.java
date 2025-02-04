@@ -47,9 +47,20 @@ public class PlanController implements PlanApi {
 
     @Override
     public ResponseEntity<PlanDTO> createPlan(@RequestBody PlanDTO newPlan) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        Users currentUser = usersRepository.findByUsernameIgnoreCase(currentUsername)
+                .orElseThrow(() -> new AccessDeniedException("User not found"));
+
+        if (!newPlan.getUserId().equals(currentUser.getId())) {
+            throw new AccessDeniedException("You are not authorized to create a plan for this user.");
+        }
+
         PlanDTO createdPlan = planService.savePlan(newPlan);
         return ResponseEntity.ok(createdPlan);
     }
+
 
     @Override
     public ResponseEntity<PlanDTO> updatePlan(@PathVariable Integer id, @RequestBody PlanDTO updatePlan) throws Exception {
