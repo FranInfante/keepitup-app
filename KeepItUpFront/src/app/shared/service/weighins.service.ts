@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WeighIn } from '../interfaces/weighin';
@@ -17,11 +17,24 @@ export class WeighInsService {
   }
 
   addWeighIn(weighIn: WeighIn): Observable<WeighIn> {
-    return this.http.post<WeighIn>(WEIGHIN_ROUTES.create(), weighIn);
+    const token = localStorage.getItem('authToken'); // Retrieve JWT Token
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Attach the Bearer token
+    });
+  
+    return this.http.post<WeighIn>(WEIGHIN_ROUTES.create(), weighIn, { headers });
   }
-
+  
   deleteWeighIn(weighInId: number): Observable<void> {
-    return this.http.delete<void>(WEIGHIN_ROUTES.delete(weighInId));
+    const token = localStorage.getItem('authToken'); // Retrieve JWT Token
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Attach the Bearer token
+    });
+  
+    return this.http.delete<void>(WEIGHIN_ROUTES.delete(weighInId), { headers });
   }
+  
   
 }

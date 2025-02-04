@@ -71,9 +71,13 @@ public class WebConfig implements WebMvcConfigurer {
                                 .requestMatchers(HttpMethod.POST, UriConstants.WORKOUTS_IN_PLAN).authenticated()
                                 .requestMatchers(HttpMethod.POST, UriConstants.PLANS).authenticated()
                                 .requestMatchers(HttpMethod.POST, UriConstants.WORKOUT_EXERCISE_IN_PLAN_CREATE).authenticated()
-
                         .requestMatchers(HttpMethod.DELETE, UriConstants.PLANS + UriConstants.BY_ID).authenticated()
                         .requestMatchers(HttpMethod.DELETE, UriConstants.PLANS + UriConstants.WORKOUT_IN_PLAN_DELETE).authenticated()
+
+                        .requestMatchers(HttpMethod.POST, UriConstants.WEIGHINS).authenticated()
+                        .requestMatchers(HttpMethod.DELETE, UriConstants.WEIGHINS + UriConstants.BY_ID).authenticated()
+
+
 
 
                         .anyRequest().permitAll()

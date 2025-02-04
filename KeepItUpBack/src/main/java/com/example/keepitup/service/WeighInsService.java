@@ -9,4 +9,6 @@ public interface WeighInsService {
     WeighInsDTO logWeighIn(WeighInsDTO weighInDTO);
     List<WeighInsDTO> getWeighInsByUserId(Integer userId);
     void deleteWeighIn(Integer weighInId);
+    WeighInsDTO getWeighInById(Integer weighInId);
+
 }
