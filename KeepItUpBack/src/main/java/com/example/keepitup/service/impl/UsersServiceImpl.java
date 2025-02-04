@@ -45,11 +45,11 @@ public class UsersServiceImpl implements UsersService {
 
 
 
-    @Override
-    public List<UsersDTO> getAllUsers() {
-        List<Users> users = usersRepository.findAll();
-        return UsersMapper.listUserEntityToDTO(users);
-    }
+//    @Override
+//    public List<UsersDTO> getAllUsers() {
+//        List<Users> users = usersRepository.findAll();
+//        return UsersMapper.listUserEntityToDTO(users);
+//    }
 
     @Override
     public UsersDTO getUserById(Integer id) {

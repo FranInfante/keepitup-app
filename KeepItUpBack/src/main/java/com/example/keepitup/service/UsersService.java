@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UsersService {
     UsersDTO getUserById(Integer id);
 
-    List<UsersDTO> getAllUsers();
+//    List<UsersDTO> getAllUsers();
 
     List<UsersDTO> searchUsersByUsername(String username);
 

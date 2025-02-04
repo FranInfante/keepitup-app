@@ -32,11 +32,11 @@ public class UsersController implements UsersApi {
         return ResponseEntity.ok(user);
     }
 
-    @Override
-    public ResponseEntity<List<UsersDTO>> getAllUsers() {
-        List<UsersDTO> users = usersService.getAllUsers();
-        return ResponseEntity.ok(users);
-    }
+//    @Override
+//    public ResponseEntity<List<UsersDTO>> getAllUsers() {
+//        List<UsersDTO> users = usersService.getAllUsers();
+//        return ResponseEntity.ok(users);
+//    }
 
     @Override
     public ResponseEntity<List<UsersDTO>> searchUsers(String username) {
