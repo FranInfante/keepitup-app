@@ -105,10 +105,27 @@ public class PlanController implements PlanApi {
 
 
     @Override
-    public ResponseEntity<WorkoutsDTO> addExerciseToWorkout(@PathVariable Integer planId, @PathVariable Integer workoutId, @RequestBody WorkoutExerciseDTO exerciseDTO) throws Exception {
+    public ResponseEntity<WorkoutsDTO> addExerciseToWorkout(
+            @PathVariable Integer planId,
+            @PathVariable Integer workoutId,
+            @RequestBody WorkoutExerciseDTO exerciseDTO) throws Exception {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        Users currentUser = usersRepository.findByUsernameIgnoreCase(currentUsername)
+                .orElseThrow(() -> new AccessDeniedException("User not found"));
+
+        PlanDTO plan = planService.getPlanById(planId);
+
+        if (!plan.getUserId().equals(currentUser.getId())) {
+            throw new AccessDeniedException("You are not authorized to add exercises to this plan.");
+        }
+
         WorkoutsDTO updatedWorkout = planService.addExerciseToWorkout(planId, workoutId, exerciseDTO);
         return ResponseEntity.ok(updatedWorkout);
     }
+
 
     @Override
     public ResponseEntity<Void> deleteWorkoutExercise(
