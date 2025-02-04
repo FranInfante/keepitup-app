@@ -67,8 +67,11 @@ public class WebConfig implements WebMvcConfigurer {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+
+                                .requestMatchers(HttpMethod.POST, UriConstants.WORKOUTS_IN_PLAN).authenticated()
                                 .requestMatchers(HttpMethod.POST, UriConstants.PLANS).authenticated()
                                 .requestMatchers(HttpMethod.DELETE, UriConstants.PLANS + UriConstants.BY_ID).authenticated()
+
                 .anyRequest().permitAll()
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
