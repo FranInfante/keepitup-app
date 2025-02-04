@@ -36,4 +36,6 @@ public interface UsersService {
 
     boolean isEmailOrUsernameRegistered(String email, String username);
 
+    Optional<UsersDTO> getUserByUsername(String username);
+
 }

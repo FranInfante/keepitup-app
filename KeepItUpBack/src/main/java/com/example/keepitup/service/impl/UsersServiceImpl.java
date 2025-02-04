@@ -202,6 +202,9 @@ public class UsersServiceImpl implements UsersService {
         boolean usernameExists = usersRepository.findByUsernameIgnoreCase(username).isPresent();
         return emailExists || usernameExists;
     }
-
+    public Optional<UsersDTO> getUserByUsername(String username) {
+        return usersRepository.findByUsernameIgnoreCase(username)
+                .map(UsersMapper::userEntityToDTO);
+    }
 
 }

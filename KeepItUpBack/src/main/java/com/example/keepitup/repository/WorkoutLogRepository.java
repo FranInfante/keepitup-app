@@ -18,4 +18,6 @@ public interface WorkoutLogRepository extends JpaRepository<WorkoutLog, Integer>
     List<WorkoutLog> findByWorkoutId(Integer id);
 
     List<WorkoutLog> findByWorkout(Workouts workout);
+
+    void deleteByUserId(Integer userId);
 }
