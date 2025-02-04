@@ -1,20 +1,13 @@
 package com.example.keepitup.service.impl;
 
 
-import com.example.keepitup.jwt.JwtUserDetailsService;
-import com.example.keepitup.model.dtos.UsersDTO;
-import com.example.keepitup.model.entities.Users;
-import com.example.keepitup.model.entities.UsersInfo;
-import com.example.keepitup.repository.UsersInfoRepository;
-import com.example.keepitup.repository.UsersRepository;
-import com.example.keepitup.service.UsersService;
-import com.example.keepitup.util.UserJwt;
-import com.example.keepitup.util.jwt.JwtTokenUtil;
-import com.example.keepitup.util.mappers.UsersMapper;
-import com.example.keepitup.util.msgs.MessageConstants;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -25,10 +18,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import com.example.keepitup.jwt.JwtUserDetailsService;
+import com.example.keepitup.model.dtos.UsersDTO;
+import com.example.keepitup.model.entities.Users;
+import com.example.keepitup.model.entities.UsersInfo;
+import com.example.keepitup.repository.UsersInfoRepository;
+import com.example.keepitup.repository.UsersRepository;
+import com.example.keepitup.service.MailService;
+import com.example.keepitup.service.UsersService;
+import com.example.keepitup.util.UserJwt;
+import com.example.keepitup.util.jwt.JwtTokenUtil;
+import com.example.keepitup.util.mappers.UsersMapper;
+import com.example.keepitup.util.msgs.MessageConstants;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -40,10 +44,13 @@ public class UsersServiceImpl implements UsersService {
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
     private final UsersInfoRepository usersInfoRepository;
+    private final MailService mailService;
 
     private final Map<String, PendingUser> pendingUsers = new HashMap<>();
+    private final Map<String, String> resetTokens = new HashMap<>();
 
-
+    @Value("${server-url}")
+    private String serverUrl;
 
 //    @Override
 //    public List<UsersDTO> getAllUsers() {
@@ -202,9 +209,47 @@ public class UsersServiceImpl implements UsersService {
         boolean usernameExists = usersRepository.findByUsernameIgnoreCase(username).isPresent();
         return emailExists || usernameExists;
     }
+    
+    @Override
     public Optional<UsersDTO> getUserByUsername(String username) {
         return usersRepository.findByUsernameIgnoreCase(username)
                 .map(UsersMapper::userEntityToDTO);
     }
+
+        @Override
+        public void requestPasswordReset(String email) {
+            Optional<Users> userOpt = usersRepository.findByEmail(email);
+            if (userOpt.isEmpty()) {
+                throw new EntityNotFoundException("User not found");
+            }
+
+            // Generate token (UUID is a simple solution)
+            String token = UUID.randomUUID().toString();
+            resetTokens.put(token, email); // Store temporarily
+
+            // Send email
+            String resetLink = serverUrl + "/reset-password?token=" + token;
+            mailService.sendSimpleEmail(email, "Password Reset Request",
+                    "Click the link to reset your password: " + resetLink);
+        }
+
+        @Override
+        public boolean resetPassword(String token, String newPassword) {
+            String email = resetTokens.get(token);
+            if (email == null) {
+                throw new IllegalArgumentException("Invalid or expired token");
+            }
+
+            Users user = usersRepository.findByEmail(email)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+            user.setPassword(passwordEncoder.encode(newPassword));
+            usersRepository.save(user);
+
+            resetTokens.remove(token); // Remove token after use
+            return true;
+        }
+
+
 
 }

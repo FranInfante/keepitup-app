@@ -72,5 +72,9 @@ public class UriConstants {
     public static final String REORDERWORKOUTLOGEXERCISES = "/{workoutLogId}/exercises/reorder";
     public static final String LAST_COMPLETED = "/last-completed/{userId}/{workoutId}";
 
+    public static final String PASSWORD_RESET_REQUEST = "/password-reset/request";
+    public static final String PASSWORD_RESET_CONFIRM = "/password-reset/confirm";
+
+
 
 }
