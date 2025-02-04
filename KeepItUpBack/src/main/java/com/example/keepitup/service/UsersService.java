@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UsersService {
-    UsersDTO getUserById(Integer id);
+//    UsersDTO getUserById(Integer id);
 
 //    List<UsersDTO> getAllUsers();
 

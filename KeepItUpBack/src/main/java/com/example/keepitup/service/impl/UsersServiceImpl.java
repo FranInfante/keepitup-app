@@ -51,12 +51,12 @@ public class UsersServiceImpl implements UsersService {
 //        return UsersMapper.listUserEntityToDTO(users);
 //    }
 
-    @Override
-    public UsersDTO getUserById(Integer id) {
-        Users user = usersRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException(MessageConstants.USER_NOT_FOUND));
-        return UsersMapper.userEntityToDTO(user);
-    }
+//    @Override
+//    public UsersDTO getUserById(Integer id) {
+//        Users user = usersRepository.findById(id)
+//                    .orElseThrow(() -> new EntityNotFoundException(MessageConstants.USER_NOT_FOUND));
+//        return UsersMapper.userEntityToDTO(user);
+//    }
 
     @Override
     public UsersDTO createUser(UsersDTO newUser) throws Exception {

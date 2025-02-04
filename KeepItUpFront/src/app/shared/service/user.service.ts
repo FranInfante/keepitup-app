@@ -28,13 +28,13 @@ export class UserService {
     this.authToken = localStorage.getItem('authToken');
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(USER_ROUTES.list());
-  }
+  // getAllUsers(): Observable<User[]> {
+  //   return this.http.get<User[]>(USER_ROUTES.list());
+  // }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(USER_ROUTES.get(id));
-  }
+  // getUserById(id: number): Observable<User> {
+  //   return this.http.get<User>(USER_ROUTES.get(id));
+  // }
 
   createUser(user: User): Observable<User> {
     return this.http.post<User>(USER_ROUTES.registerfirststep(), user);

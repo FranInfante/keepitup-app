@@ -26,11 +26,11 @@ public class UsersController implements UsersApi {
     private final UsersService usersService;
     private final MailService mailService;
 
-    @Override
-    public ResponseEntity<UsersDTO> getUserById(Integer id) {
-        UsersDTO user = usersService.getUserById(id);
-        return ResponseEntity.ok(user);
-    }
+//    @Override
+//    public ResponseEntity<UsersDTO> getUserById(Integer id) {
+//        UsersDTO user = usersService.getUserById(id);
+//        return ResponseEntity.ok(user);
+//    }
 
 //    @Override
 //    public ResponseEntity<List<UsersDTO>> getAllUsers() {
