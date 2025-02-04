@@ -112,8 +112,14 @@ export class PlanService {
 
   deleteWorkout(planId: number,
     workoutId: number): Observable<void> {
+      const token = localStorage.getItem('authToken'); 
+  
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`, 
+      });
+
     return this.http.delete<void>(
-      PLAN_ROUTES.deleteworkoutid(planId, workoutId)
+      PLAN_ROUTES.deleteworkoutid(planId, workoutId), { headers }
     );
   }
   getWorkoutById(workoutId: number): Observable<Workout> {

@@ -120,12 +120,23 @@ public class PlanController implements PlanApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteWorkoutinPlan(
-            @PathVariable Integer planId,
-            @PathVariable Integer workoutId){
+    public ResponseEntity<Void> deleteWorkoutinPlan(@PathVariable Integer planId, @PathVariable Integer workoutId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        Users currentUser = usersRepository.findByUsernameIgnoreCase(currentUsername)
+                .orElseThrow(() -> new AccessDeniedException("User not found"));
+
+        PlanDTO plan = planService.getPlanById(planId);
+
+        if (!plan.getUserId().equals(currentUser.getId())) {
+            throw new AccessDeniedException("You are not authorized to delete workouts from this plan.");
+        }
+
         planService.deleteWorkout(planId, workoutId);
         return ResponseEntity.noContent().build();
     }
+
 
     @Override
     public ResponseEntity<WorkoutExerciseDTO> getWorkoutExercise(
