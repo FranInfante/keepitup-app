@@ -27,16 +27,30 @@ export class PlanService {
   }
 
   addPlan(plan: NewPlan): Observable<Plan> {
-    return this.http.post<Plan>(PLAN_ROUTES.create(), plan);
+    const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Add the Bearer token
+    });
+  
+    return this.http.post<Plan>(PLAN_ROUTES.create(), plan, { headers });
   }
+  
 
   updatePlan(id: number, plan: Plan): Observable<Plan> {
     return this.http.put<Plan>(PLAN_ROUTES.update(id), plan);
   }
 
   deletePlan(id: number): Observable<void> {
-    return this.http.delete<void>(PLAN_ROUTES.delete(id));
+    const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Add the Bearer token
+    });
+  
+    return this.http.delete<void>(PLAN_ROUTES.delete(id), { headers });
   }
+  
 
   addWorkoutToPlan(planId: number, workout: any): Observable<Plan> {
     return this.http.post<Plan>(PLAN_ROUTES.workouttoplan(planId), workout);
