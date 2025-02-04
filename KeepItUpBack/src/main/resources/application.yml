@@ -5,6 +5,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/${DB_NAME}
     username: ${DB_USER}
     password: ${DB_PASS}
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,6 +25,7 @@ spring:
           starttls:
             enable: true
 
+server-url: ${SERVER_URL}
 
 jwt:
   secret: M2JAJzJvcXNDLyFBNjVVZn5zLXw6Rj9HOC9OKzxnejZUXElWYiRxT0hEaDV2c29HYj4=

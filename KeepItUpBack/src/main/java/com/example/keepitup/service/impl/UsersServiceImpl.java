@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -47,6 +48,9 @@ public class UsersServiceImpl implements UsersService {
 
     private final Map<String, PendingUser> pendingUsers = new HashMap<>();
     private final Map<String, String> resetTokens = new HashMap<>();
+
+    @Value("${server-url}")
+    private String serverUrl;
 
 //    @Override
 //    public List<UsersDTO> getAllUsers() {
@@ -224,7 +228,7 @@ public class UsersServiceImpl implements UsersService {
             resetTokens.put(token, email); // Store temporarily
 
             // Send email
-            String resetLink = "http://localhost:4200/reset-password?token=" + token;
+            String resetLink = serverUrl + "/reset-password?token=" + token;
             mailService.sendSimpleEmail(email, "Password Reset Request",
                     "Click the link to reset your password: " + resetLink);
         }
