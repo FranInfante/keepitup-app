@@ -42,10 +42,10 @@ export class PlanService {
   }
 
   deletePlan(id: number): Observable<void> {
-    const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+    const token = localStorage.getItem('authToken'); 
   
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`, // Add the Bearer token
+      Authorization: `Bearer ${token}`, 
     });
   
     return this.http.delete<void>(PLAN_ROUTES.delete(id), { headers });
@@ -80,9 +80,14 @@ export class PlanService {
     planId: number,
     workout: { name: string }
   ): Observable<Workout> {
+    const token = localStorage.getItem('authToken'); 
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, 
+    });
     return this.http.post<Workout>(
       PLAN_ROUTES.createWorkoutinPlan(planId),
-      workout
+      workout, { headers }
     );
   }
 
