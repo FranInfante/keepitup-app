@@ -1,20 +1,22 @@
 package com.example.keepitup.controller.impl;
 
 import com.example.keepitup.controller.PlanApi;
-import com.example.keepitup.model.dtos.PlanDTO;
-import com.example.keepitup.model.dtos.UpdatePlanNameDTO;
-import com.example.keepitup.model.dtos.WorkoutsDTO;
-import com.example.keepitup.model.dtos.WorkoutExerciseDTO;
+import com.example.keepitup.model.dtos.*;
+import com.example.keepitup.model.entities.Users;
+import com.example.keepitup.repository.UsersRepository;
 import com.example.keepitup.service.PlanService;
 import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.security.access.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -22,6 +24,8 @@ import java.util.List;
 public class PlanController implements PlanApi {
 
     private final PlanService planService;
+    private final UsersRepository usersRepository;
+
 
     @Override
     public ResponseEntity<PlanDTO> getPlanById(@PathVariable Integer id) {
@@ -55,9 +59,21 @@ public class PlanController implements PlanApi {
 
     @Override
     public ResponseEntity<Void> deletePlan(@PathVariable Integer id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        Users currentUser = usersRepository.findByUsernameIgnoreCase(currentUsername)
+                .orElseThrow(() -> new AccessDeniedException("User not found"));
+
+        PlanDTO plan = planService.getPlanById(id);
+        if (!plan.getUserId().equals(currentUser.getId())) {
+            throw new AccessDeniedException("You are not authorized to delete this plan.");
+        }
+
         planService.deletePlan(id);
         return ResponseEntity.noContent().build();
     }
+
 
     @Override
     public ResponseEntity<WorkoutsDTO> addWorkoutToPlan(@PathVariable Integer planId, @RequestBody WorkoutsDTO workoutsDTO) throws Exception {

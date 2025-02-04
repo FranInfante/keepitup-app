@@ -1,7 +1,9 @@
 package com.example.keepitup.config;
 
+import com.example.keepitup.util.UriConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -65,6 +67,8 @@ public class WebConfig implements WebMvcConfigurer {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                                .requestMatchers(HttpMethod.POST, UriConstants.PLANS).authenticated()
+                                .requestMatchers(HttpMethod.DELETE, UriConstants.PLANS + UriConstants.BY_ID).authenticated()
                 .anyRequest().permitAll()
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
