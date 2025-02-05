@@ -55,9 +55,17 @@ public class WorkoutLogController implements WorkoutLogApi {
 
     @Override
     public ResponseEntity<WorkoutLogDTO> getWorkoutLogByUserIdAndIsEditing(WorkoutLogSearchRequest request) {
-        WorkoutLogDTO workoutLogDTO = workoutLogService.getWorkoutLogByUserIdAndIsEditing(request.getUserId(), request.getIsEditing());
+        WorkoutLogDTO workoutLogDTO = workoutLogService.getWorkoutLogByUserIdAndIsEditing(
+                request.getUserId(), request.getWorkoutId(), request.getIsEditing()
+        );
+        if (workoutLogDTO == null) {
+            return ResponseEntity.noContent().build();
+        }
+
         return ResponseEntity.ok(workoutLogDTO);
     }
+
+
 
     @Override
     public ResponseEntity<WorkoutLogDTO> updateWorkoutLog(Integer id, WorkoutLogDTO workoutLogDTO) {
