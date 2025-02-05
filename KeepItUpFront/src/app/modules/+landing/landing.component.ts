@@ -20,6 +20,9 @@ import { LanguageService } from '../../shared/service/language.service';
   styleUrl: './landing.component.css',
 })
 export class LandingComponent implements OnInit {
+  
+  gmailicon: string = ASSET_URLS.gmailicon;
+  linkedinicon: string = ASSET_URLS.linkedinicon;
   bg: string = ASSET_URLS.background;
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
   showLanguageModal: boolean = false;

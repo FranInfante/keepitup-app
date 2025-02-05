@@ -232,32 +232,34 @@ export class LogpageComponent implements OnInit, OnDestroy {
       this.fetchWorkoutName(workoutId);
   
       this.workoutLogService
-        .getWorkoutLogByUserIdAndIsEditing(this.userId, true)
+        .getWorkoutLogByUserIdAndIsEditing(this.userId, this.workoutId, true)
         .subscribe({
-          next: (editingLogs) => {
-  
-            if (editingLogs && editingLogs.length > 0) {
-              const editingLog = editingLogs.find(
-                (log: WorkoutLog) => log.editing === true
-              );
-              if (editingLog) {
-                this.askUserToContinueOrReset(editingLog);
-              } else {
-                this.loadLastCompletedWorkoutLog();
-              }
+          next: (editingLog) => {
+            if (editingLog) {
+              this.askUserToContinueOrReset(editingLog);
             } else {
               this.loadLastCompletedWorkoutLog();
             }
           },
           error: (err) => {
-            console.error('MSG.errorfindingworkout', err);
-            this.createAndLoadWorkoutLog();
+            if (err.status === 204) {
+              // Handle 204 No Content by creating and loading a workout log
+              this.createAndLoadWorkoutLog();
+            } else {
+              // Handle unexpected errors
+              console.error('Unexpected error:', err);
+              this.toastService.showToast(
+                'An unexpected error occurred while fetching the workout log.',
+                'danger'
+              );
+            }
           },
         });
     } else {
       this.router.navigate([LOCATIONS.plans]);
     }
   }
+  
   
 
   loadLastCompletedWorkoutLog() {
@@ -582,6 +584,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
             weight: setControl.get('weight')?.value,
           })
         ),
+        exerciseOrder: index + 1,
       })),
       editing: true,
     };
