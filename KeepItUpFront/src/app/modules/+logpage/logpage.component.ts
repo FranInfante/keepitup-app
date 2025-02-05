@@ -584,6 +584,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
             weight: setControl.get('weight')?.value,
           })
         ),
+        exerciseOrder: index + 1,
       })),
       editing: true,
     };
