@@ -57,6 +57,8 @@ export const TOAST_MSGS = {
 };
 
 export const ASSET_URLS = {
+  gmailicon: 'module_assets/landing-assets/gmailicon.png',
+  linkedinicon: 'module_assets/landing-assets/linkedinicon.png',
   background: 'module_assets/landing-assets/background.mp4',
   spain: '/module_assets/translation-flags/spain.svg',
   english: '/module_assets/translation-flags/english.svg',

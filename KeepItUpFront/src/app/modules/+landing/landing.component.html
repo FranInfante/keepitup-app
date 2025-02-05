@@ -258,9 +258,7 @@
       <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
         {{ "LANDING.CONTACT.TITLE" | translate }}
       </h2>
-      <p class="mt-4 text-gray-700 dark:text-gray-300 px-11">
-        {{ "LANDING.CONTACT.TITLE" | translate }}
-      </p>
+    
       <div class="flex justify-center mt-8 space-x-8">
         <!-- Email Icon -->
         <a
@@ -269,7 +267,7 @@
           class="group transform hover:scale-110 transition duration-300"
         >
           <img
-            src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+          [src]="gmailicon"
             alt="Email"
             class="w-12 h-12 mx-auto"
           />
@@ -286,7 +284,7 @@
           class="group transform hover:scale-110 transition duration-300"
         >
           <img
-            src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+            [src]="linkedinicon"
             alt="LinkedIn"
             class="w-12 h-12 mx-auto"
           />
