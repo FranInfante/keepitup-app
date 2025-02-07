@@ -400,7 +400,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
                     )
                   : [this.createSet()]
               ),
-              notes: [exercise.notes || ''],
+              notes: [exercise.notes || null],
               open: [false],
             })
           );
@@ -539,6 +539,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       exercises: this.exercises.controls.map((exerciseControl, index) => ({
         exerciseId: exerciseControl.get('exerciseId')?.value,
         exerciseOrder: index + 1,
+        notes: exerciseControl.get('notes')?.value,
         sets: this.getSets(exerciseControl).controls.map(
           (setControl, setIndex) => ({
             set: setIndex + 1,
