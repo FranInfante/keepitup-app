@@ -78,6 +78,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                             .set(setDTO.getSet())
                             .reps(setDTO.getReps())
                             .weight(setDTO.getWeight())
+                            .notes(exerciseDTO.getNotes())
                             .build();
                 }))
                 .collect(Collectors.toList());

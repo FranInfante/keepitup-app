@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../../shared/service/user.service';
 import { ToastService } from '../../../../../shared/service/toast.service';
 import { CommonModule } from '@angular/common';
@@ -20,7 +20,6 @@ import { BackToMenuComponent } from '../../../../../shared/components/back-to-me
     CommonModule,
     TranslateModule,
     ReactiveFormsModule,
-    RouterLink,
     BackToMenuComponent,
   ],
   templateUrl: './reset-password.component.html',
