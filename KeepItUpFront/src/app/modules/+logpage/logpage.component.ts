@@ -423,7 +423,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
           exerciseId: [exercise.exerciseId],
           workoutLogId: [exercise.workoutLogId],
           name: [exercise.exerciseName],
-          notes: [exercise.notes || ''],
+          notes: [exercise.notes],
           open: [false],
           exerciseOrder: [exercise.exerciseOrder || index + 1], 
           sets: this.fb.array(
@@ -516,16 +516,16 @@ export class LogpageComponent implements OnInit, OnDestroy {
     });
   }
 
-  // loadSavedWorkoutLog() {
-  //   this.workoutLogService.getWorkoutLogById(this.workoutLogId).subscribe({
-  //     next: (savedWorkoutLog) => {
-  //       // this.populateFormWithSavedData(savedWorkoutLog);
-  //     },
-  //     error: (err) => {
-  //       console.error('MSG.errorfindingworkout', err);
-  //     },
-  //   });
-  // }
+  loadSavedWorkoutLog() {
+    this.workoutLogService.getWorkoutLogById(this.workoutLogId).subscribe({
+      next: (savedWorkoutLog) => {
+        this.populateFormWithSavedData(savedWorkoutLog);
+      },
+      error: (err) => {
+        console.error('MSG.errorfindingworkout', err);
+      },
+    });
+  }
 
   createWorkoutLog() {
     if (this.workoutLogId) {
@@ -554,7 +554,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
     this.workoutLogService.createWorkoutLog(initialWorkoutLog).subscribe({
       next: (response) => {
         this.workoutLogId = response.id;
-        // this.loadSavedWorkoutLog();
+        this.loadSavedWorkoutLog();
         this.firstChangeMade = true;
         this.trackFormChanges();
       },
@@ -882,7 +882,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       if (exerciseId) {
         this.workoutLogService.deleteWorkoutLogExercise(exerciseId).subscribe({
           next: () => {
-            // this.loadSavedWorkoutLog(); // Reload the updated log
+            this.loadSavedWorkoutLog(); // Reload the updated log
             this.toastService.showToast(
               'Exercise deleted successfully',
               'success'
