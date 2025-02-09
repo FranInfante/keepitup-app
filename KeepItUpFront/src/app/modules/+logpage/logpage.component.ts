@@ -279,44 +279,36 @@ export class LogpageComponent implements OnInit, OnDestroy {
     }
   }
 
-  compareWithLastCompleted(
-    exerciseIndex: number,
-    setIndex: number,
-    field: 'reps' | 'weight'
-  ): string {
+  compareWithLastCompleted(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight'): string {
     if (!this.lastCompletedLog || !this.lastCompletedLog.exercises) {
-      return 'same'; // No previous data
+      return 'same'; 
     }
-
+  
     const currentExercise = this.exercises.at(exerciseIndex);
     if (!currentExercise) return 'same';
-
+  
     const currentSet = this.getSets(currentExercise).at(setIndex);
     if (!currentSet) return 'same';
-
+  
     const currentValue = currentSet.get(field)?.value;
-
-    // Group and merge sets in the last completed log
-    const mergedExercises = this.groupAndMergeSets(
-      this.lastCompletedLog.exercises
-    );
-
-    // Find the corresponding exercise in the merged exercises
+  
+    const mergedExercises = this.groupAndMergeSets(this.lastCompletedLog.exercises);
+  
     const lastExercise = mergedExercises.find(
       (ex) => ex.exerciseId === currentExercise.get('exerciseId')?.value
     );
-
+  
     if (!lastExercise) {
-      return 'same'; // No matching exercise in the last log
+      return 'same';
     }
-
+  
     const lastSet = lastExercise.sets.find((s) => s.set === setIndex + 1);
     if (!lastSet) {
-      return 'same'; // No matching set in the last log
+      return 'same';
     }
-
+  
     const lastValue = lastSet[field];
-
+  
     if (currentValue > lastValue) {
       return 'higher'; // Green
     } else if (currentValue < lastValue) {
@@ -325,6 +317,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       return 'same'; // Yellow
     }
   }
+  
 
   groupAndMergeSets(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const grouped: { [key: number]: WorkoutLogExercise } = {};
@@ -375,14 +368,18 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   // New handlers for the last completed log modal:
   handleLastLogUse() {
-    // User wants to continue with the last completed log.
-    if (this.lastCompletedLog) {
+    if (this.lastCompletedLog) {  
+      // Ensure the form is populated before setting lastCompletedLog to null
       this.populateFormWithSavedData(this.lastCompletedLog);
-      this.createWorkoutLog();
-    }
-    this.isLastLogModalOpen = false;
-    this.lastCompletedLog = null;
+  
+      // Ensure lastCompletedLog is not set to null prematurely
+      setTimeout(() => {
+        this.createWorkoutLog();
+        this.isLastLogModalOpen = false;
+      }, 50);
+    } 
   }
+  
 
   handleLastLogCreateNew() {
     // User wants to start a new log.
