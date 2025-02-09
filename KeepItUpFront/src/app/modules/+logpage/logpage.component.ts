@@ -278,14 +278,14 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   compareWithLastCompleted(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight'): string {
     if (!this.lastCompletedLog || !this.lastCompletedLog.exercises) {
-      return 'same'; 
+      return ''; 
     }
   
     const currentExercise = this.exercises.at(exerciseIndex);
-    if (!currentExercise) return 'same';
+    if (!currentExercise) return '';
   
     const currentSet = this.getSets(currentExercise).at(setIndex);
-    if (!currentSet) return 'same';
+    if (!currentSet) return '';
   
     const currentValue = currentSet.get(field)?.value;
   
@@ -296,12 +296,12 @@ export class LogpageComponent implements OnInit, OnDestroy {
     );
   
     if (!lastExercise) {
-      return 'same';
+      return '';
     }
   
     const lastSet = lastExercise.sets.find((s) => s.set === setIndex + 1);
     if (!lastSet) {
-      return 'same';
+      return '';
     }
   
     const lastValue = lastSet[field];

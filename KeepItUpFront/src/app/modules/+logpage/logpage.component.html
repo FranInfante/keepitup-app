@@ -121,9 +121,15 @@
                   formControlName="reps"
                   class="w-full px-3 py-2 border rounded-lg remove-arrow"
                   [ngClass]="{
-                    'bg-green-200 dark:bg-green-700': compareWithLastCompleted(i, j, 'reps') === 'higher',
-                    'bg-red-200 dark:bg-red-700': compareWithLastCompleted(i, j, 'reps') === 'lower',
-                    'bg-yellow-200 dark:bg-yellow-700': compareWithLastCompleted(i, j, 'reps') === 'same'
+                    ' text-black':
+                      compareWithLastCompleted(i, j, 'reps') === '',
+
+                    'bg-green-200 dark:bg-green-700 text-white':
+                      compareWithLastCompleted(i, j, 'reps') === 'higher',
+                    'bg-red-200 dark:bg-red-700 text-white ':
+                      compareWithLastCompleted(i, j, 'reps') === 'lower',
+                    'bg-yellow-200 dark:bg-yellow-700 text-white':
+                      compareWithLastCompleted(i, j, 'reps') === 'same'
                   }"
                   [id]="'reps-' + i + '-' + j"
                   (focus)="clearDefaultValue(i, j, 'reps')"
@@ -146,9 +152,14 @@
                     formControlName="weight"
                     class="w-full px-3 py-2 border rounded-lg remove-arrow"
                     [ngClass]="{
-                      'bg-green-200 dark:bg-green-700': compareWithLastCompleted(i, j, 'weight') === 'higher',
-                      'bg-red-200 dark:bg-red-700': compareWithLastCompleted(i, j, 'weight') === 'lower',
-                      'bg-yellow-200 dark:bg-yellow-700': compareWithLastCompleted(i, j, 'weight') === 'same'
+                      ' text-black':
+                      compareWithLastCompleted(i, j, 'weight') === '',
+                      'bg-green-200 dark:bg-green-700 text-white':
+                        compareWithLastCompleted(i, j, 'weight') === 'higher',
+                      'bg-red-200 dark:bg-red-700 text-white':
+                        compareWithLastCompleted(i, j, 'weight') === 'lower',
+                      'bg-yellow-200 dark:bg-yellow-700 text-white':
+                        compareWithLastCompleted(i, j, 'weight') === 'same'
                     }"
                     [id]="'weight-' + i + '-' + j"
                     (focus)="clearDefaultValue(i, j, 'weight')"
