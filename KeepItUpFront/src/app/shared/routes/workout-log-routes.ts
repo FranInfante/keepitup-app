@@ -17,8 +17,8 @@ export const WORKOUT_LOG_ROUTES = {
   createExercise: () => `${WORKOUT_LOG_EXERCISES_API_URL}`,
   updateExercise: (exerciseId: number) =>
     `${WORKOUT_LOG_EXERCISES_API_URL}/${exerciseId}`,
-  deleteExercise: (exerciseId: number) =>
-    `${WORKOUT_LOG_EXERCISES_API_URL}/${exerciseId}`,
+  deleteExercise: (workoutLogId: number, exerciseId: number) =>
+    `${WORKOUT_LOG_EXERCISES_API_URL}/workout-log/${workoutLogId}/exercise/${exerciseId}`,
   exerciseById: (exerciseId: number) =>
     `${WORKOUT_LOGS_API_URL}/exercise/${exerciseId}`,
   deleteSet: (workoutLogId: number, exerciseId: number, setNumber: number) =>

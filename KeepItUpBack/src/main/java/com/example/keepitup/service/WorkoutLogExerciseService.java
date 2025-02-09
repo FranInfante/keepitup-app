@@ -13,7 +13,7 @@ public interface WorkoutLogExerciseService {
 
     WorkoutLogExerciseDTO updateWorkoutLogExercise(Integer id, WorkoutLogExerciseDTO workoutLogExerciseDTO);
 
-    void deleteWorkoutLogExercise(Integer id);
+    void deleteWorkoutLogExercise(Integer workoutLogId, Integer exerciseId);
 
     void deleteWorkoutLogSet(Integer workoutLogId, Integer exerciseId, Integer setNumber);
 

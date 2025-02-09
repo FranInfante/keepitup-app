@@ -970,30 +970,30 @@ export class LogpageComponent implements OnInit, OnDestroy {
   handleConfirmDelete(): void {
     if (this.selectedExerciseIndex !== null) {
       const exerciseControl = this.exercises.at(this.selectedExerciseIndex);
-      const exerciseId = exerciseControl.get('id')?.value;
-
-      if (exerciseId) {
-        this.workoutLogService.deleteWorkoutLogExercise(exerciseId).subscribe({
+      const exerciseId = exerciseControl.get('exerciseId')?.value;
+      const workoutLogId = this.workoutLogId; // Ensure you have the workoutLogId stored in your component
+  
+      if (exerciseId && workoutLogId) {
+        this.workoutLogService.deleteWorkoutLogExercise(workoutLogId, exerciseId).subscribe({
           next: () => {
             this.loadSavedWorkoutLog(); // Reload the updated log
-            this.toastService.showToast(
-              'Exercise deleted successfully',
-              'success'
-            );
-            this.isDeleteModalOpen = false;
-            this.selectedExerciseIndex = null;
+            this.toastService.showToast('Exercise and all sets deleted successfully', 'success');
+            this.isDeleteModalOpen = false; // Close the delete confirmation modal
+            this.selectedExerciseIndex = null; // Reset the selected index
           },
           error: (error) => {
-            this.toastService.showToast(
-              TOAST_MSGS.failedtodeleteexercise,
-              'danger'
-            );
-            console.error('Error deleting exercise', error);
+            this.toastService.showToast('Failed to delete the exercise', 'danger');
+            console.error('Error deleting exercise:', error);
           },
         });
+      } else {
+        console.error('Missing workoutLogId or exerciseId');
+        this.toastService.showToast('Invalid operation. Unable to delete exercise.', 'danger');
       }
     }
   }
+  
+  
   handleCancelDelete(): void {
     this.isDeleteModalOpen = false;
     this.selectedExerciseIndex = null;

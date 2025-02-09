@@ -75,6 +75,7 @@ public class UriConstants {
     public static final String PASSWORD_RESET_REQUEST = "/password-reset/request";
     public static final String PASSWORD_RESET_CONFIRM = "/password-reset/confirm";
 
+    public static final String BY_WORKOUT_LOG_ID_AND_EXERCISE_ID = "/workout-log/{workoutLogId}/exercise/{exerciseId}";
 
 
 }
