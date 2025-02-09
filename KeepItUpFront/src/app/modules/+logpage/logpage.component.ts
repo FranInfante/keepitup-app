@@ -30,7 +30,7 @@ import { WorkoutExercise } from '../../shared/interfaces/workoutexercise';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateModule } from '@ngx-translate/core';
-import { LastCompletedLogModalComponent } from "../../shared/components/last-completed-log-modal/last-completed-log-modal.component";
+import { LastCompletedLogModalComponent } from '../../shared/components/last-completed-log-modal/last-completed-log-modal.component';
 
 @Component({
   selector: 'app-logpage',
@@ -46,8 +46,8 @@ import { LastCompletedLogModalComponent } from "../../shared/components/last-com
     DeleteExerciseModalComponent,
     ExercisePickerModalComponent,
     TranslateModule,
-    LastCompletedLogModalComponent
-],
+    LastCompletedLogModalComponent,
+  ],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
 })
@@ -94,7 +94,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
   ) {
     this.themeService.initializeThemeUserFromLocalStorage();
   }
-  
 
   ngOnInit() {
     const planId = localStorage.getItem('activePlanId');
@@ -147,7 +146,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   addExerciseToLog(workoutExercise: WorkoutExercise): void {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
-  
+
     const newExerciseGroup = this.fb.group({
       id: [null],
       exerciseId: [workoutExercise.exerciseId],
@@ -158,9 +157,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
       sets: this.fb.array([this.createSet()]), // Start with one empty set
       exerciseOrder: [exercisesArray.length + 1], // Add it at the end
     });
-  
+
     exercisesArray.push(newExerciseGroup);
-  
+
     const newExercisePayload = {
       workoutLogId: this.workoutLogId,
       exerciseId: workoutExercise.exerciseId,
@@ -175,10 +174,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
       ],
       exerciseOrder: exercisesArray.length, // Default order (last in array)
     };
-  
+
     this.workoutLogService.addWorkoutLogExercise(newExercisePayload).subscribe({
       next: (createdExercise) => {
-        newExerciseGroup.patchValue({ id: createdExercise.id }); 
+        newExerciseGroup.patchValue({ id: createdExercise.id });
       },
       error: (error) => {
         console.error('Failed to create exercise:', error);
@@ -187,7 +186,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
       },
     });
   }
-  
 
   backToPlans() {
     this.isConfirmationModalOpen = true;
@@ -225,58 +223,69 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   initializeWorkoutLog() {
     const workoutId = this.workoutDataService.getWorkoutId();
-  
+
     if (workoutId) {
       this.workoutId = workoutId;
       this.fetchWorkoutName(workoutId);
-  
-      // 🔹 Always fetch last completed log first
-      this.workoutLogService.getLastCompletedWorkoutLog(this.userId, this.workoutId).subscribe({
-        next: (lastCompletedLog) => {
-          if (lastCompletedLog) {
-            console.log('Loaded last completed log:', lastCompletedLog);
 
-            this.lastCompletedLog = lastCompletedLog; // 🔥 Store it for comparisons
-          }else {
-            console.log('No last completed log found.');
-          }
-  
-          // Now check if there's an ongoing log
-          this.workoutLogService.getWorkoutLogByUserIdAndIsEditing(this.userId, this.workoutId, true)
-            .subscribe({
-              next: (editingLog) => {
-                if (editingLog) {
-                  this.askUserToContinueOrReset(editingLog);
-                } else {
-                  this.loadLastCompletedWorkoutLog();
-                }
-              },
-              error: (err) => {
-                if (err.status === 204) {
-                  this.createAndLoadWorkoutLog();
-                } else {
-                  console.error('Unexpected error:', err);
-                  this.toastService.showToast(
-                    'An unexpected error occurred while fetching the workout log.',
-                    'danger'
-                  );
-                }
-              },
-            });
-        },
-        error: (err) => {
-          console.error('Error fetching last completed log:', err);
-          this.createAndLoadWorkoutLog();
-        }
-      });
+      // 🔹 Always fetch last completed log first
+      this.workoutLogService
+        .getLastCompletedWorkoutLog(this.userId, this.workoutId)
+        .subscribe({
+          next: (lastCompletedLog) => {
+            if (lastCompletedLog) {
+              console.log('Loaded last completed log:', lastCompletedLog);
+
+              this.lastCompletedLog = lastCompletedLog; // 🔥 Store it for comparisons
+            } else {
+              console.log('No last completed log found.');
+            }
+
+            // Now check if there's an ongoing log
+            this.workoutLogService
+              .getWorkoutLogByUserIdAndIsEditing(
+                this.userId,
+                this.workoutId,
+                true
+              )
+              .subscribe({
+                next: (editingLog) => {
+                  if (editingLog) {
+                    this.askUserToContinueOrReset(editingLog);
+                  } else {
+                    this.loadLastCompletedWorkoutLog();
+                  }
+                },
+                error: (err) => {
+                  if (err.status === 204) {
+                    this.createAndLoadWorkoutLog();
+                  } else {
+                    console.error('Unexpected error:', err);
+                    this.toastService.showToast(
+                      'An unexpected error occurred while fetching the workout log.',
+                      'danger'
+                    );
+                  }
+                },
+              });
+          },
+          error: (err) => {
+            console.error('Error fetching last completed log:', err);
+            this.createAndLoadWorkoutLog();
+          },
+        });
     } else {
       this.router.navigate([LOCATIONS.plans]);
     }
   }
-  
-  compareWithLastCompleted(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight'): string {
+
+  compareWithLastCompleted(
+    exerciseIndex: number,
+    setIndex: number,
+    field: 'reps' | 'weight'
+  ): string {
     if (!this.lastCompletedLog || !this.lastCompletedLog.exercises) {
-        return 'same'; // No previous data
+      return 'same'; // No previous data
     }
 
     const currentExercise = this.exercises.at(exerciseIndex);
@@ -287,54 +296,81 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
     const currentValue = currentSet.get(field)?.value;
 
-    // Find the corresponding exercise in the last completed log
-    const lastExercise = this.lastCompletedLog.exercises
-        .filter(ex => ex.exerciseId === currentExercise.get('exerciseId')?.value)
-        .sort((a, b) => a.exerciseOrder - b.exerciseOrder); // Ensure order
+    // Group and merge sets in the last completed log
+    const mergedExercises = this.groupAndMergeSets(
+      this.lastCompletedLog.exercises
+    );
 
-    if (!lastExercise.length) {
-        return 'same'; // No previous data
+    // Find the corresponding exercise in the merged exercises
+    const lastExercise = mergedExercises.find(
+      (ex) => ex.exerciseId === currentExercise.get('exerciseId')?.value
+    );
+
+    if (!lastExercise) {
+      return 'same'; // No matching exercise in the last log
     }
 
-    // Flatten all sets for this exercise and ensure they are ordered
-    const lastSets = lastExercise.flatMap(ex => ex.sets).sort((a, b) => a.set - b.set);
-
-    // 🛠 Find the set with the same set number
-    const lastSet = lastSets.find(s => s.set === setIndex + 1);
-
+    const lastSet = lastExercise.sets.find((s) => s.set === setIndex + 1);
     if (!lastSet) {
-        return 'same';
+      return 'same'; // No matching set in the last log
     }
 
     const lastValue = lastSet[field];
 
     if (currentValue > lastValue) {
-        return 'higher'; // Green
+      return 'higher'; // Green
     } else if (currentValue < lastValue) {
-        return 'lower'; // Red
+      return 'lower'; // Red
     } else {
-        return 'same'; // Yellow
+      return 'same'; // Yellow
     }
-}
+  }
 
+  groupAndMergeSets(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
+    const grouped: { [key: number]: WorkoutLogExercise } = {};
+
+    exercises.forEach((exercise) => {
+      if (!grouped[exercise.exerciseId]) {
+        // Create a new entry for the exercise
+        grouped[exercise.exerciseId] = {
+          ...exercise,
+          sets: [...exercise.sets],
+        };
+      } else {
+        // Merge sets into the existing entry
+        grouped[exercise.exerciseId].sets.push(...exercise.sets);
+      }
+    });
+
+    // Sort sets by their `set` property
+    Object.values(grouped).forEach((exercise) => {
+      exercise.sets.sort((a, b) => a.set - b.set);
+    });
+
+    return Object.values(grouped);
+  }
 
   loadLastCompletedWorkoutLog() {
-    this.workoutLogService.getLastCompletedWorkoutLog(this.userId, this.workoutId).subscribe({
-      next: (lastCompletedLog) => {
-        if (lastCompletedLog && lastCompletedLog.id) {
-          // Store the last completed log and open the new modal.
-          this.lastCompletedLog = lastCompletedLog;
-          this.isLastLogModalOpen = true;
-        } else {
-          // No completed log found; fall back to default.
+    this.workoutLogService
+      .getLastCompletedWorkoutLog(this.userId, this.workoutId)
+      .subscribe({
+        next: (lastCompletedLog) => {
+          if (lastCompletedLog && lastCompletedLog.exercises) {
+            // Group and merge sets for consistent comparisons
+            lastCompletedLog.exercises = this.groupAndMergeSets(
+              lastCompletedLog.exercises
+            );
+            this.lastCompletedLog = lastCompletedLog;
+            this.isLastLogModalOpen = true;
+          } else {
+            this.createAndLoadWorkoutLog();
+          }
+        },
+        error: (err) => {
+          console.error('Error loading last completed workout log:', err);
           this.createAndLoadWorkoutLog();
-        }
-      },
-      error: (err) => {
-        console.error('Error loading last completed workout log:', err);
-        this.createAndLoadWorkoutLog();
-      },
-    });
+        },
+      });
   }
 
   // New handlers for the last completed log modal:
@@ -360,7 +396,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
     this.isLastLogModalOpen = false;
     this.lastCompletedLog = null;
   }
-  
 
   askUserToContinueOrReset(editingLog: WorkoutLog) {
     this.editingLog = editingLog;
@@ -467,12 +502,12 @@ export class LogpageComponent implements OnInit, OnDestroy {
   populateFormWithSavedData(savedWorkoutLog: WorkoutLog) {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
     exercisesArray.clear();
-  
+
     if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
-  
-      this.lastCompletedLog = this.lastCompletedLog || savedWorkoutLog; // 🔥 Ensure last completed log is available
-  
+      const groupedExercises = this.groupExercisesById(
+        savedWorkoutLog.exercises
+      );
+
       groupedExercises
         .sort((a, b) => (a.exerciseOrder || 0) - (b.exerciseOrder || 0))
         .forEach((exercise, index) => {
@@ -485,20 +520,20 @@ export class LogpageComponent implements OnInit, OnDestroy {
             open: [false],
             exerciseOrder: [exercise.exerciseOrder || index + 1],
             sets: this.fb.array(
-              exercise.sets.map((set) => this.createSetWithValues(set))
+              exercise.sets
+                .sort((a, b) => a.set - b.set) // Ordenar por `set`
+                .map((set) => this.createSetWithValues(set))
             ),
           });
-  
+
           exercisesArray.push(formGroup);
         });
-  
-      // 🔥 Ensure Angular detects changes and updates the UI
+
       setTimeout(() => {
         this.workoutLogForm.updateValueAndValidity();
       }, 100);
     }
   }
-  
 
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const grouped: { [key: number]: WorkoutLogExercise } = {};
@@ -521,13 +556,18 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   createSetWithValues(set: any): FormGroup {
     return this.fb.group({
-      reps: [set.reps, [Validators.required, Validators.min(0), Validators.max(999)]],
-      weight: [set.weight, [Validators.required, Validators.min(0), Validators.max(999)]],
-      defaultReps: [set.reps],  // Store original value for comparison
-      defaultWeight: [set.weight] // Store original value for comparison
+      reps: [
+        set.reps,
+        [Validators.required, Validators.min(0), Validators.max(999)],
+      ],
+      weight: [
+        set.weight,
+        [Validators.required, Validators.min(0), Validators.max(999)],
+      ],
+      defaultReps: [set.reps], // Store original value for comparison
+      defaultWeight: [set.weight], // Store original value for comparison
     });
   }
-  
 
   createSet(): FormGroup {
     return this.fb.group({
@@ -638,35 +678,30 @@ export class LogpageComponent implements OnInit, OnDestroy {
         id: exerciseControl.get('id')?.value,
         exerciseId: exerciseControl.get('exerciseId')?.value,
         notes: exerciseControl.get('notes')?.value,
-        sets: this.getSets(exerciseControl).controls.map(
-          (setControl, setIndex) => ({
+        sets: this.getSets(exerciseControl)
+          .controls.map((setControl, setIndex) => ({
             set: setIndex + 1,
             reps: setControl.get('reps')?.value,
             weight: setControl.get('weight')?.value,
-          })
-        ),
+          }))
+          .sort((a, b) => a.set - b.set), // Ordenar por `set`
         exerciseOrder: index + 1,
       })),
       editing: true,
     };
 
-    // Proceed with the update request
-    if (
-      updatedWorkoutLog.exercises.some((exercise) => exercise.sets.length > 0)
-    ) {
-      this.workoutLogService
-        .updateWorkoutLog(this.workoutLogId, updatedWorkoutLog)
-        .subscribe({
-          next: () => {},
-          error: (error) => {
-            console.error('Error updating workout log', error);
-            this.toastService.showToast(
-              TOAST_MSGS.errorcreatingworkout,
-              'danger'
-            );
-          },
-        });
-    }
+    this.workoutLogService
+      .updateWorkoutLog(this.workoutLogId, updatedWorkoutLog)
+      .subscribe({
+        next: () => {},
+        error: (error) => {
+          console.error('Error updating workout log', error);
+          this.toastService.showToast(
+            TOAST_MSGS.errorcreatingworkout,
+            'danger'
+          );
+        },
+      });
   }
 
   submitWorkoutLog() {
@@ -690,7 +725,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
             ),
           })
         );
-  
+
         const workoutLogData = {
           userId: this.userId,
           workoutId: this.workoutId,
@@ -698,17 +733,22 @@ export class LogpageComponent implements OnInit, OnDestroy {
           exercises: exercisesArray,
           editing: false,
         };
-  
-  
+
         this.workoutLogService
           .updateWorkoutLog(this.workoutLogId, workoutLogData)
           .subscribe({
             next: () => {
-              this.toastService.showToast(TOAST_MSGS.workoutdeletedsaved, 'success');
+              this.toastService.showToast(
+                TOAST_MSGS.workoutdeletedsaved,
+                'success'
+              );
               this.router.navigate(['/log-registry']);
             },
             error: (error) => {
-              this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
+              this.toastService.showToast(
+                TOAST_MSGS.errorcreatingworkout,
+                'danger'
+              );
             },
           });
       } else {
@@ -929,16 +969,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
     const exerciseControl = this.exercises.at(index);
     this.selectedExercise = exerciseControl.get('name')?.value || 'Unknown';
     this.selectedExerciseIndex = index;
-  
+
     this.isDeleteModalOpen = true;
   }
-  
 
   handleConfirmDelete(): void {
     if (this.selectedExerciseIndex !== null) {
       const exerciseControl = this.exercises.at(this.selectedExerciseIndex);
       const exerciseId = exerciseControl.get('id')?.value;
-  
+
       if (exerciseId) {
         this.workoutLogService.deleteWorkoutLogExercise(exerciseId).subscribe({
           next: () => {
