@@ -276,45 +276,47 @@ export class LogpageComponent implements OnInit, OnDestroy {
   
   compareWithLastCompleted(exerciseIndex: number, setIndex: number, field: 'reps' | 'weight'): string {
     if (!this.lastCompletedLog || !this.lastCompletedLog.exercises) {
-      return 'same'; // Default if no previous log exists
+        return 'same'; // No previous data
     }
-  
+
     const currentExercise = this.exercises.at(exerciseIndex);
     if (!currentExercise) return 'same';
-  
+
     const currentSet = this.getSets(currentExercise).at(setIndex);
     if (!currentSet) return 'same';
-  
+
     const currentValue = currentSet.get(field)?.value;
-  
-    // Find the corresponding exercise in last completed log
-    const lastExercise = this.lastCompletedLog.exercises.find(
-      (ex) => ex.exerciseId === currentExercise.get('exerciseId')?.value
-    );
-  
-    if (!lastExercise || lastExercise.sets.length === 0) {
-      return 'same'; // No previous data
+
+    // Find the corresponding exercise in the last completed log
+    const lastExercise = this.lastCompletedLog.exercises
+        .filter(ex => ex.exerciseId === currentExercise.get('exerciseId')?.value)
+        .sort((a, b) => a.exerciseOrder - b.exerciseOrder); // Ensure order
+
+    if (!lastExercise.length) {
+        return 'same'; // No previous data
     }
-  
-    // If the set doesn't exist in the last log, return 'same'
-    if (setIndex >= lastExercise.sets.length) {
-      return 'same';
+
+    // Flatten all sets for this exercise and ensure they are ordered
+    const lastSets = lastExercise.flatMap(ex => ex.sets).sort((a, b) => a.set - b.set);
+
+    // 🛠 Find the set with the same set number
+    const lastSet = lastSets.find(s => s.set === setIndex + 1);
+
+    if (!lastSet) {
+        return 'same';
     }
-  
-    const lastSet = lastExercise.sets[setIndex]; // ✅ Compare with the correct set
+
     const lastValue = lastSet[field];
-  
+
     if (currentValue > lastValue) {
-      return 'higher'; // Green
+        return 'higher'; // Green
     } else if (currentValue < lastValue) {
-      return 'lower'; // Red
+        return 'lower'; // Red
     } else {
-      return 'same'; // Yellow
+        return 'same'; // Yellow
     }
-  }
-  
-  
-  
+}
+
 
   loadLastCompletedWorkoutLog() {
     this.workoutLogService.getLastCompletedWorkoutLog(this.userId, this.workoutId).subscribe({
