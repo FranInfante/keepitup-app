@@ -234,12 +234,9 @@ export class LogpageComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (lastCompletedLog) => {
             if (lastCompletedLog) {
-              console.log('Loaded last completed log:', lastCompletedLog);
 
               this.lastCompletedLog = lastCompletedLog; // 🔥 Store it for comparisons
-            } else {
-              console.log('No last completed log found.');
-            }
+            } 
 
             // Now check if there's an ongoing log
             this.workoutLogService
