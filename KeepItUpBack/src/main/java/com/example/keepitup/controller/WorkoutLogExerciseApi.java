@@ -20,8 +20,11 @@ public interface WorkoutLogExerciseApi {
     @PutMapping(UriConstants.BY_ID)
     ResponseEntity<WorkoutLogExerciseDTO> updateWorkoutLogExercise(@PathVariable Integer id, @RequestBody WorkoutLogExerciseDTO workoutLogExerciseDTO);
 
-    @DeleteMapping(UriConstants.BY_ID)
-    ResponseEntity<Void> deleteWorkoutLogExercise(@PathVariable Integer id);
+    @DeleteMapping(UriConstants.BY_WORKOUT_LOG_ID_AND_EXERCISE_ID)
+    ResponseEntity<Void> deleteWorkoutLogExercise(
+            @PathVariable Integer workoutLogId,
+            @PathVariable Integer exerciseId
+    );
 
     @DeleteMapping(UriConstants.BY_WORKOUT_LOG_ID_EXERCISE_ID_AND_SET_NUMBER)
     ResponseEntity<Void> deleteWorkoutLogSet(@PathVariable Integer workoutLogId, @PathVariable Integer exerciseId, @PathVariable Integer setNumber);

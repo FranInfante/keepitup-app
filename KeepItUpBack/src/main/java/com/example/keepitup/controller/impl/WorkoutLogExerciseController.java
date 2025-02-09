@@ -36,8 +36,8 @@ public class WorkoutLogExerciseController implements WorkoutLogExerciseApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteWorkoutLogExercise(Integer id) {
-        workoutLogExerciseService.deleteWorkoutLogExercise(id);
+    public ResponseEntity<Void> deleteWorkoutLogExercise(Integer workoutLogId, Integer exerciseId) {
+        workoutLogExerciseService.deleteWorkoutLogExercise(workoutLogId, exerciseId);
         return ResponseEntity.noContent().build();
     }
 
