@@ -10,7 +10,9 @@
     "CONTACT": "Contacto",
     "WEIGH_INS": "Pesajes",
     "WORKOUTS": "Entrenamientos",
-    "PLANS": "Planes"
+    "PLANS": "Planes",
+    "LIGHTMODE": "Modo Claro",
+    "DARKMODE": "Modo Oscuro"
   },
   "LANDING": {
     "HERO": {
