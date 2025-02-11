@@ -1,0 +1,41 @@
+<app-back-to-menu [navigationPath]="LOCATIONS.menu"></app-back-to-menu>
+
+<div class="min-h-screen bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col p-6">
+    <div class="w-full text-center mt-6">
+        <h1 class="text-3xl font-bold">
+            {{ "SETTINGS.TITLE" | translate }}
+        </h1>
+    </div>
+  
+    <div class="flex flex-col space-y-4 w-[80%] mx-auto flex-1 justify-center items-center">
+       
+      <button
+        (click)="toggleThemeModal()"
+        class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+      >
+        {{ "MENU.MODE_TOGGLE" | translate }}
+      </button>
+  
+      <button
+        (click)="toggleLanguageModal()"
+        class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+      >
+        {{ "MENU.CHANGE_LANGUAGE" | translate }}
+      </button>
+  
+      <button
+        (click)="logout()"
+        class="w-full p-4 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
+      >
+        {{ "MENU.LOGOUT" | translate }}
+      </button>
+    </div>
+    
+    <app-theme-modal *ngIf="showThemeModal" (closeModal)="toggleThemeModal()"></app-theme-modal>
+
+    <app-lang-modal
+      *ngIf="showLanguageModal"
+      (closeModal)="toggleLanguageModal()"
+    ></app-lang-modal>
+  </div>
+  

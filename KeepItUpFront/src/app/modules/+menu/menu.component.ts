@@ -54,6 +54,10 @@ export class MenuComponent {
     this.router.navigate([LOCATIONS.weighins]);
   }
 
+  navigateToSettings() {
+    this.router.navigate([LOCATIONS.settings]);
+  }
+
   navigateToPlans() {
     this.router.navigate([LOCATIONS.plans]);
   }
