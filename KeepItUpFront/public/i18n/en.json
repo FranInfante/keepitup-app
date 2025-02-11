@@ -10,7 +10,9 @@
     "CONTACT": "Contact",
     "WEIGH_INS": "Weigh-ins",
     "WORKOUTS": "Workouts",
-    "PLANS": "Plans"
+    "PLANS": "Plans",
+    "LIGHTMODE": "Light Mode",
+    "DARKMODE": "Dark Mode"
   },
   "LANDING": {
     "HERO": {
