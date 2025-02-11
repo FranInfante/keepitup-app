@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UsersService {
-    UsersDTO getUserById(Integer id);
+//    UsersDTO getUserById(Integer id);
 
-    List<UsersDTO> getAllUsers();
+//    List<UsersDTO> getAllUsers();
 
     List<UsersDTO> searchUsersByUsername(String username);
 
@@ -35,5 +35,12 @@ public interface UsersService {
     UsersDTO createUserFromPending(String email)  throws Exception;
 
     boolean isEmailOrUsernameRegistered(String email, String username);
+
+    Optional<UsersDTO> getUserByUsername(String username);
+
+    void requestPasswordReset(String email);
+
+    boolean resetPassword(String token, String newPassword);
+
 
 }

@@ -1,6 +1,5 @@
 package com.example.keepitup.model.dtos;
 
-
 import lombok.*;
 
 @Getter
@@ -10,5 +9,6 @@ import lombok.*;
 @Builder
 public class WorkoutLogSearchRequest {
     private Integer userId;
+    private Integer workoutId;
     private Boolean isEditing;
 }

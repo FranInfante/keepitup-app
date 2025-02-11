@@ -28,13 +28,13 @@ export class UserService {
     this.authToken = localStorage.getItem('authToken');
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(USER_ROUTES.list());
-  }
+  // getAllUsers(): Observable<User[]> {
+  //   return this.http.get<User[]>(USER_ROUTES.list());
+  // }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(USER_ROUTES.get(id));
-  }
+  // getUserById(id: number): Observable<User> {
+  //   return this.http.get<User>(USER_ROUTES.get(id));
+  // }
 
   createUser(user: User): Observable<User> {
     return this.http.post<User>(USER_ROUTES.registerfirststep(), user);
@@ -174,4 +174,25 @@ export class UserService {
   verifyCode(data: { email: string; code: string }): Observable<void> {
     return this.http.post<void>(USER_ROUTES.verifyCode(), data);
   }
+
+  requestPasswordReset(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(USER_ROUTES.passwordResetRequest(), { email }).pipe(
+      catchError((error) => {
+        console.error('Error sending password reset request:', error);
+        return throwError(() => new Error('Failed to send password reset link.'));
+      })
+    );
+  }
+  
+  
+  resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(USER_ROUTES.passwordResetConfirm(), { token, newPassword }).pipe(
+      catchError((error) => {
+        console.error('Error resetting password:', error);
+        return throwError(() => new Error('Failed to reset password.'));
+      })
+    );
+  }
+  
+  
 }

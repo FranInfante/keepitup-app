@@ -11,11 +11,13 @@ import java.util.Optional;
 @Repository
 public interface WorkoutLogRepository extends JpaRepository<WorkoutLog, Integer> {
     List<WorkoutLog> findByUserId(Integer userId);
-    Optional<WorkoutLog> findFirstByUserIdAndIsEditing(Integer userId, Boolean isEditing);
+    Optional<WorkoutLog> findFirstByUserIdAndWorkoutIdAndIsEditing(Integer userId, Integer workoutId, Boolean isEditing);
     Optional<WorkoutLog> findFirstByUserIdAndWorkoutIdAndIsEditingFalseOrderByDateDesc(Integer userId, Integer workoutId);
 
 
     List<WorkoutLog> findByWorkoutId(Integer id);
 
     List<WorkoutLog> findByWorkout(Workouts workout);
+
+    void deleteByUserId(Integer userId);
 }

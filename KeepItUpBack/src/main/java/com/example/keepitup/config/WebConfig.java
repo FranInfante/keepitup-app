@@ -1,7 +1,9 @@
 package com.example.keepitup.config;
 
+import com.example.keepitup.util.UriConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -65,7 +67,20 @@ public class WebConfig implements WebMvcConfigurer {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                .anyRequest().permitAll()
+
+                                .requestMatchers(HttpMethod.POST, UriConstants.WORKOUTS_IN_PLAN).authenticated()
+                                .requestMatchers(HttpMethod.POST, UriConstants.PLANS).authenticated()
+                                .requestMatchers(HttpMethod.POST, UriConstants.WORKOUT_EXERCISE_IN_PLAN_CREATE).authenticated()
+                        .requestMatchers(HttpMethod.DELETE, UriConstants.PLANS + UriConstants.BY_ID).authenticated()
+                        .requestMatchers(HttpMethod.DELETE, UriConstants.PLANS + UriConstants.WORKOUT_IN_PLAN_DELETE).authenticated()
+
+                        .requestMatchers(HttpMethod.POST, UriConstants.WEIGHINS).authenticated()
+                        .requestMatchers(HttpMethod.DELETE, UriConstants.WEIGHINS + UriConstants.BY_ID).authenticated()
+
+
+
+
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

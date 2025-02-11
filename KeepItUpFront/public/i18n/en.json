@@ -54,7 +54,8 @@
     "PASSWORD_REQUIRED": "Password is required.",
     "BUTTON": "Login",
     "NO_ACCOUNT": "Don’t have an account?",
-    "REGISTER": "Register"
+    "REGISTER": "Register",
+    "FORGOT_PASSWORD": "Have you forgotten your password?"
   },
 
   "MSG": {
@@ -92,7 +93,12 @@
     "REORDERING_SAVED":"Reordering saved successfully!",
     "FAILEDTOSAVEREORDERING": "Failed to save the order",
     "EXERCISECREATED_":"Exercise created: ",
-    "PLEASE_FILL_ALL_FIELDS" : "Please fill out the last set before adding a new one."
+    "PLEASE_FILL_ALL_FIELDS" : "Please fill out the last set before adding a new one.",
+
+    "SUCCESSFUL_RESETPASSWORD": "Password reset successful. You can now log in.",
+    "FAILED_RESETING": "Failed to reset password. Please try again.",
+    "SUCCESS_CHECK_YOUR_EMAIL": "Success! Please check your email.",
+    "FAILED_RESET_LINK": "Failed to send the reset link. Please try again."
   },
   "REGISTER": {
     "TITLE": "Register User",
@@ -329,7 +335,26 @@
   "CLOSE": "Close",
   "NO_NOTES": "No notes available for this exercise.",
   "PLACEHOLDER": "Enter your notes here..."
+},
+"FORGOT_PASSWORD": {
+    "EMAIL": "Email",
+    "EMAIL_REQUIRED": "Email is required.",
+    "INVALID_EMAIL": "Please enter a valid email address.",
+    "BUTTON": "Send Reset Link",
+    "BACK_TO_LOGIN": "Back to Login",
+    "SUCCESS_MESSAGE": "Password reset link sent successfully!",
+    "ERROR_MESSAGE": "Failed to send password reset link. Please try again."
+  },
+  "RESET_PASSWORD": {
+  "TITLE": "Reset Your Password",
+  "NEW_PASSWORD": "New Password",
+  "CONFIRM_PASSWORD": "Confirm Password",
+  "SUBMIT": "Reset Password",
+  "BACK_TO_LOGIN": "Back to Login",
+  "SUCCESS_MESSAGE": "Your password has been reset successfully!",
+  "ERROR_MESSAGE": "Failed to reset your password. Please try again."
 }
+
 
 
 

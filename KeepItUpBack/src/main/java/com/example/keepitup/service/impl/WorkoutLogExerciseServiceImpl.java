@@ -127,8 +127,16 @@ public class WorkoutLogExerciseServiceImpl implements WorkoutLogExerciseService 
 
 
     @Override
-    public void deleteWorkoutLogExercise(Integer id) {
-        workoutLogExerciseRepository.deleteById(id);
+    public void deleteWorkoutLogExercise(Integer workoutLogId, Integer exerciseId) {
+        // Find all sets for the given workoutLogId and exerciseId
+        List<WorkoutLogExercise> exercises = workoutLogExerciseRepository.findByWorkoutLogIdAndExerciseId(workoutLogId, exerciseId);
+
+        if (exercises.isEmpty()) {
+            throw new RuntimeException("No workout log exercises found for the given workoutLogId and exerciseId.");
+        }
+
+        // Delete all related sets
+        workoutLogExerciseRepository.deleteAll(exercises);
     }
 
     @Override

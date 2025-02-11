@@ -16,4 +16,6 @@ public interface WorkoutsRepository extends JpaRepository<Workouts, Integer> {
 
     @Query("SELECT DISTINCT w.name FROM Workouts w WHERE w.user.id = :userId")
     List<String> findDistinctWorkoutNamesByUserId(@Param("userId") Integer userId);
+
+    void deleteByUserId(Integer userId);
 }

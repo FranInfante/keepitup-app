@@ -76,7 +76,9 @@ export class LanguageService {
     }
 
     initializeUserLanguage(): void {
-      const savedLanguage = localStorage.getItem('userLanguage') || 'en';
+      const savedLanguage = localStorage.getItem('userLanguage') || 
+                        localStorage.getItem('language') || 
+                        'en';
       this.translate.use(savedLanguage);
       document.documentElement.lang = savedLanguage;
     }
