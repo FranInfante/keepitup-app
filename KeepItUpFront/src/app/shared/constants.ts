@@ -9,6 +9,7 @@ export const LOCATIONS = {
   logregistry: '/log-registry',
   forgotPassword: '/forgot-password',
   resetPassword: '/reset-password',
+  settings: '/settings',
 };
 
 export const MSG = {

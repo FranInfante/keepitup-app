@@ -10,7 +10,9 @@
     "CONTACT": "Contact",
     "WEIGH_INS": "Weigh-ins",
     "WORKOUTS": "Workouts",
-    "PLANS": "Plans"
+    "PLANS": "Plans",
+    "LIGHTMODE": "Light Mode",
+    "DARKMODE": "Dark Mode"
   },
   "LANDING": {
     "HERO": {
@@ -353,7 +355,10 @@
   "BACK_TO_LOGIN": "Back to Login",
   "SUCCESS_MESSAGE": "Your password has been reset successfully!",
   "ERROR_MESSAGE": "Failed to reset your password. Please try again."
-}
+},
+"SETTINGS": {
+  "TITLE": "Settings"
+  }
 
 
 
