@@ -82,7 +82,6 @@ export class ThemeService {
     });
 }
 
-
   initializeThemeFromLocalStorage(): void {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     this.applyTheme(savedTheme);
@@ -116,27 +115,36 @@ export class ThemeService {
     const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
 
     if (newTheme === 'light') {
-      htmlElement.classList.remove('dark');
+        htmlElement.classList.remove('dark');
     } else {
-      htmlElement.classList.add('dark');
+        htmlElement.classList.add('dark');
     }
 
     this.updateUserTheme(newTheme);
-    localStorage.setItem('themeUser', newTheme);
-  }
+}
 
-  private updateUserTheme(theme: string): void {
+updateUserTheme(theme: string): void {
+    localStorage.setItem('themeUser', theme);
+
+    const htmlElement = document.documentElement;
+    if (theme === 'dark') {
+        htmlElement.classList.add('dark');
+    } else {
+        htmlElement.classList.remove('dark');
+    }
+
     this.userService.getCurrentUser().subscribe({
-      next: (user) => {
-        if (user && user.id) {
-          this.userService.setThemeWithUserId(user.id, theme).subscribe({
-            error: (err) => console.error('Failed to update user theme:', err),
-          });
-        }
-      },
-      error: (err) => console.error('Failed to fetch current user:', err),
+        next: (user) => {
+            if (user && user.id) {
+                this.userService.setThemeWithUserId(user.id, theme).subscribe({
+                    error: (err) => console.error('Failed to update user theme:', err),
+                });
+            }
+        },
+        error: (err) => console.error('Failed to fetch current user:', err),
     });
-  }
+}
+
 
   isDarkMode(): boolean {
     return document.documentElement.classList.contains('dark');

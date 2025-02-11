@@ -8,16 +8,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
 import { LOCATIONS } from '../../shared/constants';
 import { CommonModule } from '@angular/common';
+import { ThemeModalComponent } from "../../shared/components/theme-modal/theme-modal.component";
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [LanguageSwitcherComponent, TranslateModule, BackToMenuComponent, CommonModule],
+  imports: [LanguageSwitcherComponent, TranslateModule, BackToMenuComponent, CommonModule, ThemeModalComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
 export class SettingsComponent {
   showLanguageModal = false;
+  showThemeModal = false;
+
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
   constructor(
@@ -27,8 +30,8 @@ export class SettingsComponent {
     private themeService: ThemeService
   ) {}
 
-  toggleDarkMode() {
-    this.themeService.toggleTheme();
+  toggleThemeModal() {
+    this.showThemeModal = !this.showThemeModal;
   }
 
   toggleLanguageModal() {
