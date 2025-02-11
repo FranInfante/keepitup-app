@@ -35,7 +35,6 @@ export class MenuComponent {
 
   ngOnInit(): void {
     this.loadingService.setLoading(true);
-    this.themeService.initializeUserTheme();
     this.languageService.setUserLanguage();
 
     combineLatest([
