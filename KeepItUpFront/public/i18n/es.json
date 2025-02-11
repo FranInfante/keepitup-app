@@ -346,5 +346,8 @@
     "BACK_TO_LOGIN": "Volver al inicio de sesión",
     "SUCCESS_MESSAGE": "¡Tu contraseña ha sido restablecida con éxito!",
     "ERROR_MESSAGE": "No se pudo restablecer tu contraseña. Por favor, inténtalo de nuevo."
+  },
+  "SETTINGS": {
+  "TITLE": "Ajustes"
   }
 }

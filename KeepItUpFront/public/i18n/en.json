@@ -353,7 +353,10 @@
   "BACK_TO_LOGIN": "Back to Login",
   "SUCCESS_MESSAGE": "Your password has been reset successfully!",
   "ERROR_MESSAGE": "Failed to reset your password. Please try again."
-}
+},
+"SETTINGS": {
+  "TITLE": "Settings"
+  }
 
 
 
