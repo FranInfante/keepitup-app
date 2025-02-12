@@ -78,4 +78,8 @@ public class UriConstants {
     public static final String BY_WORKOUT_LOG_ID_AND_EXERCISE_ID = "/workout-log/{workoutLogId}/exercise/{exerciseId}";
 
 
+    public static final String GYM = BASE_URL + "/gym";
+    public static final String GET_GYM_BY_ID = "/user/{userId}";
+
+
 }

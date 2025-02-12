@@ -358,9 +358,12 @@
 },
 "SETTINGS": {
   "TITLE": "Settings"
+  },
+  "GYM_MANAGER": {
+  "TITLE":"Gyms",
+  "ENTER_NAME": "Gym Name",
+  "ADD_GYM": "Create Gym",
+  "YOUR_GYMS": "Gyms",
+  "DELETE": "Delete"
   }
-
-
-
-
 }

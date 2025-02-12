@@ -7,20 +7,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.keepitup.model.entities.*;
+import com.example.keepitup.repository.*;
 import org.springframework.stereotype.Service;
 
 import com.example.keepitup.model.dtos.ExerciseDTO;
 import com.example.keepitup.model.dtos.WorkoutLogDTO;
 import com.example.keepitup.model.dtos.WorkoutLogExerciseDTO;
-import com.example.keepitup.model.entities.Exercise;
-import com.example.keepitup.model.entities.Users;
-import com.example.keepitup.model.entities.WorkoutLog;
-import com.example.keepitup.model.entities.WorkoutLogExercise;
-import com.example.keepitup.model.entities.Workouts;
-import com.example.keepitup.repository.ExerciseRepository;
-import com.example.keepitup.repository.UsersRepository;
-import com.example.keepitup.repository.WorkoutLogRepository;
-import com.example.keepitup.repository.WorkoutsRepository;
 import com.example.keepitup.service.WorkoutLogService;
 import com.example.keepitup.util.mappers.ExerciseMapper;
 import com.example.keepitup.util.mappers.WorkoutLogMapper;
@@ -37,6 +30,9 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
     private final UsersRepository userRepository;
     private final WorkoutsRepository workoutRepository;
     private final ExerciseRepository exerciseRepository;
+    private final GymRepository gymRepository;
+
+
 
     @Override
     public List<WorkoutLogDTO> getAllWorkoutLogs() {
@@ -55,12 +51,17 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
         Workouts workout = workoutRepository.findById(workoutLogDTO.getWorkoutId())
                 .orElseThrow(() -> new RuntimeException(MessageConstants.WORKOUT_NOT_FOUND));
 
+        Gym gym = gymRepository.findById(workoutLogDTO.getGymId())
+                .orElseThrow(() -> new RuntimeException("Gym not found"));
+
+
         // Create the WorkoutLog entity
         WorkoutLog workoutLog = WorkoutLog.builder()
                 .user(user)
                 .workout(workout)
                 .date(workoutLogDTO.getDate())
                 .isEditing(workoutLogDTO.isEditing())
+                .gym(gym)
                 .build();
 
         // Now iterate through exercises and their respective sets

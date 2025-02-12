@@ -10,6 +10,7 @@ export const LOCATIONS = {
   forgotPassword: '/forgot-password',
   resetPassword: '/reset-password',
   settings: '/settings',
+  gymManager: '/gym-manager'
 };
 
 export const MSG = {

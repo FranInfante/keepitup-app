@@ -231,41 +231,6 @@ export class WorkoutsComponent {
     }
   }
 
-  // saveReorderedWorkouts() {
-  //   if (this.planId !== null) {
-  //     const workoutIds = this.workouts.map((workout) => workout.id);
-
-  //     // Reorder the remaining workouts
-  //     this.planService
-  //       .reorderWorkouts(this.planId, workoutIds)
-  //       .subscribe(() => {
-  //         // Check if any workouts are marked for deletion
-  //         if (this.workoutsMarkedForDeletion.length > 0) {
-  //           // Send delete requests for workouts marked for deletion
-  //           this.workoutsMarkedForDeletion.forEach((workout) => {
-  //             this.planService.deleteWorkout(this.planId!, workout.id)
-  //               .subscribe(() => {
-  //                 // Optionally handle response or errors
-  //               });
-  //           });
-
-  //           // Show a toast message after successfully saving changes if any workout was deleted
-  //           this.toastService.showToast(
-  //             TOAST_MSGS.workoutdeletedsaved,
-  //             'success'
-  //           );
-
-  //           // Clear the deletion list after the changes are saved
-  //           this.workoutsMarkedForDeletion = [];
-  //         }
-
-  //         // Update UI and reset editing mode
-  //         this.isEditing = false;
-  //         this.isEditingChange.emit(this.isEditing);
-  //       });
-  //   }
-  // }
-
   saveReorderedWorkouts() {
     if (this.planId !== null) {
       const workoutIds = this.workouts.map((workout) => workout.id);
