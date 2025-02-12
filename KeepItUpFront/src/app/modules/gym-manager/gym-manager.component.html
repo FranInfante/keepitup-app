@@ -2,13 +2,13 @@
   
     <app-back-to-menu [navigationPath]="LOCATIONS.settings"></app-back-to-menu>
   
-    <div class="w-full text-center mt-6">
+    <div class="w-full text-center mt-4 mb-4">
       <h1 class="text-3xl font-bold">
         {{ "GYM_MANAGER.TITLE" | translate }}
       </h1>
     </div>
   
-    <div class="flex flex-col space-y-4 w-[80%] mx-auto flex-1 justify-center items-center">
+    <div class="flex flex-col space-y-4 w-[90%] mx-auto flex-1 justify-center items-center">
   
       <!-- Input and Create Gym Button -->
       <div class="w-full flex flex-col p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md">
@@ -27,11 +27,12 @@
       </div>
   
       <!-- List of Gyms -->
-      <div class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md">
+      <div *ngIf="gyms.length > 0" class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md">
         <h3 class="text-xl font-semibold text-center mb-3">
           {{ "GYM_MANAGER.YOUR_GYMS" | translate }}
         </h3>
-  
+        <div class="max-h-60 overflow-y-auto">
+
         <ul class="space-y-2">
           <li *ngFor="let gym of gyms" class="p-3 bg-gray-200 dark:bg-gray-600 rounded-lg flex justify-between items-center">
             <span>{{ gym.name }}</span>
@@ -43,6 +44,8 @@
             </button>
           </li>
         </ul>
+      </div>
+
       </div>
   
     </div>
