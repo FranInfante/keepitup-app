@@ -9,6 +9,8 @@ import com.example.keepitup.service.GymService;
 import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +30,9 @@ public class GymServiceImpl implements GymService {
 
         long gymCount = gymRepository.countByUserId(user.getId());
 
+        // If the user already has 5 gyms, return null so the controller can handle the 409 response
         if (gymCount >= 5) {
-            throw new RuntimeException("You can only have up to 5 gyms.");
+            return null;
         }
 
         Gym gym = Gym.builder()
@@ -40,7 +43,6 @@ public class GymServiceImpl implements GymService {
         Gym savedGym = gymRepository.save(gym);
         return new GymDTO(savedGym.getId(), savedGym.getUser().getId(), savedGym.getName());
     }
-
 
     @Override
     public List<GymDTO> getUserGyms(Integer userId) {

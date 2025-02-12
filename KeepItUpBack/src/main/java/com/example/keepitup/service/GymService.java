@@ -1,6 +1,8 @@
 package com.example.keepitup.service;
 
 import com.example.keepitup.model.dtos.GymDTO;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 public interface GymService {

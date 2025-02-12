@@ -51,11 +51,12 @@ export const TOAST_MSGS = {
   pleasefillallfields:'TOAST_MSGS.PLEASE_FILL_ALL_FIELDS',
   exercise_deleted_successfully:'TOAST_MSGS.EXERCISE_DELETED_SUCCESSFULLY',
   failed_to_delete_exercise:'TOAST_MSGS.FAILED_TO_DELETE_EXERCISE',
-
   successfulresetpassword: 'TOAST_MSGS.SUCCESSFUL_RESETPASSWORD',
   failedreseting: 'TOAST_MSGS.FAILED_RESETING',
   successcheckyouremail: 'TOAST_MSGS.SUCCESS_CHECK_YOUR_EMAIL',
   failedresetlink: 'TOAST_MSGS.FAILED_RESET_LINK',
+
+  reachedmaxgyms:'TOAST_MSGS.REACHED_MAX_GYMS'
 };
 
 export const ASSET_URLS = {

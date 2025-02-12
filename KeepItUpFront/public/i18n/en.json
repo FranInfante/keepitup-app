@@ -96,11 +96,11 @@
     "FAILEDTOSAVEREORDERING": "Failed to save the order",
     "EXERCISECREATED_":"Exercise created: ",
     "PLEASE_FILL_ALL_FIELDS" : "Please fill out the last set before adding a new one.",
-
     "SUCCESSFUL_RESETPASSWORD": "Password reset successful. You can now log in.",
     "FAILED_RESETING": "Failed to reset password. Please try again.",
     "SUCCESS_CHECK_YOUR_EMAIL": "Success! Please check your email.",
-    "FAILED_RESET_LINK": "Failed to send the reset link. Please try again."
+    "FAILED_RESET_LINK": "Failed to send the reset link. Please try again.",
+"REACHED_MAX_GYMS": "You can only set up 5 Gyms at once"
   },
   "REGISTER": {
     "TITLE": "Register User",

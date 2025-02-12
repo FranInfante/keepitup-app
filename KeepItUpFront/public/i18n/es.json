@@ -95,11 +95,11 @@
     "FAILEDTOSAVEREORDERING": "Error al guardar el orden",
     "EXERCISECREATED_": "Ejercicio creado: ",
     "PLEASE_FILL_ALL_FIELDS": "Por favor, completa todos los campos de la serie anterior.",
-
     "SUCCESSFUL_RESETPASSWORD": "Contraseña restablecida con éxito. Por favor, inicia sesión.",
     "FAILED_RESETING": "Error al restablecer la contraseña. Por favor, inténtalo más tarde.",
     "SUCCESS_CHECK_YOUR_EMAIL": "Exito! Revisa tu email para recuperar tu contraseña.",
-    "FAILED_RESET_LINK": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo más tarde."
+    "FAILED_RESET_LINK": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo más tarde.",
+    "REACHED_MAX_GYMS": "Solo puedes tener 5 Gimnasios"
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
@@ -350,13 +350,13 @@
     "ERROR_MESSAGE": "No se pudo restablecer tu contraseña. Por favor, inténtalo de nuevo."
   },
   "SETTINGS": {
-  "TITLE": "Ajustes"
+    "TITLE": "Ajustes"
   },
   "GYM_MANAGER": {
-    "TITLE":"Gyms",
-  "ENTER_NAME": "Nombre del Gimnasio",
-  "ADD_GYM": "Crear Gimnasio",
-  "YOUR_GYMS": "Gimnasios",
-  "DELETE": "Borrar"
+    "TITLE": "Gyms",
+    "ENTER_NAME": "Nombre del Gimnasio",
+    "ADD_GYM": "Crear Gimnasio",
+    "YOUR_GYMS": "Gimnasios",
+    "DELETE": "Borrar"
   }
 }

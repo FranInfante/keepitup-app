@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BackToMenuComponent } from '../../shared/components/back-to-menu/back-to-menu.component';
-import { LOCATIONS } from '../../shared/constants';
+import { LOCATIONS, TOAST_MSGS } from '../../shared/constants';
 import { UserService } from '../../shared/service/user.service';
+import { ToastService } from '../../shared/service/toast.service';
 
 @Component({
   selector: 'app-gym-manager',
@@ -21,7 +22,7 @@ export class GymManagerComponent implements OnInit {
 
   LOCATIONS: typeof LOCATIONS = LOCATIONS;
 
-  constructor(private gymService: GymService, private userService: UserService) {}
+  constructor(private gymService: GymService, private userService: UserService, private toastService : ToastService) {}
 
   ngOnInit(): void {
     // Fetch the current user's ID
@@ -50,12 +51,24 @@ export class GymManagerComponent implements OnInit {
 
   createGym(): void {
     if (!this.newGymName.trim() || !this.currentUserId) return;
-
-    this.gymService.createGym({ userId: this.currentUserId, name: this.newGymName }).subscribe(() => {
-      this.newGymName = '';
-      this.loadGyms();
+  
+    this.gymService.createGym({ userId: this.currentUserId, name: this.newGymName }).subscribe({
+      next: (er) => {
+        this.newGymName = '';
+        this.loadGyms(); 
+        
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          this.toastService.showToast(TOAST_MSGS.reachedmaxgyms, "info");
+        } else {
+          this.toastService.showToast("An error occurred while creating the gym.", "danger");
+        }
+      }
     });
   }
+  
+  
 
   deleteGym(gymId: number): void {
     this.gymService.deleteGym(gymId).subscribe(() => 
