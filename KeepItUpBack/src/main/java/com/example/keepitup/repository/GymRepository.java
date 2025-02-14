@@ -11,4 +11,7 @@ public interface GymRepository extends JpaRepository<Gym, Integer> {
     List<Gym> findByUserId(Integer userId);
 
     long countByUserId(Integer id);
+
+    boolean existsByUserIdAndName(Integer userId, String name);
+
 }

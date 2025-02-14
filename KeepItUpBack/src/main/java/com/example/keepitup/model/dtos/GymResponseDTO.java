@@ -1,14 +1,11 @@
 package com.example.keepitup.model.dtos;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Builder
-public class GymDTO {
-    private Integer id;
-    private Integer userId;
-    private String name;
+public class GymResponseDTO {
+    private boolean success;
+    private String message;
 }

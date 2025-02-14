@@ -53,20 +53,29 @@ export class GymManagerComponent implements OnInit {
     if (!this.newGymName.trim() || !this.currentUserId) return;
   
     this.gymService.createGym({ userId: this.currentUserId, name: this.newGymName }).subscribe({
-      next: (er) => {
+      next: () => {
         this.newGymName = '';
-        this.loadGyms(); 
-        
+        this.loadGyms();
+        this.toastService.showToast(TOAST_MSGS.gymcreatedsuccess, "success");
       },
       error: (err) => {
         if (err.status === 409) {
-          this.toastService.showToast(TOAST_MSGS.reachedmaxgyms, "info");
+          this.gymService.getUserGyms(this.currentUserId).subscribe((gyms) => {
+            if (gyms.length >= 5) {
+              // Max gyms limit reached
+              this.toastService.showToast(TOAST_MSGS.reachedmaxgyms, "info");
+            } else {
+              // Gym name already exists
+              this.toastService.showToast(TOAST_MSGS.alreadyexistsgymname, "info");
+            }
+          });
         } else {
-          this.toastService.showToast("An error occurred while creating the gym.", "danger");
+          this.toastService.showToast(TOAST_MSGS.errorcreatinggym, "danger");
         }
       }
     });
   }
+  
   
   
 

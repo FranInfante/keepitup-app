@@ -101,7 +101,10 @@
     "FAILED_RESETING": "Failed to reset password. Please try again.",
     "SUCCESS_CHECK_YOUR_EMAIL": "Success! Please check your email.",
     "FAILED_RESET_LINK": "Failed to send the reset link. Please try again.",
-"REACHED_MAX_GYMS": "You can only set up 5 Gyms at once"
+"REACHED_MAX_GYMS": "You can only set up 5 Gyms at once",
+    "EXISTS_GYM_NAME": "A gym with that name already exists.",
+    "ERROR_CREATING_GYM": "Error creating the gym.",
+    "SUCCESSFULLY_CREATED_GYM": "Successfully created the gym."
   },
   "REGISTER": {
     "TITLE": "Register User",

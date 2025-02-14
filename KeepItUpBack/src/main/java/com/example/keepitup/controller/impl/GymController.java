@@ -1,6 +1,7 @@
 package com.example.keepitup.controller;
 
 import com.example.keepitup.model.dtos.GymDTO;
+import com.example.keepitup.model.dtos.GymResponseDTO;
 import com.example.keepitup.service.GymService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,16 @@ public class GymController implements GymApi{
     private final GymService gymService;
 
     @Override
-    public ResponseEntity<GymDTO> createGym(@RequestBody GymDTO gymDTO) {
-        GymDTO createdGym = gymService.createGym(gymDTO);
+    public ResponseEntity<GymResponseDTO> createGym(@RequestBody GymDTO gymDTO) {
+        GymResponseDTO response = gymService.createGym(gymDTO);
 
-        // If null is returned, it means the gym limit was reached
-        if (createdGym == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        if (!response.isSuccess()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response); // 409 Conflict for errors
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdGym);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response); // 201 Created for success
     }
+
 
     @Override
     public ResponseEntity<List<GymDTO>> getUserGyms(Integer userId) {

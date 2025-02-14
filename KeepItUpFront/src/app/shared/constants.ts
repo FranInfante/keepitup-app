@@ -56,7 +56,10 @@ export const TOAST_MSGS = {
   successcheckyouremail: 'TOAST_MSGS.SUCCESS_CHECK_YOUR_EMAIL',
   failedresetlink: 'TOAST_MSGS.FAILED_RESET_LINK',
 
-  reachedmaxgyms:'TOAST_MSGS.REACHED_MAX_GYMS'
+  reachedmaxgyms:'TOAST_MSGS.REACHED_MAX_GYMS',
+  alreadyexistsgymname:'TOAST_MSGS.EXISTS_GYM_NAME',
+  errorcreatinggym:'TOAST_MSGS.ERROR_CREATING_GYM',
+  gymcreatedsuccess: 'TOAST_MSGS.SUCCESSFULLY_CREATED_GYM'
 };
 
 export const ASSET_URLS = {
