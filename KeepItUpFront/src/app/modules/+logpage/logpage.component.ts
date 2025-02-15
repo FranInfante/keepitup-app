@@ -291,12 +291,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
           if (this.gyms.length > 0) {
             this.openGymSelectionModal();
           } else {
-            this.proceedWithWorkoutLogCreation();
+            this.loadLastCompletedWorkoutLog();
           }
         },
         error: (err) => {
-          console.error('Error al obtener gimnasios:', err);
-          this.proceedWithWorkoutLogCreation();
+          this.loadLastCompletedWorkoutLog();
         }
       });
     } else {
@@ -432,7 +431,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   loadLastCompletedWorkoutLog() {
     console.log('Fetching last completed workout log...');
-    
+
+    const gymIdToSend = this.gymId !== null ? this.gymId : 0; // If null, send 0
+
+    console.log(this.userId + ' ' + this.workoutId + ' ' + gymIdToSend);    
     this.workoutLogService
       .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId)
       .subscribe({

@@ -239,7 +239,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
     public WorkoutLogDTO getLastCompletedWorkoutLog(Integer userId, Integer workoutId, Integer gymId) {
         Optional<WorkoutLog> workoutLogOptional;
 
-        if (gymId != null) {
+        if (gymId != 0) {
             workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndGymIdAndIsEditingFalseOrderByDateDesc(
                     userId, workoutId, gymId);
         } else {
