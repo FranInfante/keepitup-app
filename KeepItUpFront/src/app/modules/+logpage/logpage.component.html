@@ -307,4 +307,11 @@
     [currentExercises]="getCurrentExercises()"
     (exerciseSelected)="addExerciseToLog($event)"
   ></app-exercise-picker-modal>
+
+  <app-gym-selection-modal
+  *ngIf="isGymSelectionModalOpen"
+  [gyms]="gyms"
+  (onSelectGym)="handleGymSelection($event)"
+  (onCancel)="cancelGymSelection()"
+></app-gym-selection-modal>
 </div>

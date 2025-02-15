@@ -105,10 +105,11 @@ export class WorkoutLogService {
 
   getLastCompletedWorkoutLog(
     userId: number,
-    workoutId: number
+    workoutId: number,
+    gymId: number | null
   ): Observable<any> {
     return this.http.get<void>(
-      WORKOUT_LOG_ROUTES.getLastCompleted(userId, workoutId)
+      WORKOUT_LOG_ROUTES.getLastCompleted(userId, workoutId, gymId)
     );
   }
 }

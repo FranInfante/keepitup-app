@@ -26,7 +26,7 @@ export const WORKOUT_LOG_ROUTES = {
   reorderWorkoutLogExercises: (workoutLogId: number) =>
     `${WORKOUT_LOGS_API_URL}/${workoutLogId}/exercises/reorder`,
   createWorkoutLogExercise: () => `${WORKOUT_LOG_EXERCISES_API_URL}`,
-  getLastCompleted: (userId: number, workoutId: number) =>
-    `${WORKOUT_LOGS_API_URL}/last-completed/${userId}/${workoutId}`,
+  getLastCompleted: (userId: number, workoutId: number, gymId: number | null) =>
+    `${WORKOUT_LOGS_API_URL}/last-completed/${userId}/${workoutId}/${gymId ?? 0}`,
   findbyuserandisediting: () => `${WORKOUT_LOGS_API_URL}/find-by-user-and-is-editing`
 };

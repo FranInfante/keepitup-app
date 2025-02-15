@@ -70,7 +70,7 @@ public class UriConstants {
     public static final String BY_WORKOUT_LOG_ID_EXERCISE_ID_AND_SET_NUMBER = "/workout-log/{workoutLogId}/exercise/{exerciseId}/set/{setNumber}";
 
     public static final String REORDERWORKOUTLOGEXERCISES = "/{workoutLogId}/exercises/reorder";
-    public static final String LAST_COMPLETED = "/last-completed/{userId}/{workoutId}";
+    public static final String LAST_COMPLETED = "/last-completed/{userId}/{workoutId}/{gymId}";
 
     public static final String PASSWORD_RESET_REQUEST = "/password-reset/request";
     public static final String PASSWORD_RESET_CONFIRM = "/password-reset/confirm";

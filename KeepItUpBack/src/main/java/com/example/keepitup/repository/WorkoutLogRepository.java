@@ -13,6 +13,9 @@ public interface WorkoutLogRepository extends JpaRepository<WorkoutLog, Integer>
     List<WorkoutLog> findByUserId(Integer userId);
     Optional<WorkoutLog> findFirstByUserIdAndWorkoutIdAndIsEditing(Integer userId, Integer workoutId, Boolean isEditing);
     Optional<WorkoutLog> findFirstByUserIdAndWorkoutIdAndIsEditingFalseOrderByDateDesc(Integer userId, Integer workoutId);
+    Optional<WorkoutLog> findFirstByUserIdAndWorkoutIdAndGymIdAndIsEditingFalseOrderByDateDesc(
+            Integer userId, Integer workoutId, Integer gymId);
+
 
 
     List<WorkoutLog> findByWorkoutId(Integer id);

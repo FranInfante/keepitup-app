@@ -45,7 +45,7 @@ public interface WorkoutLogApi {
             @RequestBody List<WorkoutLogExerciseDTO> exercises);
 
     @GetMapping(UriConstants.LAST_COMPLETED)
-    ResponseEntity<WorkoutLogDTO> getLastCompletedWorkoutLog(@PathVariable Integer userId, @PathVariable Integer workoutId);
+    ResponseEntity<WorkoutLogDTO> getLastCompletedWorkoutLog(@PathVariable Integer userId, @PathVariable Integer workoutId, @PathVariable Integer gymId) ;
 
 
 }

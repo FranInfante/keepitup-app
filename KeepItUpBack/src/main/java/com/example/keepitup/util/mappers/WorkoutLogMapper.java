@@ -19,6 +19,11 @@ public class WorkoutLogMapper {
         dto.setWorkoutName(workoutLog.getWorkout().getName());
         dto.setDate(workoutLog.getDate());
         dto.setEditing(workoutLog.isEditing());
+        if (workoutLog.getGym() != null) {
+            dto.setGymId(workoutLog.getGym().getId());
+        } else {
+            dto.setGymId(null); 
+        }
         dto.setExercises(workoutLog.getExercises() != null
                 ? workoutLog.getExercises().stream()
                 .map(WorkoutLogExerciseMapper::toDTO)
