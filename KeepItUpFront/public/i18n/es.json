@@ -249,6 +249,12 @@
       "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
       "DISCARD": "Descartar",
       "SAVE": "Guardar"
+    },
+    "SELECT_GYM": {
+      "TITLE": "Seleccionar Gimnasio",
+      "BODY": "Por favor, selecciona un gimnasio de la lista.",
+      "CANCEL": "Cancelar",
+      "CONFIRM": "Confirmar"
     }
   },
   "PLAN_PAGE": {
@@ -332,7 +338,9 @@
     "NOTES": "Notas",
     "CLOSE": "Cerrar",
     "NO_NOTES": "No hay notas disponibles para este ejercicio.",
-    "PLACEHOLDER": "Introduce tus notas aquí..."
+    "PLACEHOLDER": "Introduce tus notas aquí...",
+    "SELECT_GYM": "Seleccionar Gimnasio",
+    "NO_GYM": "Ningún gimnasio seleccionado"
   },
 
   "FORGOT_PASSWORD": {
@@ -363,4 +371,5 @@
     "YOUR_GYMS": "Gimnasios",
     "DELETE": "Borrar"
   }
+  
 }
