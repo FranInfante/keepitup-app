@@ -706,6 +706,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       return;
     }
 
+
     const initialWorkoutLog = {
       userId: this.userId,
       workoutId: this.workoutId,
@@ -728,15 +729,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
     this.workoutLogService.createWorkoutLog(initialWorkoutLog).subscribe({
       next: (response) => {
-        this.workoutLogId = response.id;
-        this.loadSavedWorkoutLog();
-        this.firstChangeMade = true;
+         this.workoutLogId = response.id;
+         this.loadSavedWorkoutLog();
+         this.firstChangeMade = true;
         this.trackFormChanges();
       },
       error: (error) => {
-        this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
+         this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
       },
-    });
+   });
   }
 
   updateWorkoutLog() {
@@ -748,6 +749,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
     const updatedWorkoutLog = {
       userId: this.userId,
       workoutId: this.workoutId,
+      gymId: this.gymId,
       date: new Date().toISOString(),
       exercises: this.exercises.controls.map((exerciseControl, index) => ({
         id: exerciseControl.get('id')?.value,
@@ -804,6 +806,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
         const workoutLogData = {
           userId: this.userId,
           workoutId: this.workoutId,
+          gymId: this.gymId,
           date: new Date().toISOString(),
           exercises: exercisesArray,
           editing: false,

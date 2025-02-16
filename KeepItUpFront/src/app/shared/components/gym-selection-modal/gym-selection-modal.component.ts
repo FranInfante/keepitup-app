@@ -12,10 +12,11 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class GymSelectionModalComponent {
   @Input() gyms: any[] = [];
+  @Input() selectedGymId: number | null = null;
+  @Input() selectedGymName: string = '';
   @Output() onSelectGym = new EventEmitter<number>();
   @Output() onCancel = new EventEmitter<void>();
 
-  selectedGymId: number | null = null;
 
   confirmSelection() {
     if (this.selectedGymId !== null) {
@@ -25,5 +26,8 @@ export class GymSelectionModalComponent {
 
   cancel() {
     this.onCancel.emit();
+  }
+  getSelectedGymName(): string {
+    return this.selectedGymName || '';
   }
 }

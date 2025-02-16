@@ -149,6 +149,8 @@
 <app-gym-selection-modal
   *ngIf="isGymSelectionModalOpen"
   [gyms]="gyms"
+  [selectedGymId]="selectedGymId"
+  [selectedGymName]="selectedGymName"
   (onSelectGym)="handleGymSelection($event)"
   (onCancel)="cancelGymSelection()"
 ></app-gym-selection-modal>
