@@ -153,9 +153,12 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   cancelGymSelection(): void {
     this.isGymSelectionModalOpen = false;
+    this.router.navigate([LOCATIONS.plans]);
+
   }
 
   openGymSelectionModal(): void {
+    
     this.isGymSelectionModalOpen = true;
   }
 
