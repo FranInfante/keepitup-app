@@ -28,14 +28,10 @@
       <div *ngIf="workoutLog">
         <div class="flex justify-between items-center">
           <p class="text-gray-700 dark:text-gray-300 font-semibold">
-            <strong
-              >{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong
-            >
-            {{ workoutLog.workoutName }}
+            <strong>{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong> {{ workoutLog.workoutName }}
           </p>
           <p class="text-gray-700 dark:text-gray-300">
-            <strong>{{ "WORKOUT_LOG_DETAILS.DATE" | translate }}:</strong>
-            {{ workoutLog.date | date : "shortDate" }}
+            <strong>{{ "WORKOUT_LOG_DETAILS.DATE" | translate }}:</strong> {{ workoutLog.date | date : "shortDate" }}
           </p>
         </div>
 
@@ -56,7 +52,7 @@
           <h6
             class="text-gray-800 text-center dark:text-gray-200 font-medium text-xl"
           >
-            {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
+          {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
           </h6>
           <ul class="space-y-2 h-[calc(80vh-280px)] overflow-y-auto">
             <li
@@ -72,11 +68,7 @@
                     *ngFor="let set of exercise.sets"
                     class="text-gray-700 dark:text-gray-300"
                   >
-                    {{
-                      "WORKOUT_LOG_DETAILS.SET_REPS_WEIGHT"
-                        | translate
-                          : { set: set.set, reps: set.reps, weight: set.weight }
-                    }}
+                  {{ "WORKOUT_LOG_DETAILS.SET_REPS_WEIGHT" | translate:{ set: set.set, reps: set.reps, weight: set.weight } }}
                   </li>
                 </ul>
               </div>
@@ -85,7 +77,7 @@
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 (click)="toggleNotesModal(exercise.notes)"
               >
-                {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
+              {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
               </button>
             </li>
           </ul>
@@ -102,7 +94,7 @@
         class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition"
         (click)="onClose()"
       >
-        {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
+      {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
       </button>
     </div>
   </div>
@@ -148,7 +140,7 @@
         class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
         (click)="toggleNotesModal()"
       >
-        {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
+      {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
       </button>
     </div>
   </div>

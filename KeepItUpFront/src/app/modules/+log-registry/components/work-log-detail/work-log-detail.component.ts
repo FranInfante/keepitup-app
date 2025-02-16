@@ -15,14 +15,9 @@ import { GymSelectionModalComponent } from '../../../../shared/components/gym-se
 @Component({
   selector: 'app-work-log-detail',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    FormsModule,
-    GymSelectionModalComponent,
-  ],
+  imports: [CommonModule, TranslateModule, GymSelectionModalComponent],
   templateUrl: './work-log-detail.component.html',
-  styleUrl: './work-log-detail.component.css',
+  styleUrl: './work-log-detail.component.css'
 })
 export class WorkoutLogDetailModalComponent {
   @Input() workoutLog: any;
@@ -34,7 +29,6 @@ export class WorkoutLogDetailModalComponent {
   gyms: any[] = [];
   selectedGymId: number | null = null;
   isGymSelectionModalOpen: boolean = false;
-
   constructor(
     private workoutLogService: WorkoutLogService,
     private gymService: GymService,
@@ -94,7 +88,7 @@ export class WorkoutLogDetailModalComponent {
     if (notes !== undefined) {
       this.selectedExerciseNotes = notes;
     }
-    this.isNotesModalOpen = !this.isNotesModalOpen;
+    this.isNotesModalOpen = !this.isNotesModalOpen; 
   }
 
   getSelectedGymName(): string {
