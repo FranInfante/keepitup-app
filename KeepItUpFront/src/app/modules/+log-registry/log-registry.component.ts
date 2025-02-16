@@ -163,4 +163,17 @@ export class LogRegistryComponent implements OnInit {
       this.filteredWorkoutLogs = [...this.workoutLogs];
     }
   }
+
+  updateWorkoutLogGym() {
+    if (!this.selectedWorkoutLog) return;
+
+    this.workoutLogService.updateWorkoutLog(this.selectedWorkoutLog.id, {
+      gymId: this.selectedWorkoutLog.gymId || null  // Allow removing gym
+    }).subscribe({
+      next: () => {
+        this.getWorkoutLogsForUser();
+        this.closeWorkoutLogModal();
+      }
+    });
+  }
 }

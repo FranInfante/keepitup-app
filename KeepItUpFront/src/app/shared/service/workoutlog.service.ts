@@ -53,12 +53,14 @@ export class WorkoutLogService {
     );
   }
 
-  deleteWorkoutLogExercise(workoutLogId: number, exerciseId: number): Observable<void> {
+  deleteWorkoutLogExercise(
+    workoutLogId: number,
+    exerciseId: number
+  ): Observable<void> {
     return this.http.delete<void>(
       WORKOUT_LOG_ROUTES.deleteExercise(workoutLogId, exerciseId)
     );
   }
-  
 
   getWorkoutLogByUserIdAndIsEditing(
     userId: number,
@@ -70,14 +72,12 @@ export class WorkoutLogService {
       workoutId,
       isEditing,
     };
-  
+
     return this.http.post<any>(
       WORKOUT_LOG_ROUTES.findbyuserandisediting(),
       requestBody
     );
   }
-  
-
 
   getExerciseById(exerciseId: number): Observable<any> {
     return this.http.get<any>(WORKOUT_LOG_ROUTES.exerciseById(exerciseId));
@@ -110,6 +110,14 @@ export class WorkoutLogService {
   ): Observable<any> {
     return this.http.get<void>(
       WORKOUT_LOG_ROUTES.getLastCompleted(userId, workoutId, gymId)
+    );
+  }
+
+  updateGymId(workoutLogId: number, gymId: number): Observable<void> {
+    return this.http.patch<void>(
+      WORKOUT_LOG_ROUTES.updateGymId(workoutLogId),
+      gymId,
+      { headers: { 'Content-Type': 'application/json' } }
     );
   }
 }

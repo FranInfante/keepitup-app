@@ -47,5 +47,8 @@ public interface WorkoutLogApi {
     @GetMapping(UriConstants.LAST_COMPLETED)
     ResponseEntity<WorkoutLogDTO> getLastCompletedWorkoutLog(@PathVariable Integer userId, @PathVariable Integer workoutId, @PathVariable Integer gymId) ;
 
+    @PatchMapping(UriConstants.GYMIDPATCH)
+    ResponseEntity<Void> updateGymId(@PathVariable Integer id, @RequestBody Integer gymId);
+
 
 }

@@ -87,4 +87,11 @@ public class WorkoutLogController implements WorkoutLogApi {
         WorkoutLogDTO workoutLogDTO = workoutLogService.getLastCompletedWorkoutLog(userId, workoutId, gymId);
         return ResponseEntity.ok(workoutLogDTO);
     }
+
+    @Override
+    public ResponseEntity<Void> updateGymId(Integer id, Integer gymId) {
+        workoutLogService.updateGymId(id, gymId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

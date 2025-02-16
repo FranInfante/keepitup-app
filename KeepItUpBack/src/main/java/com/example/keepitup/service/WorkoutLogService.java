@@ -19,4 +19,6 @@ public interface WorkoutLogService {
     ExerciseDTO getExerciseById(Integer exerciseId);
     void reorderExercises(Integer id, List<WorkoutLogExerciseDTO> exercises);
     WorkoutLogDTO getLastCompletedWorkoutLog(Integer userId, Integer workoutId, Integer gymId);
+    void updateGymId(Integer workoutLogId, Integer gymId);
+
 }

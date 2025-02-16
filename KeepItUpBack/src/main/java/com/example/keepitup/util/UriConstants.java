@@ -81,5 +81,8 @@ public class UriConstants {
     public static final String GYM = BASE_URL + "/gym";
     public static final String GET_GYM_BY_ID = "/user/{userId}";
 
+    public static final String GYMIDPATCH = "/{id}/gym";
+
+
 
 }

@@ -28,17 +28,35 @@
       <div *ngIf="workoutLog">
         <div class="flex justify-between items-center">
           <p class="text-gray-700 dark:text-gray-300 font-semibold">
-            <strong>{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong> {{ workoutLog.workoutName }}
+            <strong
+              >{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong
+            >
+            {{ workoutLog.workoutName }}
           </p>
           <p class="text-gray-700 dark:text-gray-300">
-            <strong>{{ "WORKOUT_LOG_DETAILS.DATE" | translate }}:</strong> {{ workoutLog.date | date : "shortDate" }}
+            <strong>{{ "WORKOUT_LOG_DETAILS.DATE" | translate }}:</strong>
+            {{ workoutLog.date | date : "shortDate" }}
           </p>
         </div>
+
+        <div class="mt-4">
+          <label class="block text-gray-700 dark:text-gray-300 font-medium">
+            {{ "WORKOUT_LOG_DETAILS.SELECT_GYM" | translate }}
+          </label>
+          <button
+            type="button"
+            class="w-full px-4 py-2 mt-2 bg-gray-200 dark:bg-gray-600 rounded-lg border-none focus:outline-none"
+            (click)="openGymSelectionModal()"
+          >
+            {{ getSelectedGymName() }}
+          </button>
+        </div>
+
         <div *ngIf="workoutLog.exercises && workoutLog.exercises.length > 0">
           <h6
             class="text-gray-800 text-center dark:text-gray-200 font-medium text-xl"
           >
-          {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
+            {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
           </h6>
           <ul class="space-y-2 h-[calc(80vh-280px)] overflow-y-auto">
             <li
@@ -54,7 +72,11 @@
                     *ngFor="let set of exercise.sets"
                     class="text-gray-700 dark:text-gray-300"
                   >
-                  {{ "WORKOUT_LOG_DETAILS.SET_REPS_WEIGHT" | translate:{ set: set.set, reps: set.reps, weight: set.weight } }}
+                    {{
+                      "WORKOUT_LOG_DETAILS.SET_REPS_WEIGHT"
+                        | translate
+                          : { set: set.set, reps: set.reps, weight: set.weight }
+                    }}
                   </li>
                 </ul>
               </div>
@@ -63,7 +85,7 @@
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 (click)="toggleNotesModal(exercise.notes)"
               >
-              {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
+                {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
               </button>
             </li>
           </ul>
@@ -80,7 +102,7 @@
         class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition"
         (click)="onClose()"
       >
-      {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
+        {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
       </button>
     </div>
   </div>
@@ -95,7 +117,9 @@
     class="mx-4 h-[60vh] bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-lg w-full"
   >
     <div class="flex justify-between items-center mb-4">
-      <h5 class="text-lg font-bold">{{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}</h5>
+      <h5 class="text-lg font-bold">
+        {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
+      </h5>
       <button
         class="text-gray-400 hover:text-gray-300 transition"
         (click)="toggleNotesModal()"
@@ -107,16 +131,16 @@
       <!-- Display Notes -->
 
       <textarea
-  rows="6"
-  maxlength="300"
-  disabled
-  [placeholder]="'WORKOUT_LOG_DETAILS.PLACEHOLDER' | translate"
-  formControlName="notes"
-  class="w-full rows-30 px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
-  [value]="selectedExerciseNotes || ('WORKOUT_LOG_DETAILS.NO_NOTES' | translate)"
-  ></textarea>
-
-    
+        rows="6"
+        maxlength="300"
+        disabled
+        [placeholder]="'WORKOUT_LOG_DETAILS.PLACEHOLDER' | translate"
+        formControlName="notes"
+        class="w-full rows-30 px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
+        [value]="
+          selectedExerciseNotes || ('WORKOUT_LOG_DETAILS.NO_NOTES' | translate)
+        "
+      ></textarea>
     </div>
     <div class="flex justify-end gap-4 mt-4">
       <button
@@ -124,8 +148,15 @@
         class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
         (click)="toggleNotesModal()"
       >
-      {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
+        {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
       </button>
     </div>
   </div>
 </div>
+
+<app-gym-selection-modal
+  *ngIf="isGymSelectionModalOpen"
+  [gyms]="gyms"
+  (onSelectGym)="handleGymSelection($event)"
+  (onCancel)="cancelGymSelection()"
+></app-gym-selection-modal>

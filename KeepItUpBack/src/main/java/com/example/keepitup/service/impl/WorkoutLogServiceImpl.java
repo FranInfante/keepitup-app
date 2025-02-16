@@ -148,6 +148,15 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
         workoutLog.setDate(workoutLogDTO.getDate());
         workoutLog.setEditing(workoutLogDTO.isEditing());
 
+        // Update Gym if provided
+        if (workoutLogDTO.getGymId() != null && workoutLogDTO.getGymId() != 0) {
+            Gym gym = gymRepository.findById(workoutLogDTO.getGymId())
+                    .orElseThrow(() -> new EntityNotFoundException("Gym not found"));
+            workoutLog.setGym(gym);
+        } else {
+            workoutLog.setGym(null);
+        }
+
         // Update exercises
         List<WorkoutLogExercise> existingExercises = workoutLog.getExercises();
         List<WorkoutLogExerciseDTO> updatedExercisesDTO = workoutLogDTO.getExercises();
@@ -250,6 +259,21 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
         return workoutLogOptional.map(WorkoutLogMapper::toDTO).orElse(null);
     }
 
+    @Override
+    public void updateGymId(Integer workoutLogId, Integer gymId) {
+        WorkoutLog workoutLog = workoutLogRepository.findById(workoutLogId)
+                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_LOG_NOT_FOUND));
+
+        // Handle gym assignment
+        Gym gym = null;
+        if (gymId != null && gymId != 0) {
+            gym = gymRepository.findById(gymId)
+                    .orElseThrow(() -> new EntityNotFoundException("Gym not found"));
+        }
+
+        workoutLog.setGym(gym);
+        workoutLogRepository.save(workoutLog);
+    }
 
 
 }
