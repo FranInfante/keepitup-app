@@ -108,7 +108,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
 
     @Override
     public List<WorkoutLogDTO> getWorkoutLogsForUser(Integer userId) {
-        return workoutLogRepository.findByUserId(userId)
+        return workoutLogRepository.findByUserIdAndIsEditingFalse(userId)
                 .stream()
                 .map(WorkoutLogMapper::toDTO)
                 .collect(Collectors.toList());
