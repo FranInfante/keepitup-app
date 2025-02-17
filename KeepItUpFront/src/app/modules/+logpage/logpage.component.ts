@@ -134,22 +134,26 @@ export class LogpageComponent implements OnInit, OnDestroy {
   handleGymSelection(gymId: number): void {
     this.gymId = gymId;
     this.isGymSelectionModalOpen = false;
-
+  
+    // First, check if there is an existing workout log in editing mode
     this.workoutLogService
       .getWorkoutLogByUserIdAndIsEditing(this.userId, this.workoutId, true)
       .subscribe({
         next: (editingLog) => {
+  
           if (editingLog && editingLog.gymId == this.gymId) {
             this.askUserToContinueOrReset(editingLog);
           } else {
-            this.loadLastCompletedWorkoutLog();
+            this.fetchLastLogForGym();
           }
         },
-        error: (err) => {
-          this.loadLastCompletedWorkoutLog();
+        error: (error) => {
+          console.log('Error checking editing log:', error);
+          this.fetchLastLogForGym();
         },
       });
   }
+  
 
   cancelGymSelection(): void {
     this.isGymSelectionModalOpen = false;
@@ -433,9 +437,26 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   loadLastCompletedWorkoutLog() {
-
     this.workoutLogService
-      .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId !== null ? this.gymId : 0)
+      .getWorkoutLogByUserIdAndIsEditing(this.userId, this.workoutId, true)
+      .subscribe({
+        next: (editingLog) => {
+          if (editingLog && editingLog.gymId === this.gymId) {
+            this.askUserToContinueOrReset(editingLog);
+          } else {
+            this.fetchLastLogForGym(); // Solo si no hay en edición, consultamos el último completado
+          }
+        },
+        error: () => {
+          this.fetchLastLogForGym();
+        },
+      });
+  }
+  
+  
+  fetchLastLogForGym() {
+    this.workoutLogService
+      .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId)
       .subscribe({
         next: (lastCompletedLog) => {
           if (lastCompletedLog && lastCompletedLog.exercises.length > 0) {
@@ -445,12 +466,14 @@ export class LogpageComponent implements OnInit, OnDestroy {
             this.proceedWithWorkoutLogCreation();
           }
         },
-        error: (err) => {
-          console.error('Error fetching last completed log:', err);
+        error: () => {
           this.proceedWithWorkoutLogCreation();
         },
       });
   }
+  
+ 
+  
 
   handleLastLogUse() {
     if (this.lastCompletedLog) {
@@ -481,9 +504,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   handleModalResetResponse(action: string) {
     this.isContinueOrResetModalOpen = false;
-
+  
     if (action === 'continue' && this.editingLog) {
       this.workoutLogId = this.editingLog.id;
+      this.lastCompletedLog = this.editingLog; // Assigning the editing log so colors work
       this.populateFormWithSavedData(this.editingLog);
       this.trackFormChanges();
     } else if (action === 'reset' && this.editingLog) {
@@ -498,6 +522,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
     }
     this.editingLog = null;
   }
+  
   trackFormChanges() {
     if (!this.workoutLogId) {
       return;
@@ -578,12 +603,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
   populateFormWithSavedData(savedWorkoutLog: WorkoutLog) {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
     exercisesArray.clear();
-
+  
     if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      const groupedExercises = this.groupExercisesById(
-        savedWorkoutLog.exercises
-      );
-
+      const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
+  
       groupedExercises
         .sort((a, b) => (a.exerciseOrder || 0) - (b.exerciseOrder || 0))
         .forEach((exercise, index) => {
@@ -601,15 +624,16 @@ export class LogpageComponent implements OnInit, OnDestroy {
                 .map((set) => this.createSetWithValues(set))
             ),
           });
-
+  
           exercisesArray.push(formGroup);
         });
-
+  
       setTimeout(() => {
         this.workoutLogForm.updateValueAndValidity();
       }, 100);
     }
   }
+  
 
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const grouped: { [key: number]: WorkoutLogExercise } = {};
