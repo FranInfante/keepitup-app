@@ -6,6 +6,7 @@ import com.example.keepitup.model.entities.Gym;
 import com.example.keepitup.model.entities.Users;
 import com.example.keepitup.repository.GymRepository;
 import com.example.keepitup.repository.UsersRepository;
+import com.example.keepitup.repository.WorkoutLogRepository;
 import com.example.keepitup.service.GymService;
 import com.example.keepitup.util.msgs.MessageConstants;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +24,9 @@ public class GymServiceImpl implements GymService {
 
     private final GymRepository gymRepository;
     private final UsersRepository usersRepository;
+    private final WorkoutLogRepository workoutLogRepository;
+
+
 
     @Override
     public GymResponseDTO createGym(GymDTO gymDTO) {
@@ -64,6 +68,8 @@ public class GymServiceImpl implements GymService {
     public void deleteGym(Integer id) {
         Gym gym = gymRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
+        workoutLogRepository.setGymIdToNull(id);
+
         gymRepository.delete(gym);
     }
 }
