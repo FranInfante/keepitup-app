@@ -507,9 +507,22 @@ export class LogpageComponent implements OnInit, OnDestroy {
   
     if (action === 'continue' && this.editingLog) {
       this.workoutLogId = this.editingLog.id;
-      this.lastCompletedLog = this.editingLog; // Assigning the editing log so colors work
       this.populateFormWithSavedData(this.editingLog);
-      this.trackFormChanges();
+      
+      // Preserve the last completed log for color comparisons
+      this.workoutLogService
+        .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId)
+        .subscribe({
+          next: (lastCompletedLog) => {
+            this.lastCompletedLog = lastCompletedLog;
+            this.trackFormChanges();
+          },
+          error: (err) => {
+            console.error('Error fetching last completed log:', err);
+            this.trackFormChanges();
+          },
+        });
+  
     } else if (action === 'reset' && this.editingLog) {
       this.workoutLogService.deleteWorkoutLog(this.editingLog.id).subscribe({
         next: () => {
@@ -520,8 +533,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
         },
       });
     }
+  
     this.editingLog = null;
   }
+  
   
   trackFormChanges() {
     if (!this.workoutLogId) {
