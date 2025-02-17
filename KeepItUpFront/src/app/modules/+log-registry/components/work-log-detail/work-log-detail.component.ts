@@ -9,8 +9,8 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { WorkoutLogService } from '../../../../shared/service/workoutlog.service';
 import { GymService } from '../../../../shared/service/gym.service';
-import { FormsModule } from '@angular/forms';
 import { GymSelectionModalComponent } from '../../../../shared/components/gym-selection-modal/gym-selection-modal.component';
+import { animate, state, style, transition, trigger } from '@angular/animations'
 
 
 @Component({
@@ -18,7 +18,15 @@ import { GymSelectionModalComponent } from '../../../../shared/components/gym-se
   standalone: true,
   imports: [CommonModule, TranslateModule, GymSelectionModalComponent],
   templateUrl: './work-log-detail.component.html',
-  styleUrl: './work-log-detail.component.css'
+  styleUrl: './work-log-detail.component.css',
+  animations: [
+    trigger('slideDown', [
+      state('closed', style({ height: '0px', opacity: 0, overflow: 'hidden' })),
+      state('open', style({ height: '*', opacity: 1, marginBottom: '1rem' })),
+      transition('closed => open', animate('300ms ease-in-out')),
+      transition('open => closed', animate('300ms ease-in-out')),
+    ]),
+  ],
 })
 export class WorkoutLogDetailModalComponent {
   @Input() workoutLog: any;

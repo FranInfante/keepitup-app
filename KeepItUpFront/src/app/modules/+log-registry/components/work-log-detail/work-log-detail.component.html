@@ -4,7 +4,7 @@
   (click)="onBackdropClick($event)"
 >
   <div
-    class="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full mx-4"
+    class="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md max-h-[90%] overflow-auto w-full mx-4 "
     (click)="$event.stopPropagation()"
   >
     <!-- Modal Header -->
@@ -24,7 +24,7 @@
     </div>
     <div class="flex justify-center items-center py-2">
       <button
-        class="transition-transform duration-300 cursor-pointer p-2"
+        class="transition-transform duration-300 cursor-pointer "
         [ngClass]="{ 'rotate-180': isExpanded }"
         (click)="toggleExpanded()"
       >
@@ -35,8 +35,8 @@
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
-          width="32"
-          height="32"
+          width="35"
+          height="35"
           stroke-width="2"
           class="text-gray-600 dark:text-gray-300"
         >
@@ -47,11 +47,11 @@
 
     <!-- Modal Body -->
     <div
-      class="p-4 space-y-4 overflow-y-auto max-h-[70vh]"
+      class="p-4 space-y-4 overflow-y-auto max-h-[70vh]" 
     >
-      <div *ngIf="workoutLog">
-        <div *ngIf="isExpanded">
-          <div class="flex justify-between items-center">
+      <div *ngIf="workoutLog" >
+        <div [@slideDown]="isExpanded ? 'open' : 'closed'" class="overflow-auto" >
+          <div class="flex justify-between items-center" >
             <p class="text-gray-700 dark:text-gray-300 font-semibold">
               <strong
                 >{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong
