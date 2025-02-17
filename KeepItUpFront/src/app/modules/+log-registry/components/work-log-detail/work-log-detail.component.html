@@ -83,7 +83,7 @@
           >
             {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
           </h6>
-          <ul class="space-y-2 h-[calc(80vh-280px)] overflow-y-auto">
+          <ul class="space-y-2 h-[calc(80vh-280px)] ">
             <li
               *ngFor="let exercise of workoutLog.exercises"
               class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg shadow flex justify-between items-center"
@@ -120,7 +120,7 @@
 
     <!-- Modal Footer -->
     <div
-      class="flex justify-end px-4 py-3 border-t border-gray-200 dark:border-gray-700"
+      class="flex justify-end bottom-0 px-4 py-3 border-t border-gray-200 dark:border-gray-700"
     >
       <button
         type="button"
