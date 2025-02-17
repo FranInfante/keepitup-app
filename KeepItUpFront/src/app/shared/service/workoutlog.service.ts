@@ -62,17 +62,12 @@ export class WorkoutLogService {
     );
   }
 
-  getWorkoutLogByUserIdAndIsEditing(
-    userId: number,
-    workoutId: number,
-    isEditing: boolean
-  ): Observable<any> {
-    const requestBody = {
-      userId,
-      workoutId,
-      isEditing,
-    };
-
+  getWorkoutLogByUserIdAndIsEditing(userId: number, workoutId: number, isEditing: boolean, gymId?: number): Observable<any> {
+    const requestBody: any = { userId, workoutId, isEditing };
+    if (gymId !== undefined) {
+      requestBody.gymId = gymId;
+    }
+    
     return this.http.post<any>(
       WORKOUT_LOG_ROUTES.findbyuserandisediting(),
       requestBody

@@ -32,4 +32,6 @@ public interface WorkoutLogRepository extends JpaRepository<WorkoutLog, Integer>
     @Modifying
     @Query("UPDATE WorkoutLog wl SET wl.gym = NULL WHERE wl.gym.id = :gymId")
     void setGymIdToNull(@Param("gymId") Integer gymId);
+
+    Optional<WorkoutLog> findFirstByUserIdAndWorkoutIdAndGymIdAndIsEditing(Integer userId, Integer workoutId, Integer gymId, Boolean isEditing);
 }

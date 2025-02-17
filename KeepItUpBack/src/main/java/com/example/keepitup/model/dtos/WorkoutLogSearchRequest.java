@@ -11,4 +11,6 @@ public class WorkoutLogSearchRequest {
     private Integer userId;
     private Integer workoutId;
     private Boolean isEditing;
+
+    private Integer gymId;
 }

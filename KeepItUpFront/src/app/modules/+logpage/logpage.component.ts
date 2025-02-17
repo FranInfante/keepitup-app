@@ -132,18 +132,26 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   handleGymSelection(gymId: number): void {
+
     this.gymId = gymId;
+
     this.isGymSelectionModalOpen = false;
-  
+
     // First, check if there is an existing workout log in editing mode
     this.workoutLogService
-      .getWorkoutLogByUserIdAndIsEditing(this.userId, this.workoutId, true)
+      .getWorkoutLogByUserIdAndIsEditing(
+        this.userId,
+        this.workoutId,
+        true,
+        this.gymId
+      )
       .subscribe({
         next: (editingLog) => {
-  
           if (editingLog && editingLog.gymId == this.gymId) {
+            console.log('1');
             this.askUserToContinueOrReset(editingLog);
           } else {
+            console.log('2');
             this.fetchLastLogForGym();
           }
         },
@@ -153,16 +161,13 @@ export class LogpageComponent implements OnInit, OnDestroy {
         },
       });
   }
-  
 
   cancelGymSelection(): void {
     this.isGymSelectionModalOpen = false;
     this.router.navigate([LOCATIONS.plans]);
-
   }
 
   openGymSelectionModal(): void {
-    
     this.isGymSelectionModalOpen = true;
   }
 
@@ -312,7 +317,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       .getWorkoutLogByUserIdAndIsEditing(this.userId, this.workoutId, true)
       .subscribe({
         next: (editingLog) => {
-          if (editingLog) {
+          if (editingLog && editingLog.gymId == this.gymId) {
             this.askUserToContinueOrReset(editingLog);
           } else {
             this.workoutLogService
@@ -452,8 +457,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
         },
       });
   }
-  
-  
+
   fetchLastLogForGym() {
     this.workoutLogService
       .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId)
@@ -471,9 +475,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
         },
       });
   }
-  
- 
-  
 
   handleLastLogUse() {
     if (this.lastCompletedLog) {
@@ -504,11 +505,11 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
   handleModalResetResponse(action: string) {
     this.isContinueOrResetModalOpen = false;
-  
+
     if (action === 'continue' && this.editingLog) {
       this.workoutLogId = this.editingLog.id;
       this.populateFormWithSavedData(this.editingLog);
-      
+
       // Preserve the last completed log for color comparisons
       this.workoutLogService
         .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId)
@@ -522,7 +523,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
             this.trackFormChanges();
           },
         });
-  
     } else if (action === 'reset' && this.editingLog) {
       this.workoutLogService.deleteWorkoutLog(this.editingLog.id).subscribe({
         next: () => {
@@ -533,11 +533,10 @@ export class LogpageComponent implements OnInit, OnDestroy {
         },
       });
     }
-  
+
     this.editingLog = null;
   }
-  
-  
+
   trackFormChanges() {
     if (!this.workoutLogId) {
       return;
@@ -618,10 +617,12 @@ export class LogpageComponent implements OnInit, OnDestroy {
   populateFormWithSavedData(savedWorkoutLog: WorkoutLog) {
     const exercisesArray = this.workoutLogForm.get('exercises') as FormArray;
     exercisesArray.clear();
-  
+
     if (savedWorkoutLog && savedWorkoutLog.exercises) {
-      const groupedExercises = this.groupExercisesById(savedWorkoutLog.exercises);
-  
+      const groupedExercises = this.groupExercisesById(
+        savedWorkoutLog.exercises
+      );
+
       groupedExercises
         .sort((a, b) => (a.exerciseOrder || 0) - (b.exerciseOrder || 0))
         .forEach((exercise, index) => {
@@ -639,16 +640,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
                 .map((set) => this.createSetWithValues(set))
             ),
           });
-  
+
           exercisesArray.push(formGroup);
         });
-  
+
       setTimeout(() => {
         this.workoutLogForm.updateValueAndValidity();
       }, 100);
     }
   }
-  
 
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const grouped: { [key: number]: WorkoutLogExercise } = {};
@@ -745,7 +745,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
       return;
     }
 
-
     const initialWorkoutLog = {
       userId: this.userId,
       workoutId: this.workoutId,
@@ -768,15 +767,15 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
     this.workoutLogService.createWorkoutLog(initialWorkoutLog).subscribe({
       next: (response) => {
-         this.workoutLogId = response.id;
-         this.loadSavedWorkoutLog();
-         this.firstChangeMade = true;
+        this.workoutLogId = response.id;
+        this.loadSavedWorkoutLog();
+        this.firstChangeMade = true;
         this.trackFormChanges();
       },
       error: (error) => {
-         this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
+        this.toastService.showToast(TOAST_MSGS.errorcreatingworkout, 'danger');
       },
-   });
+    });
   }
 
   updateWorkoutLog() {

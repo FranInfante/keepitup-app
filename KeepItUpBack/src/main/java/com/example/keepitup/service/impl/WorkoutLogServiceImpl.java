@@ -127,16 +127,19 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
     }
 
     @Override
-    public WorkoutLogDTO getWorkoutLogByUserIdAndIsEditing(Integer userId, Integer workoutId, Boolean isEditing) {
-        Optional<WorkoutLog> workoutLog = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditing(userId, workoutId, isEditing);
+    public WorkoutLogDTO getWorkoutLogByUserIdAndIsEditing(Integer userId, Integer workoutId, Boolean isEditing, Integer gymId) {
+        Optional<WorkoutLog> workoutLogOptional;
 
-        if (workoutLog.isEmpty()) {
-            return null;
+        if (gymId != null && gymId != 0) {
+            workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndGymIdAndIsEditing(
+                    userId, workoutId, gymId, isEditing);
+        } else {
+            workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditing(
+                    userId, workoutId, isEditing);
         }
 
-        return WorkoutLogMapper.toDTO(workoutLog.get());
+        return workoutLogOptional.map(WorkoutLogMapper::toDTO).orElse(null);
     }
-
 
 
 
