@@ -12,6 +12,7 @@ import { GymService } from '../../../../shared/service/gym.service';
 import { FormsModule } from '@angular/forms';
 import { GymSelectionModalComponent } from '../../../../shared/components/gym-selection-modal/gym-selection-modal.component';
 
+
 @Component({
   selector: 'app-work-log-detail',
   standalone: true,
@@ -29,7 +30,9 @@ export class WorkoutLogDetailModalComponent {
   gyms: any[] = [];
   selectedGymId: number | null = null;
   isGymSelectionModalOpen: boolean = false;
-  selectedGymName: string = '';
+  selectedGymName: string = '';  
+
+  isExpanded: boolean = false; 
 
   constructor(
     private workoutLogService: WorkoutLogService,
@@ -132,5 +135,10 @@ export class WorkoutLogDetailModalComponent {
       this.selectedExerciseNotes = notes;
     }
     this.isNotesModalOpen = !this.isNotesModalOpen; 
+  }
+
+  toggleExpanded()
+  {
+    this.isExpanded =!this.isExpanded;
   }
 }

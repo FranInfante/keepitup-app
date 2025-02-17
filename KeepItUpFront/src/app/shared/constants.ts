@@ -74,5 +74,5 @@ export const ASSET_URLS = {
   PlusSignIcon: 'module_assets/plans-assets/PlusSignIcon.svg',
   DeleteIcon: 'module_assets/plans-assets/DeleteIcon.svg',
   PlayIcon: 'module_assets/plans-assets/PlayIcon.svg',
-  NotesIcon: 'module_assets/plans-assets/NotesIcon.svg',
+  NotesIcon: 'module_assets/plans-assets/NotesIcon.svg'
 };

@@ -22,37 +22,66 @@
         ✖
       </button>
     </div>
+    <div class="flex justify-center items-center py-2">
+      <button
+        class="transition-transform duration-300 cursor-pointer p-2"
+        [ngClass]="{ 'rotate-180': isExpanded }"
+        (click)="toggleExpanded()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="32"
+          height="32"
+          stroke-width="2"
+          class="text-gray-600 dark:text-gray-300"
+        >
+          <path d="M8 12l4 4l4 -4"></path>
+        </svg>
+      </button>
+    </div>
 
     <!-- Modal Body -->
-    <div class="p-4 space-y-4 overflow-y-auto max-h-[70vh]">
+    <div
+      class="p-4 space-y-4 overflow-y-auto max-h-[70vh]"
+    >
       <div *ngIf="workoutLog">
-        <div class="flex justify-between items-center">
-          <p class="text-gray-700 dark:text-gray-300 font-semibold">
-            <strong>{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong> {{ workoutLog.workoutName }}
-          </p>
-          <p class="text-gray-700 dark:text-gray-300">
-            <strong>{{ "WORKOUT_LOG_DETAILS.DATE" | translate }}:</strong> {{ workoutLog.date | date : "shortDate" }}
-          </p>
-        </div>
-
-        <div *ngIf="gyms.length > 0" class="mt-4">
-          <label class="block text-gray-700 dark:text-gray-300 font-medium">
-            {{ "WORKOUT_LOG_DETAILS.SELECT_GYM" | translate }}
-          </label>
-          <button
-            type="button"
-            class="w-full px-4 py-2 mt-2 bg-gray-200 dark:bg-gray-600 rounded-lg border-none focus:outline-none"
-            (click)="openGymSelectionModal()"
-          >
-            {{ getSelectedGymName() }}
-          </button>
+        <div *ngIf="isExpanded">
+          <div class="flex justify-between items-center">
+            <p class="text-gray-700 dark:text-gray-300 font-semibold">
+              <strong
+                >{{ "WORKOUT_LOG_DETAILS.WORKOUT_NAME" | translate }}:</strong
+              >
+              {{ workoutLog.workoutName }}
+            </p>
+            <p class="text-gray-700 dark:text-gray-300">
+              <strong>{{ "WORKOUT_LOG_DETAILS.DATE" | translate }}:</strong>
+              {{ workoutLog.date | date : "shortDate" }}
+            </p>
+          </div>
+          <div *ngIf="gyms.length > 0" class="mt-4">
+            <label class="block text-gray-700 dark:text-gray-300 font-medium">
+              {{ "WORKOUT_LOG_DETAILS.SELECT_GYM" | translate }}
+            </label>
+            <button
+              type="button"
+              class="w-full px-4 py-2 mt-2 bg-gray-200 dark:bg-gray-600 rounded-lg border-none focus:outline-none"
+              (click)="openGymSelectionModal()"
+            >
+              {{ getSelectedGymName() }}
+            </button>
+          </div>
         </div>
 
         <div *ngIf="workoutLog.exercises && workoutLog.exercises.length > 0">
           <h6
             class="text-gray-800 text-center dark:text-gray-200 font-medium text-xl"
           >
-          {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
+            {{ "WORKOUT_LOG_DETAILS.EXERCISES" | translate }}
           </h6>
           <ul class="space-y-2 h-[calc(80vh-280px)] overflow-y-auto">
             <li
@@ -68,7 +97,11 @@
                     *ngFor="let set of exercise.sets"
                     class="text-gray-700 dark:text-gray-300"
                   >
-                  {{ "WORKOUT_LOG_DETAILS.SET_REPS_WEIGHT" | translate:{ set: set.set, reps: set.reps, weight: set.weight } }}
+                    {{
+                      "WORKOUT_LOG_DETAILS.SET_REPS_WEIGHT"
+                        | translate
+                          : { set: set.set, reps: set.reps, weight: set.weight }
+                    }}
                   </li>
                 </ul>
               </div>
@@ -77,7 +110,7 @@
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 (click)="toggleNotesModal(exercise.notes)"
               >
-              {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
+                {{ "WORKOUT_LOG_DETAILS.NOTES" | translate }}
               </button>
             </li>
           </ul>
@@ -94,7 +127,7 @@
         class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition"
         (click)="onClose()"
       >
-      {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
+        {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
       </button>
     </div>
   </div>
@@ -140,7 +173,7 @@
         class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
         (click)="toggleNotesModal()"
       >
-      {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
+        {{ "WORKOUT_LOG_DETAILS.CLOSE" | translate }}
       </button>
     </div>
   </div>
