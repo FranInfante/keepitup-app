@@ -21,7 +21,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrl: './work-log-detail.component.css',
   animations: [
     trigger('slideDown', [
-      state('closed', style({ height: '0px', opacity: 0, overflow: 'hidden' })),
+      state('closed', style({ height: '0px', opacity: 0})),
       state('open', style({ height: '*', opacity: 1, marginBottom: '1rem' })),
       transition('closed => open', animate('300ms ease-in-out')),
       transition('open => closed', animate('300ms ease-in-out')),
@@ -132,6 +132,7 @@ export class WorkoutLogDetailModalComponent {
 
   onClose() {
     this.closeModal.emit();
+    this.isExpanded = false;
   }
 
   onBackdropClick(event: MouseEvent) {
