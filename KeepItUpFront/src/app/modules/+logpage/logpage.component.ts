@@ -33,6 +33,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LastCompletedLogModalComponent } from '../../shared/components/last-completed-log-modal/last-completed-log-modal.component';
 import { GymService } from '../../shared/service/gym.service';
 import { GymSelectionModalComponent } from '../../shared/components/gym-selection-modal/gym-selection-modal.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-logpage',
@@ -53,6 +54,14 @@ import { GymSelectionModalComponent } from '../../shared/components/gym-selectio
   ],
   templateUrl: './logpage.component.html',
   styleUrl: './logpage.component.css',
+  animations: [
+    trigger('expandCollapse', [
+      state('closed', style({ height: '0px', opacity: 0})),
+      state('open', style({ height: '*', opacity: 1})),
+      transition('closed => open', animate('300ms ease-in-out')),
+      transition('open => closed', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class LogpageComponent implements OnInit, OnDestroy {
   @Input() planId: number | null = null;

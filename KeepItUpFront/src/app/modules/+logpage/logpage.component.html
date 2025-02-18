@@ -92,10 +92,7 @@
 
         <!-- Exercise Details -->
         <div
-          [ngClass]="{
-            hidden: !exercise.get('open')?.value,
-            block: exercise.get('open')?.value
-          }"
+          [@expandCollapse]="exercise.get('open')?.value ? 'open' : 'closed'"
           class="space-y-6"
         >
           <div formArrayName="sets" class="space-y-4">
@@ -127,10 +124,8 @@
                       compareWithLastCompleted(i, j, 'reps') === 'lower',
                     'bg-orange-500 dark:bg-orange-500 ':
                       compareWithLastCompleted(i, j, 'reps') === 'same',
-                        'text-black':
-                        compareWithLastCompleted(i, j, 'reps') === '',
-                      'text-white':
-                        compareWithLastCompleted(i, j, 'reps') !== ''
+                    'text-black': compareWithLastCompleted(i, j, 'reps') === '',
+                    'text-white': compareWithLastCompleted(i, j, 'reps') !== ''
                   }"
                   [id]="'reps-' + i + '-' + j"
                   (focus)="clearDefaultValue(i, j, 'reps')"
@@ -159,11 +154,10 @@
                         compareWithLastCompleted(i, j, 'weight') === 'lower',
                       'bg-orange-500 dark:bg-orange-500 ':
                         compareWithLastCompleted(i, j, 'weight') === 'same',
-                        'text-black':
+                      'text-black':
                         compareWithLastCompleted(i, j, 'weight') === '',
                       'text-white':
                         compareWithLastCompleted(i, j, 'weight') !== ''
-                        
                     }"
                     [id]="'weight-' + i + '-' + j"
                     (focus)="clearDefaultValue(i, j, 'weight')"
