@@ -5,6 +5,7 @@ export interface WorkoutLog {
     date: string;
     exercises: WorkoutLogExercise[];
     editing: boolean;
+    lastLoaded: boolean;
   }
   
   export interface WorkoutLogExercise {

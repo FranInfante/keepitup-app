@@ -85,6 +85,8 @@ export class LogpageComponent implements OnInit, OnDestroy {
   isDeleteModalOpen: boolean = false;
   isExercisePickerModalOpen = false;
 
+  isLastLoaded: boolean | null = null;
+
   gyms: any[] = [];
   gymId: number | null = null;
 
@@ -132,7 +134,6 @@ export class LogpageComponent implements OnInit, OnDestroy {
   }
 
   handleGymSelection(gymId: number): void {
-
     this.gymId = gymId;
 
     this.isGymSelectionModalOpen = false;
@@ -148,15 +149,12 @@ export class LogpageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (editingLog) => {
           if (editingLog && editingLog.gymId == this.gymId) {
-            console.log('1');
             this.askUserToContinueOrReset(editingLog);
           } else {
-            console.log('2');
             this.fetchLastLogForGym();
           }
         },
         error: (error) => {
-          console.log('Error checking editing log:', error);
           this.fetchLastLogForGym();
         },
       });
@@ -380,22 +378,30 @@ export class LogpageComponent implements OnInit, OnDestroy {
     setIndex: number,
     field: 'reps' | 'weight'
   ): string {
-    if (!this.lastCompletedLog || !this.lastCompletedLog.exercises) {
+
+    if (
+      !this.lastCompletedLog ||
+      !this.lastCompletedLog.exercises ||
+      !this.isLastLoaded
+    ) {
       return '';
     }
 
     const currentExercise = this.exercises.at(exerciseIndex);
-    if (!currentExercise) return '';
+    if (!currentExercise) {
+      return '';
+    }
 
     const currentSet = this.getSets(currentExercise).at(setIndex);
-    if (!currentSet) return '';
+    if (!currentSet) {
+      return '';
+    }
 
     const currentValue = currentSet.get(field)?.value;
 
     const mergedExercises = this.groupAndMergeSets(
       this.lastCompletedLog.exercises
     );
-
     const lastExercise = mergedExercises.find(
       (ex) => ex.exerciseId === currentExercise.get('exerciseId')?.value
     );
@@ -481,7 +487,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
       this.populateFormWithSavedData(this.lastCompletedLog);
 
       setTimeout(() => {
-        this.createWorkoutLog();
+        this.createWorkoutLog(true);
         this.isLastLogModalOpen = false;
       }, 50);
     }
@@ -508,33 +514,34 @@ export class LogpageComponent implements OnInit, OnDestroy {
 
     if (action === 'continue' && this.editingLog) {
       this.workoutLogId = this.editingLog.id;
-      this.populateFormWithSavedData(this.editingLog);
 
-      // Preserve the last completed log for color comparisons
+      // ✅ Assign lastCompletedLog here
       this.workoutLogService
         .getLastCompletedWorkoutLog(this.userId, this.workoutId, this.gymId)
         .subscribe({
-          next: (lastCompletedLog) => {
-            this.lastCompletedLog = lastCompletedLog;
-            this.trackFormChanges();
+          next: (realLastCompletedLog) => {
+            this.lastCompletedLog = realLastCompletedLog || null;
+            
           },
           error: (err) => {
-            console.error('Error fetching last completed log:', err);
-            this.trackFormChanges();
+            console.error('Error fetching real last completed log:', err);
+            this.lastCompletedLog = null;
           },
-        });
-    } else if (action === 'reset' && this.editingLog) {
-      this.workoutLogService.deleteWorkoutLog(this.editingLog.id).subscribe({
-        next: () => {
-          this.createAndLoadWorkoutLog();
-        },
-        error: (err) => {
-          console.error('Error deleting existing workout log', err);
-        },
-      });
-    }
+        }); // Ensure it's assigned correctly
 
-    this.editingLog = null;
+      // ✅ Preserve isLastLoaded correctly before fetching the last log
+      this.isLastLoaded = this.editingLog.lastLoaded ?? false;
+
+      // ✅ Ensure Angular detects the change
+      setTimeout(() => {
+        if (this.editingLog) {
+          this.isLastLoaded = this.editingLog.lastLoaded ?? false;
+
+          this.populateFormWithSavedData(this.editingLog);
+          this.trackFormChanges();
+        }
+      }, 50);
+    }
   }
 
   trackFormChanges() {
@@ -648,6 +655,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
         this.workoutLogForm.updateValueAndValidity();
       }, 100);
     }
+    this.isLastLoaded = savedWorkoutLog.lastLoaded || false;
   }
 
   groupExercisesById(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
@@ -740,7 +748,7 @@ export class LogpageComponent implements OnInit, OnDestroy {
     });
   }
 
-  createWorkoutLog() {
+  createWorkoutLog(isFromLastCompleted: boolean = false) {
     if (this.workoutLogId) {
       return;
     }
@@ -763,11 +771,13 @@ export class LogpageComponent implements OnInit, OnDestroy {
         ),
       })),
       editing: true,
+      lastLoaded: isFromLastCompleted,
     };
 
     this.workoutLogService.createWorkoutLog(initialWorkoutLog).subscribe({
       next: (response) => {
         this.workoutLogId = response.id;
+        this.isLastLoaded = isFromLastCompleted;
         this.loadSavedWorkoutLog();
         this.firstChangeMade = true;
         this.trackFormChanges();

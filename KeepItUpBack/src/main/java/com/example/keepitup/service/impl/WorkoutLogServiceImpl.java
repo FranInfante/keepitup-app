@@ -64,6 +64,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                 .workout(workout)
                 .date(workoutLogDTO.getDate())
                 .isEditing(workoutLogDTO.isEditing())
+                .isLastLoaded(workoutLogDTO.isLastLoaded())
                 .gym(gym) // Gym can be null
                 .build();
 
@@ -277,6 +278,7 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
         workoutLog.setGym(gym);
         workoutLogRepository.save(workoutLog);
     }
+
 
 
 }

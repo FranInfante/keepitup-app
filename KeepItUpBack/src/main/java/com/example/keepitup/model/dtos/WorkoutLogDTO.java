@@ -21,4 +21,6 @@ public class WorkoutLogDTO {
     private List<WorkoutLogExerciseDTO> exercises;
     private boolean isEditing;
     private Integer gymId;
+    private boolean isLastLoaded;
+
 }

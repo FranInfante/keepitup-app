@@ -52,4 +52,9 @@ public class WorkoutLog {
     @ManyToOne
     @JoinColumn(name = "gym_id")
     private Gym gym;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isLastLoaded;
+
+
 }

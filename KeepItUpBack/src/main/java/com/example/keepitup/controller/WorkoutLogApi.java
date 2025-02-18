@@ -50,5 +50,4 @@ public interface WorkoutLogApi {
     @PatchMapping(UriConstants.GYMIDPATCH)
     ResponseEntity<Void> updateGymId(@PathVariable Integer id, @RequestBody Integer gymId);
 
-
 }

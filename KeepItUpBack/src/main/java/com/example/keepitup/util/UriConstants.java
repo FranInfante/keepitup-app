@@ -83,6 +83,4 @@ public class UriConstants {
 
     public static final String GYMIDPATCH = "/{id}/gym";
 
-
-
 }
