@@ -112,24 +112,25 @@
               <div class="flex-1">
                 <label
                   for="reps-{{ i }}-{{ j }}"
-                  class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  class="block text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   {{ "WORKOUT_LOG.REPS" | translate }}:
                 </label>
                 <input
                   type="number"
                   formControlName="reps"
-                  class="w-full px-3 py-2 border rounded-lg remove-arrow"
+                  class="w-full px-3 py-2 border rounded-lg remove-"
                   [ngClass]="{
-                    ' text-black':
-                      compareWithLastCompleted(i, j, 'reps') === '',
-
-                    'bg-green-200 dark:bg-green-700 text-white':
+                    'bg-green-700 dark:bg-green-700 ':
                       compareWithLastCompleted(i, j, 'reps') === 'higher',
-                    'bg-red-200 dark:bg-red-700 text-white ':
+                    'bg-red-700 dark:bg-red-700 ':
                       compareWithLastCompleted(i, j, 'reps') === 'lower',
-                    'bg-yellow-200 dark:bg-yellow-700 text-white':
-                      compareWithLastCompleted(i, j, 'reps') === 'same'
+                    'bg-orange-500 dark:bg-orange-500 ':
+                      compareWithLastCompleted(i, j, 'reps') === 'same',
+                        'text-black':
+                        compareWithLastCompleted(i, j, 'reps') === '',
+                      'text-white':
+                        compareWithLastCompleted(i, j, 'reps') !== ''
                   }"
                   [id]="'reps-' + i + '-' + j"
                   (focus)="clearDefaultValue(i, j, 'reps')"
@@ -142,7 +143,7 @@
               <div class="flex-1">
                 <label
                   for="weight-{{ i }}-{{ j }}"
-                  class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  class="block text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   {{ "WORKOUT_LOG.WEIGHT" | translate }}:
                 </label>
@@ -152,14 +153,17 @@
                     formControlName="weight"
                     class="w-full px-3 py-2 border rounded-lg remove-arrow"
                     [ngClass]="{
-                      ' text-black':
-                      compareWithLastCompleted(i, j, 'weight') === '',
-                      'bg-green-200 dark:bg-green-700 text-white':
+                      'bg-green-700 dark:bg-green-700 ':
                         compareWithLastCompleted(i, j, 'weight') === 'higher',
-                      'bg-red-200 dark:bg-red-700 text-white':
+                      'bg-red-700 dark:bg-red-700 ':
                         compareWithLastCompleted(i, j, 'weight') === 'lower',
-                      'bg-yellow-200 dark:bg-yellow-700 text-white':
-                        compareWithLastCompleted(i, j, 'weight') === 'same'
+                      'bg-orange-500 dark:bg-orange-500 ':
+                        compareWithLastCompleted(i, j, 'weight') === 'same',
+                        'text-black':
+                        compareWithLastCompleted(i, j, 'weight') === '',
+                      'text-white':
+                        compareWithLastCompleted(i, j, 'weight') !== ''
+                        
                     }"
                     [id]="'weight-' + i + '-' + j"
                     (focus)="clearDefaultValue(i, j, 'weight')"
@@ -167,7 +171,13 @@
                     (input)="triggerWorkoutLogUpdate(i, j)"
                   />
                   <span
-                    class="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-400 text-sm"
+                    class="absolute inset-y-0 right-3 flex items-center text-sm"
+                    [ngClass]="{
+                      'text-gray-900 dark:text-gray-100':
+                        compareWithLastCompleted(i, j, 'weight') === '',
+                      'text-white':
+                        compareWithLastCompleted(i, j, 'weight') !== ''
+                    }"
                   >
                     {{ "WORKOUT_LOG.KG" | translate }}
                   </span>
@@ -309,9 +319,9 @@
   ></app-exercise-picker-modal>
 
   <app-gym-selection-modal
-  *ngIf="isGymSelectionModalOpen"
-  [gyms]="gyms"
-  (onSelectGym)="handleGymSelection($event)"
-  (onCancel)="cancelGymSelection()"
-></app-gym-selection-modal>
+    *ngIf="isGymSelectionModalOpen"
+    [gyms]="gyms"
+    (onSelectGym)="handleGymSelection($event)"
+    (onCancel)="cancelGymSelection()"
+  ></app-gym-selection-modal>
 </div>
