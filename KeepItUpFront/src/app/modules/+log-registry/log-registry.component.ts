@@ -11,7 +11,7 @@ import { LOCATIONS, MSG } from '../../shared/constants';
 import { ThemeService } from '../../shared/service/theme.service';
 import { SetDetails, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageService } from '../../shared/service/language.service';
+import { GymService } from '../../shared/service/gym.service';
 
 @Component({
   selector: 'app-log-registry',
@@ -38,12 +38,15 @@ export class LogRegistryComponent implements OnInit {
   selectedWorkoutId: string = '';
   filteredWorkoutLogs: any[] = [];
 
+  gyms: any[] = [];
+
   constructor(
     private workoutLogService: WorkoutLogService,
     private userService: UserService,
     private planService: PlanService,
     private workoutDataService: WorkoutDataService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private gymService : GymService
   ) {
     this.themeService.initializeThemeUserFromLocalStorage();
 
@@ -56,6 +59,7 @@ export class LogRegistryComponent implements OnInit {
           this.userId = user.id;
           this.getWorkoutLogsForUser();
           this.getPlansForUser();
+          this.loadGyms(); 
           const workoutId = this.workoutDataService.getWorkoutId();
           if (workoutId !== null) {
             this.selectedWorkoutId = workoutId.toString();
@@ -67,6 +71,17 @@ export class LogRegistryComponent implements OnInit {
       },
       error: (err) => {
         console.error('MSG.failedtogetuserid', err);
+      },
+    });
+  }
+
+  loadGyms() {
+    this.gymService.getUserGyms(this.userId).subscribe({
+      next: (gyms) => {
+        this.gyms = gyms;
+      },
+      error: (err) => {
+        console.error('Failed to load gyms', err);
       },
     });
   }
@@ -87,6 +102,7 @@ export class LogRegistryComponent implements OnInit {
                 log.date[5]
               ),
               exercises: log.exercises,
+              gymId: log.gymId,
             };
           })
           .sort((a, b) => b.date.getTime() - a.date.getTime());
@@ -98,6 +114,15 @@ export class LogRegistryComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  getGymName(gymId: number | null): string {
+    if (!gymId) {
+      return ""; // Replace with a neutral default message
+    }
+  
+    const gym = this.gyms.find(g => g.id === gymId);
+    return gym ? gym.name : "";
   }
   getGroupedExercises(exercises: WorkoutLogExercise[]): WorkoutLogExercise[] {
     const groupedExercises: WorkoutLogExercise[] = [];

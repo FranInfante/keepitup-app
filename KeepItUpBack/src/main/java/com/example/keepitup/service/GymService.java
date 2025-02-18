@@ -9,6 +9,6 @@ import java.util.List;
 public interface GymService {
     GymResponseDTO createGym(GymDTO gymDTO);
     List<GymDTO> getUserGyms(Integer userId);
-    void deleteGym(Integer id);
+    void deleteGym(Integer gymId, Integer userId);
 
 }

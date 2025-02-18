@@ -13,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,11 +66,19 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
-    public void deleteGym(Integer id) {
-        Gym gym = gymRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_NOT_FOUND));
-        workoutLogRepository.setGymIdToNull(id);
+    public void deleteGym(Integer gymId, Integer userId) {
+        Gym gym = gymRepository.findById(gymId)
+                .orElseThrow(() -> new EntityNotFoundException("Gym not found"));
+
+        // ✅ Ensure the authenticated user is the owner of the gym
+        if (!gym.getUser().getId().equals(userId)) {
+            throw new AccessDeniedException("You are not authorized to delete this gym.");
+        }
+
+        // ✅ Set the gymId to null in associated workout logs before deletion
+        workoutLogRepository.setGymIdToNull(gymId);
 
         gymRepository.delete(gym);
     }
+
 }
