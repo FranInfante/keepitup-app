@@ -10,9 +10,6 @@ import com.example.keepitup.model.dtos.WorkoutLogSearchRequest;
 import com.example.keepitup.service.WorkoutLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -56,7 +53,7 @@ public class WorkoutLogController implements WorkoutLogApi {
     @Override
     public ResponseEntity<WorkoutLogDTO> getWorkoutLogByUserIdAndIsEditing(WorkoutLogSearchRequest request) {
         WorkoutLogDTO workoutLogDTO = workoutLogService.getWorkoutLogByUserIdAndIsEditing(
-                request.getUserId(), request.getWorkoutId(), request.getIsEditing()
+                request.getUserId(), request.getWorkoutId(), request.getIsEditing(), request.getGymId()
         );
         if (workoutLogDTO == null) {
             return ResponseEntity.noContent().build();
@@ -64,6 +61,7 @@ public class WorkoutLogController implements WorkoutLogApi {
 
         return ResponseEntity.ok(workoutLogDTO);
     }
+
 
 
 
@@ -86,8 +84,15 @@ public class WorkoutLogController implements WorkoutLogApi {
     }
 
     @Override
-    public ResponseEntity<WorkoutLogDTO> getLastCompletedWorkoutLog(@PathVariable Integer userId, @PathVariable Integer workoutId) {
-        WorkoutLogDTO workoutLogDTO = workoutLogService.getLastCompletedWorkoutLog(userId, workoutId);
+    public ResponseEntity<WorkoutLogDTO> getLastCompletedWorkoutLog(Integer userId, Integer workoutId, Integer gymId) {
+        WorkoutLogDTO workoutLogDTO = workoutLogService.getLastCompletedWorkoutLog(userId, workoutId, gymId);
         return ResponseEntity.ok(workoutLogDTO);
     }
+
+    @Override
+    public ResponseEntity<Void> updateGymId(Integer id, Integer gymId) {
+        workoutLogService.updateGymId(id, gymId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

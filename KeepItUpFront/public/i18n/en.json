@@ -12,7 +12,8 @@
     "WORKOUTS": "Workouts",
     "PLANS": "Plans",
     "LIGHTMODE": "Light Mode",
-    "DARKMODE": "Dark Mode"
+    "DARKMODE": "Dark Mode",
+    "MANAGE_GYMS": "Manage Gyms"
   },
   "LANDING": {
     "HERO": {
@@ -89,18 +90,21 @@
     "CANT_DELETE_ALL_SETS": "You cannot delete all sets from an exercise.",
     "EXERCISE_DELETED_SUCCESSFULLY": "Exercise deleted successfully.",
     "FAILED_TO_DELETE_EXERCISE": "Failed to delete exercise.",
-    "ERROR_CREATING_EXERCISE":"Error creating exercise.",
-    "EXERCISEALREADYEXISTS":"Exercise already exists:",
-    "FAILEDTOCREATEEXERCISE":"Failed to create exercise.",
-    "REORDERING_SAVED":"Reordering saved successfully!",
+    "ERROR_CREATING_EXERCISE": "Error creating exercise.",
+    "EXERCISEALREADYEXISTS": "Exercise already exists:",
+    "FAILEDTOCREATEEXERCISE": "Failed to create exercise.",
+    "REORDERING_SAVED": "Reordering saved successfully!",
     "FAILEDTOSAVEREORDERING": "Failed to save the order",
-    "EXERCISECREATED_":"Exercise created: ",
-    "PLEASE_FILL_ALL_FIELDS" : "Please fill out the last set before adding a new one.",
-
+    "EXERCISECREATED_": "Exercise created: ",
+    "PLEASE_FILL_ALL_FIELDS": "Please fill out the last set before adding a new one.",
     "SUCCESSFUL_RESETPASSWORD": "Password reset successful. You can now log in.",
     "FAILED_RESETING": "Failed to reset password. Please try again.",
     "SUCCESS_CHECK_YOUR_EMAIL": "Success! Please check your email.",
-    "FAILED_RESET_LINK": "Failed to send the reset link. Please try again."
+    "FAILED_RESET_LINK": "Failed to send the reset link. Please try again.",
+    "REACHED_MAX_GYMS": "You can only set up 5 Gyms at once",
+    "EXISTS_GYM_NAME": "A gym with that name already exists.",
+    "ERROR_CREATING_GYM": "Error creating the gym.",
+    "SUCCESSFULLY_CREATED_GYM": "Successfully created the gym."
   },
   "REGISTER": {
     "TITLE": "Register User",
@@ -183,7 +187,8 @@
       "NAME_MAXLENGTH": "Workout name cannot exceed 20 characters.",
       "CLOSE": "Close",
       "CREATE": "Create Workout"
-    },"DELETE_CONFIRMATION": {
+    },
+    "DELETE_CONFIRMATION": {
       "TITLE": "Confirm Deletion",
       "BODY": "Are you sure you want to delete this workout?",
       "CONFIRM": "Delete",
@@ -247,98 +252,104 @@
       "USE_LAST": "Load Last Log"
     },
     "SAVE_BEFORE_LEAVING": {
-    "TITLE": "Save before leaving?",
-    "BODY": "Do you want to save your workout log before leaving?",
-    "DISCARD": "Discard",
-    "SAVE": "Save"
-  }
+      "TITLE": "Save before leaving?",
+      "BODY": "Do you want to save your workout log before leaving?",
+      "DISCARD": "Discard",
+      "SAVE": "Save"
+    },
+    "SELECT_GYM": {
+      "TITLE": "Select a Gym",
+      "BODY": "Please select a gym from the list below.",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Confirm"
+    }
   },
   "PLAN_PAGE": {
-  "NO_PLANS": "No plans available. Please add a plan to get started.",
-  "MODALS": {
-    "EDIT_WORKOUTS": "Edit Workouts",
-    "DELETE_PLAN": {
-      "TITLE": "Delete",
-      "BODY": "Are you sure you want to delete the plan {{ planName }}?"
-    },
-    "VIEW_WORKOUTS": "View All Workouts"
-  }
-},
-"EXERCISE_PICKER_MODAL": {
-  "TITLE": "Add Exercise to Workout",
-  "SEARCH_PLACEHOLDER": "Search exercise by name",
-  "CREATE_NEW_EXERCISE": "Create New Exercise",
-  "CANCEL": "Cancel",
-  "PLACEHOLDER_EXERCISE": "Search exercise by name"
-},
-"CREATE_EXERCISE_MODAL": {
-  "TITLE": "Create New Exercise",
-  "NAME_LABEL": "Name:",
-  "NAME_PLACEHOLDER": "Exercise name",
-  "NAME_REQUIRED": "Name is required.",
-  "DESCRIPTION_LABEL": "Description:",
-  "DESCRIPTION_PLACEHOLDER": "Exercise description",
-  "MUSCLE_GROUP_LABEL": "Muscle Group:",
-  "MUSCLE_GROUP_REQUIRED": "Muscle Group is required.",
-  "CANCEL": "Cancel",
-  "CREATE": "Create Exercise",
-  "PLACEHOLDER_NAME": "Exercise name",
-  "PLACEHOLDER_DESCRIPTION": "Exercise description"
-
-},
-"PLAN_DELETE_MODAL": {
-  "TITLE": "Are you sure you want to delete this plan?",
-  "CANCEL": "Cancel",
-  "CONFIRM": "Confirm Deletion"
-},
-"WORKOUT_LOG": {
-  "TITLE": "Logging {{ workoutName }}",
-  "ADD_EXERCISE": "+ Exercise",
-  "SUBMIT_LOG": "Submit Log",
-  "ADD_SET": "+ Add Set",
-  "NOTES": "Notes",
-  "NOTES_PLACEHOLDER": "Enter notes here...",
-  "SAVE_NOTES": "Save Notes",
-  "DELETE_EXERCISE_CONFIRMATION": {
-    "TITLE": "Delete Exercise",
-    "MESSAGE": "Are you sure you want to delete this exercise?",
-    "CONFIRM": "Delete",
-    "CANCEL": "Cancel"
+    "NO_PLANS": "No plans available. Please add a plan to get started.",
+    "MODALS": {
+      "EDIT_WORKOUTS": "Edit Workouts",
+      "DELETE_PLAN": {
+        "TITLE": "Delete",
+        "BODY": "Are you sure you want to delete the plan {{ planName }}?"
+      },
+      "VIEW_WORKOUTS": "View All Workouts"
+    }
   },
-  "DELETE_SET": "Delete Set",
-  "EXERCISE_NAME": "Exercise Name",
-  "REPS": "Reps",
-  "WEIGHT": "Weight",
-  "KG": "kg",
-  "PLACEHOLDER": "Enter notes here..."
-}
-,
-"DELETE_EXERCISE_MODAL": {
-  "TITLE": "Confirm Deletion",
-  "MESSAGE": "Are you sure you want to delete",
-  "CANCEL": "Cancel",
-  "CONFIRM": "Delete"
-},
-"WORKOUT_LOGS": {
-  "TITLE": "Your Workout Logs",
-  "FILTER_LABEL": "Filter by Workout:",
-  "ALL_WORKOUTS": "All Workouts",
-  "NO_LOGS_FOUND": "No workout logs found.",
-  "DATE": "Date",
-  "VIEW_DETAILS": "View Details"
-},
-"WORKOUT_LOG_DETAILS": {
-  "TITLE": "Workout Log Details",
-  "WORKOUT_NAME": "Workout Name",
-  "DATE": "Date",
-  "EXERCISES": "Exercises",
-  "SET_REPS_WEIGHT": "Set {{ set }}: {{ reps }} reps at {{ weight }} kg",
-  "NOTES": "Notes",
-  "CLOSE": "Close",
-  "NO_NOTES": "No notes available for this exercise.",
-  "PLACEHOLDER": "Enter your notes here..."
-},
-"FORGOT_PASSWORD": {
+  "EXERCISE_PICKER_MODAL": {
+    "TITLE": "Add Exercise to Workout",
+    "SEARCH_PLACEHOLDER": "Search exercise by name",
+    "CREATE_NEW_EXERCISE": "Create New Exercise",
+    "CANCEL": "Cancel",
+    "PLACEHOLDER_EXERCISE": "Search exercise by name"
+  },
+  "CREATE_EXERCISE_MODAL": {
+    "TITLE": "Create New Exercise",
+    "NAME_LABEL": "Name:",
+    "NAME_PLACEHOLDER": "Exercise name",
+    "NAME_REQUIRED": "Name is required.",
+    "DESCRIPTION_LABEL": "Description:",
+    "DESCRIPTION_PLACEHOLDER": "Exercise description",
+    "MUSCLE_GROUP_LABEL": "Muscle Group:",
+    "MUSCLE_GROUP_REQUIRED": "Muscle Group is required.",
+    "CANCEL": "Cancel",
+    "CREATE": "Create Exercise",
+    "PLACEHOLDER_NAME": "Exercise name",
+    "PLACEHOLDER_DESCRIPTION": "Exercise description"
+  },
+  "PLAN_DELETE_MODAL": {
+    "TITLE": "Are you sure you want to delete this plan?",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm Deletion"
+  },
+  "WORKOUT_LOG": {
+    "TITLE": "Logging {{ workoutName }}",
+    "ADD_EXERCISE": "+ Exercise",
+    "SUBMIT_LOG": "Submit Log",
+    "ADD_SET": "+ Add Set",
+    "NOTES": "Notes",
+    "NOTES_PLACEHOLDER": "Enter notes here...",
+    "SAVE_NOTES": "Save Notes",
+    "DELETE_EXERCISE_CONFIRMATION": {
+      "TITLE": "Delete Exercise",
+      "MESSAGE": "Are you sure you want to delete this exercise?",
+      "CONFIRM": "Delete",
+      "CANCEL": "Cancel"
+    },
+    "DELETE_SET": "Delete Set",
+    "EXERCISE_NAME": "Exercise Name",
+    "REPS": "Reps",
+    "WEIGHT": "Weight",
+    "KG": "kg",
+    "PLACEHOLDER": "Enter notes here..."
+  },
+  "DELETE_EXERCISE_MODAL": {
+    "TITLE": "Confirm Deletion",
+    "MESSAGE": "Are you sure you want to delete",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Delete"
+  },
+  "WORKOUT_LOGS": {
+    "TITLE": "Your Workout Logs",
+    "FILTER_LABEL": "Filter by Workout:",
+    "ALL_WORKOUTS": "All Workouts",
+    "NO_LOGS_FOUND": "No workout logs found.",
+    "DATE": "Date",
+    "VIEW_DETAILS": "View Details"
+  },
+  "WORKOUT_LOG_DETAILS": {
+    "TITLE": "Workout Log Details",
+    "WORKOUT_NAME": "Workout Name",
+    "DATE": "Date",
+    "EXERCISES": "Exercises",
+    "SET_REPS_WEIGHT": "Set {{ set }}: {{ reps }} reps at {{ weight }} kg",
+    "NOTES": "Notes",
+    "CLOSE": "Close",
+    "NO_NOTES": "No notes available for this exercise.",
+    "PLACEHOLDER": "Enter your notes here...",
+    "SELECT_GYM": "Select Gym",
+    "NO_GYM": "No gym selected"
+  },
+  "FORGOT_PASSWORD": {
     "EMAIL": "Email",
     "EMAIL_REQUIRED": "Email is required.",
     "INVALID_EMAIL": "Please enter a valid email address.",
@@ -348,19 +359,22 @@
     "ERROR_MESSAGE": "Failed to send password reset link. Please try again."
   },
   "RESET_PASSWORD": {
-  "TITLE": "Reset Your Password",
-  "NEW_PASSWORD": "New Password",
-  "CONFIRM_PASSWORD": "Confirm Password",
-  "SUBMIT": "Reset Password",
-  "BACK_TO_LOGIN": "Back to Login",
-  "SUCCESS_MESSAGE": "Your password has been reset successfully!",
-  "ERROR_MESSAGE": "Failed to reset your password. Please try again."
-},
-"SETTINGS": {
-  "TITLE": "Settings"
+    "TITLE": "Reset Your Password",
+    "NEW_PASSWORD": "New Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "SUBMIT": "Reset Password",
+    "BACK_TO_LOGIN": "Back to Login",
+    "SUCCESS_MESSAGE": "Your password has been reset successfully!",
+    "ERROR_MESSAGE": "Failed to reset your password. Please try again."
+  },
+  "SETTINGS": {
+    "TITLE": "Settings"
+  },
+  "GYM_MANAGER": {
+    "TITLE": "Gyms",
+    "ENTER_NAME": "Gym Name",
+    "ADD_GYM": "Create Gym",
+    "YOUR_GYMS": "Gyms",
+    "DELETE": "Delete"
   }
-
-
-
-
 }

@@ -5,14 +5,13 @@ import { Plan } from '../interfaces/plan';
 import { PLAN_ROUTES } from '../routes/plan-routes';
 import { WorkoutExercise } from '../interfaces/workoutexercise';
 import { Workout } from '../interfaces/workout';
-import { UserService } from './user.service';
 import { NewPlan } from '../interfaces/newplan';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlanService {
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient) {}
 
   getPlans(): Observable<Plan[]> {
     return this.http.get<Plan[]>(PLAN_ROUTES.list());

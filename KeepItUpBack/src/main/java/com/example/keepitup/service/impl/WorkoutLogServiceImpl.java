@@ -7,20 +7,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.keepitup.model.entities.*;
+import com.example.keepitup.repository.*;
 import org.springframework.stereotype.Service;
 
 import com.example.keepitup.model.dtos.ExerciseDTO;
 import com.example.keepitup.model.dtos.WorkoutLogDTO;
 import com.example.keepitup.model.dtos.WorkoutLogExerciseDTO;
-import com.example.keepitup.model.entities.Exercise;
-import com.example.keepitup.model.entities.Users;
-import com.example.keepitup.model.entities.WorkoutLog;
-import com.example.keepitup.model.entities.WorkoutLogExercise;
-import com.example.keepitup.model.entities.Workouts;
-import com.example.keepitup.repository.ExerciseRepository;
-import com.example.keepitup.repository.UsersRepository;
-import com.example.keepitup.repository.WorkoutLogRepository;
-import com.example.keepitup.repository.WorkoutsRepository;
 import com.example.keepitup.service.WorkoutLogService;
 import com.example.keepitup.util.mappers.ExerciseMapper;
 import com.example.keepitup.util.mappers.WorkoutLogMapper;
@@ -37,6 +30,9 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
     private final UsersRepository userRepository;
     private final WorkoutsRepository workoutRepository;
     private final ExerciseRepository exerciseRepository;
+    private final GymRepository gymRepository;
+
+
 
     @Override
     public List<WorkoutLogDTO> getAllWorkoutLogs() {
@@ -55,15 +51,24 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
         Workouts workout = workoutRepository.findById(workoutLogDTO.getWorkoutId())
                 .orElseThrow(() -> new RuntimeException(MessageConstants.WORKOUT_NOT_FOUND));
 
+        // Convert gymId = 0 to null before querying
+        Gym gym = null;
+        if (workoutLogDTO.getGymId() != null && workoutLogDTO.getGymId() != 0) {
+            gym = gymRepository.findById(workoutLogDTO.getGymId())
+                    .orElseThrow(() -> new RuntimeException("Gym not found"));
+        }
+
         // Create the WorkoutLog entity
         WorkoutLog workoutLog = WorkoutLog.builder()
                 .user(user)
                 .workout(workout)
                 .date(workoutLogDTO.getDate())
                 .isEditing(workoutLogDTO.isEditing())
+                .isLastLoaded(workoutLogDTO.isLastLoaded())
+                .gym(gym) // Gym can be null
                 .build();
 
-        // Now iterate through exercises and their respective sets
+        // Iterate through exercises and create sets
         List<WorkoutLogExercise> exercises = workoutLogDTO.getExercises().stream()
                 .flatMap(exerciseDTO -> exerciseDTO.getSets().stream().map(setDTO -> {
                     // Fetch the Exercise entity
@@ -83,27 +88,28 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
                 }))
                 .collect(Collectors.toList());
 
+        // Ensure consistent order
         Map<Integer, Integer> exerciseOrderMap = workoutLogDTO.getExercises().stream()
                 .collect(Collectors.toMap(WorkoutLogExerciseDTO::getExerciseId, WorkoutLogExerciseDTO::getExerciseOrder));
 
         exercises.forEach(exercise -> {
             Integer order = exerciseOrderMap.get(exercise.getExercise().getId());
-            exercise.setExerciseOrder(order); // Set the consistent exerciseOrder
+            exercise.setExerciseOrder(order);
         });
 
-        // Set exercises to the workout log
         workoutLog.setExercises(exercises);
 
         // Save the workout log and its exercises
         WorkoutLog savedWorkoutLog = workoutLogRepository.save(workoutLog);
 
-        // Convert the saved entity back to DTO
+        // Convert back to DTO
         return WorkoutLogMapper.toDTO(savedWorkoutLog);
     }
 
+
     @Override
     public List<WorkoutLogDTO> getWorkoutLogsForUser(Integer userId) {
-        return workoutLogRepository.findByUserId(userId)
+        return workoutLogRepository.findByUserIdAndIsEditingFalse(userId)
                 .stream()
                 .map(WorkoutLogMapper::toDTO)
                 .collect(Collectors.toList());
@@ -122,16 +128,19 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
     }
 
     @Override
-    public WorkoutLogDTO getWorkoutLogByUserIdAndIsEditing(Integer userId, Integer workoutId, Boolean isEditing) {
-        Optional<WorkoutLog> workoutLog = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditing(userId, workoutId, isEditing);
+    public WorkoutLogDTO getWorkoutLogByUserIdAndIsEditing(Integer userId, Integer workoutId, Boolean isEditing, Integer gymId) {
+        Optional<WorkoutLog> workoutLogOptional;
 
-        if (workoutLog.isEmpty()) {
-            return null;
+        if (gymId != null && gymId != 0) {
+            workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndGymIdAndIsEditing(
+                    userId, workoutId, gymId, isEditing);
+        } else {
+            workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditing(
+                    userId, workoutId, isEditing);
         }
 
-        return WorkoutLogMapper.toDTO(workoutLog.get());
+        return workoutLogOptional.map(WorkoutLogMapper::toDTO).orElse(null);
     }
-
 
 
 
@@ -142,6 +151,15 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
 
         workoutLog.setDate(workoutLogDTO.getDate());
         workoutLog.setEditing(workoutLogDTO.isEditing());
+
+        // Update Gym if provided
+        if (workoutLogDTO.getGymId() != null && workoutLogDTO.getGymId() != 0) {
+            Gym gym = gymRepository.findById(workoutLogDTO.getGymId())
+                    .orElseThrow(() -> new EntityNotFoundException("Gym not found"));
+            workoutLog.setGym(gym);
+        } else {
+            workoutLog.setGym(null);
+        }
 
         // Update exercises
         List<WorkoutLogExercise> existingExercises = workoutLog.getExercises();
@@ -231,12 +249,36 @@ public class WorkoutLogServiceImpl implements WorkoutLogService {
     }
 
     @Override
-    public WorkoutLogDTO getLastCompletedWorkoutLog(Integer userId, Integer workoutId) {
-        Optional<WorkoutLog> workoutLogOptional =
-                workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditingFalseOrderByDateDesc(userId, workoutId);
-        return workoutLogOptional.map(WorkoutLogMapper::toDTO)
-                .orElse(null); // or throw an exception if you prefer
+    public WorkoutLogDTO getLastCompletedWorkoutLog(Integer userId, Integer workoutId, Integer gymId) {
+        Optional<WorkoutLog> workoutLogOptional;
+
+        if (gymId != 0) {
+            workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndGymIdAndIsEditingFalseOrderByDateDesc(
+                    userId, workoutId, gymId);
+        } else {
+            workoutLogOptional = workoutLogRepository.findFirstByUserIdAndWorkoutIdAndIsEditingFalseOrderByDateDesc(
+                    userId, workoutId);
+        }
+
+        return workoutLogOptional.map(WorkoutLogMapper::toDTO).orElse(null);
     }
+
+    @Override
+    public void updateGymId(Integer workoutLogId, Integer gymId) {
+        WorkoutLog workoutLog = workoutLogRepository.findById(workoutLogId)
+                .orElseThrow(() -> new EntityNotFoundException(MessageConstants.WORKOUT_LOG_NOT_FOUND));
+
+        // Handle gym assignment
+        Gym gym = null;
+        if (gymId != null && gymId != 0) {
+            gym = gymRepository.findById(gymId)
+                    .orElseThrow(() -> new EntityNotFoundException("Gym not found"));
+        }
+
+        workoutLog.setGym(gym);
+        workoutLogRepository.save(workoutLog);
+    }
+
 
 
 }

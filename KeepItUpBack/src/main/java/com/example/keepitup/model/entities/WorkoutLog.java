@@ -48,4 +48,13 @@ public class WorkoutLog {
         this.exercises.remove(exercise);
         exercise.setWorkoutLog(null);
     }
+
+    @ManyToOne
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isLastLoaded;
+
+
 }

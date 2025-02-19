@@ -1,0 +1,53 @@
+<div class="min-h-screen bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col p-6">
+  
+    <app-back-to-menu [navigationPath]="LOCATIONS.settings"></app-back-to-menu>
+  
+    <div class="w-full text-center mt-4 mb-4">
+      <h1 class="text-3xl font-bold">
+        {{ "GYM_MANAGER.TITLE" | translate }}
+      </h1>
+    </div>
+  
+    <div class="flex flex-col space-y-4 w-[90%] mx-auto flex-1 justify-center items-center">
+  
+      <!-- Input and Create Gym Button -->
+      <div class="w-full flex flex-col p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md">
+        <input
+          type="text"
+          [(ngModel)]="newGymName"
+          placeholder="{{ 'GYM_MANAGER.ENTER_NAME' | translate }}"
+          class="w-full p-3 bg-gray-200 dark:bg-gray-600 rounded-lg border-none focus:outline-none"
+        />
+        <button
+          (click)="createGym()"
+          class="mt-3 w-full p-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
+        >
+          {{ "GYM_MANAGER.ADD_GYM" | translate }}
+        </button>
+      </div>
+  
+      <!-- List of Gyms -->
+      <div *ngIf="gyms.length > 0" class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-center mb-3">
+          {{ "GYM_MANAGER.YOUR_GYMS" | translate }}
+        </h3>
+        <div class="max-h-60 overflow-y-auto">
+
+        <ul class="space-y-2">
+          <li *ngFor="let gym of gyms" class="p-3 bg-gray-200 dark:bg-gray-600 rounded-lg flex justify-between items-center">
+            <span>{{ gym.name }}</span>
+            <button
+              (click)="deleteGym(gym.id)"
+              class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+            >
+              {{ "GYM_MANAGER.DELETE" | translate }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      </div>
+  
+    </div>
+  </div>
+  

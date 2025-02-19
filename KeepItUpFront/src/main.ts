@@ -4,6 +4,8 @@ import { AppComponent } from './app/app.component';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '/i18n/', '.json');
@@ -21,6 +23,7 @@ const updatedAppConfig = {
   ...appConfig,
   providers: [
     ...appConfig.providers,
+    provideAnimations(),
     ...(translateProviders || []), 
   ],
 };

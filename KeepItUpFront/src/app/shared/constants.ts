@@ -10,6 +10,7 @@ export const LOCATIONS = {
   forgotPassword: '/forgot-password',
   resetPassword: '/reset-password',
   settings: '/settings',
+  gymManager: '/gym-manager'
 };
 
 export const MSG = {
@@ -50,11 +51,15 @@ export const TOAST_MSGS = {
   pleasefillallfields:'TOAST_MSGS.PLEASE_FILL_ALL_FIELDS',
   exercise_deleted_successfully:'TOAST_MSGS.EXERCISE_DELETED_SUCCESSFULLY',
   failed_to_delete_exercise:'TOAST_MSGS.FAILED_TO_DELETE_EXERCISE',
-
   successfulresetpassword: 'TOAST_MSGS.SUCCESSFUL_RESETPASSWORD',
   failedreseting: 'TOAST_MSGS.FAILED_RESETING',
   successcheckyouremail: 'TOAST_MSGS.SUCCESS_CHECK_YOUR_EMAIL',
   failedresetlink: 'TOAST_MSGS.FAILED_RESET_LINK',
+
+  reachedmaxgyms:'TOAST_MSGS.REACHED_MAX_GYMS',
+  alreadyexistsgymname:'TOAST_MSGS.EXISTS_GYM_NAME',
+  errorcreatinggym:'TOAST_MSGS.ERROR_CREATING_GYM',
+  gymcreatedsuccess: 'TOAST_MSGS.SUCCESSFULLY_CREATED_GYM'
 };
 
 export const ASSET_URLS = {
@@ -69,5 +74,5 @@ export const ASSET_URLS = {
   PlusSignIcon: 'module_assets/plans-assets/PlusSignIcon.svg',
   DeleteIcon: 'module_assets/plans-assets/DeleteIcon.svg',
   PlayIcon: 'module_assets/plans-assets/PlayIcon.svg',
-  NotesIcon: 'module_assets/plans-assets/NotesIcon.svg',
+  NotesIcon: 'module_assets/plans-assets/NotesIcon.svg'
 };

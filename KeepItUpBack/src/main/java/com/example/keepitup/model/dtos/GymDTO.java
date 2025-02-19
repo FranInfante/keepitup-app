@@ -7,10 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WorkoutLogSearchRequest {
+public class GymDTO {
+    private Integer id;
     private Integer userId;
-    private Integer workoutId;
-    private Boolean isEditing;
-
-    private Integer gymId;
+    private String name;
 }

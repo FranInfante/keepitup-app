@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { LanguageSwitcherComponent } from '../../shared/components/lang-modal/lang-modal.component';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/service/user.service';
@@ -25,9 +25,7 @@ export class SettingsComponent {
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    private languageService: LanguageService,
-    private themeService: ThemeService
+    private userService: UserService
   ) {}
 
   toggleThemeModal() {
@@ -40,6 +38,9 @@ export class SettingsComponent {
 
   logout() {
     this.userService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate([LOCATIONS.login]);
+  }
+  openGymManager(): void {
+    this.router.navigate([LOCATIONS.gymManager]);
   }
 }

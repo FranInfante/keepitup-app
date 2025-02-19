@@ -1,6 +1,7 @@
 package com.example.keepitup.model.dtos;
 
 
+import com.example.keepitup.model.entities.Gym;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,4 +20,7 @@ public class WorkoutLogDTO {
     private LocalDateTime date;
     private List<WorkoutLogExerciseDTO> exercises;
     private boolean isEditing;
+    private Integer gymId;
+    private boolean isLastLoaded;
+
 }
