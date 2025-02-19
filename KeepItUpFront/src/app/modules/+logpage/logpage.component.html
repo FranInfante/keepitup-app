@@ -93,7 +93,7 @@
         <!-- Exercise Details -->
         <div
           [@expandCollapse]="exercise.get('open')?.value ? 'open' : 'closed'"
-          class="space-y-6"
+          class="space-y-6 overflow-hidden"
         >
           <div formArrayName="sets" class="space-y-4">
             <!-- Set Loop -->
