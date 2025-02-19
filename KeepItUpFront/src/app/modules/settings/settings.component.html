@@ -10,6 +10,13 @@
     <div class="flex flex-col space-y-4 w-[80%] mx-auto flex-1 justify-center items-center">
        
       <button
+      (click)="openGymManager()"
+      class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+    >
+      {{ "MENU.MANAGE_GYMS" | translate }}
+    </button>
+
+      <button
         (click)="toggleThemeModal()"
         class="w-full p-4 bg-gray-300 dark:bg-gray-700 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
       >

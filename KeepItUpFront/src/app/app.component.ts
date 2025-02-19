@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './shared/service/language.service';
 import { ThemeService } from './shared/service/theme.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,

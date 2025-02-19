@@ -24,7 +24,6 @@ public class WorkoutsServiceImpl implements WorkoutsService {
 
     private final WorkoutsRepository workoutsRepository;
     private final UsersRepository usersRepository;
-    private final WorkoutLogRepository workoutLogRepository;
 
 
     @Override

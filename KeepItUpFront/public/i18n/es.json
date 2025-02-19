@@ -12,7 +12,8 @@
     "WORKOUTS": "Entrenamientos",
     "PLANS": "Planes",
     "LIGHTMODE": "Modo Claro",
-    "DARKMODE": "Modo Oscuro"
+    "DARKMODE": "Modo Oscuro",
+    "MANAGE_GYMS": "Configurar Gimnasios"
   },
   "LANDING": {
     "HERO": {
@@ -95,11 +96,14 @@
     "FAILEDTOSAVEREORDERING": "Error al guardar el orden",
     "EXERCISECREATED_": "Ejercicio creado: ",
     "PLEASE_FILL_ALL_FIELDS": "Por favor, completa todos los campos de la serie anterior.",
-
     "SUCCESSFUL_RESETPASSWORD": "Contraseña restablecida con éxito. Por favor, inicia sesión.",
     "FAILED_RESETING": "Error al restablecer la contraseña. Por favor, inténtalo más tarde.",
     "SUCCESS_CHECK_YOUR_EMAIL": "Exito! Revisa tu email para recuperar tu contraseña.",
-    "FAILED_RESET_LINK": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo más tarde."
+    "FAILED_RESET_LINK": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo más tarde.",
+    "REACHED_MAX_GYMS": "Solo puedes tener 5 Gimnasios",
+    "EXISTS_GYM_NAME": "Ya existe un gimnasio con ese nombre.",
+    "ERROR_CREATING_GYM": "Error al crear gimnasio.",
+    "SUCCESSFULLY_CREATED_GYM": "Gimnasio creado con éxito."
   },
   "REGISTER": {
     "TITLE": "Registrar Usuario",
@@ -245,6 +249,12 @@
       "BODY": "¿Quieres guardar tu registro de entrenamiento antes de salir?",
       "DISCARD": "Descartar",
       "SAVE": "Guardar"
+    },
+    "SELECT_GYM": {
+      "TITLE": "Seleccionar Gimnasio",
+      "BODY": "Por favor, selecciona un gimnasio de la lista.",
+      "CANCEL": "Cancelar",
+      "CONFIRM": "Confirmar"
     }
   },
   "PLAN_PAGE": {
@@ -328,7 +338,9 @@
     "NOTES": "Notas",
     "CLOSE": "Cerrar",
     "NO_NOTES": "No hay notas disponibles para este ejercicio.",
-    "PLACEHOLDER": "Introduce tus notas aquí..."
+    "PLACEHOLDER": "Introduce tus notas aquí...",
+    "SELECT_GYM": "Seleccionar Gimnasio",
+    "NO_GYM": "Ningún gimnasio seleccionado"
   },
 
   "FORGOT_PASSWORD": {
@@ -350,6 +362,14 @@
     "ERROR_MESSAGE": "No se pudo restablecer tu contraseña. Por favor, inténtalo de nuevo."
   },
   "SETTINGS": {
-  "TITLE": "Ajustes"
+    "TITLE": "Ajustes"
+  },
+  "GYM_MANAGER": {
+    "TITLE": "Gyms",
+    "ENTER_NAME": "Nombre del Gimnasio",
+    "ADD_GYM": "Crear Gimnasio",
+    "YOUR_GYMS": "Gimnasios",
+    "DELETE": "Borrar"
   }
+  
 }

@@ -11,6 +11,7 @@ import { LogRegistryComponent } from './modules/+log-registry/log-registry.compo
 import { ForgotPasswordComponent } from './modules/logreg/+login/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './modules/logreg/+login/components/reset-password/reset-password.component';
 import { SettingsComponent } from './modules/settings/settings.component';
+import { GymManagerComponent } from './modules/gym-manager/gym-manager.component';
 
 export const routes: Routes = [
     {path: "", component: LandingComponent},
@@ -24,5 +25,6 @@ export const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
+  { path: 'gym-manager', component: GymManagerComponent, canActivate: [authGuard] },
 
 ];

@@ -53,31 +53,26 @@ export class WorkoutLogService {
     );
   }
 
-  deleteWorkoutLogExercise(workoutLogId: number, exerciseId: number): Observable<void> {
+  deleteWorkoutLogExercise(
+    workoutLogId: number,
+    exerciseId: number
+  ): Observable<void> {
     return this.http.delete<void>(
       WORKOUT_LOG_ROUTES.deleteExercise(workoutLogId, exerciseId)
     );
   }
-  
 
-  getWorkoutLogByUserIdAndIsEditing(
-    userId: number,
-    workoutId: number,
-    isEditing: boolean
-  ): Observable<any> {
-    const requestBody = {
-      userId,
-      workoutId,
-      isEditing,
-    };
-  
+  getWorkoutLogByUserIdAndIsEditing(userId: number, workoutId: number, isEditing: boolean, gymId?: number): Observable<any> {
+    const requestBody: any = { userId, workoutId, isEditing };
+    if (gymId !== undefined) {
+      requestBody.gymId = gymId;
+    }
+    
     return this.http.post<any>(
       WORKOUT_LOG_ROUTES.findbyuserandisediting(),
       requestBody
     );
   }
-  
-
 
   getExerciseById(exerciseId: number): Observable<any> {
     return this.http.get<any>(WORKOUT_LOG_ROUTES.exerciseById(exerciseId));
@@ -105,10 +100,19 @@ export class WorkoutLogService {
 
   getLastCompletedWorkoutLog(
     userId: number,
-    workoutId: number
+    workoutId: number,
+    gymId: number | null
   ): Observable<any> {
     return this.http.get<void>(
-      WORKOUT_LOG_ROUTES.getLastCompleted(userId, workoutId)
+      WORKOUT_LOG_ROUTES.getLastCompleted(userId, workoutId, gymId)
+    );
+  }
+
+  updateGymId(workoutLogId: number, gymId: number): Observable<void> {
+    return this.http.patch<void>(
+      WORKOUT_LOG_ROUTES.updateGymId(workoutLogId),
+      gymId,
+      { headers: { 'Content-Type': 'application/json' } }
     );
   }
 }
