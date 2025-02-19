@@ -11,6 +11,7 @@ import { ThemeService } from '../../shared/service/theme.service';
 import { SetDetails, WorkoutLogExercise } from '../../shared/interfaces/workoutlog';
 import { TranslateModule } from '@ngx-translate/core';
 import { GymService } from '../../shared/service/gym.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-log-registry',
