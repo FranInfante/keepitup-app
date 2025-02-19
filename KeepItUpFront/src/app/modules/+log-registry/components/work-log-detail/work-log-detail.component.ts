@@ -32,6 +32,7 @@ export class WorkoutLogDetailModalComponent {
   @Input() workoutLog: any;
   @Input() showModal: boolean = false;
   @Output() closeModal = new EventEmitter<void>();
+  @Output() gymUpdated = new EventEmitter<{ workoutLogId: number; gymId: number }>(); // Emit gym updates
 
   isNotesModalOpen: boolean = false;
   selectedExerciseNotes: string | null = null;
@@ -102,20 +103,12 @@ export class WorkoutLogDetailModalComponent {
             this.gyms = gyms;
   
             const foundGym = this.gyms.find((g) => g.id == this.selectedGymId);
-            if (foundGym) {
-              this.selectedGymName = foundGym.name;
-            } else {
-              this.selectedGymName = this.translate.instant('WORKOUT_LOG_DETAILS.NO_GYM');
-            }
-          },
-          error: (err) => {
-            console.error('❌ Failed to reload gyms', err);
-          },
+            this.selectedGymName = foundGym ? foundGym.name : this.translate.instant('WORKOUT_LOG_DETAILS.NO_GYM');
+  
+            this.gymUpdated.emit({ workoutLogId: this.workoutLog.id, gymId });
+          }
         });
-      },
-      error: (err) => {
-        console.error('❌ Failed to update gym', err);
-      },
+      }
     });
   }
   

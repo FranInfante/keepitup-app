@@ -1,4 +1,3 @@
-import { Component, OnInit } from '@angular/core';
 import { WorkoutLogService } from '../../shared/service/workoutlog.service';
 import { UserService } from '../../shared/service/user.service';
 import { CommonModule } from '@angular/common';
@@ -201,4 +200,14 @@ export class LogRegistryComponent implements OnInit {
       }
     });
   }
+
+  updateLogRegistryGym(event: { workoutLogId: number; gymId: number }) {
+  
+    this.workoutLogs = this.workoutLogs.map(log =>
+      log.id === event.workoutLogId ? { ...log, gymId: Number(event.gymId) } : log
+    );
+  
+    this.filteredWorkoutLogs = [...this.workoutLogs];
+  }
+  
 }
